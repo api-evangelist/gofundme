@@ -1,0 +1,124 @@
+generated: '2026-08-04'
+method: searched
+source: openapi/gofundme-pro-api-openapi.json
+docs: https://developers.gofundme.com/pro/overview/authentication
+summary:
+  types:
+  - oauth2
+  oauth2_flows:
+  - clientCredentials
+  - password
+  - authorizationCode
+  api_key_in: []
+  bearer: true
+schemes:
+- name: OAuth2Application
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: /oauth2/auth
+    absolute_token_url: https://api.classy.org/oauth2/auth
+    refreshUrl: /oauth2/auth
+    scopes: 2
+  description: OAuth bearer token for a client application (organization-wide read + write).
+  sources:
+  - openapi/gofundme-pro-api-openapi.json
+- name: OAuth2Member
+  type: oauth2
+  flows:
+  - flow: password
+    tokenUrl: /oauth2/auth
+    absolute_token_url: https://api.classy.org/oauth2/auth
+    refreshUrl: /oauth2/auth
+    scopes: 2
+  - flow: authorizationCode
+    tokenUrl: https://api.classy.org/oauth2/auth
+    authorizationUrl: https://login.classy.org/authorize
+    documented_only: true
+    note: >-
+      Documented on the authentication and Classy Login pages but NOT declared in the OpenAPI, which
+      models this scheme as `password` only.
+  description: OAuth bearer token carrying additional member context (acts on behalf of a member).
+  sources:
+  - openapi/gofundme-pro-api-openapi.json
+  - https://developers.gofundme.com/pro/overview/authentication
+  - https://developers.gofundme.com/pro/api-docs/login
+
+credentials:
+  fields:
+  - {name: client_id, description: 'Unique string identifying the application, e.g. "75651c06c1056579497b957715144ea0".'}
+  - {name: client_secret, description: Paired secret; must never be shared, hard-coded, committed or sent as a query-string parameter.}
+  - {name: secret_key, description: Legacy alias for client_secret accepted by the token endpoint (observed in the endpoint's own validation error).}
+  issuance: >-
+    Pro and Enterprise customers self-serve credentials from GoFundMe Pro > Apps & Integrations >
+    API — name the app, supply an OAuth2 redirect URI, accept the terms, create. Third-party
+    developers, free-plan users and consultants must request access through the partner team form.
+  request_access: https://developers.gofundme.com/pro/overview/request-access
+  editable: Application name and redirect URI can be edited later under My Settings > GoFundMe Pro API.
+
+token:
+  endpoint: https://api.classy.org/oauth2/auth
+  methods: [POST]
+  content_types: [application/x-www-form-urlencoded, application/json]
+  parameter_location: request body (never the query string)
+  response:
+    access_token: string
+    expires_in: 3600
+    token_type: bearer
+  presentation: Authorization request header
+  expiry_behaviour: >-
+    Re-request a token when expires_in elapses; no refresh token is documented for the
+    client_credentials grant.
+
+grants:
+- grant_type: client_credentials
+  produces: app access token
+  scope: read + write on resources belonging to the app's organization
+- grant_type: authorization_code
+  produces: member access token
+  prerequisite: member consent obtained through the Classy Login flow
+  exchange_params: [grant_type, client_id, client_secret, code]
+- grant_type: password
+  produces: member access token
+  note: Declared in the OpenAPI and referenced in the v2 migration guide.
+
+sso:
+  name: Classy Login
+  status: pre-release
+  protocol: OpenID Connect
+  authorization_endpoint: https://login.classy.org/authorize
+  token_endpoint: https://api.classy.org/oauth2/auth
+  userinfo_endpoint: https://api.classy.org/2.0/me
+  response_types: [code]
+  flows: [redirect, popup, iframe]
+  discovery_document: null
+  discovery_note: >-
+    No /.well-known/openid-configuration is published on login.classy.org (probed 2026-08-04, 404),
+    so a conformant OIDC client cannot discover these endpoints and must hard-code them.
+
+evidence:
+- fetched: '2026-08-04'
+  url: https://api.classy.org/oauth2/auth
+  method: POST
+  http_status: 400
+  body_excerpt: >-
+    {"error":{"client_id":["The client id field is required."],"secret_key":["The secret key field
+    is required when client secret is not present."], ...}}
+  conclusion: >-
+    Confirms api.classy.org/oauth2/auth is the live token endpoint. The same POST against
+    https://pro.gofundme.com/oauth2/auth returns a 403 CSRF page, and against
+    https://pro.gofundme.com/api/2.0/oauth2/auth returns 401 invalid_request — so the relative
+    tokenUrl declared in the spec does not resolve to a working endpoint under the declared server.
+
+gaps:
+- >-
+  The spec's `tokenUrl` is the relative "/oauth2/auth"; resolved against the declared server it
+  points at a host that does not serve the token endpoint. Generated clients will fail until the
+  URL is overridden.
+- The authorization_code grant is documented but not declared in the OpenAPI.
+- >-
+  Only two coarse scopes exist (read, write). There is no per-resource scope vocabulary, so an
+  integration cannot be granted least privilege at the API layer — role/scope granularity exists
+  only inside the product (CerberusRole/CerberusScope).
+- No OIDC discovery document for Classy Login.
+- No mutual TLS, no API-key alternative, no signed-request option.

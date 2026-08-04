@@ -1,0 +1,241 @@
+generated: '2026-08-04'
+method: derived
+source: openapi/gofundme-pro-api-openapi.json
+api: GoFundMe Pro API v2.0
+note: >-
+  Derived mechanically from the 201 paths in the published OpenAPI. Every `has_many` below comes
+  from a real nested collection path of the form /{parent}/{id}/{child}; every `belongs_to` is the
+  inverse of one. Identifiers are integers (no typed id prefixes — the API uses plain numeric ids),
+  so no id-prefix table is derivable. Relationships that the spec expresses only through the `with`
+  expansion parameter are noted but not asserted as structural.
+
+identifiers:
+  style: integer
+  prefixes: none
+  expansion_param: with
+  note: >-
+    Related resources are hydrated inline with `?with=organization,designation`; the set of
+    expandable associations is documented per-endpoint rather than centrally.
+
+roots:
+- Organization
+- Member
+- App
+
+entities:
+- name: Organization
+  path: /organizations/{organization}
+  tag: Organization
+  role: tenant root — every other resource hangs off an organization
+- name: Campaign
+  path: /campaigns/{campaign}
+  tag: Campaign
+- name: CampaignSeries
+  path: /campaign-series/{campaign_series}
+  tag: Campaign Series
+- name: CampaignSeriesIteration
+  path: /campaign-series-iterations/{campaign_series_iteration}
+  tag: Campaign Series Iteration
+- name: StudioCampaign
+  path: /studio-campaigns/{id}
+  tag: Studio Campaign
+- name: FundraisingPage
+  path: /fundraising-pages/{fundraising_page}
+  tag: Fundraising Page
+- name: FundraisingTeam
+  path: /fundraising-teams/{fundraising_team}
+  tag: Fundraising Team
+- name: Transaction
+  path: /transactions/{transaction}
+  tag: Transaction
+- name: TransactionItem
+  path: /transaction-items/{transaction_item}
+  tag: Transaction Item
+- name: Supporter
+  path: /supporters/{id}
+  tag: Supporter
+- name: Member
+  path: /members/{member_id}
+  tag: Member
+- name: RecurringDonationPlan
+  path: /recurring-donation-plans/{recurring_donation_plan}
+  tag: Recurring Donation Plan
+- name: Designation
+  path: /designations/{designation}
+  tag: Designation
+- name: Registration
+  path: /registrations/{registration}
+  tag: Registration
+- name: TicketType
+  path: /ticket-types/{ticket_type}
+  tag: Ticket Type
+- name: PromoCode
+  path: /promo-codes/{promo_code}
+  tag: Promo Code
+- name: PromoCodeConfiguration
+  path: /promo-code-configurations/{promo_code_configuration}
+  tag: Promo Code Configuration
+- name: Question
+  path: /questions/{question}
+  tag: Question
+- name: Answer
+  path: /answers/{answer}
+  tag: Answer
+- name: FeedItem
+  path: /feed-items/{feed_item}
+  tag: Feed Item
+- name: Story
+  path: /stories/{story}
+  tag: Story
+- name: Update
+  path: /updates/{update}
+  tag: Update
+- name: Comment
+  path: /comments/{comment}
+  tag: Comment
+- name: Like
+  path: /likes/{like}
+  tag: Like
+- name: Payout
+  tag: Payouts
+- name: Role
+  path: /roles/{role}
+  tag: Role
+- name: Dedication
+  tag: Dedication
+- name: Acknowledgement
+  tag: Acknowledgement
+- name: SoftCredit
+  tag: SoftCredit
+- name: CreditAdjustment
+  tag: Credit Adjustment
+- name: DomainSlug
+  tag: Domain Slug
+- name: SourceTrackingCode
+  tag: Source Tracking Codes
+- name: DonationMatchingPlan
+  tag: Donation Matching Plan
+- name: MatchedTransaction
+  tag: Matched Transaction
+- name: Theme
+  tag: Theme
+- name: Branding
+  tag: Branding
+- name: AnnualSummaryReport
+  tag: Annual Summary
+- name: App
+  path: /apps/{app}
+  tag: API App
+
+relationships:
+- {from: Organization, type: has_many, to: Campaign, via: '/organizations/{id}/campaigns'}
+- {from: Organization, type: has_many, to: FundraisingPage, via: '/organizations/{id}/fundraising-pages'}
+- {from: Organization, type: has_many, to: FundraisingTeam, via: '/organizations/{id}/fundraising-teams'}
+- {from: Organization, type: has_many, to: Transaction, via: '/organizations/{id}/transactions'}
+- {from: Organization, type: has_many, to: TransactionItem, via: '/organizations/{id}/transaction-items'}
+- {from: Organization, type: has_many, to: Supporter, via: '/organizations/{id}/supporters'}
+- {from: Organization, type: has_many, to: RecurringDonationPlan, via: '/organizations/{id}/recurring-donation-plans'}
+- {from: Organization, type: has_many, to: Designation, via: '/organizations/{id}/designations'}
+- {from: Organization, type: has_many, to: Registration, via: '/organizations/{id}/registrations'}
+- {from: Organization, type: has_many, to: TicketType, via: '/organizations/{id}/ticket-types'}
+- {from: Organization, type: has_many, to: Question, via: '/organizations/{id}/questions'}
+- {from: Organization, type: has_many, to: Answer, via: '/organizations/{id}/answers'}
+- {from: Organization, type: has_many, to: FeedItem, via: '/organizations/{id}/feed-items'}
+- {from: Organization, type: has_many, to: Payout, via: '/organizations/{id}/payouts'}
+- {from: Organization, type: has_many, to: Role, via: '/organizations/{id}/roles'}
+- {from: Organization, type: has_many, to: DomainSlug, via: '/organizations/{id}/domain-slugs'}
+- {from: Organization, type: has_many, to: SourceTrackingCode, via: '/organizations/{id}/source-tracking-codes'}
+- {from: Organization, type: has_many, to: Dedication, via: '/organizations/{id}/dedications'}
+- {from: Organization, type: has_many, to: AnnualSummaryReport, via: '/organizations/{id}/annual-summary-reports'}
+- {from: Organization, type: has_one, to: Branding, via: '/organizations/{id}/branding'}
+- {from: Organization, type: has_one, to: EngagementSettings, via: '/organizations/{id}/engagement-settings'}
+- {from: Campaign, type: belongs_to, to: Organization, via: 'organization'}
+- {from: Campaign, type: has_many, to: FundraisingPage, via: '/campaigns/{id}/fundraising-pages'}
+- {from: Campaign, type: has_many, to: FundraisingTeam, via: '/campaigns/{id}/fundraising-teams'}
+- {from: Campaign, type: has_many, to: Transaction, via: '/campaigns/{id}/transactions'}
+- {from: Campaign, type: has_many, to: Supporter, via: '/campaigns/{id}/supporters'}
+- {from: Campaign, type: has_many, to: RecurringDonationPlan, via: '/campaigns/{id}/recurring-donation-plans'}
+- {from: Campaign, type: has_many, to: Registration, via: '/campaigns/{id}/registrations'}
+- {from: Campaign, type: has_many, to: TicketType, via: '/campaigns/{id}/ticket-types'}
+- {from: Campaign, type: has_many, to: PromoCode, via: '/campaigns/{id}/promo-codes'}
+- {from: Campaign, type: has_many, to: Question, via: '/campaigns/{id}/questions'}
+- {from: Campaign, type: has_many, to: Story, via: '/campaigns/{id}/stories'}
+- {from: Campaign, type: has_many, to: Update, via: '/campaigns/{id}/updates'}
+- {from: Campaign, type: has_many, to: FeedItem, via: '/campaigns/{id}/feed-items'}
+- {from: Campaign, type: has_many, to: DonationMatchingPlan, via: '/campaigns/{id}/donation-matching-plans'}
+- {from: Campaign, type: has_many, to: SoftCredit, via: '/campaigns/{id}/soft-credits'}
+- {from: Campaign, type: has_many, to: CreditAdjustment, via: '/campaigns/{id}/credit-adjustments'}
+- {from: Campaign, type: has_many, to: DomainSlug, via: '/campaigns/{id}/domain-slugs'}
+- {from: Campaign, type: has_one, to: AppealSet, via: '/campaigns/{id}/appeal-set'}
+- {from: Campaign, type: belongs_to, to: Designation, via: 'designation'}
+- {from: CampaignSeries, type: has_many, to: CampaignSeriesIteration, via: '/campaign-series-iterations'}
+- {from: CampaignSeriesIteration, type: has_many, to: Campaign, via: '/campaign-series-iterations/{id}/campaigns'}
+- {from: FundraisingTeam, type: has_many, to: FundraisingPage, via: '/fundraising-teams/{id}/fundraising-pages'}
+- {from: FundraisingTeam, type: has_many, to: FundraisingTeam, via: '/fundraising-teams/{id}/subteams', note: self-referential subteams}
+- {from: FundraisingTeam, type: has_many, to: Story, via: '/fundraising-teams/{id}/stories'}
+- {from: FundraisingTeam, type: has_many, to: Update, via: '/fundraising-teams/{id}/updates'}
+- {from: FundraisingTeam, type: has_many, to: SoftCredit, via: '/fundraising-teams/{id}/soft-credits'}
+- {from: FundraisingTeam, type: has_many, to: CreditAdjustment, via: '/fundraising-teams/{id}/credit-adjustments'}
+- {from: FundraisingTeam, type: has_many, to: Answer, via: '/fundraising-teams/{id}/answers'}
+- {from: FundraisingTeam, type: has_many, to: FundraisingTeamTransfer, via: '/fundraising-teams/{id}/transfers'}
+- {from: FundraisingPage, type: belongs_to, to: Campaign, via: 'campaign'}
+- {from: FundraisingPage, type: belongs_to, to: FundraisingTeam, via: 'fundraising_team'}
+- {from: FundraisingPage, type: has_many, to: Story, via: '/fundraising-pages/{id}/stories'}
+- {from: FundraisingPage, type: has_many, to: Update, via: '/fundraising-pages/{id}/updates'}
+- {from: FundraisingPage, type: has_many, to: FeedItem, via: '/fundraising-pages/{id}/feed-items'}
+- {from: FundraisingPage, type: has_many, to: SoftCredit, via: '/fundraising-pages/{id}/soft-credits'}
+- {from: FundraisingPage, type: has_many, to: CreditAdjustment, via: '/fundraising-pages/{id}/credit-adjustments'}
+- {from: FundraisingPage, type: has_many, to: Answer, via: '/fundraising-pages/{id}/answers'}
+- {from: FundraisingPage, type: has_many, to: FundraisingPageTransfer, via: '/fundraising-pages/{id}/transfers'}
+- {from: Transaction, type: has_many, to: TransactionItem, via: '/transactions/{id}/items'}
+- {from: Transaction, type: has_many, to: Acknowledgement, via: '/transactions/{id}/acknowledgements'}
+- {from: Transaction, type: has_many, to: Dedication, via: '/transactions/{id}/dedications'}
+- {from: Transaction, type: has_many, to: Answer, via: '/transactions/{id}/answers'}
+- {from: Transaction, type: has_many, to: Registration, via: '/transactions/{id}/registrations'}
+- {from: Transaction, type: has_many, to: TransactionReceipt, via: '/transactions/{id}/receipts'}
+- {from: Transaction, type: has_many, to: HardCreditTransfer, via: '/transactions/{id}/hard-credit-transfers'}
+- {from: RecurringDonationPlan, type: has_many, to: Transaction, via: '/recurring-donation-plans/{id}/transactions'}
+- {from: RecurringDonationPlan, type: has_many, to: RecurringDonationPlanHistory, via: '/recurring-donation-plans/{id}/history'}
+- {from: Registration, type: has_many, to: Answer, via: '/registrations/{id}/answers'}
+- {from: Question, type: has_many, to: Answer, via: '/questions/{id}/answers'}
+- {from: TicketType, type: has_many, to: PromoCode, via: '/ticket-types/{id}/promo-codes'}
+- {from: TicketType, type: has_many, to: PromoCodeConfiguration, via: '/ticket-types/{id}/promo-code-configurations'}
+- {from: PromoCode, type: has_many, to: TicketType, via: '/promo-codes/{id}/ticket-types'}
+- {from: PromoCode, type: has_many, to: PromoCodeConfiguration, via: '/promo-codes/{id}/promo-code-configurations'}
+- {from: Story, type: has_many, to: Comment, via: '/stories/{id}/comments'}
+- {from: Story, type: has_many, to: Like, via: '/stories/{id}/likes'}
+- {from: Update, type: has_many, to: Comment, via: '/updates/{id}/comments'}
+- {from: Update, type: has_many, to: Like, via: '/updates/{id}/likes'}
+- {from: FeedItem, type: has_many, to: Comment, via: '/feed-items/{id}/comments'}
+- {from: FeedItem, type: has_many, to: Like, via: '/feed-items/{id}/likes'}
+- {from: Member, type: has_many, to: Campaign, via: '/members/{id}/campaigns'}
+- {from: Member, type: has_many, to: FundraisingPage, via: '/members/{id}/fundraising-pages'}
+- {from: Member, type: has_many, to: FundraisingTeam, via: '/members/{id}/fundraising-teams'}
+- {from: Member, type: has_many, to: FundraisingTeam, via: '/members/{id}/leading-fundraising-teams', note: teams the member leads}
+- {from: Member, type: has_many, to: Organization, via: '/members/{id}/organizations'}
+- {from: Member, type: has_many, to: RecurringDonationPlan, via: '/members/{id}/recurring-donation-plans'}
+- {from: Member, type: has_many, to: Role, via: '/members/{id}/roles'}
+- {from: Supporter, type: has_one, to: AnnualSummary, via: '/supporters/{id}/annual-summary'}
+- {from: App, type: has_many, to: Organization, via: '/apps/{id}/organizations'}
+- {from: Role, type: has_many, to: CerberusScope, via: 'components.schemas.CerberusScope', note: role scope_type is one of campaign/organization}
+
+polymorphic:
+- entity: Answer
+  discriminator: answerable_type + answerable_id
+  targets: [FundraisingPage, FundraisingTeam, Registration, Transaction]
+- entity: CreditAdjustment
+  discriminator: creditable_type + creditable_id
+  targets: [Campaign, FundraisingPage, FundraisingTeam]
+- entity: Comment
+  targets: [Story, Update, FeedItem]
+- entity: Like
+  targets: [Story, Update, FeedItem]
+- entity: DomainSlug
+  targets: [Organization, Campaign, FundraisingPage, FundraisingTeam]
+
+counts:
+  paths: 201
+  operations: 290
+  component_schemas: 356
+  tags: 70
+  nested_collection_relationships: 118

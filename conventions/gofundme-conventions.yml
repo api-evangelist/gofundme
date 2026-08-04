@@ -1,0 +1,160 @@
+generated: '2026-08-04'
+method: searched
+source: >-
+  https://developers.classy.org/partials/getting-started/making-requests.html,
+  https://developers.classy.org/partials/getting-started/authentication.html,
+  https://docs.classy.org/specs/apiv2-public.json,
+  openapi/gofundme-pro-api-openapi.json
+api: GoFundMe Pro API v2.0
+
+style:
+  architecture: REST
+  media_type: application/json
+  request_bodies: All POST/PUT requests require a valid JSON object as the request body.
+  verbs:
+  - {action: Create,   method: POST,   path: '/resource',      idempotent: false}
+  - {action: List,     method: GET,    path: '/resource',      idempotent: true}
+  - {action: Retrieve, method: GET,    path: '/resource/{id}', idempotent: true}
+  - {action: Update,   method: PUT,    path: '/resource/{id}', idempotent: true}
+  - {action: Delete,   method: DELETE, path: '/resource/{id}', idempotent: true}
+  soft_delete: >-
+    Some resources only allow soft deletes; in those cases the resource is updated with the
+    appropriate state/status rather than removed.
+
+authentication:
+  style: OAuth2 bearer token in the Authorization header
+  token_endpoint: https://api.classy.org/oauth2/auth
+  grants:
+  - {grant: client_credentials, produces: app access token, scope: organization-wide read + write}
+  - {grant: authorization_code, produces: member access token, scope: acts on behalf of a member}
+  - {grant: password, produces: member access token, note: documented on the v2 migration guide}
+  token_lifetime_seconds: 3600
+  artifact: authentication/gofundme-authentication.yml
+  notes: >-
+    Credentials (client_id + client_secret) are minted in the GoFundMe Pro admin dashboard under
+    Apps & Integrations > API. Credentials must be sent in the request body, never in the query string.
+
+idempotency:
+  supported: partial
+  mechanism: request-body key
+  key_field: idempotency_key
+  scope:
+    operations:
+    - path: /scoped-magic-link/batch
+      method: POST
+      operationId: a8ae5c40769c7673b17b5abbc5e48ab7
+      required: true
+      note: >-
+        The async batch mint endpoint requires `idempotency_key` alongside `action_scope` and
+        `requests`; a request missing the key is rejected with 400.
+  http_semantics: >-
+    The "Making Requests" documentation classifies GET, PUT and DELETE as idempotent and POST as
+    non-idempotent, which is the contract clients are told to rely on for retries.
+  gaps: >-
+    There is no global Idempotency-Key request header across create operations. Outside the
+    scoped-magic-link batch endpoint, safe retry of a POST is not contractually guaranteed —
+    clients must de-duplicate on their own side or reconcile by resource lookup.
+
+pagination:
+  style: page-number
+  request_params:
+  - {name: page, type: integer, default: 1, description: Page to return.}
+  - {name: per_page, type: integer, default: 20, max: 100, description: Number of resources per page.}
+  response_schema: PaginatedResponse
+  response_fields:
+  - current_page
+  - data
+  - first_page_url
+  - from
+  - last_page
+  - last_page_url
+  - next_page_url
+  - prev_page_url
+  - per_page
+  - to
+  - total
+  - links
+  link_schema: PaginationLink
+  cursors: false
+
+filtering:
+  param: filter
+  format: "{association}.{attribute}{operand}{value}"
+  operands: ['=', '<>', '!=', '<', '>', '<=', '>=']
+  encoding: Operand must be URL encoded.
+  booleans: true/1 and false/0 are both accepted.
+  nested: >-
+    Filtering on an association requires the association also be included via the `with` parameter.
+
+sorting:
+  param: sort
+  format: "field[:asc|:desc][,field[:asc|:desc]]"
+  examples:
+  - created_at
+  - created_at:desc
+  - last_name:asc,first_name:asc
+  default: depends on endpoint
+
+field_expansion:
+  param: with
+  description: Include nested related resources, comma separated (e.g. with=organization,designation).
+sparse_fields:
+  param: fields
+  description: Comma-separated list of resource attributes to narrow the response payload.
+
+metadata:
+  supported: true
+  shape: >-
+    A `Metadata` schema is defined in components and free-form transaction metadata can be attached
+    through Classy Pay embedded checkout via `transaction_meta_*` form fields.
+
+dates:
+  format: ISO 8601
+  pattern: YYYY-MM-DDTHH:mm:ss.sssZ
+  example: '2024-10-05T14:48:00.000Z'
+  note: Unless otherwise noted, all datetime attributes in API responses use this format.
+
+versioning:
+  scheme: uri-path
+  current: '2.0'
+  path_segment: /2.0 (api.classy.org) or /api/2.0 (pro.gofundme.com)
+  artifact: lifecycle/gofundme-lifecycle.yml
+
+error_envelope:
+  variants:
+  - schema: ForbiddenResponse
+    shape: {error: string}
+  - schema: ResourceNotFoundResponse
+    shape: {error: string}
+  - schema: UnprocessableEntityResponse
+    shape: {error: string}
+  - schema: MalformedPayloadResponse
+    shape: {errors: array of string}
+  - schema: RateLimitExceededResponse
+    shape: {message: string, retry_after: integer}
+  rfc9457: false
+  note: >-
+    Errors are plain application/json objects; the API does not use application/problem+json.
+    The field name alternates between `error` (singular string) and `errors` (array of strings)
+    depending on the failure class.
+  artifact: errors/gofundme-problem-types.yml
+
+rate_limiting:
+  artifact: rate-limits/gofundme-rate-limits.yml
+  headers: [X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, Retry-After]
+  status: 429
+
+request_tracing:
+  request_id_header: null
+  note: >-
+    No client-visible request-id header is documented for the v2 API. The api.classy.org gateway
+    returns a `request_id` field in its own 404 routing errors, but that is a gateway artifact and
+    is not part of the documented API contract.
+
+cross_links:
+  authentication: authentication/gofundme-authentication.yml
+  scopes: scopes/gofundme-scopes.yml
+  errors: errors/gofundme-problem-types.yml
+  lifecycle: lifecycle/gofundme-lifecycle.yml
+  rate_limits: rate-limits/gofundme-rate-limits.yml
+  webhooks: asyncapi/gofundme-webhooks.yml

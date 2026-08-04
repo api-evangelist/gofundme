@@ -1,0 +1,77 @@
+generated: '2026-08-04'
+method: searched
+source: >-
+  https://developers.classy.org/partials/api-docs/pay.html,
+  https://developers.classy.org/partials/api-docs/login.html,
+  https://github.com/classy-org/classy-org-wp,
+  https://prosupport.gofundme.com/hc/en-us/articles/37726683210267-Release-notes
+summary: >-
+  GoFundMe Pro's client-side surface is embed-first: a JavaScript checkout library, embedded
+  donation forms generated from Campaign Studio, a JavaScript SSO SDK and a first-party WordPress
+  plugin. These are distinct from the server-side SDKs catalogued in packages/.
+
+families:
+- name: Classy Pay Embedded Checkout
+  kind: javascript-embed
+  loader:
+    production: https://pay.classy.org/javascripts/classypay.js
+    staging: https://staging-pay.stayclassy.org/javascripts/classypay.js
+  init: classyPaySetup({ targetDivId, classyPayEndpoint, donationAmount, hideSubmit, formData }, callback)
+  mount: renders the checkout form into a caller-supplied div element
+  description: >-
+    Renders a hosted checkout form into the host page and returns the full transaction response to
+    the calling application — minus sensitive payment information such as card or bank account
+    numbers — including values reusable for later charges, voids and refunds.
+  capabilities:
+  - Prefill donor fields (name, address, email, phone, employer, date of birth, participant)
+  - >-
+    Attach arbitrary application metadata to the transaction object via `transaction_meta_*` form
+    fields, or pass-through-only values returned in the transaction response
+  - Hide the built-in submit control and drive submission from the host page
+  docs: https://developers.gofundme.com/pro/api-docs/pay
+  examples:
+  - https://jsfiddle.net/07kgsxd3/1/
+  - https://jsfiddle.net/3dtoo705/2/
+  - https://jsfiddle.net/3h1g2k0k/36/
+  - https://jsfiddle.net/Lsvr8Lt2/14/
+  - https://jsfiddle.net/djx3q2b9/59/
+  - https://jsfiddle.net/jun6erf5/16/
+  - https://jsfiddle.net/v316gaL7/2/
+- name: Embedded Studio donation forms
+  kind: hosted-embed
+  description: >-
+    Prebuilt, brand-configurable donation forms generated from Campaign Studio and installed on an
+    organization's own website with a one-time install snippet. Supports inline donation grids,
+    content panels, recurring and fee-coverage nudges, post-checkout questions and express wallet
+    payment options (Apple Pay, Google Pay, PayPal, Venmo).
+  configuration: no-code, from Campaign Studio
+  docs: https://prosupport.gofundme.com/hc/en-us
+- name: Classy Login JavaScript SDK
+  kind: javascript-sdk
+  description: >-
+    Client-side SDK backing the popup and iframe variants of the Classy Login OpenID Connect flow,
+    so a user can authenticate without leaving the host application. The redirect variant needs no
+    SDK.
+  docs: https://developers.gofundme.com/pro/api-docs/login
+  status: pre-release
+- name: WordPress plugin
+  kind: cms-plugin
+  repository: https://github.com/classy-org/classy-org-wp
+  description: >-
+    First-party WordPress plugin and integration for surfacing GoFundMe Pro (Classy) campaigns and
+    donation flows inside a WordPress site. Distributed from GitHub, not wordpress.org.
+- name: Campaign progress / leaderboard components
+  kind: reference-implementation
+  description: >-
+    Node + React reference components published as sample apps — a campaign progress bar and a
+    fundraising leaderboard — that consume the public API. Instructional samples, not a supported
+    component library.
+  repositories:
+  - https://github.com/classy-org/custom-progress-bar-sample-app
+  - https://github.com/classy-org/custom-leaderboard-sample-app
+
+gaps:
+- No versioned, npm-published web-component or element library; embeds are script-tag loaders.
+- >-
+  The Classy Pay loader and its staging twin are still served from the legacy classy.org /
+  stayclassy.org domains after the GoFundMe Pro rebrand.

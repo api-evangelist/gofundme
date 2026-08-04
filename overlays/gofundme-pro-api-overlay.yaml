@@ -1,0 +1,114 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the GoFundMe Pro API
+  version: 1.0.0
+extends: openapi/gofundme-pro-api-openapi.json
+x-generated: '2026-08-04'
+x-method: generated
+x-source: >-
+  Derived from the verbatim OpenAPI harvested from https://docs.classy.org/specs/apiv2-public.json
+  on 2026-08-04, plus the docs at developers.gofundme.com/pro and the artifacts in this repo.
+  This overlay carries API Evangelist annotations only; the harvested spec is never mutated.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: gofundme
+    x-apievangelist-api: GoFundMe Pro API
+    x-apievangelist-harvested: '2026-08-04'
+    x-apievangelist-source: https://docs.classy.org/specs/apiv2-public.json
+    x-apievangelist-artifacts:
+      authentication: authentication/gofundme-authentication.yml
+      scopes: scopes/gofundme-scopes.yml
+      conventions: conventions/gofundme-conventions.yml
+      errors: errors/gofundme-problem-types.yml
+      rate_limits: rate-limits/gofundme-rate-limits.yml
+      lifecycle: lifecycle/gofundme-lifecycle.yml
+      data_model: data-model/gofundme-data-model.yml
+      webhooks: asyncapi/gofundme-webhooks.yml
+      sandbox: sandbox/gofundme-sandbox.yml
+      conformance: conformance/gofundme-conformance.yml
+- target: $.servers
+  update:
+  - url: https://pro.gofundme.com/api/2.0
+    description: Production (GoFundMe Pro host) — declared by the provider's own spec.
+  - url: https://api.classy.org/2.0
+    description: >-
+      Production (legacy Classy host) — still live and still the host every published authentication
+      example uses. Added by API Evangelist because the spec omits it while the docs depend on it.
+    x-apievangelist-added: true
+- target: $.info
+  update:
+    x-apievangelist-token-endpoint: https://api.classy.org/oauth2/auth
+    x-apievangelist-token-lifetime-seconds: 3600
+    x-apievangelist-note: >-
+      The oauth2 securitySchemes declare a RELATIVE tokenUrl ("/oauth2/auth"), which resolves
+      against the declared server (pro.gofundme.com/api/2.0) and therefore does not match the
+      absolute token endpoint the authentication docs publish (https://api.classy.org/oauth2/auth).
+      Generated clients will send token requests to the wrong URL. Recorded here rather than
+      patched into the harvested spec.
+- target: $.info
+  update:
+    x-apievangelist-rate-limit:
+      requests_per_minute: 1800
+      scope: per application and per user
+      exempt: internal applications
+      headers: [X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, Retry-After]
+      status: 429
+      artifact: rate-limits/gofundme-rate-limits.yml
+- target: $.info
+  update:
+    x-apievangelist-pagination:
+      style: page-number
+      params: [page, per_page]
+      default_per_page: 20
+      max_per_page: 100
+      envelope: PaginatedResponse
+    x-apievangelist-query-conventions:
+      expand: with
+      sparse_fields: fields
+      filter: filter
+      sort: sort
+- target: $.info
+  update:
+    x-apievangelist-error-model:
+      rfc9457: false
+      envelopes:
+      - ForbiddenResponse
+      - ResourceNotFoundResponse
+      - MalformedPayloadResponse
+      - UnprocessableEntityResponse
+      - RateLimitExceededResponse
+      undeclared_in_spec: [401, 429, 503]
+      artifact: errors/gofundme-problem-types.yml
+- target: $.info
+  update:
+    x-apievangelist-deprecation:
+      deprecated_operations: 54
+      policy_url: https://developers.gofundme.com/pro/reference/deprecation
+      sunset_header: false
+      note: >-
+        54 operations carry OpenAPI `deprecated: true` but the published deprecation schedule has
+        no entries after 2016 and no removal dates for any of them.
+- target: $.components.securitySchemes.OAuth2Application
+  update:
+    x-apievangelist-absolute-token-url: https://api.classy.org/oauth2/auth
+    x-apievangelist-credential-source: >-
+      client_id + client_secret minted in GoFundMe Pro > Apps & Integrations > API. Must be sent in
+      the request body, never as query-string parameters.
+- target: $.components.securitySchemes.OAuth2Member
+  update:
+    x-apievangelist-absolute-token-url: https://api.classy.org/oauth2/auth
+    x-apievangelist-grants: [authorization_code, password]
+    x-apievangelist-consent-flow: https://developers.gofundme.com/pro/api-docs/login
+    x-apievangelist-note: >-
+      The spec models this scheme as the `password` flow, but the documented and recommended path to
+      a member token is an authorization_code exchange after Classy Login consent.
+- target: $.info
+  update:
+    x-apievangelist-gaps:
+    - No AsyncAPI document for the Svix-delivered webhook surface (6 events, 3 resources).
+    - No /.well-known/openid-configuration for the Classy Login OIDC service.
+    - No global Idempotency-Key header; idempotency_key exists on one batch operation only.
+    - No sandbox tenant or test credentials; every write is a production write.
+    - No 401/429/503 responses declared on any operation despite being documented in prose.
+    - First-party SDKs (npm classy-node, Packagist classy-org/classy-php-sdk) are years stale.

@@ -1,0 +1,43 @@
+generated: '2026-08-04'
+method: searched
+source: >-
+  https://docs.classy.org/specs/apiv2-public.json (info.description, "Rate Limiting"),
+  https://prosupport.gofundme.com/hc/en-us/articles/37288767751707-Intro-the-GoFundMe-Pro-API
+api: GoFundMe Pro API
+signalling:
+  headers:
+  - name: X-RateLimit-Limit
+    description: The maximum number of requests allowed in the current time window.
+  - name: X-RateLimit-Remaining
+    description: The number of requests remaining in the current time window.
+  - name: X-RateLimit-Reset
+    description: Unix timestamp indicating when the rate limit window resets (only included when the limit is exceeded).
+  - name: Retry-After
+    description: Number of seconds to wait before retrying (only included in 429 responses).
+  exceeded_status: 429
+  exceeded_body:
+    message: Too Many Attempts.
+    retry_after: integer seconds
+  schema: RateLimitExceededResponse
+  guidance:
+  - Monitor the X-RateLimit-Remaining header to track usage.
+  - Implement exponential backoff when a 429 is returned.
+  - Respect the Retry-After header value before retrying.
+  - Cache responses where possible to reduce API calls.
+  - Batch operations where the API supports it.
+rate_limits:
+- plan: default
+  scope: application
+  metric: requests_per_minute
+  limit_count: 1800
+  period: minute
+  applies_to: GoFundMe Pro API v2.0
+  notes: >-
+    Applied per application and per user. Rate limiting only applies to API applications that are
+    NOT internal and that are associated with an Organization; internal applications are exempt.
+    Limits may be adjusted dynamically via feature flags for specific applications or users.
+notes: >-
+  The GoFundMe Pro help center states that an app exceeding the limit receives a 429 with a message
+  to retry after 24 seconds; the OpenAPI RateLimitExceededResponse schema documents a `retry_after`
+  field returned in the body alongside the Retry-After header (example value 42). The authoritative
+  published figure for the ceiling is 1,800 requests per minute per application.

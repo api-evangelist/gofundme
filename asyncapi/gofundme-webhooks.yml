@@ -1,0 +1,89 @@
+generated: '2026-08-04'
+method: searched
+source: https://prosupport.gofundme.com/hc/en-us/articles/41221411214619-Using-webhooks
+spec_type: Webhooks
+asyncapi_published: false
+note: >-
+  GoFundMe Pro documents a real webhook surface but publishes NO AsyncAPI document. The event
+  catalog (with example payloads) is rendered inside the authenticated GoFundMe Pro admin under
+  Apps & Integrations > Webhooks > Event Catalog, so payload schemas are not publicly retrievable.
+  Only the event names, descriptions and delivery semantics below are public. Nothing here is
+  inferred — no payload shapes are reproduced because none are published anonymously.
+
+delivery:
+  provider: Svix
+  transport: HTTPS POST
+  content_type: application/json
+  requirements:
+  - Endpoint must be publicly accessible and accept POST with a JSON body.
+  - Endpoint must use SSL (HTTPS).
+  - Endpoint must return a 2xx status within 15 seconds or the event counts as unprocessed.
+  retries: >-
+    Failed deliveries are retried on a progressive backoff strategy before being dropped from the
+    delivery queue. Repeated failures over five days deactivate the webhook endpoint.
+  deduplication: >-
+    The webhooks service aggregates duplicate or rapidly repeated events, and only processes events
+    for organizations that have webhooks enabled.
+  limits:
+    endpoints_per_account: 50
+  security:
+    signature_verification: true
+    mechanism: shared webhook secret delivered in the request headers (Svix signature scheme)
+    guidance: Always validate the webhook secret to confirm the delivery came from GoFundMe Pro.
+  configuration_ui: GoFundMe Pro > Apps & Integrations > Webhooks > Endpoints > Add Endpoint
+  testing: >-
+    Each endpoint has a Testing tab that sends an example message per event type; delivered messages
+    expose the payload, all attempts, and success/failure.
+
+events:
+- name: supporter.created
+  resource: Supporter
+  description: A new supporter record is created.
+  common_use_cases:
+  - Trigger welcome email journeys
+  - Add to CRM
+- name: supporter.updated
+  resource: Supporter
+  description: A supporter record is updated.
+  common_use_cases:
+  - Sync email opt-in status
+  - Update contact information across systems
+- name: transaction.created
+  resource: Transaction
+  description: A transaction record is created.
+  common_use_cases:
+  - Update fundraising thermometers
+  - Send immediate thank-you messages
+- name: transaction.updated
+  resource: Transaction
+  description: A transaction record is updated.
+  common_use_cases:
+  - Remove refunded donations from dashboards
+  - Update transaction status
+- name: recurring_donation_plan.created
+  resource: Recurring_Donation_Plan
+  description: A recurring donation plan was created.
+  common_use_cases:
+  - Trigger welcome emails for monthly donors
+  - Invite to a monthly giving circle
+- name: recurring_donation_plan.updated
+  resource: Recurring_Donation_Plan
+  description: A recurring donation plan was updated.
+  common_use_cases:
+  - Send upgrade recognition emails
+  - Alert the team to cancellations
+
+coverage:
+  events_published: 6
+  resources_covered: 3
+  api_resource_families: 70
+  gap: >-
+    Six events across three resources against a 70-resource REST surface. Campaign, fundraising page,
+    fundraising team, registration, payout and designation lifecycle changes have no event — those
+    still require polling.
+
+related_streams:
+- name: Backing objects in the REST API
+  transactions: openapi/gofundme-pro-api-openapi.json (tag "Transaction")
+  supporters: openapi/gofundme-pro-api-openapi.json (tag "Supporter")
+  recurring_plans: openapi/gofundme-pro-api-openapi.json (tag "Recurring Donation Plan")

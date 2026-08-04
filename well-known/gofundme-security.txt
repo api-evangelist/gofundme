@@ -1,0 +1,6 @@
+# To report a vulnerability to us, visit our security page:
+Contact: https://www.gofundme.com/c/security
+Policy: https://www.gofundme.com/c/security
+Preferred-Languages: en
+Hiring: https://www.gofundme.com/c/careers
+Expires: 2026-01-01T00:00:00.000Z

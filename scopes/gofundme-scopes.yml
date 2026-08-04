@@ -1,0 +1,59 @@
+generated: '2026-08-04'
+method: searched
+source: openapi/gofundme-pro-api-openapi.json
+docs: https://developers.gofundme.com/pro/overview/authentication
+note: >-
+  Searched the GoFundMe Pro developer portal (overview, authentication, making-requests, reference)
+  and the help center for a scopes / permissions reference page. None exists. The only OAuth scope
+  vocabulary GoFundMe Pro publishes is the two-value read/write pair declared in the OpenAPI
+  securitySchemes, and no operation in the spec attaches a scope requirement to itself — the
+  root-level `security` block lists both schemes with EMPTY scope arrays. In practice an app token
+  carries organization-wide read and write.
+schemes:
+- name: OAuth2Application
+  source: openapi/gofundme-pro-api-openapi.json
+  flows:
+  - flow: clientCredentials
+    tokenUrl: /oauth2/auth
+    absolute_token_url: https://api.classy.org/oauth2/auth
+  description: OAuth bearer token for client application
+- name: OAuth2Member
+  source: openapi/gofundme-pro-api-openapi.json
+  flows:
+  - flow: password
+    tokenUrl: /oauth2/auth
+    absolute_token_url: https://api.classy.org/oauth2/auth
+  description: OAuth bearer token for client application with additional member context
+scopes:
+- scope: read
+  description: Read access
+  flows:
+  - clientCredentials
+  - password
+  sources:
+  - openapi/gofundme-pro-api-openapi.json
+- scope: write
+  description: Write access
+  flows:
+  - clientCredentials
+  - password
+  sources:
+  - openapi/gofundme-pro-api-openapi.json
+operation_level_scopes:
+  declared: 0
+  note: >-
+    None of the 290 operations declares a scope requirement. Authorization is enforced by the
+    product's own role/scope model (components.schemas.CerberusRole / CerberusScope, with
+    scope_type values such as "campaign" and "organization" and named roles such as
+    "Campaign Editor"), which is not addressable from the OAuth layer.
+in_product_authorization:
+  model: role-based, scoped to organization or campaign
+  schemas: [CerberusRole, CerberusScope]
+  example_role: {name: Campaign Editor, custom_id: campaign_editor, scope_type: campaign}
+  managed_via: /organizations/{organization}/roles, /campaigns/{campaign}/roles, /members/{member_id}/roles
+gaps:
+- No published scopes/permissions reference page.
+- >-
+  Two coarse scopes only. A partner integration that needs read-only transaction access cannot be
+  restricted to it at the token layer, and a compromised app token is organization-wide read+write.
+- Scopes are not attached to operations, so least-privilege cannot be derived from the contract.

@@ -1,0 +1,89 @@
+generated: '2026-08-04'
+method: searched
+source: >-
+  https://prosupport.gofundme.com/hc/en-us/articles/37288783893787-API-sample-apps,
+  https://github.com/classy-org/postman-collections,
+  https://developers.classy.org/partials/api-docs/pay.html
+api: GoFundMe Pro API
+summary: >-
+  GoFundMe Pro does NOT publish a self-serve developer sandbox with test credentials. There is no
+  test-mode key prefix, no published test card numbers, no test clock and no fixture/trigger
+  tooling. What exists instead is a Postman-hosted mock server bundled with the official Postman
+  collections, a separate Classy Pay staging environment, and a gated internal docs host. Nothing
+  below is invented — every value is one the provider publishes.
+
+test_vs_live:
+  separated_keys: false
+  key_prefixes: none
+  modes: none
+  note: >-
+    A single set of production credentials (client_id + client_secret) is issued per app from the
+    GoFundMe Pro admin. There is no test/live key pair. The help center warns explicitly that
+    running the bulk-offline-donations collection with real API credentials "will permanently add
+    transaction data to your organization and campaigns", which is the practical consequence of
+    having no sandbox tenant.
+
+facilities:
+- name: Postman Mock Server
+  kind: mock-server
+  auth_required: false
+  url: https://github.com/classy-org/postman-collections
+  description: >-
+    Official Postman collections ship one or more environments, some of which point at a Postman
+    Mock Server that simulates API responses without GoFundMe Pro credentials. The mock server can
+    be called outside Postman but only behaves correctly for the exact requests in the collection.
+  covers:
+  - Authentication (credential exchange for an access token)
+  - Fetch source codes
+  - Multi-item orders (Giving Cart)
+  - Bulk offline donations
+  caveat: >-
+    The mock server URL is embedded in the collection environment files rather than documented as a
+    stable public base URL, so it is not a general-purpose sandbox host.
+- name: Classy Pay staging
+  kind: staging-environment
+  auth_required: true
+  script: https://staging-pay.stayclassy.org/javascripts/classypay.js
+  api: https://staging-pay.stayclassy.org
+  docs: https://staging-pay.stayclassy.org/apidoc/
+  description: >-
+    A published, separately-addressed staging environment for the Classy Pay embedded-checkout
+    library and API, listed alongside production in the Classy Pay documentation.
+  caveat: The apidoc endpoint is sign-in gated; no anonymous test card numbers are published.
+- name: dev-docs.classy-test.org
+  kind: non-production docs host
+  auth_required: true
+  url: https://dev-docs.classy-test.org/
+  http_status: 401
+  description: >-
+    A non-production mirror of the GoFundMe Pro API documentation on the classy-test.org domain.
+    Returns 401 anonymously — evidence a test estate exists, but it is not customer-accessible.
+
+test_values:
+  cards: []
+  bank_accounts: []
+  tokens: []
+  identifiers: []
+  note: >-
+    No magic test card numbers, test bank accounts, test tokens or magic identifiers are published
+    anywhere on the public GoFundMe Pro developer surface. Do not assume any.
+
+time_simulation:
+  test_clocks: false
+  note: No time-simulation or test-clock tooling is documented.
+
+recommended_practice:
+  - >-
+    Create a dedicated non-production GoFundMe Pro campaign and use offline donations to generate
+    records, as the help center itself recommends before working with the API.
+  - Use the Postman mock server environment first for any collection that writes data.
+  - Read-only GETs against a real organization are the safest way to exercise the live contract.
+
+gaps:
+- >-
+  No sandbox tenant, no test-mode credentials and no test data set for a 290-operation payments-
+  adjacent API. Every write is a production write.
+- No published test card numbers for the donation/checkout path.
+- >-
+  Sandbox affordances that DO exist (mock server, Pay staging) are scattered across a GitHub repo
+  and a legacy stayclassy.org domain rather than surfaced from the developer portal.

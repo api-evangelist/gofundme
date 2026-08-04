@@ -1,23 +1,202 @@
 aid: gofundme
 name: GoFundMe
-description: 'GoFundMe is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  GoFundMe is the world's largest social fundraising platform, operating both the consumer crowdfunding
+  site at gofundme.com and GoFundMe Pro (formerly Classy, acquired in 2022) — the enterprise fundraising
+  suite nonprofits use for donation pages, peer-to-peer campaigns, recurring giving, ticketed events and
+  Giving Cart checkout. The developer surface is GoFundMe Pro: a REST API (v2.0) documented with a public
+  OpenAPI 3.0 definition covering campaigns, transactions, supporters, fundraising pages and teams,
+  recurring donation plans, designations, promo codes, payouts and reporting; OAuth2 client-credentials
+  and member tokens; Svix-powered webhooks for supporter, transaction and recurring-plan events; a
+  Classy Login OpenID Connect single-sign-on service; and Classy Pay embedded checkout. The consumer
+  gofundme.com product publishes no public API.
+image: https://pro.gofundme.com/wp-content/uploads/2025/04/social-share-gfm-pro.png
 url: https://raw.githubusercontent.com/api-evangelist/gofundme/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
-specificationVersion: '0.20'
+specificationVersion: '0.21'
 created: '2026-08-04'
 modified: '2026-08-04'
 tags:
-- Company
-apis: []
+- Fundraising
+- Nonprofit
+- Crowdfunding
+- Donations
+- Payments
+- Peer-to-Peer Fundraising
+- Recurring Giving
+- Events
+- Philanthropy
+- Social Impact
+- CRM
+- Webhooks
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- name: GoFundMe Pro API
+  description: >-
+    REST API (v2.0) for the GoFundMe Pro (formerly Classy) fundraising platform. 290 operations across 70
+    resource families — organizations, campaigns, campaign series and Studio campaigns, fundraising pages
+    and teams, transactions and transaction items, supporters and members, recurring donation plans,
+    designations, promo codes, ticket types and registrations, payouts, activity feeds, stories, comments,
+    themes and branding, roles and reporting. JSON only, OAuth2 bearer tokens, cursor-free page/per_page
+    pagination with `with`, `filter`, `sort` and `fields` query conventions.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Fundraising
+  - Nonprofit
+  - Donations
+  - Peer-to-Peer Fundraising
+  - Recurring Giving
+  - Events
+  - CRM
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-pro-api-openapi.json
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: Overlay
+    url: overlays/gofundme-pro-api-overlay.yaml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- name: Classy Login (OpenID Connect SSO)
+  description: >-
+    GoFundMe Pro's single sign-on service, implemented against OpenID Connect, letting third-party apps
+    register and log people in with their Classy/GoFundMe Pro account. Authorization endpoint at
+    login.classy.org/authorize, token endpoint at api.classy.org/oauth2/auth, userinfo at
+    api.classy.org/2.0/me. Supports redirect, popup and iframe flows via a JavaScript SDK.
+  humanURL: https://developers.gofundme.com/pro/api-docs/login
+  baseURL: https://login.classy.org
+  tags:
+  - Authentication
+  - Single Sign-On
+  - OpenID Connect
+  - Identity
+  - Nonprofit
+  properties:
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/api-docs/login
+  - type: OpenIDConnect
+    url: https://developers.gofundme.com/pro/api-docs/login
+- name: Classy Pay
+  description: >-
+    Payment and embedded-checkout service behind GoFundMe Pro donation and registration flows. Ships a
+    JavaScript embedded-checkout library (classypay.js) that renders a hosted checkout form into a host
+    page and returns the full transaction response minus sensitive payment data, plus a REST API for
+    transactions, voids and refunds. Publishes a separate staging environment for integration testing.
+  humanURL: https://developers.gofundme.com/pro/api-docs/pay
+  baseURL: https://pay.classy.org
+  tags:
+  - Payments
+  - Checkout
+  - Donations
+  - Embedded Components
+  properties:
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/api-docs/pay
+  - type: Components
+    url: components/gofundme-components.yml
 common:
+- type: DomainSecurity
+  url: security/gofundme-domain-security.yml
 - type: Website
-  url: https://forgeglobal.com/gofundme_stock/
+  url: https://www.gofundme.com
+- type: DeveloperPortal
+  url: https://developers.gofundme.com/pro/overview/welcome
+- type: Documentation
+  url: https://developers.gofundme.com/pro/overview/get-started
+- type: APIReference
+  url: https://developers.gofundme.com/pro/docs
+- type: GettingStarted
+  url: https://developers.gofundme.com/pro/overview/get-started
+- type: Support
+  url: https://prosupport.gofundme.com/hc/en-us
+- type: HelpCenter
+  url: https://prosupport.gofundme.com/hc/en-us/sections/35654895701787-API-and-partner-apps
+- type: Blog
+  url: https://pro.gofundme.com/c/blog/
+- type: GitHubOrganization
+  url: https://github.com/classy-org
+- type: Pricing
+  url: https://pro.gofundme.com/c/pricing/
+- type: SignUp
+  url: https://developers.gofundme.com/pro/overview/request-access
+- type: Login
+  url: https://www.classy.org/login
+- type: TermsOfService
+  url: https://pro.gofundme.com/c/legal/terms/
+- type: PrivacyPolicy
+  url: https://pro.gofundme.com/c/legal/privacy-notice/
+- type: Postman
+  url: https://github.com/classy-org/postman-collections
+- type: StatusPage
+  url: https://status.classy.org
+- type: Deprecation
+  url: https://developers.gofundme.com/pro/reference/deprecation
+- type: Security
+  url: https://www.gofundme.com/c/security
+- type: Compliance
+  url: https://www.gofundme.com/c/security
+- type: TrustCenter
+  url: security/gofundme-trust-center.yml
+- type: ChangeLog
+  url: https://prosupport.gofundme.com/hc/en-us/articles/37726683210267-Release-notes
+- type: ChangeLog
+  url: changelog/gofundme-changelog.yml
+- type: Packages
+  url: packages/gofundme-packages.yml
+- type: SDKs
+  url: packages/gofundme-packages.yml
+- type: WellKnown
+  url: well-known/gofundme-well-known.yml
+- type: SecurityTxt
+  url: well-known/gofundme-security.txt
+- type: VulnerabilityDisclosure
+  url: security/gofundme-vulnerability-disclosure.yml
+- type: Lifecycle
+  url: lifecycle/gofundme-lifecycle.yml
+- type: Conformance
+  url: conformance/gofundme-conformance.yml
+- type: Webhooks
+  url: asyncapi/gofundme-webhooks.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: MCPServer
+  url: mcp/gofundme-mcp.yml
+- type: LLMsTxt
+  url: llms/gofundme-llms.txt
+x-enrichment:
+  date: '2026-08-04'
+  status: enriched
+  artifacts_added: 29
+  pass: local-v1

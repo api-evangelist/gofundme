@@ -1,0 +1,80 @@
+generated: '2026-08-04'
+method: searched
+source: >-
+  https://prosupport.gofundme.com/hc/en-us/articles/37726683210267-Release-notes,
+  https://prosupport.gofundme.com/hc/en-us/articles/37288721467931-Release-notes-2024
+url: https://prosupport.gofundme.com/hc/en-us/articles/37726683210267-Release-notes
+scheme: dated product release notes (no semantic version numbers)
+cadence: roughly every two weeks
+current_api_version: '2.0'
+last_updated: '2026-07-28'
+archives:
+- {year: '2024', url: 'https://prosupport.gofundme.com/hc/en-us/articles/37288721467931-Release-notes-2024'}
+note: >-
+  The release notes are PRODUCT release notes for the GoFundMe Pro application, not an API
+  changelog. They are organised by product area (P2P, Donor Experience, NPO Admin) and only
+  occasionally mention API-affecting changes. There is no per-endpoint or per-version API changelog,
+  and the OpenAPI carries no version history — a real gap for an integrator who needs to know when
+  a field or operation changed.
+entries:
+- date: '2026-07-28'
+  breaking: false
+  highlights:
+  - >-
+    Organizations can configure the GoFundMe P2P welcome page (title, copy, imagery, social proof)
+    from a new Fundraiser signup flows tab in Campaign Studio settings. GoFundMe P2P campaigns only,
+    not Classic P2P.
+  - >-
+    Express checkout moved to the top of embedded Campaign Studio donation forms, surfacing Apple
+    Pay, Google Pay, PayPal and Venmo before standard payment fields on eligible devices.
+  - >-
+    Donation dedications now carry through the full checkout flow with a persistent "in honor of"
+    banner from the donation grid to the thank-you page.
+  - >-
+    Transaction History and Recurring Giving Plans reports now flag whether a recurring gift came
+    from a new or an existing recurring donor.
+  fixes:
+  - Studio donation pages with Intelligent Ask Amounts now accept cents in the "Other" amount field.
+  - Fixed transaction and supporter details failing to load due to supporter API request timeouts.
+- date: '2026-07-14'
+  breaking: false
+  highlights:
+  - >-
+    P2P moments — supporters starting a GoFundMe P2P fundraiser can pick a reason (Birthday,
+    Tribute, Challenge, Wedding), answer tailored questions and get a generated title and story.
+  - A countdown timer block is now available in the Studio page builder for GoFundMe P2P campaigns.
+  - >-
+    Campaign-level setting to stop automated GoFundMe donor emails and texts for a campaign
+    (off by default).
+  - >-
+    P2P admins can add and export Company Name plus Fundraising Team Net/Gross Transaction Amount
+    in the Attendees report.
+  - >-
+    Pro Checkout surfaces express payment options upfront on Studio donation pages; embedded forms
+    to follow in a later release.
+  - >-
+    Donation Grid currency picker redesigned to show the five most-used currencies plus the donor's
+    detected local currency.
+- date: '2026'
+  scope: webhooks
+  breaking: false
+  highlights:
+  - >-
+    The webhooks service now aggregates duplicate or rapidly repeated events and only processes
+    events for organizations with webhooks enabled, reducing duplicate `updated` deliveries.
+- date: '2025-05-06'
+  breaking: false
+  milestone: true
+  highlights:
+  - >-
+    Classy became GoFundMe Pro. Product, docs and domains begin migrating from classy.org to
+    gofundme.com; the "Classy" name persists in release notes before this date and in the API host
+    (api.classy.org), SDK package names and OAuth endpoints.
+- date: '2024-12-10'
+  breaking: false
+  highlights:
+  - >-
+    Meta integration for Instagram and Facebook sharing, with c_src values `meta-instagram` and
+    `meta-facebook` recorded on donations made through the integration.
+  - Embedded Studio beta updates — share link options, theme/partner logo management.
+  - Campaign Insights now refresh hourly.

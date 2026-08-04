@@ -1,0 +1,146 @@
+generated: '2026-08-04'
+method: derived
+source: >-
+  openapi/gofundme-pro-api-openapi.json (4xx/5xx responses across 290 operations);
+  enriched from the "Errors" table in https://docs.classy.org/specs/apiv2-public.json info.description
+api: GoFundMe Pro API v2.0
+format: json
+rfc9457: false
+notes: >-
+  The GoFundMe Pro API does not use RFC 9457 application/problem+json. Every error is a plain
+  application/json object. Three envelope shapes are in use across the spec, which is itself a
+  consistency gap worth reporting to the provider:
+  (1) {"error": "<string>"} — the dominant shape, used by ForbiddenResponse, ResourceNotFoundResponse
+      and UnprocessableEntityResponse;
+  (2) {"errors": ["<string>", ...]} — MalformedPayloadResponse and other 400s;
+  (3) {"success": false, "message": "<string>"} — used by the newer report/annual-summary,
+      Chariot and consumer-mapping operations.
+  There is no machine-readable error code vocabulary; clients must branch on HTTP status.
+envelopes:
+- schema: ForbiddenResponse
+  shape: {error: string}
+  example: This action is unauthorized.
+- schema: ResourceNotFoundResponse
+  shape: {error: string}
+- schema: MalformedPayloadResponse
+  shape: {errors: array of string}
+  example: Malformed JSON payload.
+- schema: UnprocessableEntityResponse
+  shape: {error: string}
+  example: expires_at exceeds the maximum allowed magic link lifetime (24 hours).
+- schema: RateLimitExceededResponse
+  shape: {message: string, retry_after: integer}
+  example: Too Many Attempts.
+- schema: EmptyResponse
+  shape: {}
+- schema: (inline)
+  shape: {success: boolean, message: string}
+problems:
+- status: 400
+  title: Bad Request
+  meaning: >-
+    The request was malformed or provided incorrect, incomplete or conflicting parameters. Check the
+    response for detail. Do not repeat the request unchanged.
+  schemas: [MalformedPayloadResponse, 'inline errors[]', inline success/message]
+  occurrences: 51
+  common_descriptions:
+  - Malformed payload provided
+  - Bad request - validation failed or missing mapping
+  - Malformed request made
+  sample_operation: downloadBatchAsrPdf
+- status: 401
+  title: Unauthorized
+  meaning: >-
+    The API does not recognize the request as authorized. The access token may be missing, expired
+    or invalid. Documented in the API description; not enumerated per-operation in the spec.
+  schemas: []
+  occurrences: 0
+  note: Documented in prose only — no operation declares a 401 response in the OpenAPI.
+- status: 403
+  title: Forbidden
+  meaning: >-
+    The API recognizes the authorized API user, but that user does not have the permissions required
+    to satisfy the request.
+  schemas: [ForbiddenResponse, inline success/message]
+  occurrences: 284
+  common_descriptions:
+  - Requester is not authorized to perform action
+  - Forbidden - insufficient permissions
+  - Forbidden or feature not enabled
+  sample_operation: getOrganizationAsrBatch
+  remediation: >-
+    Check the role/scope assigned to the credential set (see scopes/gofundme-scopes.yml) and whether
+    the feature is enabled for the organization.
+- status: 404
+  title: Not Found
+  meaning: The resource requested does not exist or was not found.
+  schemas: [ResourceNotFoundResponse, inline success/message]
+  occurrences: 281
+  common_descriptions:
+  - Organization not found
+  - Campaign not found
+  - Fundraising Team not found
+  - Fundraising Page not found
+  sample_operation: getOrganizationAsrBatch
+- status: 405
+  title: Method Not Allowed
+  meaning: >-
+    Some REST endpoints only accept a subset of the valid HTTP verbs; this is returned when an
+    unsupported verb is requested.
+  schemas: [EmptyResponse]
+  occurrences: 1
+  sample_operation: publishCampaign
+- status: 409
+  title: Conflict
+  meaning: The resource being created already exists (integration or consumer mapping duplication).
+  schemas: [inline error]
+  occurrences: 2
+  common_descriptions:
+  - Mapping already exists
+  - Conflict - integration already exists
+  sample_operation: createOrganizationConsumerMapping
+- status: 422
+  title: Unprocessable Entity
+  meaning: >-
+    The request is well-formed but violates a semantic constraint — a value out of the allowed range
+    or a state-transition guard.
+  schemas: [UnprocessableEntityResponse, inline success/message/errors]
+  occurrences: 12
+  common_descriptions:
+  - Validation failed
+  - Validation error
+  - Validation error or cannot update batch in current status
+  sample_operation: generateOrganizationAsrBatch
+- status: 429
+  title: Too Many Requests
+  meaning: >-
+    The rate limit has been exceeded. The response body carries `message` and `retry_after`; the
+    Retry-After and X-RateLimit-* headers carry the window state.
+  schemas: [RateLimitExceededResponse]
+  occurrences: 0
+  note: >-
+    Documented in the API description and modeled as a component schema, but not attached to any
+    individual operation's responses map.
+  remediation: Back off exponentially and honour Retry-After. See rate-limits/gofundme-rate-limits.yml.
+- status: 500
+  title: Internal Server Error
+  meaning: The request was valid, but something failed on the server. Additional messages may be available.
+  schemas: [EmptyResponse, inline success/message]
+  occurrences: 19
+  common_descriptions:
+  - Internal server error
+  - Server error
+  - PDF generation or S3 upload failed
+  sample_operation: generateSupporterAnnualSummary
+- status: 503
+  title: Service Unavailable
+  meaning: The service is temporarily unavailable.
+  schemas: []
+  occurrences: 0
+  note: Documented in prose only — no operation declares a 503 response in the OpenAPI.
+coverage:
+  operations_total: 290
+  operations_with_4xx: 290
+  responses_4xx_5xx: 650
+  statuses_declared: [400, 403, 404, 405, 409, 422, 500]
+  statuses_documented_in_prose_only: [401, 429, 503]

@@ -1,0 +1,85 @@
+generated: '2026-08-04'
+method: searched
+source: >-
+  https://www.npmjs.com/package/classy-node, https://packagist.org/packages/classy-org/classy-php-sdk,
+  https://github.com/classy-org, https://developers.gofundme.com/pro/tutorials/samples
+notes: >-
+  GoFundMe Pro's first-party client libraries are published under the legacy Classy names in the
+  classy-org GitHub organization. Both are long-unmaintained relative to the API: the npm package
+  last shipped in 2019 and the Packagist package tops out at 1.2.0. There is no first-party SDK for
+  Python, Go, Java, Ruby, .NET or Rust, and no maintained TypeScript client — a real gap against a
+  290-operation OpenAPI. Registry probes for @classy/* and @gofundme/* scopes returned nothing.
+packages:
+- language: javascript
+  registry: npm
+  name: classy-node
+  url: https://www.npmjs.com/package/classy-node
+  install: npm install classy-node
+  repository: https://github.com/classy-org/classy-node
+  version: 3.2.2
+  released: '2019-12-12'
+  license: MIT
+  official: true
+  description: Node.js client wrapper for the GoFundMe Pro (Classy) v2 API.
+  maintenance: stale
+- language: php
+  registry: packagist
+  name: classy-org/classy-php-sdk
+  url: https://packagist.org/packages/classy-org/classy-php-sdk
+  install: composer require classy-org/classy-php-sdk
+  repository: https://github.com/classy-org/classy-php-sdk
+  version: 1.2.0
+  downloads: 18799
+  official: true
+  description: PHP HTTP client library (Guzzle wrapper) for the GoFundMe Pro (Classy) API.
+  maintenance: stale
+- language: php
+  registry: github
+  name: classy-org/classy-org-wp
+  url: https://github.com/classy-org/classy-org-wp
+  install: install from the repository release (not listed on wordpress.org)
+  repository: https://github.com/classy-org/classy-org-wp
+  official: true
+  description: >-
+    First-party WordPress plugin / integration for embedding GoFundMe Pro (Classy) campaigns and
+    donation flows into a WordPress site.
+  maintenance: active
+sample_apps:
+- name: Custom Progress Bar
+  language: typescript
+  stack: Node + React
+  url: https://github.com/classy-org/custom-progress-bar-sample-app
+  official: true
+  description: >-
+    Full-stack sample showing credential exchange for an access token and rendering a campaign's
+    progress toward goal as a progress-bar component.
+- name: Custom Leaderboard
+  language: typescript
+  stack: Node + React
+  url: https://github.com/classy-org/custom-leaderboard-sample-app
+  official: true
+  description: >-
+    Full-stack sample pulling top-performing fundraising pages and teams and rendering them as card
+    components.
+postman_collections:
+  repository: https://github.com/classy-org/postman-collections
+  official: true
+  collections:
+  - {name: Authentication, level: beginner, url: 'https://github.com/classy-org/postman-collections/tree/main/authentication'}
+  - {name: Fetch Source Codes, level: beginner, url: 'https://github.com/classy-org/postman-collections/tree/main/fetch-source-codes'}
+  - {name: Multi-Item Orders, level: beginner, url: 'https://github.com/classy-org/postman-collections/tree/main/fetch-transaction-with-items'}
+  - {name: Bulk Offline Donations, level: moderate, url: 'https://github.com/classy-org/postman-collections/tree/main/bulk-offline-donations'}
+  note: >-
+    Collections are distributed as files in a GitHub repo for import, not as a public Postman
+    workspace. Some collections ship a Postman Mock Server environment that answers without
+    credentials.
+registries_probed:
+- {registry: npm, result: 'classy-node found; @classy/* and @gofundme/* scopes empty'}
+- {registry: packagist, result: classy-org/classy-php-sdk found}
+- {registry: pypi, result: none}
+- {registry: rubygems, result: none}
+- {registry: nuget, result: none}
+- {registry: pkg.go.dev, result: none}
+- {registry: crates.io, result: none}
+- {registry: maven central, result: none}
+- {registry: wordpress.org, result: 'no first-party listing (the "classy" slug belongs to an unrelated author)'}

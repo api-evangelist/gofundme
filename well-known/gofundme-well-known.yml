@@ -1,0 +1,92 @@
+generated: '2026-08-04'
+method: probed
+source: live GET probes of every apis.yml + OpenAPI servers[] host, 2026-08-04
+summary:
+  hosts_probed: 11
+  documents_found: 1
+  canonical_well_known_hits: 0
+  note: >-
+    The only discovery document GoFundMe publishes is a security.txt — and it is served from
+    /security.txt on www.gofundme.com, NOT from the RFC 9116 canonical /.well-known/security.txt
+    path (which returns 403 behind the site's bot protection). No OIDC discovery, no OAuth
+    authorization-server metadata, no api-catalog, no ai-plugin, no agent card on any host.
+hosts:
+- host: https://www.gofundme.com
+  documents:
+  - {path: /security.txt, status: 200, content_type: text/plain, file: gofundme-security.txt}
+  - {path: /.well-known/security.txt, status: 403}
+  - {path: /.well-known/openid-configuration, status: 403}
+  - {path: /.well-known/oauth-authorization-server, status: 403}
+  - {path: /.well-known/oauth-protected-resource, status: 403}
+  - {path: /.well-known/api-catalog, status: 403}
+  - {path: /.well-known/ai-plugin.json, status: 403}
+  - {path: /.well-known/agent-card.json, status: 403}
+  - {path: /.well-known/agent.json, status: 403}
+- host: https://pro.gofundme.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: https://api.classy.org
+  documents:
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  note: >-
+    Kong gateway; all unmatched routes return {"message":"no Route matched with those values"}.
+- host: https://login.classy.org
+  documents:
+  - {path: /.well-known/openid-configuration, status: 404}
+  note: >-
+    Classy Login is documented as an OpenID Connect implementation but publishes NO OIDC discovery
+    document at the well-known path. Endpoints must be hard-coded from the docs page.
+- host: https://www.classy.org
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+- host: https://developers.gofundme.com
+  documents:
+  - {path: /.well-known/security.txt, status: 200, content_type: text/html, accepted: false}
+  - {path: /.well-known/agent-card.json, status: 200, content_type: text/html, accepted: false}
+  note: >-
+    AngularJS single-page-app catch-all — every /.well-known/* path returns HTTP 200 with the same
+    25KB HTML shell. Rejected as a false positive; none of these are real discovery documents.
+- host: https://docs.classy.org
+  documents:
+  - {path: /.well-known/security.txt, status: 403}
+  - {path: /.well-known/agent-card.json, status: 403}
+  note: S3-backed static docs host; AccessDenied XML for anything not published.
+- host: https://api.gofundme.com
+  documents:
+  - {path: /.well-known/security.txt, status: 403}
+  - {path: /.well-known/agent-card.json, status: 403}
+  - {path: /.well-known/agent.json, status: 403}
+  note: >-
+    Named in the GoFundMe security page as an in-scope bug-bounty domain; not publicly documented
+    and 403 on every anonymous request.
+- host: https://gateway.gofundme.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  note: >-
+    Consumer "native_gateway"; returns a JSON error envelope but publishes no spec, docs or
+    discovery documents.
+- host: https://funds.gofundme.com
+  documents:
+  - {path: /.well-known/security.txt, status: 403}
+  - {path: /.well-known/agent-card.json, status: 403}
+- host: https://pay.classy.org
+  documents:
+  - {path: /apidoc/, status: 200, content_type: text/html, note: "sign-in gated"}
+documents:
+- path: /security.txt
+  host: www.gofundme.com
+  status: 200
+  file: gofundme-security.txt
+  spec: RFC 9116
+  canonical_path: false

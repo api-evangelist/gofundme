@@ -1,0 +1,139 @@
+generated: '2026-08-04'
+method: derived
+source: >-
+  openapi/gofundme-pro-api-openapi.json,
+  https://developers.classy.org/partials/getting-started/authentication.html,
+  https://developers.classy.org/partials/api-docs/login.html,
+  https://www.gofundme.com/c/security
+api: GoFundMe Pro API v2.0
+standards:
+- id: openapi-3.0
+  conforms: true
+  evidence: >-
+    Publicly published OpenAPI 3.0.0 document at https://docs.classy.org/specs/apiv2-public.json —
+    201 paths, 290 operations, 356 component schemas, every operation carrying an operationId,
+    summary and tags.
+- id: rest
+  conforms: true
+  evidence: >-
+    Resource-oriented URLs, HTTP verb semantics documented per action, JSON representations. Stated
+    explicitly in the API description and the "Making Requests" guide.
+- id: oauth2
+  conforms: true
+  evidence: >-
+    Two oauth2 securitySchemes in the spec — OAuth2Application (clientCredentials) and OAuth2Member
+    (password) — with a documented authorization_code exchange for member tokens. Token endpoint
+    https://api.classy.org/oauth2/auth; bearer tokens with expires_in 3600.
+- id: oauth2-rfc6749
+  conforms: true
+  evidence: >-
+    grant_type=client_credentials and grant_type=authorization_code exchanges at a single token
+    endpoint, returning access_token/expires_in/token_type per RFC 6749 §5.1.
+- id: oidc
+  conforms: partial
+  evidence: >-
+    Classy Login is documented as an OpenID Connect implementation (authorization endpoint
+    login.classy.org/authorize, token endpoint api.classy.org/oauth2/auth, userinfo
+    api.classy.org/2.0/me, response_type=code). It is labelled "Pre-release" and publishes NO
+    /.well-known/openid-configuration discovery document, so it cannot be consumed by a
+    standards-conformant OIDC client without hard-coding endpoints.
+- id: rfc8414-oauth-authorization-server-metadata
+  conforms: false
+  evidence: /.well-known/oauth-authorization-server returns 404 on api.classy.org and pro.gofundme.com.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Every error is plain application/json; application/problem+json appears nowhere in the spec.
+    Three different error envelope shapes are in use (error / errors[] / success+message).
+- id: rfc9116-security-txt
+  conforms: partial
+  evidence: >-
+    A valid security.txt with Contact, Policy, Preferred-Languages, Hiring and Expires is published,
+    but at https://www.gofundme.com/security.txt rather than the RFC 9116 canonical
+    /.well-known/security.txt path, and its Expires value (2026-01-01) has lapsed.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: >-
+    No Sunset or Deprecation headers documented or present in the spec; deprecation is communicated
+    only via a docs page and the OpenAPI `deprecated` flag on 54 operations.
+- id: rfc7807
+  conforms: false
+  evidence: superseded by RFC 9457; not used either way.
+- id: json-api
+  conforms: false
+  evidence: >-
+    Responses are bare resource objects and a Laravel-style paginator envelope, not JSON:API
+    documents.
+- id: iso8601-datetimes
+  conforms: true
+  evidence: >-
+    "Unless otherwise noted, all Datetime attributes in API responses will be returned in an ISO8601
+    compliant format: YYYY-MM-DDTHH:mm:ss.sssZ."
+- id: idempotency-key
+  conforms: partial
+  evidence: >-
+    `idempotency_key` is a required request-body field on POST /scoped-magic-link/batch only. There
+    is no global Idempotency-Key header across create operations.
+- id: pagination
+  conforms: true
+  evidence: >-
+    Page-number pagination via page/per_page (default 20, max 100) with a PaginatedResponse envelope
+    exposing current_page, last_page, next_page_url, prev_page_url, total and links[].
+- id: rate-limit-headers
+  conforms: partial
+  evidence: >-
+    X-RateLimit-Limit / X-RateLimit-Remaining / X-RateLimit-Reset plus Retry-After on 429. These are
+    the de-facto X-RateLimit-* convention, not the RFC 9331 / draft-ietf-httpapi RateLimit fields.
+- id: webhooks
+  conforms: true
+  evidence: >-
+    Svix-delivered webhooks with signature verification, progressive-backoff retries and a 15-second
+    2xx acknowledgement window. See asyncapi/gofundme-webhooks.yml.
+- id: asyncapi
+  conforms: false
+  evidence: No AsyncAPI document is published for the webhook surface.
+- id: pci-dss
+  conforms: true
+  level: Level 1 Service Provider
+  evidence: >-
+    GoFundMe states it is a PCI DSS Level 1 compliant service provider, audited annually by an
+    independent PCI Qualified Security Assessor and listed on the Visa Global Registry of Service
+    Providers. Attestation available on request. Source: https://www.gofundme.com/c/security
+- id: nist-csf
+  conforms: true
+  evidence: >-
+    GoFundMe states its security program aligns with the NIST Cybersecurity Framework and
+    incorporates controls from NIST 800-53 and the CIS Critical Security Controls Top 20.
+- id: owasp-top-10
+  conforms: true
+  evidence: >-
+    Application risk assessments are stated to be based on the OWASP Top 10, with static, dynamic
+    and software-composition analysis in the SDLC.
+- id: tls-1.2-plus
+  conforms: true
+  evidence: >-
+    Data in transit uses TLS 1.2+ with AES-256; probes of www.gofundme.com, pro.gofundme.com and
+    developers.gofundme.com all negotiated TLSv1.3. See security/gofundme-domain-security.yml.
+- id: soc-2
+  conforms: unknown
+  evidence: >-
+    No SOC 2 report or attestation is named on any public GoFundMe page. Absence of a claim, not
+    evidence of absence of a report.
+- id: iso-27001
+  conforms: inherited
+  evidence: >-
+    GoFundMe cites AWS's ISO 27001 compliance for its hosting infrastructure; it does not claim an
+    ISO 27001 certification of its own.
+- id: gdpr
+  conforms: unknown
+  evidence: >-
+    A privacy notice and privacy-choices surface are published, but no GDPR/DPA compliance statement
+    was found on the developer or security surface.
+- id: fhir
+  conforms: false
+- id: fapi
+  conforms: false
+- id: scim
+  conforms: false
+- id: odata
+  conforms: false

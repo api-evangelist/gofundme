@@ -1,0 +1,1739 @@
+generated: '2026-08-04'
+method: derived
+status: candidate
+source: openapi/gofundme-pro-api-openapi.json
+note: GoFundMe Pro publishes NO hosted or remote MCP server. Searched the developer portal (developers.gofundme.com/pro),
+  the GoFundMe Pro help center, the classy-org GitHub organization, npm and the public MCP registries
+  on 2026-08-04 — no result, and no agent/AI surface of any kind is documented. This is a CANDIDATE tool
+  surface derived mechanically from the operationIds in the harvested OpenAPI; no MCP endpoint is implied
+  to exist. Every source_operation was verified against the spec it names. The 54 operations the spec
+  marks deprecated are excluded.
+server:
+  name: gofundme-pro
+  transport: http
+  url: null
+  base_url: https://pro.gofundme.com/api/2.0
+  auth:
+    type: oauth2
+    flow: client_credentials
+    token_url: https://api.classy.org/oauth2/auth
+    header: 'Authorization: Bearer <access_token>'
+    artifact: authentication/gofundme-authentication.yml
+tool_count: 236
+excluded_deprecated: 54
+input_schemas: Each candidate tool inherits its real input contract from the parameters and requestBody
+  of the operation named in source_operation. No schemas were invented.
+naming_note: Tool names are the provider's own operationIds. 251 of the 290 operations carry a summary
+  that is just the operationId repeated, so tool descriptions here are taken from the operation description
+  instead.
+tools:
+- name: fetchAppealSet
+  description: Retrieves an Appeal Set from the ID.
+  method: GET
+  path: /appeal-set/{appeal_set}
+  tags:
+  - Appeal Set
+  source_operation: openapi/gofundme-pro-api-openapi.json#fetchAppealSet
+- name: updateAppealSet
+  description: Update Appeal Set
+  method: PUT
+  path: /appeal-set/{appeal_set}
+  tags:
+  - Appeal Set
+  source_operation: openapi/gofundme-pro-api-openapi.json#updateAppealSet
+- name: fetchClientProfile
+  description: Show the Profile for a given Client
+  method: GET
+  path: /apps/{app}
+  tags:
+  - API App
+  source_operation: openapi/gofundme-pro-api-openapi.json#fetchClientProfile
+- name: listApiAppOrganizations
+  description: Retrieves a list of all Organizations for specified Client
+  method: GET
+  path: /apps/{app}/organizations
+  tags:
+  - Organization
+  source_operation: openapi/gofundme-pro-api-openapi.json#listApiAppOrganizations
+- name: updateCampaignChannel
+  description: Update campaign channel
+  method: PUT
+  path: /campaign-channels/{campaign_channel}
+  tags:
+  - Campaign Channel
+  source_operation: openapi/gofundme-pro-api-openapi.json#updateCampaignChannel
+- name: fetchCampaign
+  description: Retrieves Campaign by ID
+  method: GET
+  path: /campaigns/{campaign}
+  tags:
+  - Campaign
+  source_operation: openapi/gofundme-pro-api-openapi.json#fetchCampaign
+- name: updateCampaign
+  description: Updates an existing Campaign
+  method: PUT
+  path: /campaigns/{campaign}
+  tags:
+  - Campaign
+  source_operation: openapi/gofundme-pro-api-openapi.json#updateCampaign
+- name: listCampaignActivities
+  description: Retrieves a list of all Activities related to the specified Campaign
+  method: GET
+  path: /campaigns/{campaign}/activity
+  tags:
+  - Activity
+  source_operation: openapi/gofundme-pro-api-openapi.json#listCampaignActivities
+- name: fetchCampaignAppealSet
+  description: Retrieves an Appeal Set for the specified Campaign.
+  method: GET
+  path: /campaigns/{campaign}/appeal-set
+  tags:
+  - Appeal Set
+  source_operation: openapi/gofundme-pro-api-openapi.json#fetchCampaignAppealSet
+- name: createCampaignAppealSet
+  description: Create Appeal Set for specified Campaign
+  method: POST
+  path: /campaigns/{campaign}/appeal-set
+  tags:
+  - Appeal Set
+  source_operation: openapi/gofundme-pro-api-openapi.json#createCampaignAppealSet
+- name: listCampaignChannels
+  description: Retrieves a list of all Channels for the specified Campaign
+  method: GET
+  path: /campaigns/{campaign}/channels
+  tags:
+  - Campaign Channel
+  source_operation: openapi/gofundme-pro-api-openapi.json#listCampaignChannels
+- name: createCampaignChannel
+  description: Create Channel for specified Campaign
+  method: POST
+  path: /campaigns/{campaign}/channels
+  tags:
+  - Campaign Channel
+  source_operation: openapi/gofundme-pro-api-openapi.json#createCampaignChannel
+- name: createCampaignCreditAdjustment
+  description: Create Credential Adjustment for specified Campaign
+  method: POST
+  path: /campaigns/{campaign}/credit-adjustments
+  tags:
+  - Credit Adjustment
+  source_operation: openapi/gofundme-pro-api-openapi.json#createCampaignCreditAdjustment
+- name: listCampaignDomainSlugs
+  description: Retrieves a list of all Domain Slugs for specified Campaign
+  method: GET
+  path: /campaigns/{campaign}/domain-slugs
+  tags:
+  - Domain Slug
+  source_operation: openapi/gofundme-pro-api-openapi.json#listCampaignDomainSlugs
+- name: createCampaignDomainSlug
+  description: Create a Domain Slug for the specified Campaign
+  method: POST
+  path: /campaigns/{campaign}/domain-slugs
+  tags:
+  - Domain Slug
+  source_operation: openapi/gofundme-pro-api-openapi.json#createCampaignDomainSlug
+- name: listCampaignDonationMatchingPlans
+  description: Retrieves a list of all Donation Matching Plans for specified Campaign
+  method: GET
+  path: /campaigns/{campaign}/donation-matching-plans
+  tags:
+  - Donation Matching Plan
+  source_operation: openapi/gofundme-pro-api-openapi.json#listCampaignDonationMatchingPlans
+- name: createDonationMatchingPlan
+  description: Create a Donation Matching Plan for specified Campaign
+  method: POST
+  path: /campaigns/{campaign}/donation-matching-plans
+  tags:
+  - Donation Matching Plan
+  source_operation: openapi/gofundme-pro-api-openapi.json#createDonationMatchingPlan
+- name: listEcards
+  description: Retrieves a list of all eCards made for the specified Campaign
+  method: GET
+  path: /campaigns/{campaign}/ecards
+  tags:
+  - eCard
+  source_operation: openapi/gofundme-pro-api-openapi.json#listEcards
+- name: createEcard
+  description: Create an eCard for a Campaign
+  method: POST
+  path: /campaigns/{campaign}/ecards
+  tags:
+  - eCard
+  source_operation: openapi/gofundme-pro-api-openapi.json#createEcard
+- name: ListCampaignFAQs
+  description: List all FAQs for specified campaign
+  method: GET
+  path: /campaigns/{campaign}/faqs
+  tags:
+  - FAQ
+  source_operation: openapi/gofundme-pro-api-openapi.json#ListCampaignFAQs
+- name: createFAQ
+  description: Create a FAQ for a campaign
+  method: POST
+  path: /campaigns/{campaign}/faqs
+  tags:
+  - FAQ
+  source_operation: openapi/gofundme-pro-api-openapi.json#createFAQ
+- name: listCampaignFeedItems
+  description: List all Feed Items for specified Campaign (Direct)
+  method: GET
+  path: /campaigns/{campaign}/feed-items
+  tags:
+  - Feed Item
+  source_operation: openapi/gofundme-pro-api-openapi.json#listCampaignFeedItems
+- name: createCampaignFeedItem
+  description: Create a FeedItem (Comment) for specified Campaign
+  method: POST
+  path: /campaigns/{campaign}/feed-items
+  tags:
+  - Feed Item
+  source_operation: openapi/gofundme-pro-api-openapi.json#createCampaignFeedItem
+- name: listCampaignFeedItemsScoped
+  description: List all Feed Items for specified Campaign (Scoped)
+  method: GET
+  path: /campaigns/{campaign}/feed-items/{scope}
+  tags:
+  - Feed Item
+  source_operation: openapi/gofundme-pro-api-openapi.json#listCampaignFeedItemsScoped
+- name: listCampaignFundraisingPages
+  description: List all Fundraising Pages for specified Campaign
+  method: GET
+  path: /campaigns/{campaign}/fundraising-pages
+  tags:
+  - Fundraising Page
+  source_operation: openapi/gofundme-pro-api-openapi.json#listCampaignFundraisingPages
+- name: createCampaignFundraisingPage
+  description: Create new Campaign Fundraising Page
+  method: POST
+  path: /campaigns/{campaign}/fundraising-pages
+  tags:
+  - Fundraising Page
+  source_operation: openapi/gofundme-pro-api-openapi.json#createCampaignFundraisingPage
+- name: listCampaignFundraisingTeams
+  description: Retrieves a list of all Fundraising Teams for the specified Campaign
+  method: GET
+  path: /campaigns/{campaign}/fundraising-teams
+  tags:
+  - Fundraising Team
+  source_operation: openapi/gofundme-pro-api-openapi.json#listCampaignFundraisingTeams
+- name: createCampaignFundraisingTeam
+  description: Create a Fundraising Team for the specified Campaign
+  method: POST
+  path: /campaigns/{campaign}/fundraising-teams
+  tags:
+  - Fundraising Team
+  source_operation: openapi/gofundme-pro-api-openapi.json#createCampaignFundraisingTeam
+- name: listCampaignPromoCodes
+  description: Retrieves a list of all Promo Codes made for the specified Campaign
+  method: GET
+  path: /campaigns/{campaign}/promo-codes
+  tags:
+  - Promo Code
+  source_operation: openapi/gofundme-pro-api-openapi.json#listCampaignPromoCodes
+- name: createCampaignPromoCode
+  description: Create Promo Code for the specified Campaign
+  method: POST
+  path: /campaigns/{campaign}/promo-codes
+  tags:
+  - Promo Code
+  source_operation: openapi/gofundme-pro-api-openapi.json#createCampaignPromoCode
+- name: listCampaignQuestions
+  description: 'Retrieves a list of all questions for a specific Campaign. Questions marked as `is_required:
+    true` will be treated as pre-conversion (shown before donation), and those marked as `is_required:
+    false` will be treated as po'
+  method: GET
+  path: /campaigns/{campaign}/questions
+  tags:
+  - Question
+  source_operation: openapi/gofundme-pro-api-openapi.json#listCampaignQuestions
+- name: createCampaignQuestion
+  description: Create a new question for a specific campaign. Questions marked as required will automatically
+    be treated as pre-conversion (where supported).
+  method: POST
+  path: /campaigns/{campaign}/questions
+  tags:
+  - Question
+  source_operation: openapi/gofundme-pro-api-openapi.json#createCampaignQuestion
+- name: listCampaignRecurringDonationPlans
+  description: Retrieves a list of all Recurring Donation Plans for a specific Campaign
+  method: GET
+  path: /campaigns/{campaign}/recurring-donation-plans
+  tags:
+  - Recurring Donation Plan
+  source_operation: openapi/gofundme-pro-api-openapi.json#listCampaignRecurringDonationPlans
+- name: listCampaignRegistrations
+  description: Retrieves a list of all Registrations for a specific Campaign
+  method: GET
+  path: /campaigns/{campaign}/registrations
+  tags:
+  - Registration
+  source_operation: openapi/gofundme-pro-api-openapi.json#listCampaignRegistrations
+- name: listCampaignRoles
+  description: Lists all the roles that are available to the Campaign.
+  method: GET
+  path: /campaigns/{campaign}/roles
+  tags:
+  - Role
+  source_operation: openapi/gofundme-pro-api-openapi.json#listCampaignRoles
+- name: listCampaignSoftCredits
+  description: List Campaign Soft Credits
+  method: GET
+  path: /campaigns/{campaign}/soft-credits
+  tags:
+  - SoftCredit
+  source_operation: openapi/gofundme-pro-api-openapi.json#listCampaignSoftCredits
+- name: listCampaignSourceTrackingCodes
+  description: Lists all Source Tracking Codes which are managed by the specified Campaign.
+  method: GET
+  path: /campaigns/{campaign}/source-tracking-codes
+  tags:
+  - Source Tracking Codes
+  source_operation: openapi/gofundme-pro-api-openapi.json#listCampaignSourceTrackingCodes
+- name: listCampaignStories
+  description: List Campaign Stories
+  method: GET
+  path: /campaigns/{campaign}/stories
+  tags:
+  - Story
+  source_operation: openapi/gofundme-pro-api-openapi.json#listCampaignStories
+- name: listCampaignSupporters
+  description: Retrieves a list of all Supporters for a specific Campaign
+  method: GET
+  path: /campaigns/{campaign}/supporters
+  tags:
+  - Supporter
+  source_operation: openapi/gofundme-pro-api-openapi.json#listCampaignSupporters
+- name: listCampaignTicketTypes
+  description: Get Ticket Types for a given Campaign.
+  method: GET
+  path: /campaigns/{campaign}/ticket-types
+  tags:
+  - Ticket Type
+  source_operation: openapi/gofundme-pro-api-openapi.json#listCampaignTicketTypes
+- name: createTicketType
+  description: Create a Ticket Type for a given Campaign.
+  method: POST
+  path: /campaigns/{campaign}/ticket-types
+  tags:
+  - Ticket Type
+  source_operation: openapi/gofundme-pro-api-openapi.json#createTicketType
+- name: listCampaignTransactions
+  description: List Campaign Transactions
+  method: GET
+  path: /campaigns/{campaign}/transactions
+  tags:
+  - Transaction
+  source_operation: openapi/gofundme-pro-api-openapi.json#listCampaignTransactions
+- name: createCampaignTransaction
+  description: For external requests this creates an “offline” transaction record for the specified campaign.
+    An offline transaction represents funds collected outside of the GoFundMe Pro platform, but accounted
+    for in GoFundMe Pro rep
+  method: POST
+  path: /campaigns/{campaign}/transactions
+  tags:
+  - Transaction
+  source_operation: openapi/gofundme-pro-api-openapi.json#createCampaignTransaction
+- name: deactivateCampaign
+  description: Deactivate a Campaign
+  method: POST
+  path: /campaigns/{id}/deactivate
+  tags:
+  - Campaign
+  source_operation: openapi/gofundme-pro-api-openapi.json#deactivateCampaign
+- name: duplicateCampaign
+  description: Create a Campaign using a source Campaign as Template
+  method: POST
+  path: /campaigns/{id}/duplicate
+  tags:
+  - Campaign
+  source_operation: openapi/gofundme-pro-api-openapi.json#duplicateCampaign
+- name: publishCampaign
+  description: Publish a Campaign
+  method: POST
+  path: /campaigns/{id}/publish
+  tags:
+  - Campaign
+  source_operation: openapi/gofundme-pro-api-openapi.json#publishCampaign
+- name: reactivateCampaign
+  description: Reactivate a Campaign
+  method: POST
+  path: /campaigns/{id}/reactivate
+  tags:
+  - Campaign
+  source_operation: openapi/gofundme-pro-api-openapi.json#reactivateCampaign
+- name: listCampaignStaffNotificationSettings
+  description: Get Staff Notification Settings for given Campaign
+  method: GET
+  path: /campaigns/{id}/staff-notification-settings
+  tags:
+  - Staff Notification Setting
+  source_operation: openapi/gofundme-pro-api-openapi.json#listCampaignStaffNotificationSettings
+- name: createCampaignStaffNotificationSetting
+  description: Create a Staff Notification Setting for Campaign
+  method: POST
+  path: /campaigns/{id}/staff-notification-settings
+  tags:
+  - Staff Notification Setting
+  source_operation: openapi/gofundme-pro-api-openapi.json#createCampaignStaffNotificationSetting
+- name: unpublishCampaign
+  description: Unpublish a Campaign
+  method: POST
+  path: /campaigns/{id}/unpublish
+  tags:
+  - Campaign
+  source_operation: openapi/gofundme-pro-api-openapi.json#unpublishCampaign
+- name: 5287cfac33f2ece8e6279d2f73f4f081
+  description: Create Chariot Grant
+  method: POST
+  path: /chariot/create-grant
+  tags:
+  - Chariot
+  source_operation: openapi/gofundme-pro-api-openapi.json#5287cfac33f2ece8e6279d2f73f4f081
+- name: deleteComment
+  description: Delete Comment
+  method: DELETE
+  path: /comments/{comment}
+  tags:
+  - Comment
+  source_operation: openapi/gofundme-pro-api-openapi.json#deleteComment
+- name: createOrganizationConsumerMapping
+  description: Store a new organization consumer mapping
+  method: POST
+  path: /consumer-charity-mappings
+  tags:
+  - Organization Consumer Mappings
+  source_operation: openapi/gofundme-pro-api-openapi.json#createOrganizationConsumerMapping
+- name: getOrganizationConsumerMapping
+  description: Show a specific organization consumer mapping
+  method: GET
+  path: /consumer-charity-mappings/{consumer_charity_mapping}
+  tags:
+  - Organization Consumer Mappings
+  source_operation: openapi/gofundme-pro-api-openapi.json#getOrganizationConsumerMapping
+- name: updateOrganizationConsumerMapping
+  description: Update an organization consumer mapping
+  method: PUT
+  path: /consumer-charity-mappings/{consumer_charity_mapping}
+  tags:
+  - Organization Consumer Mappings
+  source_operation: openapi/gofundme-pro-api-openapi.json#updateOrganizationConsumerMapping
+- name: deleteOrganizationConsumerMapping
+  description: Delete an organization consumer mapping
+  method: DELETE
+  path: /consumer-charity-mappings/{consumer_charity_mapping}
+  tags:
+  - Organization Consumer Mappings
+  source_operation: openapi/gofundme-pro-api-openapi.json#deleteOrganizationConsumerMapping
+- name: setOrganizationConsumerMappingAsPrimary
+  description: Switch the primary mapping for a consumer charity ID
+  method: POST
+  path: /consumer-charity-mappings/{id}/set-primary
+  tags:
+  - Organization Consumer Mappings
+  source_operation: openapi/gofundme-pro-api-openapi.json#setOrganizationConsumerMappingAsPrimary
+- name: fetchBillingDedication
+  description: Fetch specified Billing Dedication
+  method: GET
+  path: /dedications/{dedication}
+  tags:
+  - Dedication
+  source_operation: openapi/gofundme-pro-api-openapi.json#fetchBillingDedication
+- name: updateBillingDedication
+  description: Update a Dedication
+  method: PUT
+  path: /dedications/{dedication}
+  tags:
+  - Dedication
+  source_operation: openapi/gofundme-pro-api-openapi.json#updateBillingDedication
+- name: fetchDesignation
+  description: Fetch specified Designation
+  method: GET
+  path: /designations/{designation}
+  tags:
+  - Designation
+  source_operation: openapi/gofundme-pro-api-openapi.json#fetchDesignation
+- name: updateDesignation
+  description: Update specified Designation
+  method: PUT
+  path: /designations/{designation}
+  tags:
+  - Designation
+  source_operation: openapi/gofundme-pro-api-openapi.json#updateDesignation
+- name: deleteDesignation
+  description: Delete a specified Designation
+  method: DELETE
+  path: /designations/{designation}
+  tags:
+  - Designation
+  source_operation: openapi/gofundme-pro-api-openapi.json#deleteDesignation
+- name: checkSlugAvailability
+  description: Check if a Domain Slug exists with the specified value
+  method: GET
+  path: /domain-slugs/availability-check/{slug_value}
+  tags:
+  - Domain Slug
+  source_operation: openapi/gofundme-pro-api-openapi.json#checkSlugAvailability
+- name: fetchDomainSlug
+  description: Fetch specified Domain Slug
+  method: GET
+  path: /domain-slugs/{domain_slug}
+  tags:
+  - Domain Slug
+  source_operation: openapi/gofundme-pro-api-openapi.json#fetchDomainSlug
+- name: updateDomainSlug
+  description: Update specified Domain Slug
+  method: PUT
+  path: /domain-slugs/{domain_slug}
+  tags:
+  - Domain Slug
+  source_operation: openapi/gofundme-pro-api-openapi.json#updateDomainSlug
+- name: deleteDomainSlug
+  description: Delete specified Domain Slug
+  method: DELETE
+  path: /domain-slugs/{domain_slug}
+  tags:
+  - Domain Slug
+  source_operation: openapi/gofundme-pro-api-openapi.json#deleteDomainSlug
+- name: fetchDonationMatchingPlan
+  description: Fetch specified Donation Matching Plan
+  method: GET
+  path: /donation-matching-plans/{donation_matching_plan}
+  tags:
+  - Donation Matching Plan
+  source_operation: openapi/gofundme-pro-api-openapi.json#fetchDonationMatchingPlan
+- name: updateDonationMatchingPlan
+  description: Update a Donation Matching Plan
+  method: PUT
+  path: /donation-matching-plans/{donation_matching_plan}
+  tags:
+  - Donation Matching Plan
+  source_operation: openapi/gofundme-pro-api-openapi.json#updateDonationMatchingPlan
+- name: fetchEcard
+  description: Fetch specified eCard
+  method: GET
+  path: /ecards/{ecard}
+  tags:
+  - eCard
+  source_operation: openapi/gofundme-pro-api-openapi.json#fetchEcard
+- name: updateEcard
+  description: Update specified eCard
+  method: PUT
+  path: /ecards/{ecard}
+  tags:
+  - eCard
+  source_operation: openapi/gofundme-pro-api-openapi.json#updateEcard
+- name: deleteEcard
+  description: Delete specified eCard
+  method: DELETE
+  path: /ecards/{ecard}
+  tags:
+  - eCard
+  source_operation: openapi/gofundme-pro-api-openapi.json#deleteEcard
+- name: updateOrganizationEngagementSettings
+  description: Update Engagement Settings for Organization
+  method: PUT
+  path: /engagement-settings/{id}
+  tags:
+  - Engagement Settings
+  source_operation: openapi/gofundme-pro-api-openapi.json#updateOrganizationEngagementSettings
+- name: fetchFAQ
+  description: Fetch specified FAQ
+  method: GET
+  path: /faqs/{faq}
+  tags:
+  - FAQ
+  source_operation: openapi/gofundme-pro-api-openapi.json#fetchFAQ
+- name: updateFAQ
+  description: Update a FAQ
+  method: PUT
+  path: /faqs/{faq}
+  tags:
+  - FAQ
+  source_operation: openapi/gofundme-pro-api-openapi.json#updateFAQ
+- name: deleteFAQ
+  description: Delete a FAQ
+  method: DELETE
+  path: /faqs/{faq}
+  tags:
+  - FAQ
+  source_operation: openapi/gofundme-pro-api-openapi.json#deleteFAQ
+- name: fetchFeedItem
+  description: Show requested Feed Item
+  method: GET
+  path: /feed-items/{feed_item}
+  tags:
+  - Feed Item
+  source_operation: openapi/gofundme-pro-api-openapi.json#fetchFeedItem
+- name: deleteFeedItem
+  description: Delete Feed Item
+  method: DELETE
+  path: /feed-items/{feed_item}
+  tags:
+  - Feed Item
+  source_operation: openapi/gofundme-pro-api-openapi.json#deleteFeedItem
+- name: listFeedItemComments
+  description: Retrieves a paginated list of Comments for a Feed Item
+  method: GET
+  path: /feed-items/{feed_item}/comments
+  tags:
+  - Comment
+  source_operation: openapi/gofundme-pro-api-openapi.json#listFeedItemComments
+- name: createFeedItemComment
+  description: Create comment for specified Feed Item
+  method: POST
+  path: /feed-items/{feed_item}/comments
+  tags:
+  - Comment
+  source_operation: openapi/gofundme-pro-api-openapi.json#createFeedItemComment
+- name: listFeedItemLikes
+  description: Retrieves a list of all Likes made for the specified Feed Item
+  method: GET
+  path: /feed-items/{feed_item}/likes
+  tags:
+  - Like
+  source_operation: openapi/gofundme-pro-api-openapi.json#listFeedItemLikes
+- name: createFeedItemLike
+  description: Create a Like for the specified Feed Item
+  method: POST
+  path: /feed-items/{feed_item}/likes
+  tags:
+  - Like
+  source_operation: openapi/gofundme-pro-api-openapi.json#createFeedItemLike
+- name: fetchFundraisingPage
+  description: Show the Fundraising Page specified by the fundraising_page_id
+  method: GET
+  path: /fundraising-pages/{fundraising_page}
+  tags:
+  - Fundraising Page
+  source_operation: openapi/gofundme-pro-api-openapi.json#fetchFundraisingPage
+- name: updateFundraisingPage
+  description: Update Fundraising Page
+  method: PUT
+  path: /fundraising-pages/{fundraising_page}
+  tags:
+  - Fundraising Page
+  source_operation: openapi/gofundme-pro-api-openapi.json#updateFundraisingPage
+- name: deleteFundraisingPage
+  description: Delete a Fundraising Page
+  method: DELETE
+  path: /fundraising-pages/{fundraising_page}
+  tags:
+  - Fundraising Page
+  source_operation: openapi/gofundme-pro-api-openapi.json#deleteFundraisingPage
+- name: listFundraisingPageActivities
+  description: Retrieves a list of all Activities related to the specified Fundraising Page
+  method: GET
+  path: /fundraising-pages/{fundraising_page}/activity
+  tags:
+  - Activity
+  source_operation: openapi/gofundme-pro-api-openapi.json#listFundraisingPageActivities
+- name: listFundraisingPageAnswers
+  description: Retrieves list of all Answers related to specified Fundraising Page
+  method: GET
+  path: /fundraising-pages/{fundraising_page}/answers
+  tags:
+  - Answer
+  source_operation: openapi/gofundme-pro-api-openapi.json#listFundraisingPageAnswers
+- name: createFundraisingPageAnswer
+  description: Create an Answer for a Fundraising Page
+  method: POST
+  path: /fundraising-pages/{fundraising_page}/answers
+  tags:
+  - Answer
+  source_operation: openapi/gofundme-pro-api-openapi.json#createFundraisingPageAnswer
+- name: createChannelFundraisingEntity
+  description: Create Channel such as Facebook for Fundraising Page
+  method: POST
+  path: /fundraising-pages/{fundraising_page}/channels
+  tags:
+  - Channel Fundraising Entity
+  source_operation: openapi/gofundme-pro-api-openapi.json#createChannelFundraisingEntity
+- name: createFundraisingPageDomainSlug
+  description: Create a Domain Slug for the specified Fundraising Page
+  method: POST
+  path: /fundraising-pages/{fundraising_page}/domain-slugs
+  tags:
+  - Domain Slug
+  source_operation: openapi/gofundme-pro-api-openapi.json#createFundraisingPageDomainSlug
+- name: listFundraisingPageFeedItems
+  description: List all Feed Items for specified Fundraising Page
+  method: GET
+  path: /fundraising-pages/{fundraising_page}/feed-items
+  tags:
+  - Feed Item
+  source_operation: openapi/gofundme-pro-api-openapi.json#listFundraisingPageFeedItems
+- name: createFundraisingPageFeedItem
+  description: Create a FeedItem (Comment) for specified Fundraising Page
+  method: POST
+  path: /fundraising-pages/{fundraising_page}/feed-items
+  tags:
+  - Feed Item
+  source_operation: openapi/gofundme-pro-api-openapi.json#createFundraisingPageFeedItem
+- name: fetchFundraisingPageFitnessMetrics
+  description: Retrieves fitness activity tracking data for a fundraising page. Returns tracking settings
+    and progress metrics for P2P Challenge campaign fundraisers. Returns 204 if the fundraiser has no
+    GFM consumer mapping or no fitn
+  method: GET
+  path: /fundraising-pages/{fundraising_page}/fitness-metrics
+  tags:
+  - Fundraising Page
+  source_operation: openapi/gofundme-pro-api-openapi.json#fetchFundraisingPageFitnessMetrics
+- name: fetchFundraisingPageMoments
+  description: Retrieves the P2P moment a fundraiser selected at create time and their submitted answers
+    to the moment's questions. Returns 204 if the fundraiser has no GFM consumer mapping or no moment
+    data.
+  method: GET
+  path: /fundraising-pages/{fundraising_page}/moments
+  tags:
+  - Fundraising Page
+  source_operation: openapi/gofundme-pro-api-openapi.json#fetchFundraisingPageMoments
+- name: fetchFundraisingPageOverview
+  description: Retrieves aggregate records for the Fundraising Page's transactions.
+  method: GET
+  path: /fundraising-pages/{fundraising_page}/overview
+  tags:
+  - Fundraising Page
+  source_operation: openapi/gofundme-pro-api-openapi.json#fetchFundraisingPageOverview
+- name: listFundraisingPageSoftCredits
+  description: List Fundraising Page Soft Credits
+  method: GET
+  path: /fundraising-pages/{fundraising_page}/soft-credits
+  tags:
+  - SoftCredit
+  source_operation: openapi/gofundme-pro-api-openapi.json#listFundraisingPageSoftCredits
+- name: listFundraisingPageStories
+  description: List Fundraising Page Stories
+  method: GET
+  path: /fundraising-pages/{fundraising_page}/stories
+  tags:
+  - Story
+  source_operation: openapi/gofundme-pro-api-openapi.json#listFundraisingPageStories
+- name: createFundraisingPageTransfer
+  description: Transfer specified Fundraising Page
+  method: POST
+  path: /fundraising-pages/{fundraising_page}/transfers
+  tags:
+  - Fundraising Page Transfer
+  source_operation: openapi/gofundme-pro-api-openapi.json#createFundraisingPageTransfer
+- name: listFundraisingPageUpdates
+  description: Lists a fundraising page's progress updates. Used by the fundraiser dashboard Updates tab
+    (search/filter).
+  method: GET
+  path: /fundraising-pages/{fundraising_page}/updates
+  tags:
+  - Update
+  source_operation: openapi/gofundme-pro-api-openapi.json#listFundraisingPageUpdates
+- name: createFundraisingPageUpdate
+  description: Creates a progress update on a fundraising page. Used by the fundraiser dashboard Updates
+    tab to post an update to family and friends.
+  method: POST
+  path: /fundraising-pages/{fundraising_page}/updates
+  tags:
+  - Update
+  source_operation: openapi/gofundme-pro-api-openapi.json#createFundraisingPageUpdate
+- name: listFundraisingPageDonorEmails
+  description: Returns unique non-empty email addresses from donations to this fundraising page. Each
+    email appears only once, even if the donor made multiple donations. Donations without email are intentionally
+    excluded. Pagination co
+  method: GET
+  path: /fundraising-pages/{id}/donor-emails
+  tags:
+  - Supporters
+  source_operation: openapi/gofundme-pro-api-openapi.json#listFundraisingPageDonorEmails
+- name: listFundraisingPageDonors
+  description: Returns all successful donations to the fundraising page. Each donation/order is a separate
+    entry, so supporters who made multiple donations appear multiple times. Includes anonymous donations
+    and offline donations witho
+  method: GET
+  path: /fundraising-pages/{id}/donors
+  tags:
+  - Supporters
+  source_operation: openapi/gofundme-pro-api-openapi.json#listFundraisingPageDonors
+- name: listFundraisingPagePastDonors
+  description: Returns one row per supporter (deduplicated by customers_id + charity_id) who made at least
+    one successful donation to another page owned by the current fundraiser in this organization. Offline
+    donations and donations wi
+  method: GET
+  path: /fundraising-pages/{id}/past-donors
+  tags:
+  - Supporters
+  source_operation: openapi/gofundme-pro-api-openapi.json#listFundraisingPagePastDonors
+- name: updateFundraisingTeamPolicy
+  description: Update specified Fundraising Team Policy
+  method: PUT
+  path: /fundraising-team-policies/{fundraising_team_policy}
+  tags:
+  - Fundraising Team Policy
+  source_operation: openapi/gofundme-pro-api-openapi.json#updateFundraisingTeamPolicy
+- name: fetchFundraisingTeam
+  description: Retrieves a specified Fundraising Team
+  method: GET
+  path: /fundraising-teams/{fundraising_team}
+  tags:
+  - Fundraising Team
+  source_operation: openapi/gofundme-pro-api-openapi.json#fetchFundraisingTeam
+- name: updateFundraisingTeam
+  description: Update a Fundraising Team
+  method: PUT
+  path: /fundraising-teams/{fundraising_team}
+  tags:
+  - Fundraising Team
+  source_operation: openapi/gofundme-pro-api-openapi.json#updateFundraisingTeam
+- name: deleteFundraisingTeam
+  description: Delete a Fundraising Team
+  method: DELETE
+  path: /fundraising-teams/{fundraising_team}
+  tags:
+  - Fundraising Team
+  source_operation: openapi/gofundme-pro-api-openapi.json#deleteFundraisingTeam
+- name: listFundraisingTeamAnswers
+  description: Retrieves list of all Answers related to specified Fundraising Team
+  method: GET
+  path: /fundraising-teams/{fundraising_team}/answers
+  tags:
+  - Answer
+  source_operation: openapi/gofundme-pro-api-openapi.json#listFundraisingTeamAnswers
+- name: createFundraisingTeamAnswer
+  description: Create an Answer for a Fundraising Team
+  method: POST
+  path: /fundraising-teams/{fundraising_team}/answers
+  tags:
+  - Answer
+  source_operation: openapi/gofundme-pro-api-openapi.json#createFundraisingTeamAnswer
+- name: listFundraisingTeamDomainSlugs
+  description: Retrieves a list of all Domain Slugs for specified Fundraising Team
+  method: GET
+  path: /fundraising-teams/{fundraising_team}/domain-slugs
+  tags:
+  - Domain Slug
+  source_operation: openapi/gofundme-pro-api-openapi.json#listFundraisingTeamDomainSlugs
+- name: createFundraisingTeamDomainSlugs
+  description: Create a Domain Slug for the specified Fundraising Team
+  method: POST
+  path: /fundraising-teams/{fundraising_team}/domain-slugs
+  tags:
+  - Domain Slug
+  source_operation: openapi/gofundme-pro-api-openapi.json#createFundraisingTeamDomainSlugs
+- name: listFundraisingTeamFeedItems
+  description: List all Feed Items for specified Fundraising Team
+  method: GET
+  path: /fundraising-teams/{fundraising_team}/feed-items
+  tags:
+  - Feed Item
+  source_operation: openapi/gofundme-pro-api-openapi.json#listFundraisingTeamFeedItems
+- name: createFundraisingTeamFeedItem
+  description: Create a FeedItem (Comment) for specified Fundraising Team
+  method: POST
+  path: /fundraising-teams/{fundraising_team}/feed-items
+  tags:
+  - Feed Item
+  source_operation: openapi/gofundme-pro-api-openapi.json#createFundraisingTeamFeedItem
+- name: listFundraisingTeamFundraisingPages
+  description: List all Fundraising Pages for specified Fundraising Team
+  method: GET
+  path: /fundraising-teams/{fundraising_team}/fundraising-pages
+  tags:
+  - Fundraising Page
+  source_operation: openapi/gofundme-pro-api-openapi.json#listFundraisingTeamFundraisingPages
+- name: createFundraisingTeamFundraisingPage
+  description: Create new Fundraising Team Fundraising Page
+  method: POST
+  path: /fundraising-teams/{fundraising_team}/fundraising-pages
+  tags:
+  - Fundraising Page
+  source_operation: openapi/gofundme-pro-api-openapi.json#createFundraisingTeamFundraisingPage
+- name: fetchFundraisingTeamOverview
+  description: Retrieves aggregate records for the Fundraising Page's transactions.
+  method: GET
+  path: /fundraising-teams/{fundraising_team}/overview
+  tags:
+  - Fundraising Team
+  source_operation: openapi/gofundme-pro-api-openapi.json#fetchFundraisingTeamOverview
+- name: listFundraisingTeamSoftCredits
+  description: List Fundraising Team Soft Credits
+  method: GET
+  path: /fundraising-teams/{fundraising_team}/soft-credits
+  tags:
+  - SoftCredit
+  source_operation: openapi/gofundme-pro-api-openapi.json#listFundraisingTeamSoftCredits
+- name: listFundraisingTeamStories
+  description: List Fundraising Team Stories
+  method: GET
+  path: /fundraising-teams/{fundraising_team}/stories
+  tags:
+  - Story
+  source_operation: openapi/gofundme-pro-api-openapi.json#listFundraisingTeamStories
+- name: transferFundraisingTeam
+  description: Transfer a Fundraising Team to fundraising_team or campaign.
+  method: POST
+  path: /fundraising-teams/{fundraising_team}/transfers
+  tags:
+  - Fundraising Team Transfer
+  source_operation: openapi/gofundme-pro-api-openapi.json#transferFundraisingTeam
+- name: listFundraisingTeamUpdates
+  description: Lists a fundraising team's progress updates. Used by the team dashboard Updates tab (search/filter).
+  method: GET
+  path: /fundraising-teams/{fundraising_team}/updates
+  tags:
+  - Update
+  source_operation: openapi/gofundme-pro-api-openapi.json#listFundraisingTeamUpdates
+- name: createFundraisingTeamUpdate
+  description: Creates a progress update on a fundraising team. Used by the team dashboard Updates tab
+    to post an update to family and friends.
+  method: POST
+  path: /fundraising-teams/{fundraising_team}/updates
+  tags:
+  - Update
+  source_operation: openapi/gofundme-pro-api-openapi.json#createFundraisingTeamUpdate
+- name: listFundraisingTeamDonors
+  description: Returns all successful donations to the fundraising team. Each donation/order is a separate
+    entry, so supporters who made multiple donations appear multiple times. Includes anonymous donations
+    and offline donations witho
+  method: GET
+  path: /fundraising-teams/{id}/donors
+  tags:
+  - Supporters
+  source_operation: openapi/gofundme-pro-api-openapi.json#listFundraisingTeamDonors
+- name: listFundraisingTeamPastDonors
+  description: Returns one row per supporter (deduplicated by customers_id + charity_id) who made at least
+    one successful donation to another team owned by the current team lead in this organization (the current
+    team is excluded). Offl
+  method: GET
+  path: /fundraising-teams/{id}/past-donors
+  tags:
+  - Supporters
+  source_operation: openapi/gofundme-pro-api-openapi.json#listFundraisingTeamPastDonors
+- name: listSubteams
+  description: Retrieves a list of all SubTeams for specified Fundraising Teams
+  method: GET
+  path: /fundraising-teams/{id}/subteams
+  tags:
+  - Fundraising Team
+  source_operation: openapi/gofundme-pro-api-openapi.json#listSubteams
+- name: deleteLike
+  description: Delete a Like
+  method: DELETE
+  path: /likes/{like}
+  tags:
+  - Like
+  source_operation: openapi/gofundme-pro-api-openapi.json#deleteLike
+- name: fetchMemberMe
+  description: return information about Member
+  method: GET
+  path: /me
+  tags:
+  - Member
+  source_operation: openapi/gofundme-pro-api-openapi.json#fetchMemberMe
+- name: listMemberCampaigns
+  description: Fetches a collection of Campaigns to which this Member has administration access
+  method: GET
+  path: /members/{member_id}/campaigns
+  tags:
+  - Member
+  source_operation: openapi/gofundme-pro-api-openapi.json#listMemberCampaigns
+- name: listMemberOrganizations
+  description: Fetches a collection of Organizations to which this Member has administration access
+  method: GET
+  path: /members/{member_id}/organizations
+  tags:
+  - Member
+  source_operation: openapi/gofundme-pro-api-openapi.json#listMemberOrganizations
+- name: listMemberFundraisingPages
+  description: List all Fundraising Pages for specified Member
+  method: GET
+  path: /members/{member}/fundraising-pages
+  tags:
+  - Fundraising Page
+  source_operation: openapi/gofundme-pro-api-openapi.json#listMemberFundraisingPages
+- name: listMemberRecurringDonationPlans
+  description: Retrieves a list of all Recurring Donation Plans for a specific Member
+  method: GET
+  path: /members/{member}/recurring-donation-plans
+  tags:
+  - Recurring Donation Plan
+  source_operation: openapi/gofundme-pro-api-openapi.json#listMemberRecurringDonationPlans
+- name: listMemberRoles
+  description: Lists all the roles that are available to the Member.
+  method: GET
+  path: /members/{member}/roles
+  tags:
+  - Role
+  source_operation: openapi/gofundme-pro-api-openapi.json#listMemberRoles
+- name: disableOrganizationChannel
+  description: Disables a Channel for the specified Organization
+  method: PUT
+  path: /organization-channels/{id}/disable
+  tags:
+  - Organization Channel
+  source_operation: openapi/gofundme-pro-api-openapi.json#disableOrganizationChannel
+- name: fetchOrganizationEngagementSettings
+  description: Fetch Engagement Settings for specified Organization
+  method: GET
+  path: /organizations/{id}/engagement-settings
+  tags:
+  - Engagement Settings
+  source_operation: openapi/gofundme-pro-api-openapi.json#fetchOrganizationEngagementSettings
+- name: listOrganizationStaffNotificationSettings
+  description: Get Staff Notification Settings for given Organization
+  method: GET
+  path: /organizations/{id}/staff-notification-settings
+  tags:
+  - Staff Notification Setting
+  source_operation: openapi/gofundme-pro-api-openapi.json#listOrganizationStaffNotificationSettings
+- name: createOrganizationStaffNotificationSetting
+  description: Create a Staff Notification Setting for an Organization
+  method: POST
+  path: /organizations/{id}/staff-notification-settings
+  tags:
+  - Staff Notification Setting
+  source_operation: openapi/gofundme-pro-api-openapi.json#createOrganizationStaffNotificationSetting
+- name: fetchPaypalStripePayouts
+  description: Fetch all payouts for a specific Organization on a given payout date
+  method: GET
+  path: /organizations/{org_id}/payouts/{payout_type}
+  tags:
+  - Payouts
+  source_operation: openapi/gofundme-pro-api-openapi.json#fetchPaypalStripePayouts
+- name: listAsrMessages
+  description: Retrieves an array with recipientsIds, template_name, year and message_id for Annual Summary
+    Report wrt Supporters for a specific Organization
+  method: GET
+  path: /organizations/{org_id}/supporters/{supporter_id}/messages/asrs
+  tags:
+  - Supporter
+  source_operation: openapi/gofundme-pro-api-openapi.json#listAsrMessages
+- name: getOrganizationAsrBatch
+  description: Get the ASR batch for an organization for a specific year. Returns the single batch or
+    404 if none exists.
+  method: GET
+  path: /organizations/{organization_id}/annual-summary-reports/{year}
+  tags:
+  - Annual Summary
+  - Organization
+  source_operation: openapi/gofundme-pro-api-openapi.json#getOrganizationAsrBatch
+- name: generateOrganizationAsrBatch
+  description: Generate ASR PDFs for all supporters in an organization who made transactions in the specified
+    year. This is an asynchronous operation.
+  method: POST
+  path: /organizations/{organization_id}/annual-summary-reports/{year}
+  tags:
+  - Annual Summary
+  - Organization
+  source_operation: openapi/gofundme-pro-api-openapi.json#generateOrganizationAsrBatch
+- name: updateOrganizationAsrBatchSchedule
+  description: Update the scheduled delivery time and/or audience filters for an ASR batch. Both parameters
+    are optional - you can update schedule only, audience only, or both together. The batch must be in
+    'scheduled' or 'pending' sta
+  method: PUT
+  path: /organizations/{organization_id}/annual-summary-reports/{year}/schedule
+  tags:
+  - Annual Summary
+  - Organization
+  source_operation: openapi/gofundme-pro-api-openapi.json#updateOrganizationAsrBatchSchedule
+- name: downloadBatchAsrPdf
+  description: Get a presigned download URL for a supporter's PDF from a completed batch
+  method: GET
+  path: /organizations/{organization_id}/annual-summary-reports/{year}/supporters/{supporter_id}/download
+  tags:
+  - Annual Summary
+  - Organization
+  source_operation: openapi/gofundme-pro-api-openapi.json#downloadBatchAsrPdf
+- name: uploadBrandkitImage
+  description: Upload an image or array of images to the organization's brandkit
+  method: POST
+  path: /organizations/{organization_id}/api-inference/brandkit/image
+  tags:
+  - Brandkit
+  source_operation: openapi/gofundme-pro-api-openapi.json#uploadBrandkitImage
+- name: deleteBrandkitImage
+  description: Delete one or more images from the organization's brandkit
+  method: DELETE
+  path: /organizations/{organization_id}/api-inference/brandkit/image
+  tags:
+  - Brandkit
+  source_operation: openapi/gofundme-pro-api-openapi.json#deleteBrandkitImage
+- name: updateBrandkitImage
+  description: Update properties of an existing image in the organization's brandkit (database only)
+  method: PUT
+  path: /organizations/{organization_id}/api-inference/brandkit/image/{bk_id}
+  tags:
+  - Brandkit
+  source_operation: openapi/gofundme-pro-api-openapi.json#updateBrandkitImage
+- name: listBrandkitImages
+  description: Retrieves paginated brandkit images for an organization
+  method: GET
+  path: /organizations/{organization_id}/api-inference/brandkit/images
+  tags:
+  - Brandkit
+  source_operation: openapi/gofundme-pro-api-openapi.json#listBrandkitImages
+- name: 596c5b8cfa0ea0d1c97a7070481275d6
+  description: Retrieve the Chariot integration details for a specific organization
+  method: GET
+  path: /organizations/{organization_id}/chariot-integration
+  tags:
+  - Organizations
+  - Chariot
+  source_operation: openapi/gofundme-pro-api-openapi.json#596c5b8cfa0ea0d1c97a7070481275d6
+- name: dcd0d2ca7a6d61ec1ff4362d73f6e699
+  description: Create a new Chariot integration for the specified organization
+  method: POST
+  path: /organizations/{organization_id}/chariot-integration
+  tags:
+  - Organizations
+  - Chariot
+  source_operation: openapi/gofundme-pro-api-openapi.json#dcd0d2ca7a6d61ec1ff4362d73f6e699
+- name: 57eca9dca1c2479d1e46b9313f271cfc
+  description: Remove the Chariot integration for the specified organization
+  method: DELETE
+  path: /organizations/{organization_id}/chariot-integration
+  tags:
+  - Organizations
+  - Chariot
+  source_operation: openapi/gofundme-pro-api-openapi.json#57eca9dca1c2479d1e46b9313f271cfc
+- name: listOrganizationFeedItems
+  description: List all Feed Items for specified Organization (Direct)
+  method: GET
+  path: /organizations/{organization_id}/feed-items
+  tags:
+  - Feed Item
+  source_operation: openapi/gofundme-pro-api-openapi.json#listOrganizationFeedItems
+- name: listOrganizationFeedItemsScoped
+  description: List all Feed Items for specified Organization (Scoped)
+  method: GET
+  path: /organizations/{organization_id}/feed-items/{scope}
+  tags:
+  - Feed Item
+  source_operation: openapi/gofundme-pro-api-openapi.json#listOrganizationFeedItemsScoped
+- name: updateNpoPage
+  description: Updates the GoFundMe NPO page profile information for an organization
+  method: PUT
+  path: /organizations/{organization_id}/gfm-npo-page
+  tags:
+  - GFM NPO Page
+  source_operation: openapi/gofundme-pro-api-openapi.json#updateNpoPage
+- name: downloadDonationsReport
+  description: Downloads the most recent donations report CSV file for an organization
+  method: GET
+  path: /organizations/{organization_id}/gfm-npo-page/download-donations-report
+  tags:
+  - Organizations
+  - GFM NPO Page
+  - Reports
+  source_operation: openapi/gofundme-pro-api-openapi.json#downloadDonationsReport
+- name: downloadFundraisersReport
+  description: Downloads the most recent fundraisers report CSV file for an organization
+  method: GET
+  path: /organizations/{organization_id}/gfm-npo-page/download-fundraisers-report
+  tags:
+  - Organizations
+  - GFM NPO Page
+  - Reports
+  source_operation: openapi/gofundme-pro-api-openapi.json#downloadFundraisersReport
+- name: updateCharityIncludeDefaultPhotos
+  description: Updates whether the charity includes default photos
+  method: PUT
+  path: /organizations/{organization_id}/gfm-npo-page/include-default-photos
+  tags:
+  - GFM NPO Page
+  source_operation: openapi/gofundme-pro-api-openapi.json#updateCharityIncludeDefaultPhotos
+- name: updateCharityNpoProfileOptIn
+  description: Sets whether the charity has opted into the redesigned NPO profile experience.
+  method: PUT
+  path: /organizations/{organization_id}/gfm-npo-page/npo-profile-opt-in
+  tags:
+  - GFM NPO Page
+  source_operation: openapi/gofundme-pro-api-openapi.json#updateCharityNpoProfileOptIn
+- name: updateCharityFundraiserPhotoStatus
+  description: Updates the status of a charity fundraiser photo
+  method: PUT
+  path: /organizations/{organization_id}/gfm-npo-page/photo-status
+  tags:
+  - GFM NPO Page
+  source_operation: openapi/gofundme-pro-api-openapi.json#updateCharityFundraiserPhotoStatus
+- name: updateGfmProStatus
+  description: Updates the GoFundMe Pro status for the organization's NPO account.
+  method: PUT
+  path: /organizations/{organization_id}/gfm-npo-page/pro-status
+  tags:
+  - GFM NPO Page
+  source_operation: openapi/gofundme-pro-api-openapi.json#updateGfmProStatus
+- name: updateCharitySettings
+  description: Updates the GoFundMe charity settings for an organization
+  method: PUT
+  path: /organizations/{organization_id}/gfm-npo-page/settings
+  tags:
+  - GFM NPO Page
+  source_operation: openapi/gofundme-pro-api-openapi.json#updateCharitySettings
+- name: uploadGfmNpoImage
+  description: Creates a presigned URL, uploads the file to S3, and finalizes the image in the GFM brand
+    kit.
+  method: POST
+  path: /organizations/{organization_id}/gfm-npo-page/upload-image
+  tags:
+  - GFM NPO Page
+  source_operation: openapi/gofundme-pro-api-openapi.json#uploadGfmNpoImage
+- name: showSupporterForAuthedMember
+  description: Retrieves the Supporter record for the authenticated Member within the specified Organization.
+  method: GET
+  path: /organizations/{organization_id}/supporters/me
+  tags:
+  - Supporter
+  source_operation: openapi/gofundme-pro-api-openapi.json#showSupporterForAuthedMember
+- name: sendSupporterAnnualSummaryEmail
+  description: Send an annual summary email to a specific supporter. This is an admin-initiated action
+    that does not require a bulk batch send.
+  method: POST
+  path: /organizations/{organization_id}/supporters/{supporter_id}/annual-summary
+  tags:
+  - Annual Summary
+  - Organization
+  - Supporter
+  source_operation: openapi/gofundme-pro-api-openapi.json#sendSupporterAnnualSummaryEmail
+- name: listOrganizationActivities
+  description: Retrieves a list of all Activities related to the specified Organization
+  method: GET
+  path: /organizations/{organization}/activity
+  tags:
+  - Activity
+  source_operation: openapi/gofundme-pro-api-openapi.json#listOrganizationActivities
+- name: listOrganizationAnswers
+  description: Retrieves list of all Answers related to specified Organization
+  method: GET
+  path: /organizations/{organization}/answers
+  tags:
+  - Answer
+  source_operation: openapi/gofundme-pro-api-openapi.json#listOrganizationAnswers
+- name: updateOrganizationBranding
+  description: Create/Update Organization Branding
+  method: PUT
+  path: /organizations/{organization}/branding
+  tags:
+  - Branding
+  source_operation: openapi/gofundme-pro-api-openapi.json#updateOrganizationBranding
+- name: listOrganizationCampaigns
+  description: Retrieves a list of all Campaigns for a specific Organization
+  method: GET
+  path: /organizations/{organization}/campaigns
+  tags:
+  - Campaign
+  source_operation: openapi/gofundme-pro-api-openapi.json#listOrganizationCampaigns
+- name: listOrganizationChannel
+  description: Retrieves a list of all Channels for the specified Organization
+  method: GET
+  path: /organizations/{organization}/channels
+  tags:
+  - Organization Channel
+  source_operation: openapi/gofundme-pro-api-openapi.json#listOrganizationChannel
+- name: listOrganizationDedications
+  description: List Organization Dedications
+  method: GET
+  path: /organizations/{organization}/dedications
+  tags:
+  - Dedication
+  source_operation: openapi/gofundme-pro-api-openapi.json#listOrganizationDedications
+- name: listOrganizationDesignations
+  description: Retrieves a list of all Designations related to the specified Organization
+  method: GET
+  path: /organizations/{organization}/designations
+  tags:
+  - Designation
+  source_operation: openapi/gofundme-pro-api-openapi.json#listOrganizationDesignations
+- name: createOrganizationDesignation
+  description: Create Designation for specified Organization
+  method: POST
+  path: /organizations/{organization}/designations
+  tags:
+  - Designation
+  source_operation: openapi/gofundme-pro-api-openapi.json#createOrganizationDesignation
+- name: listOrganizationDomainSlugs
+  description: Retrieves a list of all Domain Slugs for specified Organization
+  method: GET
+  path: /organizations/{organization}/domain-slugs
+  tags:
+  - Domain Slug
+  source_operation: openapi/gofundme-pro-api-openapi.json#listOrganizationDomainSlugs
+- name: listOrganizationFundraisingPages
+  description: List all Fundraising Pages for specified Organization
+  method: GET
+  path: /organizations/{organization}/fundraising-pages
+  tags:
+  - Fundraising Page
+  source_operation: openapi/gofundme-pro-api-openapi.json#listOrganizationFundraisingPages
+- name: listOrganizationFundraisingTeamPolicies
+  description: Retrieves a list of all Fundraising Team Policies for the specified Orgnaization
+  method: GET
+  path: /organizations/{organization}/fundraising-team-policies
+  tags:
+  - Fundraising Team Policy
+  source_operation: openapi/gofundme-pro-api-openapi.json#listOrganizationFundraisingTeamPolicies
+- name: listOrganizationFundraisingTeams
+  description: Retrieves a list of all Fundraising Teams for the specified Organization
+  method: GET
+  path: /organizations/{organization}/fundraising-teams
+  tags:
+  - Fundraising Team
+  source_operation: openapi/gofundme-pro-api-openapi.json#listOrganizationFundraisingTeams
+- name: listOrganizationQuestions
+  description: Retrieves a list of all questions for a specific Organization
+  method: GET
+  path: /organizations/{organization}/questions
+  tags:
+  - Question
+  source_operation: openapi/gofundme-pro-api-openapi.json#listOrganizationQuestions
+- name: listOrganizationRecurringDonationPlanHistory
+  description: Retrieve a list of all the Recurring Donation Plan History for the given organization.
+  method: GET
+  path: /organizations/{organization}/recurring-donation-history
+  tags:
+  - Recurring Donation Plan History
+  source_operation: openapi/gofundme-pro-api-openapi.json#listOrganizationRecurringDonationPlanHistory
+- name: listOrganizationRecurringDonationPlans
+  description: Retrieves a list of all Recurring Donation Plans for a specific Organization
+  method: GET
+  path: /organizations/{organization}/recurring-donation-plans
+  tags:
+  - Recurring Donation Plan
+  source_operation: openapi/gofundme-pro-api-openapi.json#listOrganizationRecurringDonationPlans
+- name: listOrganizationRegistrations
+  description: Retrieves a list of all Registrations for a specific Organization
+  method: GET
+  path: /organizations/{organization}/registrations
+  tags:
+  - Registration
+  source_operation: openapi/gofundme-pro-api-openapi.json#listOrganizationRegistrations
+- name: listOrganizationRestrictedCountries
+  description: Retrieves a list of all blacklisted countries for the specified Organzation
+  method: GET
+  path: /organizations/{organization}/restricted-countries
+  tags:
+  - Restricted Country
+  source_operation: openapi/gofundme-pro-api-openapi.json#listOrganizationRestrictedCountries
+- name: listOrganizationRoles
+  description: Lists all the Roles that are available to the Organization.
+  method: GET
+  path: /organizations/{organization}/roles
+  tags:
+  - Role
+  source_operation: openapi/gofundme-pro-api-openapi.json#listOrganizationRoles
+- name: listOrganizationSourceTrackingCodes
+  description: Lists all Source Tracking Codes which are managed by the specified Organization.
+  method: GET
+  path: /organizations/{organization}/source-tracking-codes
+  tags:
+  - Source Tracking Codes
+  source_operation: openapi/gofundme-pro-api-openapi.json#listOrganizationSourceTrackingCodes
+- name: listOrganizationSupporters
+  description: Retrieves a list of all Supporters for a specific Organization
+  method: GET
+  path: /organizations/{organization}/supporters
+  tags:
+  - Supporter
+  source_operation: openapi/gofundme-pro-api-openapi.json#listOrganizationSupporters
+- name: createOrganizationSupporter
+  description: Create a Supporter for an Organization
+  method: POST
+  path: /organizations/{organization}/supporters
+  tags:
+  - Supporter
+  source_operation: openapi/gofundme-pro-api-openapi.json#createOrganizationSupporter
+- name: listOrganizationTicketTypes
+  description: Retrieve a list of all the Ticket Types for the given Organization.
+  method: GET
+  path: /organizations/{organization}/ticket-types
+  tags:
+  - Ticket Type
+  source_operation: openapi/gofundme-pro-api-openapi.json#listOrganizationTicketTypes
+- name: listOrganizationTransactionItems
+  description: Fetch Transaction Items for specific Organization.
+  method: GET
+  path: /organizations/{organization}/transaction-items
+  tags:
+  - Transaction Item
+  source_operation: openapi/gofundme-pro-api-openapi.json#listOrganizationTransactionItems
+- name: listOrganizationTransactions
+  description: List Organization Transactions
+  method: GET
+  path: /organizations/{organization}/transactions
+  tags:
+  - Transaction
+  source_operation: openapi/gofundme-pro-api-openapi.json#listOrganizationTransactions
+- name: listOrganizationWhitelistedCurrencies
+  description: List all Whitelisted Currencies for specified Organization
+  method: GET
+  path: /organizations/{organization}/whitelisted-currencies
+  tags:
+  - Whitelisted Currency
+  source_operation: openapi/gofundme-pro-api-openapi.json#listOrganizationWhitelistedCurrencies
+- name: createPromoCodeConfiguration
+  description: Create Promo Code Configuration
+  method: POST
+  path: /promo-code-configurations
+  tags:
+  - Promo Code Configuration
+  source_operation: openapi/gofundme-pro-api-openapi.json#createPromoCodeConfiguration
+- name: deletePromoCodeConfiguration
+  description: Delete Promo Code Configuration
+  method: DELETE
+  path: /promo-code-configurations/{promo_code_configuration}
+  tags:
+  - Promo Code Configuration
+  source_operation: openapi/gofundme-pro-api-openapi.json#deletePromoCodeConfiguration
+- name: fetchPromoCode
+  description: Fetch specified Promo Code
+  method: GET
+  path: /promo-codes/{promo_code}
+  tags:
+  - Promo Code
+  source_operation: openapi/gofundme-pro-api-openapi.json#fetchPromoCode
+- name: updatePromoCode
+  description: Update a Promo Code
+  method: PUT
+  path: /promo-codes/{promo_code}
+  tags:
+  - Promo Code
+  source_operation: openapi/gofundme-pro-api-openapi.json#updatePromoCode
+- name: listPromoCodeConfigurations
+  description: Retrieves a list of all Promo Code Configurations for the specified Promo Code
+  method: GET
+  path: /promo-codes/{promo_code}/promo-code-configurations
+  tags:
+  - Promo Code Configuration
+  source_operation: openapi/gofundme-pro-api-openapi.json#listPromoCodeConfigurations
+- name: fetchQuestion
+  description: Fetch specified Question
+  method: GET
+  path: /questions/{question}
+  tags:
+  - Question
+  source_operation: openapi/gofundme-pro-api-openapi.json#fetchQuestion
+- name: updateQuestion
+  description: Update a Question
+  method: PUT
+  path: /questions/{question}
+  tags:
+  - Question
+  source_operation: openapi/gofundme-pro-api-openapi.json#updateQuestion
+- name: deleteQuestion
+  description: Delete Question
+  method: DELETE
+  path: /questions/{question}
+  tags:
+  - Question
+  source_operation: openapi/gofundme-pro-api-openapi.json#deleteQuestion
+- name: listQuestionAnswers
+  description: Retrieves list of all Answers related to specified Question
+  method: GET
+  path: /questions/{question}/answers
+  tags:
+  - Answer
+  source_operation: openapi/gofundme-pro-api-openapi.json#listQuestionAnswers
+- name: reprocessRecurringDonationPlanTransaction
+  description: Reprocess a Transactions for a Recurring Donation Plan
+  method: POST
+  path: /recurring-donation-plans/{id}/transactions/{transaction_id}/reprocess
+  tags:
+  - Transaction
+  source_operation: openapi/gofundme-pro-api-openapi.json#reprocessRecurringDonationPlanTransaction
+- name: fetchRecurringDonationPlan
+  description: Fetch specified Recurring Donation Plan
+  method: GET
+  path: /recurring-donation-plans/{recurring_donation_plan}
+  tags:
+  - Recurring Donation Plan
+  source_operation: openapi/gofundme-pro-api-openapi.json#fetchRecurringDonationPlan
+- name: listRecurringDonationPlanHistory
+  description: List the history for a Recurring Donation Plan
+  method: GET
+  path: /recurring-donation-plans/{recurring_donation_plan}/history
+  tags:
+  - Recurring Donation Plan History
+  source_operation: openapi/gofundme-pro-api-openapi.json#listRecurringDonationPlanHistory
+- name: listRecurringDonationPlanTransactions
+  description: List Recurring Donation Plan Transactions
+  method: GET
+  path: /recurring-donation-plans/{recurring_donation_plan}/transactions
+  tags:
+  - Transaction
+  source_operation: openapi/gofundme-pro-api-openapi.json#listRecurringDonationPlanTransactions
+- name: fetchRegistration
+  description: Retrieves Registrations from ID
+  method: GET
+  path: /registrations/{registration}
+  tags:
+  - Registration
+  source_operation: openapi/gofundme-pro-api-openapi.json#fetchRegistration
+- name: updateRegistration
+  description: Updates an existing Registration
+  method: PUT
+  path: /registrations/{registration}
+  tags:
+  - Registration
+  source_operation: openapi/gofundme-pro-api-openapi.json#updateRegistration
+- name: listRegistrationAnswers
+  description: Retrieves list of all Answers related to specified Registration
+  method: GET
+  path: /registrations/{registration}/answers
+  tags:
+  - Answer
+  source_operation: openapi/gofundme-pro-api-openapi.json#listRegistrationAnswers
+- name: createRegistrationAnswer
+  description: Create an Answer for a Registration
+  method: POST
+  path: /registrations/{registration}/answers
+  tags:
+  - Answer
+  source_operation: openapi/gofundme-pro-api-openapi.json#createRegistrationAnswer
+- name: updateReprocessAttemptInfo
+  description: Update a Reprocess Attempt Info Record
+  method: PUT
+  path: /reprocess-attempt-info/{reprocess_attempt_info}
+  tags:
+  - Transaction
+  source_operation: openapi/gofundme-pro-api-openapi.json#updateReprocessAttemptInfo
+- name: a8ae5c40769c7673b17b5abbc5e48ab7
+  description: Create a new magic-link batch (async, mint-only). Dispatches synchronously so the controller
+    can return the batch_id and acceptance summary immediately (202 Accepted); the actual link-minting
+    is handled by the async orch
+  method: POST
+  path: /scoped-magic-link/batch
+  tags:
+  - MagicLink
+  source_operation: openapi/gofundme-pro-api-openapi.json#a8ae5c40769c7673b17b5abbc5e48ab7
+- name: c68f6111a6e1841596da2c5a55369411
+  description: 'Return the rollup status for a batch. Unscoped findOrFail is intentional: privateEndpoint
+    + app-token-only gate the route and the id is the batch''s own surrogate key (not a tenant resource),
+    so there is no cross-org IDOR'
+  method: GET
+  path: /scoped-magic-link/batch/{batch}
+  tags:
+  - MagicLink
+  source_operation: openapi/gofundme-pro-api-openapi.json#c68f6111a6e1841596da2c5a55369411
+- name: getSocialVideoByEntity
+  description: Retrieves the status and details of a social video for a specific entity
+  method: GET
+  path: /social-videos/entity
+  tags:
+  - Social Video
+  source_operation: openapi/gofundme-pro-api-openapi.json#getSocialVideoByEntity
+- name: updateStory
+  description: Update Story
+  method: PUT
+  path: /stories/{story}
+  tags:
+  - Story
+  source_operation: openapi/gofundme-pro-api-openapi.json#updateStory
+- name: listStoryLikes
+  description: Retrieves a list of all Likes made for the specified Story
+  method: GET
+  path: /stories/{story}/likes
+  tags:
+  - Like
+  source_operation: openapi/gofundme-pro-api-openapi.json#listStoryLikes
+- name: createStoryLike
+  description: Create a Like for the specified Story
+  method: POST
+  path: /stories/{story}/likes
+  tags:
+  - Like
+  source_operation: openapi/gofundme-pro-api-openapi.json#createStoryLike
+- name: 526e41d930109fdb804ed379c5d373c6
+  description: Requires privateEndpoint auth and organization tag 'custom-embedded-code'. When published=true,
+    returns the latest published version; otherwise returns the latest version regardless of status.
+  method: GET
+  path: /studio-campaigns/{campaign_id}/js-customizations/{block_id}
+  tags:
+  - Campaign Studio
+  source_operation: openapi/gofundme-pro-api-openapi.json#526e41d930109fdb804ed379c5d373c6
+- name: 2ed3761e4bc48c4c1cf815df20fecbd7
+  description: Requires privateEndpoint auth and admin authorization. Organization must have 'custom-embedded-code'
+    tag. If latest is published, creates a new draft version; otherwise updates existing draft in place.
+    Security scan is o
+  method: PUT
+  path: /studio-campaigns/{campaign_id}/js-customizations/{block_id}
+  tags:
+  - Campaign Studio
+  source_operation: openapi/gofundme-pro-api-openapi.json#2ed3761e4bc48c4c1cf815df20fecbd7
+- name: 9a7ad31a4551cb43a41cd356ddc23e68
+  description: Requires privateEndpoint auth and admin authorization. Organization must have 'custom-embedded-code'
+    tag. Creates version 1 for the block and fails if the block already exists. Security scan is only
+    triggered if scan=1 p
+  method: POST
+  path: /studio-campaigns/{campaign_id}/js-customizations/{block_id}
+  tags:
+  - Campaign Studio
+  source_operation: openapi/gofundme-pro-api-openapi.json#9a7ad31a4551cb43a41cd356ddc23e68
+- name: createStudioCampaignSocialVideo
+  description: Creates a new social video for a studio campaign. The API automatically extracts most data
+    from the campaign, with client-provided values treated as overrides.
+  method: POST
+  path: /studio-campaigns/{campaign_id}/share-settings/social-videos
+  tags:
+  - Studio Campaign
+  - Social Video
+  source_operation: openapi/gofundme-pro-api-openapi.json#createStudioCampaignSocialVideo
+- name: getStudioCampaignSocialVideo
+  description: Retrieves a specific social video for a studio campaign by persona
+  method: GET
+  path: /studio-campaigns/{campaign_id}/share-settings/social-videos/{persona}
+  tags:
+  - Studio Campaign
+  - Social Video
+  source_operation: openapi/gofundme-pro-api-openapi.json#getStudioCampaignSocialVideo
+- name: updateStudioCampaignSocialVideoStatus
+  description: Updates the enabled status of a social video for a studio campaign
+  method: PUT
+  path: /studio-campaigns/{campaign_id}/share-settings/social-videos/{persona}/status
+  tags:
+  - Studio Campaign
+  - Social Video
+  source_operation: openapi/gofundme-pro-api-openapi.json#updateStudioCampaignSocialVideoStatus
+- name: generateSupporterAnnualSummary
+  description: Generate an annual summary report PDF for the specified supporter and return a presigned
+    S3 URL for download
+  method: POST
+  path: /supporters/{supporter_id}/annual-summary
+  tags:
+  - Annual Summary
+  - Supporter
+  source_operation: openapi/gofundme-pro-api-openapi.json#generateSupporterAnnualSummary
+- name: fetchSupporter
+  description: Retrieves Supporter from ID
+  method: GET
+  path: /supporters/{supporter}
+  tags:
+  - Supporter
+  source_operation: openapi/gofundme-pro-api-openapi.json#fetchSupporter
+- name: updateSupporter
+  description: Updates an existing Supporter
+  method: PUT
+  path: /supporters/{supporter}
+  tags:
+  - Supporter
+  source_operation: openapi/gofundme-pro-api-openapi.json#updateSupporter
+- name: deleteSupporter
+  description: Delete a Supporter
+  method: DELETE
+  path: /supporters/{supporter}
+  tags:
+  - Supporter
+  source_operation: openapi/gofundme-pro-api-openapi.json#deleteSupporter
+- name: createTheme
+  description: Creates a new Theme for a Campaign
+  method: POST
+  path: /themes
+  tags:
+  - Theme
+  source_operation: openapi/gofundme-pro-api-openapi.json#createTheme
+- name: updateTheme
+  description: Update existing Theme for a Campaign
+  method: PUT
+  path: /themes/{theme}
+  tags:
+  - Theme
+  source_operation: openapi/gofundme-pro-api-openapi.json#updateTheme
+- name: fetchTicketType
+  description: Fetch a single Ticket Type resource.
+  method: GET
+  path: /ticket-types/{ticket_type}
+  tags:
+  - Ticket Type
+  source_operation: openapi/gofundme-pro-api-openapi.json#fetchTicketType
+- name: updateTicketType
+  description: Update a single Ticket Type resource.
+  method: PUT
+  path: /ticket-types/{ticket_type}
+  tags:
+  - Ticket Type
+  source_operation: openapi/gofundme-pro-api-openapi.json#updateTicketType
+- name: fetchTransaction
+  description: Retrieves a Transaction from the ID
+  method: GET
+  path: /transactions/{transaction}
+  tags:
+  - Transaction
+  source_operation: openapi/gofundme-pro-api-openapi.json#fetchTransaction
+- name: updateTransaction
+  description: Update an existing Transaction
+  method: PUT
+  path: /transactions/{transaction}
+  tags:
+  - Transaction
+  source_operation: openapi/gofundme-pro-api-openapi.json#updateTransaction
+- name: listAcknowledgements
+  description: Retrieves a list of all Acknowledgements made for the specified Transaction
+  method: GET
+  path: /transactions/{transaction}/acknowledgements
+  tags:
+  - Acknowledgement
+  source_operation: openapi/gofundme-pro-api-openapi.json#listAcknowledgements
+- name: createAcknowledgement
+  description: Create Acknowledgement for specified Transaction
+  method: POST
+  path: /transactions/{transaction}/acknowledgements
+  tags:
+  - Acknowledgement
+  source_operation: openapi/gofundme-pro-api-openapi.json#createAcknowledgement
+- name: listTransactionAnswers
+  description: Retrieves list of all Answers related to specified Transaction
+  method: GET
+  path: /transactions/{transaction}/answers
+  tags:
+  - Answer
+  source_operation: openapi/gofundme-pro-api-openapi.json#listTransactionAnswers
+- name: createTransactionDedication
+  description: Create a Dedication
+  method: POST
+  path: /transactions/{transaction}/dedications
+  tags:
+  - Dedication
+  source_operation: openapi/gofundme-pro-api-openapi.json#createTransactionDedication
+- name: createHardCreditTransfer
+  description: Creates a Hard Credit Transfer for the specified Transaction, thereby re-attributing it
+    to the new Fundraising Entity
+  method: POST
+  path: /transactions/{transaction}/hard-credit-transfers
+  tags:
+  - Hard Credit Transfer
+  source_operation: openapi/gofundme-pro-api-openapi.json#createHardCreditTransfer
+- name: listTransactionItems
+  description: Fetch Transaction Items.
+  method: GET
+  path: /transactions/{transaction}/items
+  tags:
+  - Transaction Item
+  source_operation: openapi/gofundme-pro-api-openapi.json#listTransactionItems
+- name: listTransactionReceipts
+  description: Retrieves a list of all Transaction Receipts for a specific Transaction
+  method: GET
+  path: /transactions/{transaction}/receipts
+  tags:
+  - Transaction Receipt
+  source_operation: openapi/gofundme-pro-api-openapi.json#listTransactionReceipts
+- name: listTransactionsRegistrations
+  description: Retrieves a list of all Registrations for a specific Transaction
+  method: GET
+  path: /transactions/{transaction}/registrations
+  tags:
+  - Registration
+  source_operation: openapi/gofundme-pro-api-openapi.json#listTransactionsRegistrations
+- name: fetchUpdate
+  description: Fetch Update
+  method: GET
+  path: /updates/{update}
+  tags:
+  - Update
+  source_operation: openapi/gofundme-pro-api-openapi.json#fetchUpdate
+- name: fetchMemberUserInfo
+  description: return information about Member compatible with openid
+  method: GET
+  path: /userinfo
+  tags:
+  - Member
+  source_operation: openapi/gofundme-pro-api-openapi.json#fetchMemberUserInfo
+- name: fetchWhitelistedCurrency
+  description: Fetch specified Whitelisted Currency
+  method: GET
+  path: /whitelisted-currencies/{whitelisted_currency}
+  tags:
+  - Whitelisted Currency
+  source_operation: openapi/gofundme-pro-api-openapi.json#fetchWhitelistedCurrency

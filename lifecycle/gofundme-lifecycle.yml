@@ -1,0 +1,144 @@
+generated: '2026-08-04'
+method: searched
+source: >-
+  https://developers.classy.org/partials/reference/deprecation-schedule.html,
+  https://developers.classy.org/partials/tutorials/migration-guide.html,
+  https://prosupport.gofundme.com/hc/en-us/articles/37726683210267-Release-notes,
+  https://status.classy.org/api/v2/summary.json,
+  openapi/gofundme-pro-api-openapi.json
+api: GoFundMe Pro API
+
+versioning:
+  scheme: uri-path
+  current: '2.0'
+  released: '2016-03-16'
+  docs: https://developers.gofundme.com/pro/overview/making-requests
+  base_paths:
+  - https://pro.gofundme.com/api/2.0
+  - https://api.classy.org/2.0
+  note: >-
+    The API is mid-domain-migration from the Classy hosts (api.classy.org, developers.classy.org,
+    docs.classy.org) to the GoFundMe hosts (pro.gofundme.com, developers.gofundme.com). Both serve
+    the same v2.0 contract; the published OpenAPI declares only the pro.gofundme.com server.
+
+deprecation:
+  policy_url: https://developers.gofundme.com/pro/reference/deprecation
+  policy: >-
+    A published deprecation schedule names, per API version, a Release Date, a Deprecation Date
+    (version is no longer supported or under active development) and a Sunset Date (version is no
+    longer available). GoFundMe Pro states a version is typically sunset 6-8 months after its
+    deprecation date.
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  note: >-
+    The deprecation contract is documented as a page, not as RFC 8594 Sunset/Deprecation response
+    headers — the string "sunset" does not appear anywhere in the OpenAPI. Operation-level
+    deprecation IS expressed in the spec via the OpenAPI `deprecated` flag.
+  versions:
+  - version: API v2 GA
+    released: '2016-03-16'
+    deprecated: null
+    sunset: null
+    status: current
+  - version: API v2 Beta
+    released: '2016-02-01'
+    deprecated: null
+    sunset: '2016-04-15'
+    status: sunset
+  - version: API v2 Alpha
+    released: '2015-12-01'
+    deprecated: null
+    sunset: '2016-01-29'
+    status: sunset
+  - version: API v1
+    released: '2015-01-01'
+    deprecated: '2015-12-01'
+    sunset: '2016-06-30'
+    status: sunset
+    migration_guide: https://developers.gofundme.com/pro/tutorials/migration-guide
+
+status_page: https://status.classy.org
+status:
+  provider: Atlassian Statuspage
+  page_id: tcmlf35kgm31
+  api: https://status.classy.org/api/v2/summary.json
+  components_include:
+  - Fundraising API
+  - Stripe
+  subscribe: email + SMS + webhook (Statuspage native)
+
+sla:
+  url: null
+  uptime_target: null
+  note: No public uptime SLA is published for the GoFundMe Pro API; SLAs are contractual per plan.
+
+changelog:
+  url: https://prosupport.gofundme.com/hc/en-us/articles/37726683210267-Release-notes
+  artifact: changelog/gofundme-changelog.yml
+
+deprecated_operations_count: 54
+deprecated_operations:
+- openapi/gofundme-pro-api-openapi.json#fetchMatchedTransaction
+- openapi/gofundme-pro-api-openapi.json#listCampaignCredentialSets
+- openapi/gofundme-pro-api-openapi.json#createCampaignCredentialSet
+- openapi/gofundme-pro-api-openapi.json#fetchCampaignCredentialSet
+- openapi/gofundme-pro-api-openapi.json#deleteCampaignCredentialSet
+- openapi/gofundme-pro-api-openapi.json#listCampaignUpdates
+- openapi/gofundme-pro-api-openapi.json#checkSlugAvailable
+- openapi/gofundme-pro-api-openapi.json#deleteCampaignSeries
+- openapi/gofundme-pro-api-openapi.json#updateCampaignSeriesIteration
+- openapi/gofundme-pro-api-openapi.json#deleteCampaignSeriesIteration
+- openapi/gofundme-pro-api-openapi.json#moveCampaignToCampaignSeriesIteration
+- openapi/gofundme-pro-api-openapi.json#showChannelFundraisingEntity
+- openapi/gofundme-pro-api-openapi.json#getSubscriptionPlanFeatures
+- openapi/gofundme-pro-api-openapi.json#fetchComment
+- openapi/gofundme-pro-api-openapi.json#updateComment
+- openapi/gofundme-pro-api-openapi.json#deleteDoubleTheDonation
+- openapi/gofundme-pro-api-openapi.json#updateFeedItem
+- openapi/gofundme-pro-api-openapi.json#createFundraisingPageCreditAdjustment
+- openapi/gofundme-pro-api-openapi.json#createFundraisingPageStory
+- openapi/gofundme-pro-api-openapi.json#listFundraisingTeamActivities
+- openapi/gofundme-pro-api-openapi.json#createFundraisingTeamCreditAdjustment
+- openapi/gofundme-pro-api-openapi.json#createFundraisingTeamStory
+- openapi/gofundme-pro-api-openapi.json#fetchFundraisingTeamPolicy
+- openapi/gofundme-pro-api-openapi.json#listMemberFundraisingTeams
+- openapi/gofundme-pro-api-openapi.json#listMemberLeadingFundraisingTeams
+- openapi/gofundme-pro-api-openapi.json#createOrganizationDomainSlugs
+- openapi/gofundme-pro-api-openapi.json#fetchOrganizationDoubleTheDonation
+- openapi/gofundme-pro-api-openapi.json#createOrganizationDoubleTheDonation
+- openapi/gofundme-pro-api-openapi.json#createOrganizationFeedItem
+- openapi/gofundme-pro-api-openapi.json#listOrganizationCredentialSets
+- openapi/gofundme-pro-api-openapi.json#createOrganizationCredentialSet
+- openapi/gofundme-pro-api-openapi.json#fetchOrganizationCredentialSet
+- openapi/gofundme-pro-api-openapi.json#updateOrganizationCredentialSet
+- openapi/gofundme-pro-api-openapi.json#deleteOrganizationCredentialSet
+- openapi/gofundme-pro-api-openapi.json#listOrganizationNotifications
+- openapi/gofundme-pro-api-openapi.json#createOrganizationNotification
+- openapi/gofundme-pro-api-openapi.json#fetchOrganizationNotification
+- openapi/gofundme-pro-api-openapi.json#updateOrganizationNotification
+- openapi/gofundme-pro-api-openapi.json#deleteOrganizationNotification
+- openapi/gofundme-pro-api-openapi.json#createWhitelistedCurrency
+- openapi/gofundme-pro-api-openapi.json#deleteWhitelistedCurrency
+- openapi/gofundme-pro-api-openapi.json#listPromoCodeTicketTypes
+- openapi/gofundme-pro-api-openapi.json#listTicketTypePromoCodeConfigurations
+- openapi/gofundme-pro-api-openapi.json#listTicketTypesPromoCodes
+- openapi/gofundme-pro-api-openapi.json#listStoryComments
+- openapi/gofundme-pro-api-openapi.json#createStoryComment
+- openapi/gofundme-pro-api-openapi.json#deleteStory
+- openapi/gofundme-pro-api-openapi.json#supporterAnnualSummary
+- openapi/gofundme-pro-api-openapi.json#listUpdateComments
+- openapi/gofundme-pro-api-openapi.json#createUpdateComment
+- openapi/gofundme-pro-api-openapi.json#listUpdateLikes
+- openapi/gofundme-pro-api-openapi.json#createUpdateLike
+- openapi/gofundme-pro-api-openapi.json#updateUpdate
+- openapi/gofundme-pro-api-openapi.json#deleteUpdate
+
+gaps:
+- >-
+  The published deprecation schedule has not been updated since 2016 — it still lists only the v1/v2
+  transition and carries no sunset dates for the 54 operations the OpenAPI marks `deprecated: true`.
+  A reader cannot tell when any deprecated operation will be removed.
+- >-
+  No Sunset or Deprecation response headers (RFC 8594) are emitted or documented, so a client cannot
+  detect deprecation at runtime.

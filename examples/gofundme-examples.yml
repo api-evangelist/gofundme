@@ -1,0 +1,1212 @@
+generated: '2026-08-04'
+method: derived
+source: openapi/gofundme-pro-api-openapi.json
+api: GoFundMe Pro API v2.0
+note: Inventory of the example values GoFundMe Pro ships INSIDE its own OpenAPI. Nothing here is authored
+  by API Evangelist — this artifact records where the provider already supplies example request bodies
+  and example response payloads, so an agent or code generator knows which operations it can exercise
+  without guessing shapes. The examples themselves live in the spec; only the index is reproduced here.
+  GoFundMe Pro publishes no separate code-sample or recipe collection beyond the Postman collections in
+  packages/gofundme-packages.yml.
+summary:
+  operations_total: 290
+  operations_with_any_example: 167
+  operations_with_request_example: 43
+  operations_with_response_example: 144
+  component_schemas_total: 356
+  component_schemas_with_example: 321
+  example_style: inline `example` keywords on schema properties (OpenAPI 3.0), not named `examples` objects
+  media_type: application/json
+code_samples:
+  x_code_samples: false
+  postman: https://github.com/classy-org/postman-collections
+  sample_apps:
+  - https://github.com/classy-org/custom-progress-bar-sample-app
+  - https://github.com/classy-org/custom-leaderboard-sample-app
+operations:
+- operation: updateAppealSet
+  method: PUT
+  path: /appeal-set/{appeal_set}
+  request_example: true
+  response_example: false
+  tags:
+  - Appeal Set
+- operation: listApiAppOrganizations
+  method: GET
+  path: /apps/{app}/organizations
+  request_example: false
+  response_example: true
+  tags:
+  - Organization
+- operation: updateCampaignChannel
+  method: PUT
+  path: /campaign-channels/{campaign_channel}
+  request_example: true
+  response_example: false
+  tags:
+  - Campaign Channel
+- operation: moveCampaignToCampaignSeriesIteration
+  method: PUT
+  path: /campaign-series-iterations/{campaign_series_iteration}/campaigns/{campaign_id}/move-campaign
+  request_example: true
+  response_example: false
+  tags:
+  - Campaign Series Iteration
+- operation: checkSlugAvailable
+  method: GET
+  path: /campaigns/custom-url/{customUrl}
+  request_example: false
+  response_example: true
+  tags:
+  - Campaign
+- operation: listCampaignActivities
+  method: GET
+  path: /campaigns/{campaign}/activity
+  request_example: false
+  response_example: true
+  tags:
+  - Activity
+- operation: createCampaignAppealSet
+  method: POST
+  path: /campaigns/{campaign}/appeal-set
+  request_example: true
+  response_example: false
+  tags:
+  - Appeal Set
+- operation: listCampaignChannels
+  method: GET
+  path: /campaigns/{campaign}/channels
+  request_example: false
+  response_example: true
+  tags:
+  - Campaign Channel
+- operation: listCampaignCredentialSets
+  method: GET
+  path: /campaigns/{campaign}/credential-sets
+  request_example: false
+  response_example: true
+  tags:
+  - Campaign Credential Set
+- operation: createCampaignCredentialSet
+  method: POST
+  path: /campaigns/{campaign}/credential-sets
+  request_example: true
+  response_example: false
+  tags:
+  - Campaign Credential Set
+- operation: createCampaignCreditAdjustment
+  method: POST
+  path: /campaigns/{campaign}/credit-adjustments
+  request_example: false
+  response_example: true
+  tags:
+  - Credit Adjustment
+- operation: listCampaignDomainSlugs
+  method: GET
+  path: /campaigns/{campaign}/domain-slugs
+  request_example: false
+  response_example: true
+  tags:
+  - Domain Slug
+- operation: createCampaignDomainSlug
+  method: POST
+  path: /campaigns/{campaign}/domain-slugs
+  request_example: true
+  response_example: false
+  tags:
+  - Domain Slug
+- operation: listCampaignDonationMatchingPlans
+  method: GET
+  path: /campaigns/{campaign}/donation-matching-plans
+  request_example: false
+  response_example: true
+  tags:
+  - Donation Matching Plan
+- operation: listEcards
+  method: GET
+  path: /campaigns/{campaign}/ecards
+  request_example: false
+  response_example: true
+  tags:
+  - eCard
+- operation: ListCampaignFAQs
+  method: GET
+  path: /campaigns/{campaign}/faqs
+  request_example: false
+  response_example: true
+  tags:
+  - FAQ
+- operation: listCampaignFeedItems
+  method: GET
+  path: /campaigns/{campaign}/feed-items
+  request_example: false
+  response_example: true
+  tags:
+  - Feed Item
+- operation: createCampaignFeedItem
+  method: POST
+  path: /campaigns/{campaign}/feed-items
+  request_example: true
+  response_example: false
+  tags:
+  - Feed Item
+- operation: listCampaignFeedItemsScoped
+  method: GET
+  path: /campaigns/{campaign}/feed-items/{scope}
+  request_example: false
+  response_example: true
+  tags:
+  - Feed Item
+- operation: listCampaignFundraisingPages
+  method: GET
+  path: /campaigns/{campaign}/fundraising-pages
+  request_example: false
+  response_example: true
+  tags:
+  - Fundraising Page
+- operation: listCampaignFundraisingTeams
+  method: GET
+  path: /campaigns/{campaign}/fundraising-teams
+  request_example: false
+  response_example: true
+  tags:
+  - Fundraising Team
+- operation: listCampaignPromoCodes
+  method: GET
+  path: /campaigns/{campaign}/promo-codes
+  request_example: false
+  response_example: true
+  tags:
+  - Promo Code
+- operation: createCampaignPromoCode
+  method: POST
+  path: /campaigns/{campaign}/promo-codes
+  request_example: false
+  response_example: true
+  tags:
+  - Promo Code
+- operation: listCampaignQuestions
+  method: GET
+  path: /campaigns/{campaign}/questions
+  request_example: false
+  response_example: true
+  tags:
+  - Question
+- operation: listCampaignRecurringDonationPlans
+  method: GET
+  path: /campaigns/{campaign}/recurring-donation-plans
+  request_example: false
+  response_example: true
+  tags:
+  - Recurring Donation Plan
+- operation: listCampaignRegistrations
+  method: GET
+  path: /campaigns/{campaign}/registrations
+  request_example: false
+  response_example: true
+  tags:
+  - Registration
+- operation: listCampaignRoles
+  method: GET
+  path: /campaigns/{campaign}/roles
+  request_example: false
+  response_example: true
+  tags:
+  - Role
+- operation: listCampaignSoftCredits
+  method: GET
+  path: /campaigns/{campaign}/soft-credits
+  request_example: false
+  response_example: true
+  tags:
+  - SoftCredit
+- operation: listCampaignSourceTrackingCodes
+  method: GET
+  path: /campaigns/{campaign}/source-tracking-codes
+  request_example: false
+  response_example: true
+  tags:
+  - Source Tracking Codes
+- operation: listCampaignStories
+  method: GET
+  path: /campaigns/{campaign}/stories
+  request_example: false
+  response_example: true
+  tags:
+  - Story
+- operation: listCampaignSupporters
+  method: GET
+  path: /campaigns/{campaign}/supporters
+  request_example: false
+  response_example: true
+  tags:
+  - Supporter
+- operation: listCampaignTicketTypes
+  method: GET
+  path: /campaigns/{campaign}/ticket-types
+  request_example: false
+  response_example: true
+  tags:
+  - Ticket Type
+- operation: listCampaignTransactions
+  method: GET
+  path: /campaigns/{campaign}/transactions
+  request_example: false
+  response_example: true
+  tags:
+  - Transaction
+- operation: listCampaignUpdates
+  method: GET
+  path: /campaigns/{campaign}/updates
+  request_example: false
+  response_example: true
+  tags:
+  - Update
+- operation: duplicateCampaign
+  method: POST
+  path: /campaigns/{id}/duplicate
+  request_example: false
+  response_example: true
+  tags:
+  - Campaign
+- operation: listCampaignStaffNotificationSettings
+  method: GET
+  path: /campaigns/{id}/staff-notification-settings
+  request_example: false
+  response_example: true
+  tags:
+  - Staff Notification Setting
+- operation: 5287cfac33f2ece8e6279d2f73f4f081
+  method: POST
+  path: /chariot/create-grant
+  request_example: true
+  response_example: true
+  tags:
+  - Chariot
+- operation: checkSlugAvailability
+  method: GET
+  path: /domain-slugs/availability-check/{slug_value}
+  request_example: false
+  response_example: true
+  tags:
+  - Domain Slug
+- operation: updateFeedItem
+  method: PUT
+  path: /feed-items/{feed_item}
+  request_example: true
+  response_example: false
+  tags:
+  - Feed Item
+- operation: listFeedItemComments
+  method: GET
+  path: /feed-items/{feed_item}/comments
+  request_example: false
+  response_example: true
+  tags:
+  - Comment
+- operation: listFeedItemLikes
+  method: GET
+  path: /feed-items/{feed_item}/likes
+  request_example: false
+  response_example: true
+  tags:
+  - Like
+- operation: listFundraisingPageActivities
+  method: GET
+  path: /fundraising-pages/{fundraising_page}/activity
+  request_example: false
+  response_example: true
+  tags:
+  - Activity
+- operation: listFundraisingPageAnswers
+  method: GET
+  path: /fundraising-pages/{fundraising_page}/answers
+  request_example: false
+  response_example: true
+  tags:
+  - Answer
+- operation: createFundraisingPageAnswer
+  method: POST
+  path: /fundraising-pages/{fundraising_page}/answers
+  request_example: true
+  response_example: false
+  tags:
+  - Answer
+- operation: createChannelFundraisingEntity
+  method: POST
+  path: /fundraising-pages/{fundraising_page}/channels
+  request_example: false
+  response_example: true
+  tags:
+  - Channel Fundraising Entity
+- operation: createFundraisingPageCreditAdjustment
+  method: POST
+  path: /fundraising-pages/{fundraising_page}/credit-adjustments
+  request_example: false
+  response_example: true
+  tags:
+  - Credit Adjustment
+- operation: listFundraisingPageFeedItems
+  method: GET
+  path: /fundraising-pages/{fundraising_page}/feed-items
+  request_example: false
+  response_example: true
+  tags:
+  - Feed Item
+- operation: createFundraisingPageFeedItem
+  method: POST
+  path: /fundraising-pages/{fundraising_page}/feed-items
+  request_example: true
+  response_example: false
+  tags:
+  - Feed Item
+- operation: fetchFundraisingPageFitnessMetrics
+  method: GET
+  path: /fundraising-pages/{fundraising_page}/fitness-metrics
+  request_example: false
+  response_example: true
+  tags:
+  - Fundraising Page
+- operation: fetchFundraisingPageMoments
+  method: GET
+  path: /fundraising-pages/{fundraising_page}/moments
+  request_example: false
+  response_example: true
+  tags:
+  - Fundraising Page
+- operation: fetchFundraisingPageOverview
+  method: GET
+  path: /fundraising-pages/{fundraising_page}/overview
+  request_example: false
+  response_example: true
+  tags:
+  - Fundraising Page
+- operation: listFundraisingPageSoftCredits
+  method: GET
+  path: /fundraising-pages/{fundraising_page}/soft-credits
+  request_example: false
+  response_example: true
+  tags:
+  - SoftCredit
+- operation: listFundraisingPageStories
+  method: GET
+  path: /fundraising-pages/{fundraising_page}/stories
+  request_example: false
+  response_example: true
+  tags:
+  - Story
+- operation: createFundraisingPageStory
+  method: POST
+  path: /fundraising-pages/{fundraising_page}/stories
+  request_example: true
+  response_example: false
+  tags:
+  - Story
+- operation: createFundraisingPageTransfer
+  method: POST
+  path: /fundraising-pages/{fundraising_page}/transfers
+  request_example: false
+  response_example: true
+  tags:
+  - Fundraising Page Transfer
+- operation: listFundraisingPageUpdates
+  method: GET
+  path: /fundraising-pages/{fundraising_page}/updates
+  request_example: false
+  response_example: true
+  tags:
+  - Update
+- operation: createFundraisingPageUpdate
+  method: POST
+  path: /fundraising-pages/{fundraising_page}/updates
+  request_example: true
+  response_example: false
+  tags:
+  - Update
+- operation: listFundraisingPageDonorEmails
+  method: GET
+  path: /fundraising-pages/{id}/donor-emails
+  request_example: false
+  response_example: true
+  tags:
+  - Supporters
+- operation: listFundraisingPageDonors
+  method: GET
+  path: /fundraising-pages/{id}/donors
+  request_example: false
+  response_example: true
+  tags:
+  - Supporters
+- operation: listFundraisingPagePastDonors
+  method: GET
+  path: /fundraising-pages/{id}/past-donors
+  request_example: false
+  response_example: true
+  tags:
+  - Supporters
+- operation: listFundraisingTeamActivities
+  method: GET
+  path: /fundraising-teams/{fundraising_team}/activity
+  request_example: false
+  response_example: true
+  tags:
+  - Activity
+- operation: listFundraisingTeamAnswers
+  method: GET
+  path: /fundraising-teams/{fundraising_team}/answers
+  request_example: false
+  response_example: true
+  tags:
+  - Answer
+- operation: createFundraisingTeamAnswer
+  method: POST
+  path: /fundraising-teams/{fundraising_team}/answers
+  request_example: true
+  response_example: false
+  tags:
+  - Answer
+- operation: createFundraisingTeamCreditAdjustment
+  method: POST
+  path: /fundraising-teams/{fundraising_team}/credit-adjustments
+  request_example: false
+  response_example: true
+  tags:
+  - Credit Adjustment
+- operation: listFundraisingTeamDomainSlugs
+  method: GET
+  path: /fundraising-teams/{fundraising_team}/domain-slugs
+  request_example: false
+  response_example: true
+  tags:
+  - Domain Slug
+- operation: listFundraisingTeamFeedItems
+  method: GET
+  path: /fundraising-teams/{fundraising_team}/feed-items
+  request_example: false
+  response_example: true
+  tags:
+  - Feed Item
+- operation: createFundraisingTeamFeedItem
+  method: POST
+  path: /fundraising-teams/{fundraising_team}/feed-items
+  request_example: true
+  response_example: false
+  tags:
+  - Feed Item
+- operation: listFundraisingTeamFundraisingPages
+  method: GET
+  path: /fundraising-teams/{fundraising_team}/fundraising-pages
+  request_example: false
+  response_example: true
+  tags:
+  - Fundraising Page
+- operation: fetchFundraisingTeamOverview
+  method: GET
+  path: /fundraising-teams/{fundraising_team}/overview
+  request_example: false
+  response_example: true
+  tags:
+  - Fundraising Team
+- operation: listFundraisingTeamSoftCredits
+  method: GET
+  path: /fundraising-teams/{fundraising_team}/soft-credits
+  request_example: false
+  response_example: true
+  tags:
+  - SoftCredit
+- operation: listFundraisingTeamStories
+  method: GET
+  path: /fundraising-teams/{fundraising_team}/stories
+  request_example: false
+  response_example: true
+  tags:
+  - Story
+- operation: createFundraisingTeamStory
+  method: POST
+  path: /fundraising-teams/{fundraising_team}/stories
+  request_example: true
+  response_example: false
+  tags:
+  - Story
+- operation: transferFundraisingTeam
+  method: POST
+  path: /fundraising-teams/{fundraising_team}/transfers
+  request_example: true
+  response_example: true
+  tags:
+  - Fundraising Team Transfer
+- operation: listFundraisingTeamUpdates
+  method: GET
+  path: /fundraising-teams/{fundraising_team}/updates
+  request_example: false
+  response_example: true
+  tags:
+  - Update
+- operation: createFundraisingTeamUpdate
+  method: POST
+  path: /fundraising-teams/{fundraising_team}/updates
+  request_example: true
+  response_example: false
+  tags:
+  - Update
+- operation: listFundraisingTeamDonors
+  method: GET
+  path: /fundraising-teams/{id}/donors
+  request_example: false
+  response_example: true
+  tags:
+  - Supporters
+- operation: listFundraisingTeamPastDonors
+  method: GET
+  path: /fundraising-teams/{id}/past-donors
+  request_example: false
+  response_example: true
+  tags:
+  - Supporters
+- operation: listSubteams
+  method: GET
+  path: /fundraising-teams/{id}/subteams
+  request_example: false
+  response_example: true
+  tags:
+  - Fundraising Team
+- operation: listMemberCampaigns
+  method: GET
+  path: /members/{member_id}/campaigns
+  request_example: false
+  response_example: true
+  tags:
+  - Member
+- operation: listMemberFundraisingTeams
+  method: GET
+  path: /members/{member_id}/fundraising-teams
+  request_example: false
+  response_example: true
+  tags:
+  - Fundraising Team
+- operation: listMemberLeadingFundraisingTeams
+  method: GET
+  path: /members/{member_id}/leading-fundraising-teams
+  request_example: false
+  response_example: true
+  tags:
+  - Fundraising Team
+- operation: listMemberOrganizations
+  method: GET
+  path: /members/{member_id}/organizations
+  request_example: false
+  response_example: true
+  tags:
+  - Member
+- operation: listMemberFundraisingPages
+  method: GET
+  path: /members/{member}/fundraising-pages
+  request_example: false
+  response_example: true
+  tags:
+  - Fundraising Page
+- operation: listMemberRecurringDonationPlans
+  method: GET
+  path: /members/{member}/recurring-donation-plans
+  request_example: false
+  response_example: true
+  tags:
+  - Recurring Donation Plan
+- operation: listMemberRoles
+  method: GET
+  path: /members/{member}/roles
+  request_example: false
+  response_example: true
+  tags:
+  - Role
+- operation: listOrganizationStaffNotificationSettings
+  method: GET
+  path: /organizations/{id}/staff-notification-settings
+  request_example: false
+  response_example: true
+  tags:
+  - Staff Notification Setting
+- operation: listAsrMessages
+  method: GET
+  path: /organizations/{org_id}/supporters/{supporter_id}/messages/asrs
+  request_example: false
+  response_example: true
+  tags:
+  - Supporter
+- operation: getOrganizationAsrBatch
+  method: GET
+  path: /organizations/{organization_id}/annual-summary-reports/{year}
+  request_example: false
+  response_example: true
+  tags:
+  - Annual Summary
+  - Organization
+- operation: generateOrganizationAsrBatch
+  method: POST
+  path: /organizations/{organization_id}/annual-summary-reports/{year}
+  request_example: true
+  response_example: true
+  tags:
+  - Annual Summary
+  - Organization
+- operation: updateOrganizationAsrBatchSchedule
+  method: PUT
+  path: /organizations/{organization_id}/annual-summary-reports/{year}/schedule
+  request_example: true
+  response_example: true
+  tags:
+  - Annual Summary
+  - Organization
+- operation: downloadBatchAsrPdf
+  method: GET
+  path: /organizations/{organization_id}/annual-summary-reports/{year}/supporters/{supporter_id}/download
+  request_example: false
+  response_example: true
+  tags:
+  - Annual Summary
+  - Organization
+- operation: uploadBrandkitImage
+  method: POST
+  path: /organizations/{organization_id}/api-inference/brandkit/image
+  request_example: true
+  response_example: true
+  tags:
+  - Brandkit
+- operation: deleteBrandkitImage
+  method: DELETE
+  path: /organizations/{organization_id}/api-inference/brandkit/image
+  request_example: true
+  response_example: true
+  tags:
+  - Brandkit
+- operation: updateBrandkitImage
+  method: PUT
+  path: /organizations/{organization_id}/api-inference/brandkit/image/{bk_id}
+  request_example: true
+  response_example: true
+  tags:
+  - Brandkit
+- operation: listBrandkitImages
+  method: GET
+  path: /organizations/{organization_id}/api-inference/brandkit/images
+  request_example: false
+  response_example: true
+  tags:
+  - Brandkit
+- operation: 596c5b8cfa0ea0d1c97a7070481275d6
+  method: GET
+  path: /organizations/{organization_id}/chariot-integration
+  request_example: false
+  response_example: true
+  tags:
+  - Organizations
+  - Chariot
+- operation: dcd0d2ca7a6d61ec1ff4362d73f6e699
+  method: POST
+  path: /organizations/{organization_id}/chariot-integration
+  request_example: true
+  response_example: true
+  tags:
+  - Organizations
+  - Chariot
+- operation: 57eca9dca1c2479d1e46b9313f271cfc
+  method: DELETE
+  path: /organizations/{organization_id}/chariot-integration
+  request_example: false
+  response_example: true
+  tags:
+  - Organizations
+  - Chariot
+- operation: listOrganizationFeedItems
+  method: GET
+  path: /organizations/{organization_id}/feed-items
+  request_example: false
+  response_example: true
+  tags:
+  - Feed Item
+- operation: createOrganizationFeedItem
+  method: POST
+  path: /organizations/{organization_id}/feed-items
+  request_example: true
+  response_example: false
+  tags:
+  - Feed Item
+- operation: listOrganizationFeedItemsScoped
+  method: GET
+  path: /organizations/{organization_id}/feed-items/{scope}
+  request_example: false
+  response_example: true
+  tags:
+  - Feed Item
+- operation: updateNpoPage
+  method: PUT
+  path: /organizations/{organization_id}/gfm-npo-page
+  request_example: true
+  response_example: true
+  tags:
+  - GFM NPO Page
+- operation: downloadDonationsReport
+  method: GET
+  path: /organizations/{organization_id}/gfm-npo-page/download-donations-report
+  request_example: false
+  response_example: true
+  tags:
+  - Organizations
+  - GFM NPO Page
+  - Reports
+- operation: downloadFundraisersReport
+  method: GET
+  path: /organizations/{organization_id}/gfm-npo-page/download-fundraisers-report
+  request_example: false
+  response_example: true
+  tags:
+  - Organizations
+  - GFM NPO Page
+  - Reports
+- operation: updateCharityIncludeDefaultPhotos
+  method: PUT
+  path: /organizations/{organization_id}/gfm-npo-page/include-default-photos
+  request_example: true
+  response_example: true
+  tags:
+  - GFM NPO Page
+- operation: updateCharityNpoProfileOptIn
+  method: PUT
+  path: /organizations/{organization_id}/gfm-npo-page/npo-profile-opt-in
+  request_example: true
+  response_example: true
+  tags:
+  - GFM NPO Page
+- operation: updateCharityFundraiserPhotoStatus
+  method: PUT
+  path: /organizations/{organization_id}/gfm-npo-page/photo-status
+  request_example: true
+  response_example: true
+  tags:
+  - GFM NPO Page
+- operation: updateGfmProStatus
+  method: PUT
+  path: /organizations/{organization_id}/gfm-npo-page/pro-status
+  request_example: true
+  response_example: true
+  tags:
+  - GFM NPO Page
+- operation: updateCharitySettings
+  method: PUT
+  path: /organizations/{organization_id}/gfm-npo-page/settings
+  request_example: true
+  response_example: true
+  tags:
+  - GFM NPO Page
+- operation: uploadGfmNpoImage
+  method: POST
+  path: /organizations/{organization_id}/gfm-npo-page/upload-image
+  request_example: true
+  response_example: true
+  tags:
+  - GFM NPO Page
+- operation: sendSupporterAnnualSummaryEmail
+  method: POST
+  path: /organizations/{organization_id}/supporters/{supporter_id}/annual-summary
+  request_example: true
+  response_example: true
+  tags:
+  - Annual Summary
+  - Organization
+  - Supporter
+- operation: listOrganizationActivities
+  method: GET
+  path: /organizations/{organization}/activity
+  request_example: false
+  response_example: true
+  tags:
+  - Activity
+- operation: listOrganizationAnswers
+  method: GET
+  path: /organizations/{organization}/answers
+  request_example: false
+  response_example: true
+  tags:
+  - Answer
+- operation: listOrganizationCampaigns
+  method: GET
+  path: /organizations/{organization}/campaigns
+  request_example: false
+  response_example: true
+  tags:
+  - Campaign
+- operation: listOrganizationChannel
+  method: GET
+  path: /organizations/{organization}/channels
+  request_example: false
+  response_example: true
+  tags:
+  - Organization Channel
+- operation: listOrganizationCredentialSets
+  method: GET
+  path: /organizations/{organization}/credential-sets
+  request_example: false
+  response_example: true
+  tags:
+  - Organization Credential Set
+- operation: listOrganizationDedications
+  method: GET
+  path: /organizations/{organization}/dedications
+  request_example: false
+  response_example: true
+  tags:
+  - Dedication
+- operation: listOrganizationDesignations
+  method: GET
+  path: /organizations/{organization}/designations
+  request_example: false
+  response_example: true
+  tags:
+  - Designation
+- operation: listOrganizationDomainSlugs
+  method: GET
+  path: /organizations/{organization}/domain-slugs
+  request_example: false
+  response_example: true
+  tags:
+  - Domain Slug
+- operation: listOrganizationFundraisingPages
+  method: GET
+  path: /organizations/{organization}/fundraising-pages
+  request_example: false
+  response_example: true
+  tags:
+  - Fundraising Page
+- operation: listOrganizationFundraisingTeamPolicies
+  method: GET
+  path: /organizations/{organization}/fundraising-team-policies
+  request_example: false
+  response_example: true
+  tags:
+  - Fundraising Team Policy
+- operation: listOrganizationFundraisingTeams
+  method: GET
+  path: /organizations/{organization}/fundraising-teams
+  request_example: false
+  response_example: true
+  tags:
+  - Fundraising Team
+- operation: listOrganizationNotifications
+  method: GET
+  path: /organizations/{organization}/notifications
+  request_example: false
+  response_example: true
+  tags:
+  - Organization Notification
+- operation: createOrganizationNotification
+  method: POST
+  path: /organizations/{organization}/notifications
+  request_example: true
+  response_example: false
+  tags:
+  - Organization Notification
+- operation: listOrganizationQuestions
+  method: GET
+  path: /organizations/{organization}/questions
+  request_example: false
+  response_example: true
+  tags:
+  - Question
+- operation: listOrganizationRecurringDonationPlanHistory
+  method: GET
+  path: /organizations/{organization}/recurring-donation-history
+  request_example: false
+  response_example: true
+  tags:
+  - Recurring Donation Plan History
+- operation: listOrganizationRecurringDonationPlans
+  method: GET
+  path: /organizations/{organization}/recurring-donation-plans
+  request_example: false
+  response_example: true
+  tags:
+  - Recurring Donation Plan
+- operation: listOrganizationRegistrations
+  method: GET
+  path: /organizations/{organization}/registrations
+  request_example: false
+  response_example: true
+  tags:
+  - Registration
+- operation: listOrganizationRestrictedCountries
+  method: GET
+  path: /organizations/{organization}/restricted-countries
+  request_example: false
+  response_example: true
+  tags:
+  - Restricted Country
+- operation: listOrganizationRoles
+  method: GET
+  path: /organizations/{organization}/roles
+  request_example: false
+  response_example: true
+  tags:
+  - Role
+- operation: listOrganizationSourceTrackingCodes
+  method: GET
+  path: /organizations/{organization}/source-tracking-codes
+  request_example: false
+  response_example: true
+  tags:
+  - Source Tracking Codes
+- operation: listOrganizationSupporters
+  method: GET
+  path: /organizations/{organization}/supporters
+  request_example: false
+  response_example: true
+  tags:
+  - Supporter
+- operation: listOrganizationTicketTypes
+  method: GET
+  path: /organizations/{organization}/ticket-types
+  request_example: false
+  response_example: true
+  tags:
+  - Ticket Type
+- operation: listOrganizationTransactionItems
+  method: GET
+  path: /organizations/{organization}/transaction-items
+  request_example: false
+  response_example: true
+  tags:
+  - Transaction Item
+- operation: listOrganizationTransactions
+  method: GET
+  path: /organizations/{organization}/transactions
+  request_example: false
+  response_example: true
+  tags:
+  - Transaction
+- operation: listOrganizationWhitelistedCurrencies
+  method: GET
+  path: /organizations/{organization}/whitelisted-currencies
+  request_example: false
+  response_example: true
+  tags:
+  - Whitelisted Currency
+- operation: createWhitelistedCurrency
+  method: POST
+  path: /organizations/{organization}/whitelisted-currencies
+  request_example: true
+  response_example: false
+  tags:
+  - Whitelisted Currency
+- operation: listPromoCodeConfigurations
+  method: GET
+  path: /promo-codes/{promo_code}/promo-code-configurations
+  request_example: false
+  response_example: true
+  tags:
+  - Promo Code Configuration
+- operation: listPromoCodeTicketTypes
+  method: GET
+  path: /promo-codes/{promo_code}/ticket-types
+  request_example: false
+  response_example: true
+  tags:
+  - Ticket Type
+- operation: listQuestionAnswers
+  method: GET
+  path: /questions/{question}/answers
+  request_example: false
+  response_example: true
+  tags:
+  - Answer
+- operation: listRecurringDonationPlanHistory
+  method: GET
+  path: /recurring-donation-plans/{recurring_donation_plan}/history
+  request_example: false
+  response_example: true
+  tags:
+  - Recurring Donation Plan History
+- operation: listRecurringDonationPlanTransactions
+  method: GET
+  path: /recurring-donation-plans/{recurring_donation_plan}/transactions
+  request_example: false
+  response_example: true
+  tags:
+  - Transaction
+- operation: listRegistrationAnswers
+  method: GET
+  path: /registrations/{registration}/answers
+  request_example: false
+  response_example: true
+  tags:
+  - Answer
+- operation: createRegistrationAnswer
+  method: POST
+  path: /registrations/{registration}/answers
+  request_example: true
+  response_example: false
+  tags:
+  - Answer
+- operation: a8ae5c40769c7673b17b5abbc5e48ab7
+  method: POST
+  path: /scoped-magic-link/batch
+  request_example: true
+  response_example: true
+  tags:
+  - MagicLink
+- operation: c68f6111a6e1841596da2c5a55369411
+  method: GET
+  path: /scoped-magic-link/batch/{batch}
+  request_example: false
+  response_example: true
+  tags:
+  - MagicLink
+- operation: getSocialVideoByEntity
+  method: GET
+  path: /social-videos/entity
+  request_example: false
+  response_example: true
+  tags:
+  - Social Video
+- operation: updateStory
+  method: PUT
+  path: /stories/{story}
+  request_example: true
+  response_example: false
+  tags:
+  - Story
+- operation: listStoryComments
+  method: GET
+  path: /stories/{story}/comments
+  request_example: false
+  response_example: true
+  tags:
+  - Comment
+- operation: listStoryLikes
+  method: GET
+  path: /stories/{story}/likes
+  request_example: false
+  response_example: true
+  tags:
+  - Like
+- operation: createStudioCampaignSocialVideo
+  method: POST
+  path: /studio-campaigns/{campaign_id}/share-settings/social-videos
+  request_example: true
+  response_example: true
+  tags:
+  - Studio Campaign
+  - Social Video
+- operation: getStudioCampaignSocialVideo
+  method: GET
+  path: /studio-campaigns/{campaign_id}/share-settings/social-videos/{persona}
+  request_example: false
+  response_example: true
+  tags:
+  - Studio Campaign
+  - Social Video
+- operation: updateStudioCampaignSocialVideoStatus
+  method: PUT
+  path: /studio-campaigns/{campaign_id}/share-settings/social-videos/{persona}/status
+  request_example: true
+  response_example: true
+  tags:
+  - Studio Campaign
+  - Social Video
+- operation: supporterAnnualSummary
+  method: POST
+  path: /supporters/{id}/send-annual-summary
+  request_example: true
+  response_example: false
+  tags:
+  - Supporter
+- operation: generateSupporterAnnualSummary
+  method: POST
+  path: /supporters/{supporter_id}/annual-summary
+  request_example: true
+  response_example: true
+  tags:
+  - Annual Summary
+  - Supporter
+- operation: listTicketTypePromoCodeConfigurations
+  method: GET
+  path: /ticket-types/{ticket_type}/promo-code-configurations
+  request_example: false
+  response_example: true
+  tags:
+  - Promo Code Configuration
+- operation: listTicketTypesPromoCodes
+  method: GET
+  path: /ticket-types/{ticket_type}/promo-codes
+  request_example: false
+  response_example: true
+  tags:
+  - Promo Code
+- operation: listAcknowledgements
+  method: GET
+  path: /transactions/{transaction}/acknowledgements
+  request_example: false
+  response_example: true
+  tags:
+  - Acknowledgement
+- operation: listTransactionAnswers
+  method: GET
+  path: /transactions/{transaction}/answers
+  request_example: false
+  response_example: true
+  tags:
+  - Answer
+- operation: createHardCreditTransfer
+  method: POST
+  path: /transactions/{transaction}/hard-credit-transfers
+  request_example: false
+  response_example: true
+  tags:
+  - Hard Credit Transfer
+- operation: listTransactionItems
+  method: GET
+  path: /transactions/{transaction}/items
+  request_example: false
+  response_example: true
+  tags:
+  - Transaction Item
+- operation: listTransactionReceipts
+  method: GET
+  path: /transactions/{transaction}/receipts
+  request_example: false
+  response_example: true
+  tags:
+  - Transaction Receipt
+- operation: listTransactionsRegistrations
+  method: GET
+  path: /transactions/{transaction}/registrations
+  request_example: false
+  response_example: true
+  tags:
+  - Registration
+- operation: updateUpdate
+  method: PUT
+  path: /updates/{update}
+  request_example: true
+  response_example: false
+  tags:
+  - Update
+- operation: listUpdateComments
+  method: GET
+  path: /updates/{update}/comments
+  request_example: false
+  response_example: true
+  tags:
+  - Comment
+- operation: listUpdateLikes
+  method: GET
+  path: /updates/{update}/likes
+  request_example: false
+  response_example: true
+  tags:
+  - Like
+- operation: fetchMemberUserInfo
+  method: GET
+  path: /userinfo
+  request_example: false
+  response_example: true
+  tags:
+  - Member
