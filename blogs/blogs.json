@@ -1,0 +1,14 @@
+{
+  "repo": "gofundme",
+  "feeds": [
+    {
+      "source": "https://prosupport.gofundme.com/hc/en-us/sections/35654895701787-API-and-partner-apps",
+      "feed_url": "https://prosupport.gofundme.com/hc/en-us/sections/35654895701787-API-and-partner-apps",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-08-06T14:08:46Z"
+}
