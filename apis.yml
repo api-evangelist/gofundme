@@ -36,27 +36,58 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 apis:
-- name: GoFundMe Pro API
+- name: Classy Login (OpenID Connect SSO)
   description: >-
-    REST API (v2.0) for the GoFundMe Pro (formerly Classy) fundraising platform. 290 operations across 70
-    resource families — organizations, campaigns, campaign series and Studio campaigns, fundraising pages
-    and teams, transactions and transaction items, supporters and members, recurring donation plans,
-    designations, promo codes, ticket types and registrations, payouts, activity feeds, stories, comments,
-    themes and branding, roles and reporting. JSON only, OAuth2 bearer tokens, cursor-free page/per_page
-    pagination with `with`, `filter`, `sort` and `fields` query conventions.
+    GoFundMe Pro's single sign-on service, implemented against OpenID Connect, letting third-party apps
+    register and log people in with their Classy/GoFundMe Pro account. Authorization endpoint at login.classy.org/authorize,
+    token endpoint at api.classy.org/oauth2/auth, userinfo at api.classy.org/2.0/me. Supports redirect,
+    popup and iframe flows via a JavaScript SDK.
+  humanURL: https://developers.gofundme.com/pro/api-docs/login
+  baseURL: https://login.classy.org
+  tags:
+  - Authentication
+  - Single Sign-On
+  - OpenID Connect
+  - Identity
+  - Nonprofit
+  properties:
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/api-docs/login
+  - type: OpenIDConnect
+    url: https://developers.gofundme.com/pro/api-docs/login
+- name: Classy Pay
+  description: >-
+    Payment and embedded-checkout service behind GoFundMe Pro donation and registration flows. Ships a
+    JavaScript embedded-checkout library (classypay.js) that renders a hosted checkout form into a host
+    page and returns the full transaction response minus sensitive payment data, plus a REST API for transactions,
+    voids and refunds. Publishes a separate staging environment for integration testing.
+  humanURL: https://developers.gofundme.com/pro/api-docs/pay
+  baseURL: https://pay.classy.org
+  tags:
+  - Payments
+  - Checkout
+  - Donations
+  - Embedded Components
+  properties:
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/api-docs/pay
+  - type: Components
+    url: components/gofundme-components.yml
+- aid: gofundme:gofundme-acknowledgement-api
+  name: GoFundMe Acknowledgement API
+  description: >-
+    An acknowledgement is a means of indicating that the member who made a transaction has been formally
+    thanked. Every acknowledgement is made by the associated member, optionally on behalf of another fundraising
+    entity.
+
+    Acknowledgements should be created after a donator has been contacted via email, comment, etc.
   humanURL: https://developers.gofundme.com/pro/docs
   baseURL: https://pro.gofundme.com/api/2.0
   tags:
-  - Fundraising
-  - Nonprofit
-  - Donations
-  - Peer-to-Peer Fundraising
-  - Recurring Giving
-  - Events
-  - CRM
+  - Acknowledgement
   properties:
   - type: OpenAPI
-    url: openapi/gofundme-pro-api-openapi.json
+    url: openapi/gofundme-acknowledgement-api-openapi.yml
   - type: DeveloperPortal
     url: https://developers.gofundme.com/pro/overview/welcome
   - type: Documentation
@@ -77,8 +108,6 @@ apis:
     url: errors/gofundme-problem-types.yml
   - type: DataModel
     url: data-model/gofundme-data-model.yml
-  - type: Overlay
-    url: overlays/gofundme-pro-api-overlay.yaml
   - type: RateLimits
     url: rate-limits/gofundme-rate-limits.yml
   - type: Postman
@@ -89,44 +118,3073 @@ apis:
     url: examples/gofundme-examples.yml
   - type: SignUp
     url: https://developers.gofundme.com/pro/overview/request-access
-- name: Classy Login (OpenID Connect SSO)
+- aid: gofundme:gofundme-activity-api
+  name: GoFundMe Activity API
   description: >-
-    GoFundMe Pro's single sign-on service, implemented against OpenID Connect, letting third-party apps
-    register and log people in with their Classy/GoFundMe Pro account. Authorization endpoint at
-    login.classy.org/authorize, token endpoint at api.classy.org/oauth2/auth, userinfo at
-    api.classy.org/2.0/me. Supports redirect, popup and iframe flows via a JavaScript SDK.
-  humanURL: https://developers.gofundme.com/pro/api-docs/login
-  baseURL: https://login.classy.org
+    An activity is a record of an interaction with the GoFundMe Pro platform.
+
+    Activity types include creating a new donation, creating a new fundraising page or team, adding a
+    new team member, and more.
+
+    Activities are not created directly via the API, but are generated as a side-effect of user interaction
+    with other parts of the GoFundMe Pro system.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
   tags:
-  - Authentication
-  - Single Sign-On
-  - OpenID Connect
-  - Identity
-  - Nonprofit
+  - Activity
   properties:
+  - type: OpenAPI
+    url: openapi/gofundme-activity-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
   - type: Documentation
-    url: https://developers.gofundme.com/pro/api-docs/login
-  - type: OpenIDConnect
-    url: https://developers.gofundme.com/pro/api-docs/login
-- name: Classy Pay
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-annual-summary-api
+  name: GoFundMe Annual Summary API
+  description: Annual Summary
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Annual Summary
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-annual-summary-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-answer-api
+  name: GoFundMe Answer API
   description: >-
-    Payment and embedded-checkout service behind GoFundMe Pro donation and registration flows. Ships a
-    JavaScript embedded-checkout library (classypay.js) that renders a hosted checkout form into a host
-    page and returns the full transaction response minus sensitive payment data, plus a REST API for
-    transactions, voids and refunds. Publishes a separate staging environment for integration testing.
-  humanURL: https://developers.gofundme.com/pro/api-docs/pay
-  baseURL: https://pay.classy.org
+    Answer objects represent an answer to a Question that is associated with an answerable_type (referenced
+    by answerable_id and answerable_type),
+
+    supported types include: fundraising_page, fundraising_team, transaction or registration.
+
+
+    These types coincide with the location attribute of the answer’s question (referenced by question_id).
+
+    The above answerable_type values correspond with the four possible location values which are respectively:
+    page_creation, team_creation, donation_page, campaign_registration.
+
+
+    This is the reason why (in addition to listing by organization, campaign, or question) answers can
+    be fetched by page, team, transaction, or registration.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
   tags:
-  - Payments
-  - Checkout
-  - Donations
-  - Embedded Components
+  - Answer
   properties:
+  - type: OpenAPI
+    url: openapi/gofundme-answer-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
   - type: Documentation
-    url: https://developers.gofundme.com/pro/api-docs/pay
-  - type: Components
-    url: components/gofundme-components.yml
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-api-app-api
+  name: GoFundMe API App API
+  description: An App represents a client that can interact with GoFundMe Pro API.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - API App
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-api-app-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-appeal-set-api
+  name: GoFundMe Appeal Set API
+  description: >-
+    An appeal set is a group of campaign specific appeals for social media. The current appeals that are
+    supported include
+
+    Facebook, Twitter, SMS, and Email. There is one set of appeals per campaign, and a campaign does not
+    necessarily have an
+
+    associated appeal set.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Appeal Set
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-appeal-set-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-branding-api
+  name: GoFundMe Branding API
+  description: >-
+    Organizations can have branding images and styles that will be applied to various areas of the GoFundMe
+    Pro platform.
+     Examples include changing the GoFundMe Pro logo to the organization logo, adding an organization
+    background image to the GoFundMe Pro login page, etc.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Branding
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-branding-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-brandkit-api
+  name: GoFundMe Brandkit API
+  description: Brandkit
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Brandkit
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-brandkit-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-campaign-api
+  name: GoFundMe Campaign API
+  description: >-
+    The fundraising aspect of GoFundMe Pro takes place within Campaigns and Events. Use the campaign endpoint
+    to retrieve information about a campaign by its unique ID.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Campaign
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-campaign-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-campaign-channel-api
+  name: GoFundMe Campaign Channel API
+  description: >-
+    Campaign Channel is an Integration channel association available for specific Campaign. Integration
+    channels will be like Facebook, Double the Donation. Campign Channel have channel specific flags and
+    statuses
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Campaign Channel
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-campaign-channel-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-campaign-credential-set-api
+  name: GoFundMe Campaign Credential Set API
+  description: >-
+    A Credential Set is fundamentally a record that dictates what a user can do or access within a Campaign
+    or Organization context in the API.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Campaign Credential Set
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-campaign-credential-set-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-campaign-series-api
+  name: GoFundMe Campaign Series API
+  description: A Campaign Series is a time series of campaigns.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Campaign Series
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-campaign-series-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-campaign-series-iteration-api
+  name: GoFundMe Campaign Series Iteration API
+  description: A Campaign Series Iteration is one time span in a Campaign Series, e.g. '2024'
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Campaign Series Iteration
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-campaign-series-iteration-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-campaign-studio-api
+  name: GoFundMe Campaign Studio API
+  description: Campaign Studio
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Campaign Studio
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-campaign-studio-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-channel-fundraising-entity-api
+  name: GoFundMe Channel Fundraising Entity API
+  description: >-
+    Channel Fundraising Entity will be used to store additional channel details for the fundraising entity.
+    Where fundraising_entity_id is the ID of the associated fundraising entity and fundraising_entity_type
+    is the type of the associated fundraising entity, like a campaign or fundraising page.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Channel Fundraising Entity
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-channel-fundraising-entity-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-chariot-api
+  name: GoFundMe Chariot API
+  description: Chariot
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Chariot
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-chariot-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-classy-subscription-plan-api
+  name: GoFundMe Classy Subscription Plan API
+  description: >-
+    A ClassySubscriptionPlan is a legacy method of specifying the GoFundMe Pro plan to which an organization
+    is subscribed, which was associated with specific transaction rates and plan features. This has been
+    replaced with plans defined by an integration with an external service.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Classy Subscription Plan
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-classy-subscription-plan-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-comment-api
+  name: GoFundMe Comment API
+  description: >-
+    Comments can also be made in response to Stories, Updates, or FeedItems made on a fundraising entity.
+     Please note that these take a slightly different form from comments for activity records.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Comment
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-comment-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-credit-adjustment-api
+  name: GoFundMe Credit Adjustment API
+  description: >-
+    A credit adjustment represents against a debit or credit fundraising entity's fundraising total (aka
+    total_raised).
+
+    This adjustment represents credit specifically where funds are not captured. A simple example would
+    be a fundraiser receiving credit against his or her goal for volunteer service instead of
+
+    funds raised.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Credit Adjustment
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-credit-adjustment-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-dedication-api
+  name: GoFundMe Dedication API
+  description: >-
+    When a donation is dedicated to a specific individual, it can trigger a series of actions. An email
+    message, crafted by the donor, is sent to the dedicatee. Use the dedication endpoint to create, retrieve,
+    and update donor dedications.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Dedication
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-dedication-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-designation-api
+  name: GoFundMe Designation API
+  description: >-
+    A Designation refers to a specific cause the organization campaigns under. Multiple campaigns can
+
+    benefit the designated project. Designations allow me to assign Campaigns that champion the same cause
+    to one Designation. GoFundMe Pro can also retrieve donation metrics for
+
+    Designations as an aggregation of all Campaigns within a Designation.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Designation
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-designation-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-domain-slug-api
+  name: GoFundMe Domain Slug API
+  description: >-
+    A Domain Slug is a value used to shorten a URL by referencing a domain and a fundraising entity.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Domain Slug
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-domain-slug-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-donation-matching-plan-api
+  name: GoFundMe Donation Matching Plan API
+  description: >-
+    Donation matching occurs when a Sponsor - company or individual - agrees to match your campaign donations
+    for a
+
+    specific time period and/or up to a certain limit.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Donation Matching Plan
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-donation-matching-plan-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-double-the-donation-api
+  name: GoFundMe Double the Donation API
+  description: The Double the Donation API from GoFundMe — 2 operation(s) for double the donation.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Double the Donation
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-double-the-donation-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-ecard-api
+  name: GoFundMe E Card API
+  description: >-
+    Donors can send an eCard dedication along with their donation. Currently, a single campaign can support
+    a maximum of 4
+
+    eCards. eCards are 600 pixels wide by 400 pixels tall and uploaded by the organization.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - eCard
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-ecard-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-engagement-settings-api
+  name: GoFundMe Engagement Settings API
+  description: >-
+    Organization specific settings related to engagements such as email and SMS settings. We can set SMS
+    numbers or email DNS, throttling etc.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Engagement Settings
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-engagement-settings-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-faq-api
+  name: GoFundMe FAQ API
+  description: >-
+    An FAQ (short for Frequently Asked Question) is a means of answering common questions that donors
+    or registrants may
+
+    have when donating/registering for a campaign. These question/answer pairs will be publicly displayed
+    on the checkout page for your campaign.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - FAQ
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-faq-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-feed-item-api
+  name: GoFundMe Feed Item API
+  description: >-
+    A feed item is a representation of a message that populates the feed of a fundraising entity (i.e.
+    the feed item’s
+
+    “feedable”). Each feed item references an “agent” who performed an action, and may also reference
+    a “linkable” object that is relevant
+
+    to the action performed.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Feed Item
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-feed-item-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-fundraising-page-api
+  name: GoFundMe Fundraising Page API
+  description: >-
+    A fundraising page is a means for an individual fundraiser to raise funds for a
+
+    specific peer-to-peer campaign. Like other fundraising entities, each page allows
+
+    for the creation of an associated story and updates and displays a feed of
+
+    interactions that donors have had with the page throughout its lifecycle.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Fundraising Page
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-fundraising-page-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-fundraising-page-transfer-api
+  name: GoFundMe Fundraising Page Transfer API
+  description: Transfer Fundraising Page to another Member, Campaign or Fundraising Team.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Fundraising Page Transfer
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-fundraising-page-transfer-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-fundraising-team-api
+  name: GoFundMe Fundraising Team API
+  description: >-
+    Represents a group of donors consisting of a team lead fundraising together to reach a fundraising
+    goal.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Fundraising Team
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-fundraising-team-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-fundraising-team-policy-api
+  name: GoFundMe Fundraising Team Policy API
+  description: >-
+    The Fundraising Team Policy represents a settings policy that can be applied to a Fundraising Team
+    (parent, or sub-team). Fundraising Team Policy
+
+    attributes will effect the behavior of the Team and allow or restrict certain actions such as sub-team
+    or Fundraising Page creation. Fundraising Teams and
+
+    Fundraising Team Policies share a 1:1 relationship and Fundraising Team Policy attributes are set
+    when creating a Fundraising Team.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Fundraising Team Policy
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-fundraising-team-policy-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-fundraising-team-transfer-api
+  name: GoFundMe Fundraising Team Transfer API
+  description: >-
+    Transfer a Fundraising Team within its Campaign/subteam infrastructure. This is done by specifying
+    the team's direct parent, making it either a direct team for its Campaign or a subteam for another
+    team for its Campaign.
+
+
+    The endpoint requires two parameters within its post body: `new_parent_id` and `new_parent_type`.
+    These parameters are used to specify the new direct parent of the Fundraising Team. At the moment,
+    this can either be the Fundraising Team's Campaign itself (making it a direct team for the Campaign)
+    or another Fundraising Team associated with the Fundraising Team's Campaign (making it a subteam of
+    the specified team).
+
+
+    <b>NOTE</b>: An error will be returned if the new parent for a Fundraising Team is currently a subteam
+    of the Fundraising Team.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Fundraising Team Transfer
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-fundraising-team-transfer-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-gfm-npo-page-api
+  name: GoFundMe GFM NPO Page API
+  description: GFM NPO Page
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - GFM NPO Page
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-gfm-npo-page-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-hard-credit-transfer-api
+  name: GoFundMe Hard Credit Transfer API
+  description: >-
+    A hard credit transfer is a means of transferring a hard credit (i.e. transaction) between fundraising
+    entities associated with the same organization.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Hard Credit Transfer
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-hard-credit-transfer-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-like-api
+  name: GoFundMe Like API
+  description: >-
+    A like is a small show of approval for its associated 'likeable' entity. At the moment, the API allows
+    Stories, Updates, FeedItems, and Comments to be 'likeable'.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Like
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-like-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-magiclink-api
+  name: GoFundMe Magic Link API
+  description: MagicLink
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - MagicLink
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-magiclink-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-matched-transaction-api
+  name: GoFundMe Matched Transaction API
+  description: >-
+    A matched transaction can be created when a normal transaction may be matched with a future transaction.  This
+    might
+
+    occur in the case of an employer match, a sponsor pledge, or some other form of matching gift.  The
+    matching
+
+    transaction, once confirmed, will create an additional hard credit to the same entity that received
+    the original
+
+    transaction.  This credit is recognized in reporting and on the fundraiser/team/campaign total_raised
+    metric, but
+
+    funds may not yet be received.  Funds received for a matching transaction can be managed through its
+    Cash Ledger
+
+    (See Cash Ledger)
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Matched Transaction
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-matched-transaction-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-member-api
+  name: GoFundMe Member API
+  description: >-
+    A Member can be registered by directly having their attributes submitted (first_name, last_name, email_address,
+    ...),
+
+    or from their facebook account. To register a user from their Facebook account, a facebook authorization
+    code must be
+
+    obtained from this user. Member is also an user across the whole application. It have administration
+    access levels for Organizations and Campaigns.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Member
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-member-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-organization-api
+  name: GoFundMe Organization API
+  description: >-
+    Represents an organization account.
+
+
+    An organization's `currency_code` is used for Passport functionality.
+
+    `currency_code` dictates the currency code that is used to normalize all of the organization's fundraising
+    entities
+
+    (e.g. campaigns, fundraising teams, and fundraising pages).
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Organization
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-organization-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-organization-channel-api
+  name: GoFundMe Organization Channel API
+  description: >-
+    An organization channel is a method of configuring an integration between an organization and a third-party
+    event service (e.g. Facebook).
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Organization Channel
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-organization-channel-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-organization-consumer-mappings-api
+  name: GoFundMe Organization Consumer Mappings API
+  description: Organization Consumer Mappings
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Organization Consumer Mappings
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-organization-consumer-mappings-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-organization-credential-set-api
+  name: GoFundMe Organization Credential Set API
+  description: >-
+    A Credential Set is fundamentally a record that dictates what a user can do or access within a Campaign
+    or Organization context in the API.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Organization Credential Set
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-organization-credential-set-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-organization-notification-api
+  name: GoFundMe Organization Notification API
+  description: >-
+    The Organization Notification API from GoFundMe — 2 operation(s) for organization notification.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Organization Notification
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-organization-notification-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-organizations-api
+  name: GoFundMe Organizations API
+  description: Organizations
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Organizations
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-organizations-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-payouts-api
+  name: GoFundMe Payouts API
+  description: Payouts will provide transactions of PayPal and Stripe.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Payouts
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-payouts-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-promo-code-api
+  name: GoFundMe Promo Code API
+  description: >-
+    A promo code record represents a shareable string that can be used to apply a discount to the purchase
+    of one or more configured ticket types for a specified campaign. The code can specify either a percentage
+    of the base price or flat amount of one or more tickets. A promo code can be configured to optionally
+    restrict the number of times and/or a time frame during which the promo code can be used. A code can
+    also be given a general designation, meaning it has no direct configurations against one or more ticket
+    types and instead applies to all ticket types for its campaign.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Promo Code
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-promo-code-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-promo-code-configuration-api
+  name: GoFundMe Promo Code Configuration API
+  description: >-
+    A promo code configuration record indicates that its associated promo code can be applied to purchases
+    of the associated ticket type.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Promo Code Configuration
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-promo-code-configuration-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-question-api
+  name: GoFundMe Question API
+  description: >-
+    Questions are set up by organizations learn more about their supporters and fundraisers. These questions
+    appear as a supporter signs up to fundraise or when making a donation.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Question
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-question-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-recurring-donation-plan-api
+  name: GoFundMe Recurring Donation Plan API
+  description: >-
+    A Recurring Donation Plan is a record of a user's intent to provide recurring donations towards a
+    campaign or fundraising page. The record itself contains the provided billing address and identifying
+    credit card information for the plan.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Recurring Donation Plan
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-recurring-donation-plan-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-recurring-donation-plan-history-api
+  name: GoFundMe Recurring Donation Plan History API
+  description: A Recurring Donation Plan History is a history record of Recurring Donation Plan.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Recurring Donation Plan History
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-recurring-donation-plan-history-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-registration-api
+  name: GoFundMe Registration API
+  description: >-
+    Registration records show information pertaining to event attendance, either through a ticket purchase
+    or basic registration.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Registration
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-registration-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-reports-api
+  name: GoFundMe Reports API
+  description: Reports
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-reports-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-restricted-country-api
+  name: GoFundMe Restricted Country API
+  description: Restrict countries to have restricted usage of GoFundMe Pro such as for GDPR
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Restricted Country
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-restricted-country-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-role-api
+  name: GoFundMe Role API
+  description: Organizations and Campaigns have roles that can be assigned to Members.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Role
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-role-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-social-video-api
+  name: GoFundMe Social Video API
+  description: Social Video
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Social Video
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-social-video-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-softcredit-api
+  name: GoFundMe Soft Credit API
+  description: >-
+    Soft credits serve to allocate credit from part or all of the funds raised for a fundraising entity
+    to any of its associated entities. For example, a transaction made against a fundraising team can
+    be allocated to its fundraising pages by creating and associating soft credits in specified amounts
+    that will be considered when calculating each page's progress towards its fundraising goal.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - SoftCredit
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-softcredit-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-source-tracking-codes-api
+  name: GoFundMe Source Tracking Codes API
+  description: >-
+    Some Organizations have multiple marketing channels to support their cause. Source Tracking Codes
+    are internal codes GoFundMe Pro uses to identify which marketing channel a Supporter passed through.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Source Tracking Codes
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-source-tracking-codes-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-staff-notification-setting-api
+  name: GoFundMe Staff Notification Setting API
+  description: >-
+    Notification settings are for sending email notifications for different scopes as Organization and
+    Campaign. Based on settings, email notification
+     will be sent for Transactions, Fundraising Pages or Teams, Chargeback, Recurring Donations and GoFundMe
+    Pay payout report.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Staff Notification Setting
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-staff-notification-setting-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-story-api
+  name: GoFundMe Story API
+  description: >-
+    A type of post meant for display on a fundraising entity's page. This allows an administrator for
+
+    the fundraising entity to present an appeal for donations or registrations to page visitors in a unique
+    or personalized
+
+    way. There is only one published story per fundraising entity.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Story
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-story-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-studio-campaign-api
+  name: GoFundMe Studio Campaign API
+  description: Studio Campaign
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Studio Campaign
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-studio-campaign-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-supporter-api
+  name: GoFundMe Supporter API
+  description: >-
+    A donor profile that’s owned by the organization. When an organization makes an update to a supporter,
+    it will not affect member profile.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Supporter
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-supporter-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-supporters-api
+  name: GoFundMe Supporters API
+  description: Supporters
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Supporters
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-supporters-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-theme-api
+  name: GoFundMe Theme API
+  description: >-
+    It is a Campaign Theme which is used to set Theme properties like pages (landing, donation, thank
+    you, etc) and styles for the Theme.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Theme
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-theme-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-ticket-type-api
+  name: GoFundMe Ticket Type API
+  description: >-
+    A Ticket Type defines the available ticket(s) for a ticketed Campaign. For example, ‘General Admission’
+    or ‘VIP’
+     *
+    This defines what types of tickets are available. It is NOT an instance of a specific ticket or purchase
+    history of a ticket.
+
+
+    E.g. 'General Admission', quantity 1,000.
+
+
+    This is NOT a specific instance of a ticket or purchase history of a ticket.  It defines what types
+    of tickets are available.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Ticket Type
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-ticket-type-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-transaction-api
+  name: GoFundMe Transaction API
+  description: >-
+    Transactions have three types of attributes relating to Passport: raw, charged, and normalized.
+
+
+    Raw attributes reflect the donor/purchaser's intent when creating the Transaction. The only attribute
+    directly specified on the Transaction is `raw_currency_code` - the other visible attributes (`raw_total_gross_amount`,
+    `raw_donation_gross_amount`, and  `raw_overhead_net_amount`) are all derived from the raw values set
+    on the transaction's items.
+
+
+    Charged attributes reflect the values that are actually charged when the payment is processed. Since
+    the potential values for a Transaction's `charged_currency_code` should be limited to those available
+    to an Organization for processing, this value can differ from the Transaction's `raw_currency_code`.
+    The amount that is charged is reflected in `charged_total_gross_amount`, while the fees are expressed
+    in `charged_classy_fees_amount` and `charged_pp_fees_amount` (`charged_fees_amount` attribute is the
+    sum of these two attributes). There is additionally a `charged_at` timestamp that is used for normalization.
+
+
+    Normalized attributes reflect a conversion from raw and/or charged attributes into the Transaction's
+    `currency_code`, which is the same for all Passport-enabled entities associated with the Transaction's
+    Organization. This normalization occurs to allow for a constant basis of comparison across each of
+    these entities. These normalized values are all converted from the associated raw or charged attributes,
+    preferring the charged attribute over the raw attribute if available. For example, `charged_total_gross_amount`
+    will be used instead of `raw_total_gross_amount` if both `charged_total_gross_amount` and `charged_currency_code`
+    are present. If `charged_at` is also present, the exchange rate between `charged_currency_code` and
+    `currency_code` at that time will be used if/when the Transaction is renormalized.
+
+
+    It should be noted that there is no notion of raw fees, as these are calculated at the time that a
+    Transaction is charged and therefore only reflected as charged attributes. If a transaction is flagged
+    as 'fee-on-top', this will be reflected by an increase in the `charged_total_gross_amount` that will
+    not be visible in `raw_total_gross_amount`.
+
+
+    Transactions may be in a number of different states: success, incomplete, canceled, refunded, cb_initiated,
+    cb_lost, test, pending, failed
+
+
+    An additional transaction attribute relating to Passport is the `tax_entity_id`. Tax entities indicate
+    that an Organization is tax compliant within a certain country. A single organization may have more
+    than one tax entity. The `tax_entity_id` listed on the Transaction indicates which of the Organization's
+    tax entities indicates the tax compliance of the Transaction.
+
+
+    Transactions may have an associated 'context' attribute which provides data about the Transaction's
+    original Campaign (this does not change between hard credit transfers) and whether or not the transaction
+    is considered to incorporate Passport functionality. This attribute can be used for filtering and/or
+    sorting when using index endpoints.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Transaction
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-transaction-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-transaction-item-api
+  name: GoFundMe Transaction Item API
+  description: >-
+    Transaction Items describe the specific donations, tickets, registrations (and more) that could make
+    up a Transaction.
+     Some transactions will only have a single Transaction Item, but others may have many.
+
+    Like transactions, transaction items have three types of attributes relating to Passport: raw, charged,
+    and normalized.
+
+
+    Raw attributes (e.g. `raw_currency_code`, `raw_final_price`, etc.) reflect donor intent through their
+    donation or product purchases. `raw_final_price` represents the total raw value of a transaction item
+    - it is either set directly (as with a direct donation) or derived from the product of `raw_price`
+    (the price of the transaction item's associated product) and the specified quantity. Transaction items
+    associated with a product may also have `raw_overhead_amount` set, which indicates the amount of the
+    `raw_final_price` that is attributed to campaign overhead. All raw amounts are presented in terms
+    of `raw_currency_code`, which is inherited from the transaction item's transaction and cannot be set
+    on a per-item basis.
+
+
+    Charged (e.g. `charged_final_price`, `charged_fees_amount`, etc.) attributes are all derived from
+    the transaction item's associated transaction and reflect the percentage that the transaction item
+    contributed to the transaction's raw gross amount. For example, a transaction item that contributed
+    85% of its transaction's `raw_total_gross_amount` through its `raw_final_price` will see its charged
+    attributes reflect 85% of the transaction's charged attribute values. All of these values will be
+    reflected in terms of the `charged_currency_code` of the transaction item's transaction.
+
+
+    Normalized attributes (e.g. `final_price`, `fees_amount`, etc.) reflect a conversion from raw and/or
+    charged attributes into the transaction item's `currency_code`, which is the same for all Passport-enabled
+    entities associated with the transaction item's organization. This normalization occurs to allow for
+    a constant basis of comparison across each of these entities. These normalized values are all converted
+    from the associated raw or charged attributes, preferring the charged attribute over the raw attribute
+    if available. For example, `charged_final_price` will be used instead of `raw_final_price` if both
+    `charged_final_price` and `charged_currency_code` are present. If `charged_at` is also present, the
+    exchange rate between `charged_currency_code` and `currency_code` at that time will be used if/when
+    the transaction item is renormalized.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Transaction Item
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-transaction-item-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-transaction-receipt-api
+  name: GoFundMe Transaction Receipt API
+  description: >-
+    Transaction receipts record any instance when a specific transaction is produced for a donation.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Transaction Receipt
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-transaction-receipt-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-update-api
+  name: GoFundMe Update API
+  description: >-
+    A type of post meant for display on a fundraising entity's page. This allows and administrator for
+
+    the fundraising entity to provide donors or registrants with information about the progress of the
+    campaign and maintain
+
+    a consistent level of engagement during the fundraising entity's lifetime. There can be multiple published
+    updates per
+
+    fundraising entity.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Update
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-update-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
+- aid: gofundme:gofundme-whitelisted-currency-api
+  name: GoFundMe Whitelisted Currency API
+  description: >-
+    A record indicating one of the possible currencies that an organization is allowing for fundraising
+
+    and transactions. If no such records exist for an organization, it is assumed that the organization
+    allows all
+
+    currencies supported by GoFundMe Pay functionality.
+  humanURL: https://developers.gofundme.com/pro/docs
+  baseURL: https://pro.gofundme.com/api/2.0
+  tags:
+  - Whitelisted Currency
+  properties:
+  - type: OpenAPI
+    url: openapi/gofundme-whitelisted-currency-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://developers.gofundme.com/pro/overview/welcome
+  - type: Documentation
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: APIReference
+    url: https://developers.gofundme.com/pro/docs
+  - type: GettingStarted
+    url: https://developers.gofundme.com/pro/overview/get-started
+  - type: Authentication
+    url: authentication/gofundme-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gofundme-scopes.yml
+  - type: Conventions
+    url: conventions/gofundme-conventions.yml
+  - type: Idempotency
+    url: conventions/gofundme-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gofundme-problem-types.yml
+  - type: DataModel
+    url: data-model/gofundme-data-model.yml
+  - type: RateLimits
+    url: rate-limits/gofundme-rate-limits.yml
+  - type: Postman
+    url: https://github.com/classy-org/postman-collections
+  - type: Sandbox
+    url: sandbox/gofundme-sandbox.yml
+  - type: Examples
+    url: examples/gofundme-examples.yml
+  - type: SignUp
+    url: https://developers.gofundme.com/pro/overview/request-access
 common:
+- type: Overlay
+  url: overlays/gofundme-pro-api-overlay.yaml
 - type: DomainSecurity
   url: security/gofundme-domain-security.yml
 - type: Website
