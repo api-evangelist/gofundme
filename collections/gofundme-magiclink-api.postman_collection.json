@@ -1,0 +1,446 @@
+{
+  "item": [
+    {
+      "id": "e15fd022-aa5c-415b-929b-4c75ff244692",
+      "name": "MagicLink",
+      "description": {
+        "content": "MagicLink",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1d467675-d139-49e6-9cf5-3e2f6bb49200",
+          "name": "Create an async, mint-only batch of scoped magic links (internal).",
+          "request": {
+            "name": "Create an async, mint-only batch of scoped magic links (internal).",
+            "description": {
+              "content": "Create a new magic-link batch (async, mint-only).\n\nDispatches synchronously so the controller can return the batch_id and\nacceptance summary immediately (202 Accepted); the actual link-minting is\nhandled by the async orchestrator dispatched inside CreateMagicLinkBatch.\n\nApp-token-only: privateEndpoint blocks external apps, and\nassertAppTokenOnly() additionally rejects internal tokens that carry\nmember context. A batch can span multiple orgs and is triggered\nservice-to-service (the Admin bulk-generate flow) — there is no single\nmember to act on behalf of, and no per-member resource to authorize\nagainst. Confirmed with the consuming squad (Admin): calls carry an app\ntoken, never a member-scoped token. If member-scoped access is ever\nadded, re-check per-row authorization in MintScopedMagicLinkJob\n(security-patterns.md, IDOR + authorize-on-mutation rules).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "scoped-magic-link",
+                "batch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"action_scope\": \"<string>\",\n  \"idempotency_key\": \"<string>\",\n  \"requests\": [\n    {\n      \"organization_id\": \"<string>\",\n      \"recurring_donation_plan_id\": \"<string>\",\n      \"expires_at\": \"<dateTime>\",\n      \"amounts\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    },\n    {\n      \"organization_id\": \"<string>\",\n      \"recurring_donation_plan_id\": \"<string>\",\n      \"expires_at\": \"<dateTime>\",\n      \"amounts\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "52df340d-7b21-405d-ac4b-c4083f5d91bc",
+              "name": "Batch accepted; minting proceeds asynchronously. Poll the Location header (GET status) for progress.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scoped-magic-link",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"action_scope\": \"recurring_plan_edit\",\n  \"idempotency_key\": \"admin-batch-2026-07-08-abc123\",\n  \"requests\": [\n    {\n      \"organization_id\": \"29720\",\n      \"recurring_donation_plan_id\": \"137583\",\n      \"expires_at\": \"<dateTime>\",\n      \"amounts\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    },\n    {\n      \"organization_id\": \"29720\",\n      \"recurring_donation_plan_id\": \"137583\",\n      \"expires_at\": \"<dateTime>\",\n      \"amounts\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"batch_id\": \"4471\",\n  \"total\": 3,\n  \"accepted\": 2,\n  \"rejected\": []\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c68acb21-3e8c-4cde-a8ea-5bec4d4bc469",
+              "name": "Validation failed: bad action_scope, empty or oversized requests, or missing idempotency_key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scoped-magic-link",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"action_scope\": \"recurring_plan_edit\",\n  \"idempotency_key\": \"admin-batch-2026-07-08-abc123\",\n  \"requests\": [\n    {\n      \"organization_id\": \"29720\",\n      \"recurring_donation_plan_id\": \"137583\",\n      \"expires_at\": \"<dateTime>\",\n      \"amounts\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    },\n    {\n      \"organization_id\": \"29720\",\n      \"recurring_donation_plan_id\": \"137583\",\n      \"expires_at\": \"<dateTime>\",\n      \"amounts\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e6eed8b1-f116-4fdc-869b-370984711eaf",
+              "name": "Caller is an external app, or an internal app carrying member context (application tokens only).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scoped-magic-link",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"action_scope\": \"recurring_plan_edit\",\n  \"idempotency_key\": \"admin-batch-2026-07-08-abc123\",\n  \"requests\": [\n    {\n      \"organization_id\": \"29720\",\n      \"recurring_donation_plan_id\": \"137583\",\n      \"expires_at\": \"<dateTime>\",\n      \"amounts\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    },\n    {\n      \"organization_id\": \"29720\",\n      \"recurring_donation_plan_id\": \"137583\",\n      \"expires_at\": \"<dateTime>\",\n      \"amounts\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "597de9fa-b147-44c4-be96-002edf0419a3",
+          "name": "Return the rollup status for a magic-link batch (internal).",
+          "request": {
+            "name": "Return the rollup status for a magic-link batch (internal).",
+            "description": {
+              "content": "Return the rollup status for a batch.\n\nUnscoped findOrFail is intentional: privateEndpoint + app-token-only gate\nthe route and the id is the batch's own surrogate key (not a tenant\nresource), so there is no cross-org IDOR surface.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "scoped-magic-link",
+                "batch",
+                ":batch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "batch",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "67b1140c-f659-4df8-a4fd-6bf8c4e77751",
+              "name": "Batch status rollup.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scoped-magic-link",
+                    "batch",
+                    ":batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "batch",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 4471,\n  \"organization_id\": \"29720\",\n  \"action_scope\": \"recurring_plan_edit\",\n  \"status\": \"completed\",\n  \"total_count\": 100,\n  \"completed_count\": 98,\n  \"failed_count\": 2,\n  \"progress_percentage\": 100,\n  \"is_complete\": true,\n  \"is_processing\": false,\n  \"started_at\": \"1951-10-22T23:58:18.589Z\",\n  \"completed_at\": null,\n  \"error_message\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e1bfa19c-33c1-4bcf-8cfd-ebc8e882b9e5",
+              "name": "Caller is an external app, or an internal app carrying member context (application tokens only).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scoped-magic-link",
+                    "batch",
+                    ":batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "batch",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cdb47c1d-d8ea-4fa5-be59-de0dcd4261da",
+              "name": "No batch exists with this id.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scoped-magic-link",
+                    "batch",
+                    ":batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "batch",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://pro.gofundme.com/api/2.0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "/oauth2/auth"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "/oauth2/auth"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d23bb8fe-9c05-4da0-a037-083e67eb8b26",
+    "name": "GoFundMe Pro Magic Link API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<h1>GoFundMe Pro API</h1>\n<p>Welcome to the GoFundMe Pro API (2.0.0), a powerful toolset that empowers innovative and creative minds to engineer the world for good. This documentation walks through the API’s latest endpoints.</p>\n<p>GoFundMe Pro APIs are crafted around REST and the REST architectural style to provide developers with a stateless and language-­agnostic interface. The GoFundMe Pro API leverages HTTP verbs and response codes, OAuth2 authentication, and resource-­oriented URLs.</p>\n<p>Currently, the GoFundMe Pro API only supports JSON. All POST/PUT requests required a valid JSON object for the request body.</p>\n<h2>Errors</h2>\n<p>The GoFundMe Pro API leverages standard HTTP response status codes for it’s error responses. Error codes are:</p>\n<p><br /></p>\n<table border='1'>\n<tr>\n<th width='100px'>Error Code</th>\n<th>Meaning</th>\n</tr>\n<tr>\n<td>400</td>\n<td>Bad Request: The request was malformed or provided incorrect/incomplete/conflicting parameters. Check the response for more detailed messaging about why the request was incorrect. Do not repeat request.</td>\n</tr>\n<tr>\n<td>401</td>\n<td>Unauthorized: The API does not recognize the request as authorized. API access token may be missing or invalid.</td>\n</tr>\n<tr>\n<td>403</td>\n<td>Forbidden: The API recognizes the authorized API user, but the API user does not have correct permissions to satisfy the request.</td>\n</tr>\n<tr>\n<td>404</td>\n<td>Not Found: The resource requested does not exist or was not found.</td>\n</tr>\n<tr>\n<td>405</td>\n<td>Method Not Allowed: Some REST endpoints only accept a subset of valid REST HTTP verbs. This error is sent when an unsupported verb is requested.</td>\n</tr>\n<tr>\n<td>429</td>\n<td>Too Many Requests: The rate limit has been exceeded. See the <a href=\"#rate-limiting\">Rate Limiting</a> section for details on rate limits and response headers.</td>\n</tr>\n<tr>\n<td>500</td>\n<td>Error: The request was valid, but something failed on the server. Additional messages may be available.</td>\n</tr>\n<tr>\n<td>503</td>\n<td>Service Unavailable: The service is temporarily unavailable.</td>\n</tr>\n</table>\n<h2>Requests</h2>\n<h3>Authenticating Requests</h3>\n<p>Most API requests will need to be signed with an Access Token.</p>\n<p>Refer to the <a href=\"https://developers.gofundme.com/pro/overview/authentication\" target=\"_blank\" rel=\"noopener noreferrer\">Resource Documentation</a> for the specific call you are making to see if an access token is required for your request. See <a href=\"https://developers.gofundme.com/pro/tutorials/samples\" target=\"_blank\" rel=\"noopener noreferrer\">this page</a> for a demonstration of usage through a sample app. \n<h3>Filters</h3>\n<p>We can filter a collection based on a set of input parameters. To do so, we can modify the query string using the parameters listed below.</p>\n\n<table border='1'>\n<tr>\n<th>Parameter</th>\n<th>Type</th>\n<th>Default</th>\n<th>Description</th>\n</tr>\n\n<tr>\n<td>with</td>\n<td>string</td>\n<td>N/A</td>\n<td>This allows you to include nested related resource. For example, you could request a campaign along with the organization it belongs to and the designation it was allocated to. In this case, <code>with=organization,designation.</code></td>\n</tr>\n\n<tr>\n<td>per_page</td>\n<td>integer</td>\n<td>20</td>\n<td>Set the total number of resources returned per page (Maximum: 100).</td>\n</tr>\n\n<tr>\n<td>page</td>\n<td>integer</td>\n<td>1</td>\n<td>Page to return.</td>\n</tr>\n\n<tr>\n<td>sort</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>\nOrder the resources depending upon their attributes. Examples:\n<ul>\n<li><strong>created_at</strong>: oldest resource will come first</li>\n<li><strong>created_at:desc</strong>: newest resource will come first</li>\n<li><strong>last_name:asc,first_name:asc</strong>: order resources by last_name in alphabetical order. If same last_name, order by first_name in alphabetical order.</li>\n</ul>\n</td>\n</tr>\n\n<tr>\n<td>fields</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>List of resources attributes separated with comma. Narrow the list of attributes returned for each resource.</td>\n</tr>\n\n<tr>\n<td>filter</td>\n<td>string</td>\n<td>NULL</td>\n<td>\nAllow to filter the list of resources returned. Format is: <code>{association}.{attribute1}{operand}{value}</code> where: <ul>\n<li>association is the association if this is a nested filter (optional)</li>\n<li>operand is one of the following: <code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, false can be expressed with <code>false</code> or <code>0</code>).</li>\n<li>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. with | string | NULL | This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</li>\n</ul>\n</td>\n</tr>\n</table>\n\n<p>When filtering, the operand should be one of the following:</p>\n<p><code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, <code>false</code> can be expressed with <code>false</code> or <code>0</code>).</p>\n<p>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</p>\n<p>Refer to the sample documentation for the specific call you are making to see which related resource can be fetched.</p>\n\n<h3>Date and Time Filtering</h3>\n<p>Unless otherwise noted, all Datetime attributes in API responses will be returned in an ISO8601 compliant format:</p>\n<><code>YYYY-MM-DDTHH:mm:ss.sssZ</code> (e.g. <code>2024-10-05T14:48:00.000Z</code>).</p>\n<h2 id=\"rate-limiting\">Rate Limiting</h2>\n<p>The GoFundMe Pro API implements rate limiting to ensure fair usage and maintain service quality for all users. Rate limits are applied on a per-application and per-user basis.</p>\n<h3>When Rate Limiting Applies</h3>\n<p>Rate limiting is applied to requests that meet the following conditions:</p>\n<ul>\n<li>The API application is <strong>not internal</strong> (external/third-party applications)</li>\n<li>The API application is associated to an Organization</li>\n</ul>\n<p>Internal applications are not subject to rate limiting.</p>\n<h3>Rate Limit Details</h3>\n<p>By default, the rate limit is:</p>\n<ul>\n<li><strong>1800 requests per minute</strong> per application</li>\n</ul>\n<p>Rate limits may be adjusted dynamically via flags for specific applications or users.</p>\n<h3>Rate Limit Headers</h3>\n<p>All API responses include the following headers to help you track your rate limit status:</p>\n<table border='1'>\n<tr>\n<th width='200px'>Header</th>\n<th>Description</th>\n</tr>\n<tr>\n<td><code>X-RateLimit-Limit</code></td>\n<td>The maximum number of requests allowed in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Remaining</code></td>\n<td>The number of requests remaining in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Reset</code></td>\n<td>Unix timestamp indicating when the rate limit window resets (only included when limit is exceeded)</td>\n</tr>\n<tr>\n<td><code>Retry-After</code></td>\n<td>Number of seconds to wait before retrying (only included in 429 responses)</td>\n</tr>\n</table>\n<h3>Handling Rate Limit Errors</h3>\n<p>When you exceed the rate limit, the API will return a <code>429 Too Many Requests</code> response with the following structure:</p>\n<pre><code>{\n  \"message\": \"Too Many Attempts.\",\n  \"retry_after\": 42\n}</code></pre>\n<p>The response will include the <code>Retry-After</code> header indicating how many seconds you should wait before making another request.</p>\n<h3>Best Practices</h3>\n<ul>\n<li>Monitor the <code>X-RateLimit-Remaining</code> header to track your usage</li>\n<li>Implement exponential backoff when you receive a 429 response</li>\n<li>Respect the <code>Retry-After</code> header value before retrying</li>\n<li>Cache responses when possible to reduce API calls</li>\n<li>Batch operations when the API supports it</li>\n</ul>",
+      "type": "text/plain"
+    }
+  }
+}

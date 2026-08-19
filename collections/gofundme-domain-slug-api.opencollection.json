@@ -1,0 +1,360 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "GoFundMe Pro Domain Slug API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "/oauth2/auth",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Domain Slug",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "listCampaignDomainSlugs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/campaigns/:campaign/domain-slugs",
+            "params": [
+              {
+                "name": "campaign",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of specified Campaign"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all Domain Slugs for specified Campaign"
+        },
+        {
+          "info": {
+            "name": "createCampaignDomainSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/campaigns/:campaign/domain-slugs",
+            "params": [
+              {
+                "name": "campaign",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of specified Campaign"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a Domain Slug for the specified Campaign"
+        },
+        {
+          "info": {
+            "name": "fetchDomainSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/domain-slugs/:domain_slug",
+            "params": [
+              {
+                "name": "domain_slug",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of Domain Slug"
+              },
+              {
+                "name": "with",
+                "value": "",
+                "type": "query",
+                "description": "Request specific relationships to be returned with the DomainSlug"
+              }
+            ]
+          },
+          "docs": "Fetch specified Domain Slug"
+        },
+        {
+          "info": {
+            "name": "updateDomainSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://pro.gofundme.com/api/2.0/domain-slugs/:domain_slug",
+            "params": [
+              {
+                "name": "domain_slug",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of Domain Slug"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update specified Domain Slug"
+        },
+        {
+          "info": {
+            "name": "deleteDomainSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://pro.gofundme.com/api/2.0/domain-slugs/:domain_slug",
+            "params": [
+              {
+                "name": "domain_slug",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of Domain Slug"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete specified Domain Slug"
+        },
+        {
+          "info": {
+            "name": "checkSlugAvailability",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/domain-slugs/availability-check/:slug_value",
+            "params": [
+              {
+                "name": "slug_value",
+                "value": "",
+                "type": "path",
+                "description": "Value of the Domain Slug"
+              },
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "query",
+                "description": "Primary identifier of Domain to apply availability check against. If none provided, the default Domain will be used."
+              }
+            ]
+          },
+          "docs": "Check if a Domain Slug exists with the specified value"
+        },
+        {
+          "info": {
+            "name": "createFundraisingPageDomainSlug",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-pages/:fundraising_page/domain-slugs",
+            "params": [
+              {
+                "name": "fundraising_page",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of specified Fundraising Page"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a Domain Slug for the specified Fundraising Page"
+        },
+        {
+          "info": {
+            "name": "listFundraisingTeamDomainSlugs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-teams/:fundraising_team/domain-slugs",
+            "params": [
+              {
+                "name": "fundraising_team",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of specified Organization"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all Domain Slugs for specified Fundraising Team"
+        },
+        {
+          "info": {
+            "name": "createFundraisingTeamDomainSlugs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-teams/:fundraising_team/domain-slugs",
+            "params": [
+              {
+                "name": "fundraising_team",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of specified Fundraising Team"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a Domain Slug for the specified Fundraising Team"
+        },
+        {
+          "info": {
+            "name": "listOrganizationDomainSlugs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/organizations/:organization/domain-slugs",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of specified Organization"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all Domain Slugs for specified Organization"
+        },
+        {
+          "info": {
+            "name": "createOrganizationDomainSlugs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/organizations/:organization/domain-slugs",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of specified Organization"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a Domain Slug for the specified Organization"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

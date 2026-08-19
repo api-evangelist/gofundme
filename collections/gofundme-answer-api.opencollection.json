@@ -1,0 +1,320 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "GoFundMe Pro Answer API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "/oauth2/auth",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Answer",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "listFundraisingPageAnswers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-pages/:fundraising_page/answers",
+            "params": [
+              {
+                "name": "fundraising_page",
+                "value": "",
+                "type": "path",
+                "description": "The specified Fundraising Page ID"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Retrieves list of all Answers related to specified Fundraising Page"
+        },
+        {
+          "info": {
+            "name": "createFundraisingPageAnswer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-pages/:fundraising_page/answers",
+            "params": [
+              {
+                "name": "fundraising_page",
+                "value": "",
+                "type": "path",
+                "description": "The specified Fundraising Page ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create an Answer for a Fundraising Page"
+        },
+        {
+          "info": {
+            "name": "listFundraisingTeamAnswers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-teams/:fundraising_team/answers",
+            "params": [
+              {
+                "name": "fundraising_team",
+                "value": "",
+                "type": "path",
+                "description": "The specified Fundraising Team ID"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Retrieves list of all Answers related to specified Fundraising Team"
+        },
+        {
+          "info": {
+            "name": "createFundraisingTeamAnswer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-teams/:fundraising_team/answers",
+            "params": [
+              {
+                "name": "fundraising_team",
+                "value": "",
+                "type": "path",
+                "description": "The specified Fundraising Team ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an Answer for a Fundraising Team"
+        },
+        {
+          "info": {
+            "name": "listOrganizationAnswers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/organizations/:organization/answers",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The specified Organization ID"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Retrieves list of all Answers related to specified Organization"
+        },
+        {
+          "info": {
+            "name": "listQuestionAnswers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/questions/:question/answers",
+            "params": [
+              {
+                "name": "question",
+                "value": "",
+                "type": "path",
+                "description": "The specified Question ID"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to be returned"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Retrieves list of all Answers related to specified Question"
+        },
+        {
+          "info": {
+            "name": "listRegistrationAnswers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/registrations/:registration/answers",
+            "params": [
+              {
+                "name": "registration",
+                "value": "",
+                "type": "path",
+                "description": "The specified Registration ID"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to be returned"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Retrieves list of all Answers related to specified Registration"
+        },
+        {
+          "info": {
+            "name": "createRegistrationAnswer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/registrations/:registration/answers",
+            "params": [
+              {
+                "name": "registration",
+                "value": "",
+                "type": "path",
+                "description": "The specified Registration ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create an Answer for a Registration"
+        },
+        {
+          "info": {
+            "name": "listTransactionAnswers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/transactions/:transaction/answers",
+            "params": [
+              {
+                "name": "transaction",
+                "value": "",
+                "type": "path",
+                "description": "The specified Transaction ID"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to be returned"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Retrieves list of all Answers related to specified Transaction"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,490 @@
+openapi: 3.2.0
+info:
+  title: GoFundMe Pro Classy Subscription Plan API
+  description: "<h1>GoFundMe Pro API</h1>\n<p>Welcome to the GoFundMe Pro API (2.0.0), a powerful toolset that empowers innovative and creative minds to engineer the world for good. This documentation walks through the API’s latest endpoints.</p>\n<p>GoFundMe Pro APIs are crafted around REST and the REST architectural style to provide developers with a stateless and language-­agnostic interface. The GoFundMe Pro API leverages HTTP verbs and response codes, OAuth2 authentication, and resource-­oriented URLs.</p>\n<p>Currently, the GoFundMe Pro API only supports JSON. All POST/PUT requests required a valid JSON object for the request body.</p>\n<h2>Errors</h2>\n<p>The GoFundMe Pro API leverages standard HTTP response status codes for it’s error responses. Error codes are:</p>\n<p><br /></p>\n<table border='1'>\n<tr>\n<th width='100px'>Error Code</th>\n<th>Meaning</th>\n</tr>\n<tr>\n<td>400</td>\n<td>Bad Request: The request was malformed or provided incorrect/incomplete/conflicting parameters. Check the response for more detailed messaging about why the request was incorrect. Do not repeat request.</td>\n</tr>\n<tr>\n<td>401</td>\n<td>Unauthorized: The API does not recognize the request as authorized. API access token may be missing or invalid.</td>\n</tr>\n<tr>\n<td>403</td>\n<td>Forbidden: The API recognizes the authorized API user, but the API user does not have correct permissions to satisfy the request.</td>\n</tr>\n<tr>\n<td>404</td>\n<td>Not Found: The resource requested does not exist or was not found.</td>\n</tr>\n<tr>\n<td>405</td>\n<td>Method Not Allowed: Some REST endpoints only accept a subset of valid REST HTTP verbs. This error is sent when an unsupported verb is requested.</td>\n</tr>\n<tr>\n<td>429</td>\n<td>Too Many Requests: The rate limit has been exceeded. See the <a href=\"#rate-limiting\">Rate Limiting</a> section for details on rate limits and response headers.</td>\n</tr>\n<tr>\n<td>500</td>\n<td>Error: The request was valid, but something failed on the server. Additional messages may be available.</td>\n</tr>\n<tr>\n<td>503</td>\n<td>Service Unavailable: The service is temporarily unavailable.</td>\n</tr>\n</table>\n<h2>Requests</h2>\n<h3>Authenticating Requests</h3>\n<p>Most API requests will need to be signed with an Access Token.</p>\n<p>Refer to the <a href=\"https://developers.gofundme.com/pro/overview/authentication\" target=\"_blank\" rel=\"noopener noreferrer\">Resource Documentation</a> for the specific call you are making to see if an access token is required for your request. See <a href=\"https://developers.gofundme.com/pro/tutorials/samples\" target=\"_blank\" rel=\"noopener noreferrer\">this page</a> for a demonstration of usage through a sample app. \n<h3>Filters</h3>\n<p>We can filter a collection based on a set of input parameters. To do so, we can modify the query string using the parameters listed below.</p>\n\n<table border='1'>\n<tr>\n<th>Parameter</th>\n<th>Type</th>\n<th>Default</th>\n<th>Description</th>\n</tr>\n\n<tr>\n<td>with</td>\n<td>string</td>\n<td>N/A</td>\n<td>This allows you to include nested related resource. For example, you could request a campaign along with the organization it belongs to and the designation it was allocated to. In this case, <code>with=organization,designation.</code></td>\n</tr>\n\n<tr>\n<td>per_page</td>\n<td>integer</td>\n<td>20</td>\n<td>Set the total number of resources returned per page (Maximum: 100).</td>\n</tr>\n\n<tr>\n<td>page</td>\n<td>integer</td>\n<td>1</td>\n<td>Page to return.</td>\n</tr>\n\n<tr>\n<td>sort</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>\nOrder the resources depending upon their attributes. Examples:\n<ul>\n<li><strong>created_at</strong>: oldest resource will come first</li>\n<li><strong>created_at:desc</strong>: newest resource will come first</li>\n<li><strong>last_name:asc,first_name:asc</strong>: order resources by last_name in alphabetical order. If same last_name, order by first_name in alphabetical order.</li>\n</ul>\n</td>\n</tr>\n\n<tr>\n<td>fields</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>List of resources attributes separated with comma. Narrow the list of attributes returned for each resource.</td>\n</tr>\n\n<tr>\n<td>filter</td>\n<td>string</td>\n<td>NULL</td>\n<td>\nAllow to filter the list of resources returned. Format is: <code>{association}.{attribute1}{operand}{value}</code> where: <ul>\n<li>association is the association if this is a nested filter (optional)</li>\n<li>operand is one of the following: <code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, false can be expressed with <code>false</code> or <code>0</code>).</li>\n<li>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. with | string | NULL | This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</li>\n</ul>\n</td>\n</tr>\n</table>\n\n<p>When filtering, the operand should be one of the following:</p>\n<p><code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, <code>false</code> can be expressed with <code>false</code> or <code>0</code>).</p>\n<p>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</p>\n<p>Refer to the sample documentation for the specific call you are making to see which related resource can be fetched.</p>\n\n<h3>Date and Time Filtering</h3>\n<p>Unless otherwise noted, all Datetime attributes in API responses will be returned in an ISO8601 compliant format:</p>\n<><code>YYYY-MM-DDTHH:mm:ss.sssZ</code> (e.g. <code>2024-10-05T14:48:00.000Z</code>).</p>\n<h2 id=\"rate-limiting\">Rate Limiting</h2>\n<p>The GoFundMe Pro API implements rate limiting to ensure fair usage and maintain service quality for all users. Rate limits are applied on a per-application and per-user basis.</p>\n<h3>When Rate Limiting Applies</h3>\n<p>Rate limiting is applied to requests that meet the following conditions:</p>\n<ul>\n<li>The API application is <strong>not internal</strong> (external/third-party applications)</li>\n<li>The API application is associated to an Organization</li>\n</ul>\n<p>Internal applications are not subject to rate limiting.</p>\n<h3>Rate Limit Details</h3>\n<p>By default, the rate limit is:</p>\n<ul>\n<li><strong>1800 requests per minute</strong> per application</li>\n</ul>\n<p>Rate limits may be adjusted dynamically via flags for specific applications or users.</p>\n<h3>Rate Limit Headers</h3>\n<p>All API responses include the following headers to help you track your rate limit status:</p>\n<table border='1'>\n<tr>\n<th width='200px'>Header</th>\n<th>Description</th>\n</tr>\n<tr>\n<td><code>X-RateLimit-Limit</code></td>\n<td>The maximum number of requests allowed in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Remaining</code></td>\n<td>The number of requests remaining in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Reset</code></td>\n<td>Unix timestamp indicating when the rate limit window resets (only included when limit is exceeded)</td>\n</tr>\n<tr>\n<td><code>Retry-After</code></td>\n<td>Number of seconds to wait before retrying (only included in 429 responses)</td>\n</tr>\n</table>\n<h3>Handling Rate Limit Errors</h3>\n<p>When you exceed the rate limit, the API will return a <code>429 Too Many Requests</code> response with the following structure:</p>\n<pre><code>{\n  \"message\": \"Too Many Attempts.\",\n  \"retry_after\": 42\n}</code></pre>\n<p>The response will include the <code>Retry-After</code> header indicating how many seconds you should wait before making another request.</p>\n<h3>Best Practices</h3>\n<ul>\n<li>Monitor the <code>X-RateLimit-Remaining</code> header to track your usage</li>\n<li>Implement exponential backoff when you receive a 429 response</li>\n<li>Respect the <code>Retry-After</code> header value before retrying</li>\n<li>Cache responses when possible to reduce API calls</li>\n<li>Batch operations when the API supports it</li>\n</ul>"
+  version: 2.0.0
+servers:
+- url: https://pro.gofundme.com/api/2.0
+security:
+- OAuth2Application: []
+- OAuth2Member: []
+tags:
+- name: Classy Subscription Plan
+  description: A ClassySubscriptionPlan is a legacy method of specifying the GoFundMe Pro plan to which an organization is subscribed, which was associated with specific transaction rates and plan features. This has been replaced with plans defined by an integration with an external service.
+paths:
+  /classy-subscription-plans/{id}/plan-features:
+    get:
+      tags:
+      - Classy Subscription Plan
+      summary: getSubscriptionPlanFeatures
+      description: Retrieves the Subscription Plan features for a specified Plan
+      operationId: getSubscriptionPlanFeatures
+      parameters:
+      - name: id
+        in: path
+        description: The specified Subscription Plan ID
+        required: true
+        schema:
+          type: integer
+          example: 103
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanFeatures'
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Subscription Plan not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+      deprecated: true
+components:
+  schemas:
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    PlanFeatures:
+      title: Plan Features
+      properties:
+        ach_account_and_routing:
+          description: Specifies whether the associated Organization can process ACH through manually entered account and routing numbers
+          type: boolean
+          example: false
+        ach_processing:
+          description: Specifies whether the associated Organization can process ACH transactions
+          type: boolean
+          example: false
+        admin_access_levels:
+          description: Specifies whether the associated Organization can use admin access levels feature
+          type: boolean
+          example: false
+        admin_notifications:
+          description: Specifies whether the associated Organization can use admin notifications feature
+          type: boolean
+          example: false
+        admin_roles:
+          description: Specifies whether the associated Organization can use admin roles feature
+          type: boolean
+          example: false
+        api_access:
+          description: Specifies whether the associated Organization can access the GoFundMe Pro API
+          type: boolean
+          example: false
+        campaign_templating:
+          description: Specifies whether the associated Organization can access Campaign Templating
+          type: boolean
+          example: false
+        connected_accounts:
+          description: Specifies whether the associated Organization is connected to other Organizations
+          type: boolean
+          example: false
+        cctype_crowdfunding:
+          description: Specifies whether the associated Organization can create and maintain crowdfunding Campaigns
+          type: boolean
+          example: false
+        ctype_donation:
+          description: Specifies whether the associated Organization can create and maintain Donation Page Campaigns
+          type: boolean
+          example: false
+        ctype_fund_for_entry:
+          description: Specifies whether the associated Organization can create and maintain fundraise-for-entry Campaigns
+          type: boolean
+          example: false
+        ctype_gfm_peer_to_peer:
+          description: Specifies whether the associated Organization can create and maintain GFM peer-to-peer Campaigns
+          type: boolean
+          example: false
+        ctype_peer_to_peer:
+          description: Specifies whether the associated Organization can create and maintain peer-to-peer Campaigns
+          type: boolean
+          example: false
+        ctype_reg_w_fund:
+          description: Specifies whether the associated Organization can create and maintain registration-with-fundraising Campaigns
+          type: boolean
+          example: false
+        ctype_registration:
+          description: Specifies whether the associated Organization can create and maintain registration Campaigns
+          type: boolean
+          example: false
+        ctype_studio_direct_giving:
+          description: Specifies whether the associated Organization can create and maintain Studio direct giving Campaigns
+          type: boolean
+          example: false
+        ctype_studio_embedded:
+          description: Specifies whether the associated Organization can create and maintain Studio embedded Campaigns
+          type: boolean
+          example: false
+        ctype_ticketed:
+          description: Specifies whether the associated Organization can create and maintain ticketed Campaigns
+          type: boolean
+          example: false
+        ctype_virtual:
+          description: Specifies whether the associated Organization can create and maintain virtual Campaigns
+          type: boolean
+          example: false
+        designations:
+          description: Specifies whether the associated Organization can create Designations
+          type: boolean
+          example: false
+        domain_masking:
+          description: Specifies whether the associated Organization can enable Domain Masking for their GoFundMe Pro pages
+          type: boolean
+          example: false
+        donate_double:
+          description: Allow Organization to enable Double the Donation integration
+          type: boolean
+          example: false
+        ecard_dedications:
+          description: Specifies whether the associated Organization has ecard Dedications enabled
+          type: boolean
+          example: false
+        email_contacts:
+          description: Allow Organization to send emails to Supporters
+          type: boolean
+          example: false
+        int_constant_contact:
+          description: Specifies whether the associated Organization can enable Constant Contact integration
+          type: boolean
+          example: false
+        int_double_the_donation:
+          description: Specifies whether the associated Organization can enable Double The Donation integration
+          type: boolean
+          example: false
+        int_dynamics:
+          description: Specifies whether the associated Organization can enable the Microsoft Dynamics integration
+          type: boolean
+          example: false
+        int_facebook:
+          description: Specifies whether the associated Organization can set up Facebook for Fundraising Pages creation on Facebook
+          type: boolean
+          example: false
+        int_meta_capi:
+          description: Specifies whether the associated Organization can configure a Meta CAPI integration
+          type: boolean
+          example: false
+        int_google_analytics:
+          description: Specifies whether the associated Organization can configure a Google Analytics integration
+          type: boolean
+          example: false
+        int_mailchimp:
+          description: Specifies whether the associated Organization can enable Mailchimp integration
+          type: boolean
+          example: false
+        int_raisers_edge:
+          description: Specifies whether the associated Organization can use Raiser's Edge for GoFundMe Pro
+          type: boolean
+          example: false
+        int_salesforce:
+          description: Specifies whether the associated Organization can enable the Salesforce integration
+          type: boolean
+          example: false
+        int_salesforce_advanced:
+          description: Specifies whether the associated Organization can enable the advanced Salesforce integration
+          type: boolean
+          example: false
+        int_zapier:
+          description: Specifies whether the associated Organization can enable the Zapier integration
+          type: boolean
+          example: false
+        int_salesforce_fundraising:
+          description: Specifies whether the associated Organization can enable the Salesforce nonprofit cloud integration
+          type: boolean
+          example: false
+        intelligent_ask_amounts:
+          description: Specifies whether the associated Organization can enable intelligent ask amounts
+          type: boolean
+          example: false
+        international_processing:
+          description: Specifies whether the associated Organization can set up and maintain multiple payment processors and enable international charges
+          type: boolean
+          example: false
+        live_agent:
+          description: Specifies whether the associated Organization can enable the live agent
+          type: boolean
+          default: false
+          example: false
+        live_chat:
+          description: Specifies whether the associated Organization can enable the live chat
+          type: boolean
+          example: false
+        max_admins:
+          description: Maximum number of admins that can access the organization's dashboard
+          type: integer
+          minimum: 0
+          example: 1
+        max_total_admins:
+          description: Number of total admins
+          type:
+          - integer
+          - 'null'
+          example: 1
+        max_campaigns:
+          description: Specifies the maximum number of active Campaigns that the Organization can have at a time
+          type: integer
+          minimum: 0
+          example: 1
+        max_zero_fee_donation_pages:
+          description: Specifies the maximum number of Donation pages that incur no GoFundMe Pro Transaction Fees
+          type: integer
+          minimum: 0
+          example: 1
+        nav_campaigns_enabled:
+          description: Controls visibility of campaigns navigation item
+          type: boolean
+          example: true
+        nav_fundraising_reports_enabled:
+          description: Controls visibility of fundraising reports navigation item
+          type: boolean
+          example: true
+        nav_general_reports_enabled:
+          description: Controls visibility of general reports navigation item
+          type: boolean
+          example: true
+        nav_gfm_channel_enabled:
+          description: Controls visibility of GFM channel navigation item
+          type: boolean
+          example: true
+        nav_home_enabled:
+          description: Controls visibility of home navigation item
+          type: boolean
+          example: true
+        nav_integrations_enabled:
+          description: Controls visibility of integrations navigation item
+          type: boolean
+          example: true
+        nav_supporters_enabled:
+          description: Controls visibility of supporters navigation item
+          type: boolean
+          example: true
+        nav_transactions_enabled:
+          description: Controls visibility of transactions navigation item
+          type: boolean
+          example: true
+        onboarding_cohort_paypal_essentials:
+          description: Allows Organization to onboard with PayPal Essentials
+          type: boolean
+          example: false
+        org_dashboard:
+          description: Specifies whether the associated Organization can enable the dashboard
+          type: boolean
+          example: false
+        org_level_reporting:
+          description: Specifies whether the associated Organization can enable level reporting
+          type: boolean
+          example: false
+        org_sso:
+          description: Specifies whether the associated Organization is federated sso
+          type: boolean
+          example: false
+        pp_authorize:
+          description: Specifies whether the associated Organization can enable an Authorize.net payment processor
+          type: boolean
+          example: false
+        pp_braintree:
+          description: Specifies whether the associated Organization can enable a Braintree payment processor
+          type: boolean
+          example: false
+        pp_chariot:
+          description: Specifies whether the associated Organization can enable a Chariot payment processor
+          type: boolean
+          example: false
+        pp_paypal:
+          description: Specifies whether the associated Organization can enable a PayPal payment processor
+          type: boolean
+          example: false
+        pp_cryptogiving:
+          description: Specifies whether the associated Organization can enable a crypto payment processor, such as Coinbase
+          type: boolean
+          example: false
+        pp_ppgf:
+          description: Specifies whether the associated Organization can enable a PPGF payment processor
+          type: boolean
+          example: false
+        pp_stripe:
+          description: Specifies whether the associated Organization can enable a Stripe payment processor
+          type: boolean
+          example: false
+        pp_wepay:
+          description: Specifies whether the associated Organization can enable a WePay payment processor
+          type: boolean
+          example: false
+        pro_designer:
+          description: Specifies whether the associated Organization can access the Pro Designer
+          type: boolean
+          example: false
+        recurring_donations:
+          description: Specifies whether the associated Organization can enable recurring donations
+          type: boolean
+          example: false
+        rollup_reporting:
+          description: Specifies whether the Organization can be included within roll-up reporting functionality
+          type: boolean
+          example: false
+        seo_keywords:
+          description: N/A
+          type: boolean
+          example: false
+        sponsor_matching:
+          description: Enabling Organization to allow the creation of Donation Matching Plans
+          type: boolean
+          example: false
+        studio_features_giving_cart:
+          description: Enables giving cart feature
+          type: boolean
+          example: false
+        virtual_advanced_features:
+          description: Allows for enterprise-level virtual event features (e.g. multiple stages)
+          type: boolean
+          example: false
+        virtual_advanced_reporting:
+          description: Allows for advanced reporting features for all auction-type events (e.g. recording transcripts)
+          type: boolean
+          example: false
+        virtual_auctions:
+          description: Allows for auctions to be enabled for virtual campaigns
+          type: boolean
+          example: false
+        virtual_auction_packages:
+          description: Allows for auction packages to be enabled for virtual campaigns
+          type: boolean
+          example: false
+        virtual_bulk_attendees:
+          description: Allows for bulk attendees to be enabled for virtual campaigns
+          type: boolean
+          example: false
+        virtual_bulk_auction_items:
+          description: Allows for bulk auction items to be enabled for virtual campaigns
+          type: boolean
+          example: false
+        virtual_customization:
+          description: Allows for advanced customization features for all auction-type events (e.g. custom emails)
+          type: boolean
+          example: false
+        virtual_group_registration:
+          description: Allows for group registration to be enabled for virtual campaigns
+          type: boolean
+          example: false
+        virtual_max_admins:
+          description: Maximum number of admin assignments for Live Events events (not including organization admins)
+          type:
+          - integer
+          - 'null'
+          minimum: 0
+          example: 1
+        virtual_max_duration_hours:
+          description: Maximum number of hours for Live Events virtual events
+          type:
+          - integer
+          - 'null'
+          minimum: 0
+          example: 24
+        virtual_max_event_attendees:
+          description: Maximum number of event attendees for GoFundMe Pro’s Live virtual events
+          type:
+          - integer
+          - 'null'
+          minimum: 0
+          example: 100
+        virtual_max_events_per_year:
+          description: Maximum number of events per year for GoFundMe Pro’s Live Events organization
+          type:
+          - integer
+          - 'null'
+          minimum: 0
+          example: 12
+        virtual_max_rooms:
+          description: Maximum number of breakout rooms allowed for each Live Events event
+          type:
+          - integer
+          - 'null'
+          minimum: 0
+          example: 10
+        virtual_max_room_attendees:
+          description: Maximum number of attendees allowed per breakout room in Live Events event
+          type:
+          - integer
+          - 'null'
+          minimum: 0
+          example: 10
+        virtual_max_stages:
+          description: Maximum number of stages allowed for each Live Events event
+          type:
+          - integer
+          - 'null'
+          minimum: 0
+          example: 5
+        virtual_mobile_app:
+          description: Allows for mobile app to be enabled for virtual campaigns
+          type: boolean
+          example: false
+        virtual_seating:
+          description: Allows for seating to be enabled for virtual campaigns
+          type: boolean
+          example: false
+        virtual_support_onsite:
+          description: Allows for support onsite to be enabled for virtual campaigns
+          type: boolean
+          example: false
+        virtual_support_phone:
+          description: Allows for support phone to be enabled for virtual campaigns
+          type: boolean
+          example: false
+        virtual_support_remote:
+          description: Allows for support remote to be enabled for virtual campaigns
+          type: boolean
+          example: false
+        virtual_text_to_donate:
+          description: Allows for text to donate to be enabled for virtual campaigns
+          type: boolean
+          example: false
+        virtual_venue:
+          description: Allows for venue to be enabled for virtual campaigns
+          type: boolean
+          example: false
+        zero_fee_donation_page:
+          description: Allow Organization to create a zero fee Campaign
+          type: boolean
+          example: false
+      type: object
+  securitySchemes:
+    OAuth2Application:
+      type: oauth2
+      description: OAuth bearer token for client application
+      flows:
+        clientCredentials:
+          tokenUrl: /oauth2/auth
+          refreshUrl: /oauth2/auth
+          scopes:
+            read: Read access
+            write: Write access
+    OAuth2Member:
+      type: oauth2
+      description: OAuth bearer token for client application with additional member context
+      flows:
+        password:
+          tokenUrl: /oauth2/auth
+          refreshUrl: /oauth2/auth
+          scopes:
+            read: Read access
+            write: Write access

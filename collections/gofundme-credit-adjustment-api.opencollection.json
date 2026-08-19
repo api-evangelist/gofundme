@@ -1,0 +1,125 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "GoFundMe Pro Credit Adjustment API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "/oauth2/auth",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Credit Adjustment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "createCampaignCreditAdjustment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/campaigns/:campaign/credit-adjustments",
+            "params": [
+              {
+                "name": "campaign",
+                "value": "",
+                "type": "path",
+                "description": "The specified Campaign ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create Credential Adjustment for specified Campaign"
+        },
+        {
+          "info": {
+            "name": "createFundraisingPageCreditAdjustment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-pages/:fundraising_page/credit-adjustments",
+            "params": [
+              {
+                "name": "fundraising_page",
+                "value": "",
+                "type": "path",
+                "description": "The specified Fundraising Page ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create Credential Adjustment for specified Fundraising Page"
+        },
+        {
+          "info": {
+            "name": "createFundraisingTeamCreditAdjustment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-teams/:fundraising_team/credit-adjustments",
+            "params": [
+              {
+                "name": "fundraising_team",
+                "value": "",
+                "type": "path",
+                "description": "The specified Fundraising Team ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create Credential Adjustment for specified Fundraising Team"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

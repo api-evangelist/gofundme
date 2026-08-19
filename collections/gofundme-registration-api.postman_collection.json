@@ -1,0 +1,1242 @@
+{
+  "item": [
+    {
+      "id": "29e201fe-98f0-42f7-ac67-c83e72ede979",
+      "name": "Registration",
+      "description": {
+        "content": "Registration records show information pertaining to event attendance, either through a ticket purchase or basic registration.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0ceef39d-03e0-440a-aacc-c8e2da8c79f4",
+          "name": "listCampaignRegistrations",
+          "request": {
+            "name": "listCampaignRegistrations",
+            "description": {
+              "content": "Retrieves a list of all Registrations for a specific Campaign",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaigns",
+                ":campaign",
+                "registrations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Indicator of which page of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Number of entries to return in each page of results"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "campaign",
+                  "description": "(Required) The specified Campaign ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f6514d31-2aa1-4202-b54e-d519a865d6e4",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":campaign",
+                    "registrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"value\": \"<Error: Could not resolve allOf schema\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6154a457-fbc2-4973-8355-16db92c47ac1",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":campaign",
+                    "registrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b7c79e63-d8bc-4430-af07-bcc8283d2830",
+              "name": "Campaign not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":campaign",
+                    "registrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "459f74b7-ad06-4bf4-b7e5-ebb0721f8c11",
+          "name": "listOrganizationRegistrations",
+          "request": {
+            "name": "listOrganizationRegistrations",
+            "description": {
+              "content": "Retrieves a list of all Registrations for a specific Organization",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "organizations",
+                ":organization",
+                "registrations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Indicator of which page of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Number of entries to return in each page of results"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "organization",
+                  "description": "(Required) The specified Organization ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "156b992c-af91-4864-a660-cb36a369b4c6",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organization",
+                    "registrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "organization",
+                      "description": "(Required) The specified Organization ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"value\": \"<Error: Could not resolve allOf schema\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "19ef0a90-37c9-4a2c-b626-854381578528",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organization",
+                    "registrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "organization",
+                      "description": "(Required) The specified Organization ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "858f7904-8bc7-457a-81b8-73607243ad7b",
+              "name": "Organization not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organization",
+                    "registrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "organization",
+                      "description": "(Required) The specified Organization ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "56f054aa-3314-4d9a-81cb-1c22445bff8d",
+          "name": "getRegistrationById",
+          "request": {
+            "name": "getRegistrationById",
+            "description": {
+              "content": "Retrieves Registrations from ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "registrations",
+                ":registration"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "registration",
+                  "description": "(Required) The specified Registration ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c58827f1-b42a-403c-8ab2-a786a83f61ff",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registrations",
+                    ":registration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "registration",
+                      "description": "(Required) The specified Registration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address1\": \"8554 Capricorn Way\",\n  \"address2\": \"N/A\",\n  \"attendee_id\": 248911,\n  \"blog\": \"blog.test.com\",\n  \"campaign_id\": 227362,\n  \"cell\": \"619-322-5056\",\n  \"city\": \"San Diego\",\n  \"commitment_id\": 98374,\n  \"company\": \"PayPal\",\n  \"country\": \"US\",\n  \"created_at\": \"2021-04-23T10:25:03Z\",\n  \"date_of_birth\": \"2021-04-23T10:25:03Z\",\n  \"email\": \"test@gofundme.com\",\n  \"first_name\": \"Kevin\",\n  \"fundraising_page_id\": 2173528,\n  \"gender\": \"m\",\n  \"id\": 78345,\n  \"last_name\": \"Cheek\",\n  \"member_id\": 2012,\n  \"phone\": \"619-322-5056\",\n  \"postal_code\": \"92126\",\n  \"product_name\": \"General Admission\",\n  \"state\": \"LA\",\n  \"status\": \"attending\",\n  \"supporter_id\": 53,\n  \"transaction_id\": 62376,\n  \"transaction_item_id\": 17020,\n  \"transaction_last_four\": 1111,\n  \"transaction_payment_type\": \"Credit Card\",\n  \"tshirt_size\": \"ML\",\n  \"updated_at\": \"2021-04-23T08:23:21Z\",\n  \"website\": \"https://pro.gofundme.com\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3c130fc5-d283-4791-8f59-2023eb21fc63",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registrations",
+                    ":registration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "registration",
+                      "description": "(Required) The specified Registration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4a36da50-02ee-4fd9-b49a-f7b7ff5332dc",
+              "name": "Registration not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registrations",
+                    ":registration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "registration",
+                      "description": "(Required) The specified Registration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6950dd42-3910-4475-8a3f-9e4849d091af",
+          "name": "updateRegistration",
+          "request": {
+            "name": "updateRegistration",
+            "description": {
+              "content": "Updates an existing Registration",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "registrations",
+                ":registration"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "registration",
+                  "description": "(Required) The specified Registration ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "/oauth2/auth"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/oauth2/auth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"cell\": \"<string,null>\",\n  \"address1\": \"<string,null>\",\n  \"address2\": \"<string,null>\",\n  \"city\": \"<string>\",\n  \"state\": \"<string>\",\n  \"status\": \"<string>\",\n  \"postal_code\": \"<string>\",\n  \"country\": \"<string>\",\n  \"company\": \"<string,null>\",\n  \"website\": \"<string>\",\n  \"blog\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"date_of_birth\": \"<string,null-date-time>\",\n  \"tshirt_size\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3a33c638-2cc3-4c28-afc0-50c805acfb84",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registrations",
+                    ":registration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "registration",
+                      "description": "(Required) The specified Registration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"first_name\": \"Kevin\",\n  \"last_name\": \"Cheek\",\n  \"email\": \"test@gofundme.com\",\n  \"phone\": \"619-322-5056\",\n  \"cell\": \"619-322-5056\",\n  \"address1\": \"8554 Capricorn Way\",\n  \"address2\": \"N/A\",\n  \"city\": \"San Diego\",\n  \"state\": \"LA\",\n  \"status\": \"attending\",\n  \"postal_code\": \"92126\",\n  \"country\": \"US\",\n  \"company\": \"PayPal\",\n  \"website\": \"https://pro.gofundme.com\",\n  \"blog\": \"https://pro.gofundme.com\",\n  \"gender\": \"m\",\n  \"date_of_birth\": \"2021-04-23T10:25:03Z\",\n  \"tshirt_size\": \"ML\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address1\": \"8554 Capricorn Way\",\n  \"address2\": \"N/A\",\n  \"attendee_id\": 248911,\n  \"blog\": \"blog.test.com\",\n  \"campaign_id\": 227362,\n  \"cell\": \"619-322-5056\",\n  \"city\": \"San Diego\",\n  \"commitment_id\": 98374,\n  \"company\": \"PayPal\",\n  \"country\": \"US\",\n  \"created_at\": \"2021-04-23T10:25:03Z\",\n  \"date_of_birth\": \"2021-04-23T10:25:03Z\",\n  \"email\": \"test@gofundme.com\",\n  \"first_name\": \"Kevin\",\n  \"fundraising_page_id\": 2173528,\n  \"gender\": \"m\",\n  \"id\": 78345,\n  \"last_name\": \"Cheek\",\n  \"member_id\": 2012,\n  \"phone\": \"619-322-5056\",\n  \"postal_code\": \"92126\",\n  \"product_name\": \"General Admission\",\n  \"state\": \"LA\",\n  \"status\": \"attending\",\n  \"supporter_id\": 53,\n  \"transaction_id\": 62376,\n  \"transaction_item_id\": 17020,\n  \"transaction_last_four\": 1111,\n  \"transaction_payment_type\": \"Credit Card\",\n  \"tshirt_size\": \"ML\",\n  \"updated_at\": \"2021-04-23T08:23:21Z\",\n  \"website\": \"https://pro.gofundme.com\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9947e7f4-d33b-4cab-ab5d-1ecd457f6d70",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registrations",
+                    ":registration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "registration",
+                      "description": "(Required) The specified Registration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"first_name\": \"Kevin\",\n  \"last_name\": \"Cheek\",\n  \"email\": \"test@gofundme.com\",\n  \"phone\": \"619-322-5056\",\n  \"cell\": \"619-322-5056\",\n  \"address1\": \"8554 Capricorn Way\",\n  \"address2\": \"N/A\",\n  \"city\": \"San Diego\",\n  \"state\": \"LA\",\n  \"status\": \"attending\",\n  \"postal_code\": \"92126\",\n  \"country\": \"US\",\n  \"company\": \"PayPal\",\n  \"website\": \"https://pro.gofundme.com\",\n  \"blog\": \"https://pro.gofundme.com\",\n  \"gender\": \"m\",\n  \"date_of_birth\": \"2021-04-23T10:25:03Z\",\n  \"tshirt_size\": \"ML\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e163f2d2-5f32-4fab-b697-62605c6982f2",
+              "name": "Registration not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registrations",
+                    ":registration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "registration",
+                      "description": "(Required) The specified Registration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"first_name\": \"Kevin\",\n  \"last_name\": \"Cheek\",\n  \"email\": \"test@gofundme.com\",\n  \"phone\": \"619-322-5056\",\n  \"cell\": \"619-322-5056\",\n  \"address1\": \"8554 Capricorn Way\",\n  \"address2\": \"N/A\",\n  \"city\": \"San Diego\",\n  \"state\": \"LA\",\n  \"status\": \"attending\",\n  \"postal_code\": \"92126\",\n  \"country\": \"US\",\n  \"company\": \"PayPal\",\n  \"website\": \"https://pro.gofundme.com\",\n  \"blog\": \"https://pro.gofundme.com\",\n  \"gender\": \"m\",\n  \"date_of_birth\": \"2021-04-23T10:25:03Z\",\n  \"tshirt_size\": \"ML\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6d0ff6cb-ddca-4c78-a34b-1abdc98337b3",
+          "name": "listTransactionsRegistrations",
+          "request": {
+            "name": "listTransactionsRegistrations",
+            "description": {
+              "content": "Retrieves a list of all Registrations for a specific Transaction",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transactions",
+                ":transaction",
+                "registrations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Indicator of which page of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Number of entries to return in each page of results"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "transaction",
+                  "description": "(Required) The specified Transaction ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "42dd3f4b-63d3-4b70-bc20-13c4ab022057",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":transaction",
+                    "registrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "transaction",
+                      "description": "(Required) The specified Transaction ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"value\": \"<Error: Could not resolve allOf schema\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "812d3a6a-da82-416f-8e75-261bba6c15b5",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":transaction",
+                    "registrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "transaction",
+                      "description": "(Required) The specified Transaction ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "30cae2f5-9696-4a83-8c9f-501ec2eb5738",
+              "name": "Transaction not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":transaction",
+                    "registrations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "transaction",
+                      "description": "(Required) The specified Transaction ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://pro.gofundme.com/api/2.0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "/oauth2/auth"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "/oauth2/auth"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0a5baf12-4aaf-418e-957c-5a26d2efd869",
+    "name": "GoFundMe Pro Registration API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<h1>GoFundMe Pro API</h1>\n<p>Welcome to the GoFundMe Pro API (2.0.0), a powerful toolset that empowers innovative and creative minds to engineer the world for good. This documentation walks through the API’s latest endpoints.</p>\n<p>GoFundMe Pro APIs are crafted around REST and the REST architectural style to provide developers with a stateless and language-­agnostic interface. The GoFundMe Pro API leverages HTTP verbs and response codes, OAuth2 authentication, and resource-­oriented URLs.</p>\n<p>Currently, the GoFundMe Pro API only supports JSON. All POST/PUT requests required a valid JSON object for the request body.</p>\n<h2>Errors</h2>\n<p>The GoFundMe Pro API leverages standard HTTP response status codes for it’s error responses. Error codes are:</p>\n<p><br /></p>\n<table border='1'>\n<tr>\n<th width='100px'>Error Code</th>\n<th>Meaning</th>\n</tr>\n<tr>\n<td>400</td>\n<td>Bad Request: The request was malformed or provided incorrect/incomplete/conflicting parameters. Check the response for more detailed messaging about why the request was incorrect. Do not repeat request.</td>\n</tr>\n<tr>\n<td>401</td>\n<td>Unauthorized: The API does not recognize the request as authorized. API access token may be missing or invalid.</td>\n</tr>\n<tr>\n<td>403</td>\n<td>Forbidden: The API recognizes the authorized API user, but the API user does not have correct permissions to satisfy the request.</td>\n</tr>\n<tr>\n<td>404</td>\n<td>Not Found: The resource requested does not exist or was not found.</td>\n</tr>\n<tr>\n<td>405</td>\n<td>Method Not Allowed: Some REST endpoints only accept a subset of valid REST HTTP verbs. This error is sent when an unsupported verb is requested.</td>\n</tr>\n<tr>\n<td>429</td>\n<td>Too Many Requests: The rate limit has been exceeded. See the <a href=\"#rate-limiting\">Rate Limiting</a> section for details on rate limits and response headers.</td>\n</tr>\n<tr>\n<td>500</td>\n<td>Error: The request was valid, but something failed on the server. Additional messages may be available.</td>\n</tr>\n<tr>\n<td>503</td>\n<td>Service Unavailable: The service is temporarily unavailable.</td>\n</tr>\n</table>\n<h2>Requests</h2>\n<h3>Authenticating Requests</h3>\n<p>Most API requests will need to be signed with an Access Token.</p>\n<p>Refer to the <a href=\"https://developers.gofundme.com/pro/overview/authentication\" target=\"_blank\" rel=\"noopener noreferrer\">Resource Documentation</a> for the specific call you are making to see if an access token is required for your request. See <a href=\"https://developers.gofundme.com/pro/tutorials/samples\" target=\"_blank\" rel=\"noopener noreferrer\">this page</a> for a demonstration of usage through a sample app. \n<h3>Filters</h3>\n<p>We can filter a collection based on a set of input parameters. To do so, we can modify the query string using the parameters listed below.</p>\n\n<table border='1'>\n<tr>\n<th>Parameter</th>\n<th>Type</th>\n<th>Default</th>\n<th>Description</th>\n</tr>\n\n<tr>\n<td>with</td>\n<td>string</td>\n<td>N/A</td>\n<td>This allows you to include nested related resource. For example, you could request a campaign along with the organization it belongs to and the designation it was allocated to. In this case, <code>with=organization,designation.</code></td>\n</tr>\n\n<tr>\n<td>per_page</td>\n<td>integer</td>\n<td>20</td>\n<td>Set the total number of resources returned per page (Maximum: 100).</td>\n</tr>\n\n<tr>\n<td>page</td>\n<td>integer</td>\n<td>1</td>\n<td>Page to return.</td>\n</tr>\n\n<tr>\n<td>sort</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>\nOrder the resources depending upon their attributes. Examples:\n<ul>\n<li><strong>created_at</strong>: oldest resource will come first</li>\n<li><strong>created_at:desc</strong>: newest resource will come first</li>\n<li><strong>last_name:asc,first_name:asc</strong>: order resources by last_name in alphabetical order. If same last_name, order by first_name in alphabetical order.</li>\n</ul>\n</td>\n</tr>\n\n<tr>\n<td>fields</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>List of resources attributes separated with comma. Narrow the list of attributes returned for each resource.</td>\n</tr>\n\n<tr>\n<td>filter</td>\n<td>string</td>\n<td>NULL</td>\n<td>\nAllow to filter the list of resources returned. Format is: <code>{association}.{attribute1}{operand}{value}</code> where: <ul>\n<li>association is the association if this is a nested filter (optional)</li>\n<li>operand is one of the following: <code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, false can be expressed with <code>false</code> or <code>0</code>).</li>\n<li>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. with | string | NULL | This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</li>\n</ul>\n</td>\n</tr>\n</table>\n\n<p>When filtering, the operand should be one of the following:</p>\n<p><code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, <code>false</code> can be expressed with <code>false</code> or <code>0</code>).</p>\n<p>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</p>\n<p>Refer to the sample documentation for the specific call you are making to see which related resource can be fetched.</p>\n\n<h3>Date and Time Filtering</h3>\n<p>Unless otherwise noted, all Datetime attributes in API responses will be returned in an ISO8601 compliant format:</p>\n<><code>YYYY-MM-DDTHH:mm:ss.sssZ</code> (e.g. <code>2024-10-05T14:48:00.000Z</code>).</p>\n<h2 id=\"rate-limiting\">Rate Limiting</h2>\n<p>The GoFundMe Pro API implements rate limiting to ensure fair usage and maintain service quality for all users. Rate limits are applied on a per-application and per-user basis.</p>\n<h3>When Rate Limiting Applies</h3>\n<p>Rate limiting is applied to requests that meet the following conditions:</p>\n<ul>\n<li>The API application is <strong>not internal</strong> (external/third-party applications)</li>\n<li>The API application is associated to an Organization</li>\n</ul>\n<p>Internal applications are not subject to rate limiting.</p>\n<h3>Rate Limit Details</h3>\n<p>By default, the rate limit is:</p>\n<ul>\n<li><strong>1800 requests per minute</strong> per application</li>\n</ul>\n<p>Rate limits may be adjusted dynamically via flags for specific applications or users.</p>\n<h3>Rate Limit Headers</h3>\n<p>All API responses include the following headers to help you track your rate limit status:</p>\n<table border='1'>\n<tr>\n<th width='200px'>Header</th>\n<th>Description</th>\n</tr>\n<tr>\n<td><code>X-RateLimit-Limit</code></td>\n<td>The maximum number of requests allowed in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Remaining</code></td>\n<td>The number of requests remaining in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Reset</code></td>\n<td>Unix timestamp indicating when the rate limit window resets (only included when limit is exceeded)</td>\n</tr>\n<tr>\n<td><code>Retry-After</code></td>\n<td>Number of seconds to wait before retrying (only included in 429 responses)</td>\n</tr>\n</table>\n<h3>Handling Rate Limit Errors</h3>\n<p>When you exceed the rate limit, the API will return a <code>429 Too Many Requests</code> response with the following structure:</p>\n<pre><code>{\n  \"message\": \"Too Many Attempts.\",\n  \"retry_after\": 42\n}</code></pre>\n<p>The response will include the <code>Retry-After</code> header indicating how many seconds you should wait before making another request.</p>\n<h3>Best Practices</h3>\n<ul>\n<li>Monitor the <code>X-RateLimit-Remaining</code> header to track your usage</li>\n<li>Implement exponential backoff when you receive a 429 response</li>\n<li>Respect the <code>Retry-After</code> header value before retrying</li>\n<li>Cache responses when possible to reduce API calls</li>\n<li>Batch operations when the API supports it</li>\n</ul>",
+      "type": "text/plain"
+    }
+  }
+}

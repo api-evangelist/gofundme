@@ -1,0 +1,137 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "GoFundMe Pro Dedication API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "/oauth2/auth",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Dedication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "fetchBillingDedication",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/dedications/:dedication",
+            "params": [
+              {
+                "name": "with",
+                "value": "",
+                "type": "query",
+                "description": "Request specific relationships to be returned with the FundraisingPage"
+              },
+              {
+                "name": "dedication",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of Dedication"
+              }
+            ]
+          },
+          "docs": "Fetch specified Billing Dedication"
+        },
+        {
+          "info": {
+            "name": "updateBillingDedication",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://pro.gofundme.com/api/2.0/dedications/:dedication",
+            "params": [
+              {
+                "name": "dedication",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of Dedication"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update a Dedication"
+        },
+        {
+          "info": {
+            "name": "listOrganizationDedications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/organizations/:organization/dedications",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of associated Organization"
+              }
+            ]
+          },
+          "docs": "List Organization Dedications"
+        },
+        {
+          "info": {
+            "name": "createTransactionDedication",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/transactions/:transaction/dedications",
+            "params": [
+              {
+                "name": "transaction",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of Transaction"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a Dedication"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

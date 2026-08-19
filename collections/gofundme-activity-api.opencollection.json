@@ -1,0 +1,153 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "GoFundMe Pro Activity API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "/oauth2/auth",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Activity",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "listCampaignActivities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/campaigns/:campaign/activity",
+            "params": [
+              {
+                "name": "campaign",
+                "value": "",
+                "type": "path",
+                "description": "The specified Campaign ID"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all Activities related to the specified Campaign"
+        },
+        {
+          "info": {
+            "name": "listFundraisingPageActivities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-pages/:fundraising_page/activity",
+            "params": [
+              {
+                "name": "fundraising_page",
+                "value": "",
+                "type": "path",
+                "description": "The specified Fundraising Page ID"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all Activities related to the specified Fundraising Page"
+        },
+        {
+          "info": {
+            "name": "listFundraisingTeamActivities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-teams/:fundraising_team/activity",
+            "params": [
+              {
+                "name": "fundraising_team",
+                "value": "",
+                "type": "path",
+                "description": "The specified Fundraising Team ID"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all Activities related to the specified Fundraising Team"
+        },
+        {
+          "info": {
+            "name": "listOrganizationActivities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/organizations/:organization/activity",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The specified Organization ID"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all Activities related to the specified Organization"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

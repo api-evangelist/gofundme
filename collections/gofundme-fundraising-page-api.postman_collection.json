@@ -1,0 +1,3230 @@
+{
+  "item": [
+    {
+      "id": "42d0051f-e5c6-4058-a1ac-83df67b52c92",
+      "name": "Fundraising Page",
+      "description": {
+        "content": "A fundraising page is a means for an individual fundraiser to raise funds for a\nspecific peer-to-peer campaign. Like other fundraising entities, each page allows\nfor the creation of an associated story and updates and displays a feed of\ninteractions that donors have had with the page throughout its lifecycle.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2067ebb2-f44c-4903-adaf-ca3e93866275",
+          "name": "listCampaignFundraisingPages",
+          "request": {
+            "name": "listCampaignFundraisingPages",
+            "description": {
+              "content": "List all Fundraising Pages for specified Campaign",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaigns",
+                ":campaign",
+                "fundraising-pages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "with",
+                  "value": "<string>",
+                  "description": "Request specific relationships to be returned with the Fundraising Page"
+                },
+                {
+                  "disabled": false,
+                  "key": "with",
+                  "value": "<string>",
+                  "description": "Request specific relationships to be returned with the Fundraising Page"
+                },
+                {
+                  "disabled": false,
+                  "key": "aggregates2",
+                  "value": "<boolean>",
+                  "description": "Request aggregate information to be returned with the Fundraising Page, including total donations, donors, amount raised and fundraisers."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Indicator of which page of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Number of entries to return in each page of results"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "campaign",
+                  "description": "(Required) ID of desired Campaign"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "26896ede-6708-4a41-8369-b1b752c9de61",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":campaign",
+                    "fundraising-pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "with",
+                      "value": "fundraising_team"
+                    },
+                    {
+                      "key": "with",
+                      "value": "fundraising_team"
+                    },
+                    {
+                      "key": "aggregates2",
+                      "value": "true"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign",
+                      "description": "(Required) ID of desired Campaign"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"value\": \"<Error: Could not resolve allOf schema\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa284fef-4cad-48d3-9a72-4d4896370ded",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":campaign",
+                    "fundraising-pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "with",
+                      "value": "fundraising_team"
+                    },
+                    {
+                      "key": "with",
+                      "value": "fundraising_team"
+                    },
+                    {
+                      "key": "aggregates2",
+                      "value": "true"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign",
+                      "description": "(Required) ID of desired Campaign"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "45e2d95e-dc6e-4b2d-a5a4-9cc5cf6cb114",
+              "name": "Campaign not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":campaign",
+                    "fundraising-pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "with",
+                      "value": "fundraising_team"
+                    },
+                    {
+                      "key": "with",
+                      "value": "fundraising_team"
+                    },
+                    {
+                      "key": "aggregates2",
+                      "value": "true"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign",
+                      "description": "(Required) ID of desired Campaign"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0f09cbf2-3278-4f68-b013-51aafde6714e",
+          "name": "createCampaignFundraisingPage",
+          "request": {
+            "name": "createCampaignFundraisingPage",
+            "description": {
+              "content": "Create new Campaign Fundraising Page",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaigns",
+                ":campaign",
+                "fundraising-pages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "campaign",
+                  "description": "(Required) The specified Campaign ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"alias\": \"<string>\",\n  \"cover_photo_id\": \"<integer,null>\",\n  \"designation_id\": \"<integer,null>\",\n  \"ended_at\": \"<string,null-date-time>\",\n  \"intro_text\": \"<string>\",\n  \"is_tribute\": \"<boolean,null>\",\n  \"logo_id\": \"<integer,null>\",\n  \"member_email_text\": \"<string,null>\",\n  \"member_id\": \"<integer>\",\n  \"raw_currency_code\": \"<string>\",\n  \"raw_goal\": \"<string>\",\n  \"supporter_first_name\": \"<string,null>\",\n  \"supporter_last_name\": \"<string,null>\",\n  \"thankyou_email_text\": \"<string>\",\n  \"thank_you_text\": \"<string>\",\n  \"title\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8063840d-0fa2-4adf-b6b3-6625d4cfb74f",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":campaign",
+                    "fundraising-pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"alias\": \"My Super Awesome page\",\n  \"cover_photo_id\": 98374,\n  \"designation_id\": 34672,\n  \"ended_at\": \"2019-04-23T10:25:03Z\",\n  \"intro_text\": \"Thanks for visiting my fundraising page!<br>\",\n  \"is_tribute\": true,\n  \"logo_id\": 1002,\n  \"member_email_text\": \"<p>My email body</p>\",\n  \"member_id\": 2012,\n  \"raw_currency_code\": \"EUR\",\n  \"raw_goal\": \"100.00\",\n  \"supporter_first_name\": \"Alex\",\n  \"supporter_last_name\": \"Doe\",\n  \"thankyou_email_text\": \"<p>My email body</p>\",\n  \"thank_you_text\": \"Thank You!\",\n  \"title\": \"My Page Title\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 227362,\n  \"alias\": \"My Super Awesome page\",\n  \"campaign_id\": 227362,\n  \"commitment_id\": 98374,\n  \"cover_photo_id\": 98374,\n  \"created_at\": \"2019-04-23T10:25:03Z\",\n  \"currency_code\": \"USD\",\n  \"designation_id\": 34672,\n  \"ended_at\": \"2019-04-23T10:25:03Z\",\n  \"fundraising_team_id\": 209745,\n  \"goal\": 123.23,\n  \"intro_text\": \"Thanks for visiting my fundraising page!<br>\",\n  \"is_primary\": true,\n  \"is_tribute\": true,\n  \"logo_id\": 1002,\n  \"logo_url\": \"https://gofundme-cdn-url.com/your-logo.png\",\n  \"member_email_text\": \"<p>My email body</p>\",\n  \"member_id\": 2012,\n  \"raw_currency_code\": \"EUR\",\n  \"raw_goal\": \"100.00\",\n  \"organization_id\": 82364,\n  \"parent_id\": 1,\n  \"questions\": [\n    {\n      \"label\": \"Do you require accommodations due to a medical condition or disability?\",\n      \"location\": \"donation_page\",\n      \"type\": \"boolean\",\n      \"campaign_id\": 227362,\n      \"created_at\": \"2021-04-23T10:25:03Z\",\n      \"deleted_at\": \"2021-04-23T10:25:03Z\",\n      \"id\": 45678,\n      \"is_deleted\": false,\n      \"is_required\": true,\n      \"is_pre_conversion\": false,\n      \"product_id\": 73647,\n      \"tag\": \"email_address\",\n      \"updated_at\": \"2021-04-23T10:25:03Z\",\n      \"weight\": 0\n    },\n    {\n      \"label\": \"Do you require accommodations due to a medical condition or disability?\",\n      \"location\": \"donation_page\",\n      \"type\": \"boolean\",\n      \"campaign_id\": 227362,\n      \"created_at\": \"2021-04-23T10:25:03Z\",\n      \"deleted_at\": \"2021-04-23T10:25:03Z\",\n      \"id\": 45678,\n      \"is_deleted\": false,\n      \"is_required\": true,\n      \"is_pre_conversion\": false,\n      \"product_id\": 73647,\n      \"tag\": \"email_address\",\n      \"updated_at\": \"2021-04-23T10:25:03Z\",\n      \"weight\": 0\n    }\n  ],\n  \"status\": \"active\",\n  \"supporter_id\": 5827,\n  \"team_role\": \"primary-captain\",\n  \"thankyou_email_text\": \"<p>My email body</p>\",\n  \"thank_you_text\": \"Thank You!\",\n  \"title\": \"My Page Title\",\n  \"updated_at\": \"2019-04-23T10:25:03Z\",\n  \"canonical_url\": \"/fundraising-page/2173528\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "491fb892-2c4b-4b83-ac68-749f2198143b",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":campaign",
+                    "fundraising-pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"alias\": \"My Super Awesome page\",\n  \"cover_photo_id\": 98374,\n  \"designation_id\": 34672,\n  \"ended_at\": \"2019-04-23T10:25:03Z\",\n  \"intro_text\": \"Thanks for visiting my fundraising page!<br>\",\n  \"is_tribute\": true,\n  \"logo_id\": 1002,\n  \"member_email_text\": \"<p>My email body</p>\",\n  \"member_id\": 2012,\n  \"raw_currency_code\": \"EUR\",\n  \"raw_goal\": \"100.00\",\n  \"supporter_first_name\": \"Alex\",\n  \"supporter_last_name\": \"Doe\",\n  \"thankyou_email_text\": \"<p>My email body</p>\",\n  \"thank_you_text\": \"Thank You!\",\n  \"title\": \"My Page Title\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1aa17411-898c-4105-b181-e2844419b795",
+              "name": "Campaign not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":campaign",
+                    "fundraising-pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"alias\": \"My Super Awesome page\",\n  \"cover_photo_id\": 98374,\n  \"designation_id\": 34672,\n  \"ended_at\": \"2019-04-23T10:25:03Z\",\n  \"intro_text\": \"Thanks for visiting my fundraising page!<br>\",\n  \"is_tribute\": true,\n  \"logo_id\": 1002,\n  \"member_email_text\": \"<p>My email body</p>\",\n  \"member_id\": 2012,\n  \"raw_currency_code\": \"EUR\",\n  \"raw_goal\": \"100.00\",\n  \"supporter_first_name\": \"Alex\",\n  \"supporter_last_name\": \"Doe\",\n  \"thankyou_email_text\": \"<p>My email body</p>\",\n  \"thank_you_text\": \"Thank You!\",\n  \"title\": \"My Page Title\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5cb32724-421e-4580-9676-8282cdb3e1af",
+          "name": "fetchFundraisingPageFitnessMetrics",
+          "request": {
+            "name": "fetchFundraisingPageFitnessMetrics",
+            "description": {
+              "content": "Retrieves fitness activity tracking data for a fundraising page. Returns tracking settings and progress metrics for P2P Challenge campaign fundraisers. Returns 204 if the fundraiser has no GFM consumer mapping or no fitness data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fundraising-pages",
+                ":fundraising_page",
+                "fitness-metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "fundraising_page",
+                  "description": "(Required) The specified Fundraising Page ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "02733c7a-4ecc-4055-bc6c-401886a6fc09",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-pages",
+                    ":fundraising_page",
+                    "fitness-metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "fundraising_page",
+                      "description": "(Required) The specified Fundraising Page ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tracking_settings\": {\n    \"activityTypes\": [\n      \"Swim\",\n      \"Swim\"\n    ],\n    \"unit\": \"miles\",\n    \"goal\": 30\n  },\n  \"metrics\": {\n    \"totalProgress\": 25,\n    \"goalProgressPercent\": 83.33\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1fdd8f8a-fbd2-47d1-9773-ac44d1ba0c67",
+              "name": "No fitness data available (not a P2P GFM fundraiser or no tracking configured)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-pages",
+                    ":fundraising_page",
+                    "fitness-metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "fundraising_page",
+                      "description": "(Required) The specified Fundraising Page ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0b9ce994-6aa0-4ba5-a88d-a85f395ef5c7",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-pages",
+                    ":fundraising_page",
+                    "fitness-metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "fundraising_page",
+                      "description": "(Required) The specified Fundraising Page ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c56b66ae-4abb-4630-812e-70473a7a4a51",
+              "name": "Fundraising Page not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-pages",
+                    ":fundraising_page",
+                    "fitness-metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "fundraising_page",
+                      "description": "(Required) The specified Fundraising Page ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5f834ff5-41d0-44c2-9ecd-d6a215a1f7f7",
+          "name": "fetchFundraisingPage",
+          "request": {
+            "name": "fetchFundraisingPage",
+            "description": {
+              "content": "Show the Fundraising Page specified by the fundraising_page_id",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fundraising-pages",
+                ":fundraising_page"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "aggregates",
+                  "value": "<boolean>",
+                  "description": "Request Fundraising Page Aggregates to be returned"
+                },
+                {
+                  "disabled": false,
+                  "key": "with",
+                  "value": "<string>",
+                  "description": "Request specific relationships to be returned with the Fundraising Page"
+                },
+                {
+                  "disabled": false,
+                  "key": "with",
+                  "value": "<string>",
+                  "description": "Request specific relationships to be returned with the Fundraising Page"
+                },
+                {
+                  "disabled": false,
+                  "key": "aggregates2",
+                  "value": "<boolean>",
+                  "description": "Request aggregate information to be returned with the Fundraising Page, including total donations, donors, amount raised and fundraisers."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "fundraising_page",
+                  "description": "(Required) The specified Fundraising Page ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a1ef6a48-4a3b-4c35-af7f-588401701dee",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-pages",
+                    ":fundraising_page"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "aggregates",
+                      "value": "true"
+                    },
+                    {
+                      "key": "with",
+                      "value": "answers"
+                    },
+                    {
+                      "key": "with",
+                      "value": "answers"
+                    },
+                    {
+                      "key": "aggregates2",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "fundraising_page",
+                      "description": "(Required) The specified Fundraising Page ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 227362,\n  \"alias\": \"My Super Awesome page\",\n  \"campaign_id\": 227362,\n  \"commitment_id\": 98374,\n  \"cover_photo_id\": 98374,\n  \"created_at\": \"2019-04-23T10:25:03Z\",\n  \"currency_code\": \"USD\",\n  \"designation_id\": 34672,\n  \"ended_at\": \"2019-04-23T10:25:03Z\",\n  \"fundraising_team_id\": 209745,\n  \"goal\": 123.23,\n  \"intro_text\": \"Thanks for visiting my fundraising page!<br>\",\n  \"is_primary\": true,\n  \"is_tribute\": true,\n  \"logo_id\": 1002,\n  \"logo_url\": \"https://gofundme-cdn-url.com/your-logo.png\",\n  \"member_email_text\": \"<p>My email body</p>\",\n  \"member_id\": 2012,\n  \"raw_currency_code\": \"EUR\",\n  \"raw_goal\": \"100.00\",\n  \"organization_id\": 82364,\n  \"parent_id\": 1,\n  \"questions\": [\n    {\n      \"label\": \"Do you require accommodations due to a medical condition or disability?\",\n      \"location\": \"donation_page\",\n      \"type\": \"boolean\",\n      \"campaign_id\": 227362,\n      \"created_at\": \"2021-04-23T10:25:03Z\",\n      \"deleted_at\": \"2021-04-23T10:25:03Z\",\n      \"id\": 45678,\n      \"is_deleted\": false,\n      \"is_required\": true,\n      \"is_pre_conversion\": false,\n      \"product_id\": 73647,\n      \"tag\": \"email_address\",\n      \"updated_at\": \"2021-04-23T10:25:03Z\",\n      \"weight\": 0\n    },\n    {\n      \"label\": \"Do you require accommodations due to a medical condition or disability?\",\n      \"location\": \"donation_page\",\n      \"type\": \"boolean\",\n      \"campaign_id\": 227362,\n      \"created_at\": \"2021-04-23T10:25:03Z\",\n      \"deleted_at\": \"2021-04-23T10:25:03Z\",\n      \"id\": 45678,\n      \"is_deleted\": false,\n      \"is_required\": true,\n      \"is_pre_conversion\": false,\n      \"product_id\": 73647,\n      \"tag\": \"email_address\",\n      \"updated_at\": \"2021-04-23T10:25:03Z\",\n      \"weight\": 0\n    }\n  ],\n  \"status\": \"active\",\n  \"supporter_id\": 5827,\n  \"team_role\": \"primary-captain\",\n  \"thankyou_email_text\": \"<p>My email body</p>\",\n  \"thank_you_text\": \"Thank You!\",\n  \"title\": \"My Page Title\",\n  \"updated_at\": \"2019-04-23T10:25:03Z\",\n  \"canonical_url\": \"/fundraising-page/2173528\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d054669-b06d-4196-ba0a-b1e36319bbfd",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-pages",
+                    ":fundraising_page"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "aggregates",
+                      "value": "true"
+                    },
+                    {
+                      "key": "with",
+                      "value": "answers"
+                    },
+                    {
+                      "key": "with",
+                      "value": "answers"
+                    },
+                    {
+                      "key": "aggregates2",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "fundraising_page",
+                      "description": "(Required) The specified Fundraising Page ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6d337796-930d-4f32-8086-3ea20e55b569",
+              "name": "Fundraising Page not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-pages",
+                    ":fundraising_page"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "aggregates",
+                      "value": "true"
+                    },
+                    {
+                      "key": "with",
+                      "value": "answers"
+                    },
+                    {
+                      "key": "with",
+                      "value": "answers"
+                    },
+                    {
+                      "key": "aggregates2",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "fundraising_page",
+                      "description": "(Required) The specified Fundraising Page ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b726aecc-2001-46c0-9249-baec80cc07d9",
+          "name": "updateFundraisingPage",
+          "request": {
+            "name": "updateFundraisingPage",
+            "description": {
+              "content": "Update Fundraising Page",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fundraising-pages",
+                ":fundraising_page"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "fundraising_page",
+                  "description": "(Required) The specified Fundraising Page ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "/oauth2/auth"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/oauth2/auth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"alias\": \"<string>\",\n  \"cover_photo_id\": \"<integer,null>\",\n  \"designation_id\": \"<integer,null>\",\n  \"ended_at\": \"<string,null-date-time>\",\n  \"intro_text\": \"<string>\",\n  \"logo_id\": \"<integer,null>\",\n  \"member_email_text\": \"<string,null>\",\n  \"member_id\": \"<integer>\",\n  \"currency_code\": \"<string,null>\",\n  \"goal\": \"<float>\",\n  \"is_tribute\": \"<boolean,null>\",\n  \"thankyou_email_text\": \"<string>\",\n  \"thank_you_text\": \"<string>\",\n  \"title\": \"<string>\",\n  \"fundraising_tracking_code\": \"<string,null>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f617fe58-6637-4790-a5e0-63667927ff56",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-pages",
+                    ":fundraising_page"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "fundraising_page",
+                      "description": "(Required) The specified Fundraising Page ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"alias\": \"My Super Awesome page\",\n  \"cover_photo_id\": 98374,\n  \"designation_id\": 34672,\n  \"ended_at\": \"2019-04-23T10:25:03Z\",\n  \"intro_text\": \"Thanks for visiting my fundraising page!<br>\",\n  \"logo_id\": 1002,\n  \"member_email_text\": \"<p>My email body</p>\",\n  \"member_id\": 2012,\n  \"currency_code\": \"USD\",\n  \"goal\": 123.23,\n  \"is_tribute\": true,\n  \"thankyou_email_text\": \"<p>My email body</p>\",\n  \"thank_you_text\": \"Thank You!\",\n  \"title\": \"My Page Title\",\n  \"fundraising_tracking_code\": \"JD0146\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 227362,\n  \"alias\": \"My Super Awesome page\",\n  \"campaign_id\": 227362,\n  \"commitment_id\": 98374,\n  \"cover_photo_id\": 98374,\n  \"created_at\": \"2019-04-23T10:25:03Z\",\n  \"currency_code\": \"USD\",\n  \"designation_id\": 34672,\n  \"ended_at\": \"2019-04-23T10:25:03Z\",\n  \"fundraising_team_id\": 209745,\n  \"goal\": 123.23,\n  \"intro_text\": \"Thanks for visiting my fundraising page!<br>\",\n  \"is_primary\": true,\n  \"is_tribute\": true,\n  \"logo_id\": 1002,\n  \"logo_url\": \"https://gofundme-cdn-url.com/your-logo.png\",\n  \"member_email_text\": \"<p>My email body</p>\",\n  \"member_id\": 2012,\n  \"raw_currency_code\": \"EUR\",\n  \"raw_goal\": \"100.00\",\n  \"organization_id\": 82364,\n  \"parent_id\": 1,\n  \"questions\": [\n    {\n      \"label\": \"Do you require accommodations due to a medical condition or disability?\",\n      \"location\": \"donation_page\",\n      \"type\": \"boolean\",\n      \"campaign_id\": 227362,\n      \"created_at\": \"2021-04-23T10:25:03Z\",\n      \"deleted_at\": \"2021-04-23T10:25:03Z\",\n      \"id\": 45678,\n      \"is_deleted\": false,\n      \"is_required\": true,\n      \"is_pre_conversion\": false,\n      \"product_id\": 73647,\n      \"tag\": \"email_address\",\n      \"updated_at\": \"2021-04-23T10:25:03Z\",\n      \"weight\": 0\n    },\n    {\n      \"label\": \"Do you require accommodations due to a medical condition or disability?\",\n      \"location\": \"donation_page\",\n      \"type\": \"boolean\",\n      \"campaign_id\": 227362,\n      \"created_at\": \"2021-04-23T10:25:03Z\",\n      \"deleted_at\": \"2021-04-23T10:25:03Z\",\n      \"id\": 45678,\n      \"is_deleted\": false,\n      \"is_required\": true,\n      \"is_pre_conversion\": false,\n      \"product_id\": 73647,\n      \"tag\": \"email_address\",\n      \"updated_at\": \"2021-04-23T10:25:03Z\",\n      \"weight\": 0\n    }\n  ],\n  \"status\": \"active\",\n  \"supporter_id\": 5827,\n  \"team_role\": \"primary-captain\",\n  \"thankyou_email_text\": \"<p>My email body</p>\",\n  \"thank_you_text\": \"Thank You!\",\n  \"title\": \"My Page Title\",\n  \"updated_at\": \"2019-04-23T10:25:03Z\",\n  \"canonical_url\": \"/fundraising-page/2173528\",\n  \"fundraising_tracking_code\": \"JD0146\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ea4dde82-a5c6-4dd7-a279-d032b432e71f",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-pages",
+                    ":fundraising_page"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "fundraising_page",
+                      "description": "(Required) The specified Fundraising Page ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"alias\": \"My Super Awesome page\",\n  \"cover_photo_id\": 98374,\n  \"designation_id\": 34672,\n  \"ended_at\": \"2019-04-23T10:25:03Z\",\n  \"intro_text\": \"Thanks for visiting my fundraising page!<br>\",\n  \"logo_id\": 1002,\n  \"member_email_text\": \"<p>My email body</p>\",\n  \"member_id\": 2012,\n  \"currency_code\": \"USD\",\n  \"goal\": 123.23,\n  \"is_tribute\": true,\n  \"thankyou_email_text\": \"<p>My email body</p>\",\n  \"thank_you_text\": \"Thank You!\",\n  \"title\": \"My Page Title\",\n  \"fundraising_tracking_code\": \"JD0146\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e39c77e6-e152-4280-a44e-c737e0beafcf",
+              "name": "Fundraising Page not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-pages",
+                    ":fundraising_page"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "fundraising_page",
+                      "description": "(Required) The specified Fundraising Page ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"alias\": \"My Super Awesome page\",\n  \"cover_photo_id\": 98374,\n  \"designation_id\": 34672,\n  \"ended_at\": \"2019-04-23T10:25:03Z\",\n  \"intro_text\": \"Thanks for visiting my fundraising page!<br>\",\n  \"logo_id\": 1002,\n  \"member_email_text\": \"<p>My email body</p>\",\n  \"member_id\": 2012,\n  \"currency_code\": \"USD\",\n  \"goal\": 123.23,\n  \"is_tribute\": true,\n  \"thankyou_email_text\": \"<p>My email body</p>\",\n  \"thank_you_text\": \"Thank You!\",\n  \"title\": \"My Page Title\",\n  \"fundraising_tracking_code\": \"JD0146\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1b8b442c-9217-45b3-a9a2-b4c81a3ea3ba",
+          "name": "deleteFundraisingPage",
+          "request": {
+            "name": "deleteFundraisingPage",
+            "description": {
+              "content": "Delete a Fundraising Page",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fundraising-pages",
+                ":fundraising_page"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "fundraising_page",
+                  "description": "(Required) The specified Fundraising Page ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "/oauth2/auth"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/oauth2/auth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9e81d4ae-7720-4f41-b93b-59cbfc630b3b",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-pages",
+                    ":fundraising_page"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "fundraising_page",
+                      "description": "(Required) The specified Fundraising Page ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 227362,\n  \"alias\": \"My Super Awesome page\",\n  \"campaign_id\": 227362,\n  \"commitment_id\": 98374,\n  \"cover_photo_id\": 98374,\n  \"created_at\": \"2019-04-23T10:25:03Z\",\n  \"currency_code\": \"USD\",\n  \"designation_id\": 34672,\n  \"ended_at\": \"2019-04-23T10:25:03Z\",\n  \"fundraising_team_id\": 209745,\n  \"goal\": 123.23,\n  \"intro_text\": \"Thanks for visiting my fundraising page!<br>\",\n  \"is_primary\": true,\n  \"is_tribute\": true,\n  \"logo_id\": 1002,\n  \"logo_url\": \"https://gofundme-cdn-url.com/your-logo.png\",\n  \"member_email_text\": \"<p>My email body</p>\",\n  \"member_id\": 2012,\n  \"raw_currency_code\": \"EUR\",\n  \"raw_goal\": \"100.00\",\n  \"organization_id\": 82364,\n  \"parent_id\": 1,\n  \"questions\": [\n    {\n      \"label\": \"Do you require accommodations due to a medical condition or disability?\",\n      \"location\": \"donation_page\",\n      \"type\": \"boolean\",\n      \"campaign_id\": 227362,\n      \"created_at\": \"2021-04-23T10:25:03Z\",\n      \"deleted_at\": \"2021-04-23T10:25:03Z\",\n      \"id\": 45678,\n      \"is_deleted\": false,\n      \"is_required\": true,\n      \"is_pre_conversion\": false,\n      \"product_id\": 73647,\n      \"tag\": \"email_address\",\n      \"updated_at\": \"2021-04-23T10:25:03Z\",\n      \"weight\": 0\n    },\n    {\n      \"label\": \"Do you require accommodations due to a medical condition or disability?\",\n      \"location\": \"donation_page\",\n      \"type\": \"boolean\",\n      \"campaign_id\": 227362,\n      \"created_at\": \"2021-04-23T10:25:03Z\",\n      \"deleted_at\": \"2021-04-23T10:25:03Z\",\n      \"id\": 45678,\n      \"is_deleted\": false,\n      \"is_required\": true,\n      \"is_pre_conversion\": false,\n      \"product_id\": 73647,\n      \"tag\": \"email_address\",\n      \"updated_at\": \"2021-04-23T10:25:03Z\",\n      \"weight\": 0\n    }\n  ],\n  \"status\": \"active\",\n  \"supporter_id\": 5827,\n  \"team_role\": \"primary-captain\",\n  \"thankyou_email_text\": \"<p>My email body</p>\",\n  \"thank_you_text\": \"Thank You!\",\n  \"title\": \"My Page Title\",\n  \"updated_at\": \"2019-04-23T10:25:03Z\",\n  \"canonical_url\": \"/fundraising-page/2173528\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ea40a2a-2b76-4410-a3d8-4a23eecac7f2",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-pages",
+                    ":fundraising_page"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "fundraising_page",
+                      "description": "(Required) The specified Fundraising Page ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0c538c59-b6e8-45e6-9752-cb2316a86082",
+              "name": "Fundraising Page not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-pages",
+                    ":fundraising_page"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "fundraising_page",
+                      "description": "(Required) The specified Fundraising Page ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7380bc73-4c67-49b2-be30-b745fe795a74",
+          "name": "fetchFundraisingPageMoments",
+          "request": {
+            "name": "fetchFundraisingPageMoments",
+            "description": {
+              "content": "Retrieves the P2P moment a fundraiser selected at create time and their submitted answers to the moment's questions. Returns 204 if the fundraiser has no GFM consumer mapping or no moment data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fundraising-pages",
+                ":fundraising_page",
+                "moments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "fundraising_page",
+                  "description": "(Required) The specified Fundraising Page ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "488685c7-48cb-486a-9a24-5413f8a1b310",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-pages",
+                    ":fundraising_page",
+                    "moments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "fundraising_page",
+                      "description": "(Required) The specified Fundraising Page ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"selected_moment\": {\n    \"momentId\": \"5\",\n    \"label\": \"Birthday\"\n  },\n  \"answers\": [\n    {\n      \"question\": \"What's your date of birth?\",\n      \"answer\": \"08/12\"\n    },\n    {\n      \"question\": \"What's your date of birth?\",\n      \"answer\": \"08/12\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "960c77d7-2162-4898-9b2b-2c1308db8367",
+              "name": "No moment data available (not a GFM fundraiser or no moment selected)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-pages",
+                    ":fundraising_page",
+                    "moments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "fundraising_page",
+                      "description": "(Required) The specified Fundraising Page ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1df56763-78e3-44f7-a7d1-0bb87ce67df2",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-pages",
+                    ":fundraising_page",
+                    "moments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "fundraising_page",
+                      "description": "(Required) The specified Fundraising Page ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4634d76d-26ea-4ca8-aaac-0b09fedea09d",
+              "name": "Fundraising Page not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-pages",
+                    ":fundraising_page",
+                    "moments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "fundraising_page",
+                      "description": "(Required) The specified Fundraising Page ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b5e69cb8-b5c0-4b76-b493-328932693b12",
+          "name": "fetchFundraisingPageOverview",
+          "request": {
+            "name": "fetchFundraisingPageOverview",
+            "description": {
+              "content": "Retrieves aggregate records for the Fundraising Page's transactions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fundraising-pages",
+                ":fundraising_page",
+                "overview"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "interval",
+                  "value": "<string>",
+                  "description": "Interval period of Fundraising Page overview"
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<string>",
+                  "description": "The date from which aggregation results will start. This is translated into a start_time, which is the beginning of the date presented in the timezone of the page's Campaign. If the Fundraising Page's Campaign has no associated timezone, this timezone will default to UTC."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<string>",
+                  "description": "The date at which aggregation results will end. This is translated into a end_time, which is the end of the date presented in the timezone of the page's Campaign. If the Fundraising Page's Campaign has no associated timezone, this timezone will default to UTC."
+                },
+                {
+                  "disabled": false,
+                  "key": "timezone",
+                  "value": "<string>",
+                  "description": "Timezone for start_date and end_date."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "fundraising_page",
+                  "description": "(Required) The specified Fundraising Page ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e04d9467-1e5a-4896-baa9-cbf007a0a085",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-pages",
+                    ":fundraising_page",
+                    "overview"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "interval",
+                      "value": "weekly"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2020-02-02 12:00:45"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2020-02-02 12:00:45"
+                    },
+                    {
+                      "key": "timezone",
+                      "value": "America/Los_Angeles"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "fundraising_page",
+                      "description": "(Required) The specified Fundraising Page ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"end_time\": \"2016-02-11T08:00:00+0000\",\n  \"start_time\": \"2016-02-11T08:00:00+0000\",\n  \"timezone\": \"America/Los_Angeles\",\n  \"metrics\": {\n    \"soft_credits_amount\": 50,\n    \"start_date\": \"2020-02-05T12:00:00\",\n    \"donations_amount\": 1439.2,\n    \"donors_count\": 20,\n    \"fees_amount\": 5.4,\n    \"gross_amount\": 65,\n    \"net_amount\": 59.6,\n    \"percent_to_goal\": 1,\n    \"registrations_amount\": 560.2,\n    \"transactions_count\": 20\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d4e21cb6-7125-4b4f-a297-7c13a6c2ba2b",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-pages",
+                    ":fundraising_page",
+                    "overview"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "interval",
+                      "value": "weekly"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2020-02-02 12:00:45"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2020-02-02 12:00:45"
+                    },
+                    {
+                      "key": "timezone",
+                      "value": "America/Los_Angeles"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "fundraising_page",
+                      "description": "(Required) The specified Fundraising Page ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "08384a74-7f0b-4f95-823f-6fde20680d91",
+              "name": "Fundraising Page not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-pages",
+                    ":fundraising_page",
+                    "overview"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "interval",
+                      "value": "weekly"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "2020-02-02 12:00:45"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "2020-02-02 12:00:45"
+                    },
+                    {
+                      "key": "timezone",
+                      "value": "America/Los_Angeles"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "fundraising_page",
+                      "description": "(Required) The specified Fundraising Page ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cfa7b87e-0c4c-4118-b498-6688a41d45bc",
+          "name": "listFundraisingTeamFundraisingPages",
+          "request": {
+            "name": "listFundraisingTeamFundraisingPages",
+            "description": {
+              "content": "List all Fundraising Pages for specified Fundraising Team",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fundraising-teams",
+                ":fundraising_team",
+                "fundraising-pages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "with",
+                  "value": "<string>",
+                  "description": "Request specific relationships to be returned with the Fundraising Page"
+                },
+                {
+                  "disabled": false,
+                  "key": "with",
+                  "value": "<string>",
+                  "description": "Request specific relationships to be returned with the Fundraising Page"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Indicator of which page of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Number of entries to return in each page of results"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "fundraising_team",
+                  "description": "(Required) ID of desired Fundraising Team"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f1fd3bfa-a0d0-479b-8c8b-2286bc6e60a0",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-teams",
+                    ":fundraising_team",
+                    "fundraising-pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "with",
+                      "value": "fundraising_team"
+                    },
+                    {
+                      "key": "with",
+                      "value": "fundraising_team"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "fundraising_team",
+                      "description": "(Required) ID of desired Fundraising Team"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"value\": \"<Error: Could not resolve allOf schema\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cd1fa18e-f750-49a9-acaa-6a04b98a92ba",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-teams",
+                    ":fundraising_team",
+                    "fundraising-pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "with",
+                      "value": "fundraising_team"
+                    },
+                    {
+                      "key": "with",
+                      "value": "fundraising_team"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "fundraising_team",
+                      "description": "(Required) ID of desired Fundraising Team"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0bfee76e-9f43-4053-b0fe-9eb4dc187e8d",
+              "name": "Fundraising Team not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-teams",
+                    ":fundraising_team",
+                    "fundraising-pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "with",
+                      "value": "fundraising_team"
+                    },
+                    {
+                      "key": "with",
+                      "value": "fundraising_team"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "fundraising_team",
+                      "description": "(Required) ID of desired Fundraising Team"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e974b613-0800-4b52-ab24-f15181fcdf0f",
+          "name": "createFundraisingTeamFundraisingPage",
+          "request": {
+            "name": "createFundraisingTeamFundraisingPage",
+            "description": {
+              "content": "Create new Fundraising Team Fundraising Page",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fundraising-teams",
+                ":fundraising_team",
+                "fundraising-pages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "fundraising_team",
+                  "description": "(Required) The specified Fundraising Team ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"alias\": \"<string>\",\n  \"cover_photo_id\": \"<integer,null>\",\n  \"designation_id\": \"<integer,null>\",\n  \"ended_at\": \"<string,null-date-time>\",\n  \"intro_text\": \"<string>\",\n  \"is_tribute\": \"<boolean,null>\",\n  \"logo_id\": \"<integer,null>\",\n  \"member_email_text\": \"<string,null>\",\n  \"member_id\": \"<integer>\",\n  \"raw_currency_code\": \"<string>\",\n  \"raw_goal\": \"<string>\",\n  \"supporter_first_name\": \"<string,null>\",\n  \"supporter_last_name\": \"<string,null>\",\n  \"thankyou_email_text\": \"<string>\",\n  \"thank_you_text\": \"<string>\",\n  \"title\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c6d5775e-68d9-4684-8ad2-9fb631b452eb",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-teams",
+                    ":fundraising_team",
+                    "fundraising-pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "fundraising_team",
+                      "description": "(Required) The specified Fundraising Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"alias\": \"My Super Awesome page\",\n  \"cover_photo_id\": 98374,\n  \"designation_id\": 34672,\n  \"ended_at\": \"2019-04-23T10:25:03Z\",\n  \"intro_text\": \"Thanks for visiting my fundraising page!<br>\",\n  \"is_tribute\": true,\n  \"logo_id\": 1002,\n  \"member_email_text\": \"<p>My email body</p>\",\n  \"member_id\": 2012,\n  \"raw_currency_code\": \"EUR\",\n  \"raw_goal\": \"100.00\",\n  \"supporter_first_name\": \"Alex\",\n  \"supporter_last_name\": \"Doe\",\n  \"thankyou_email_text\": \"<p>My email body</p>\",\n  \"thank_you_text\": \"Thank You!\",\n  \"title\": \"My Page Title\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 227362,\n  \"alias\": \"My Super Awesome page\",\n  \"campaign_id\": 227362,\n  \"commitment_id\": 98374,\n  \"cover_photo_id\": 98374,\n  \"created_at\": \"2019-04-23T10:25:03Z\",\n  \"currency_code\": \"USD\",\n  \"designation_id\": 34672,\n  \"ended_at\": \"2019-04-23T10:25:03Z\",\n  \"fundraising_team_id\": 209745,\n  \"goal\": 123.23,\n  \"intro_text\": \"Thanks for visiting my fundraising page!<br>\",\n  \"is_primary\": true,\n  \"is_tribute\": true,\n  \"logo_id\": 1002,\n  \"logo_url\": \"https://gofundme-cdn-url.com/your-logo.png\",\n  \"member_email_text\": \"<p>My email body</p>\",\n  \"member_id\": 2012,\n  \"raw_currency_code\": \"EUR\",\n  \"raw_goal\": \"100.00\",\n  \"organization_id\": 82364,\n  \"parent_id\": 1,\n  \"questions\": [\n    {\n      \"label\": \"Do you require accommodations due to a medical condition or disability?\",\n      \"location\": \"donation_page\",\n      \"type\": \"boolean\",\n      \"campaign_id\": 227362,\n      \"created_at\": \"2021-04-23T10:25:03Z\",\n      \"deleted_at\": \"2021-04-23T10:25:03Z\",\n      \"id\": 45678,\n      \"is_deleted\": false,\n      \"is_required\": true,\n      \"is_pre_conversion\": false,\n      \"product_id\": 73647,\n      \"tag\": \"email_address\",\n      \"updated_at\": \"2021-04-23T10:25:03Z\",\n      \"weight\": 0\n    },\n    {\n      \"label\": \"Do you require accommodations due to a medical condition or disability?\",\n      \"location\": \"donation_page\",\n      \"type\": \"boolean\",\n      \"campaign_id\": 227362,\n      \"created_at\": \"2021-04-23T10:25:03Z\",\n      \"deleted_at\": \"2021-04-23T10:25:03Z\",\n      \"id\": 45678,\n      \"is_deleted\": false,\n      \"is_required\": true,\n      \"is_pre_conversion\": false,\n      \"product_id\": 73647,\n      \"tag\": \"email_address\",\n      \"updated_at\": \"2021-04-23T10:25:03Z\",\n      \"weight\": 0\n    }\n  ],\n  \"status\": \"active\",\n  \"supporter_id\": 5827,\n  \"team_role\": \"primary-captain\",\n  \"thankyou_email_text\": \"<p>My email body</p>\",\n  \"thank_you_text\": \"Thank You!\",\n  \"title\": \"My Page Title\",\n  \"updated_at\": \"2019-04-23T10:25:03Z\",\n  \"canonical_url\": \"/fundraising-page/2173528\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e8f73f0b-30a3-4171-86f3-24c9fd9fbf8f",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-teams",
+                    ":fundraising_team",
+                    "fundraising-pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "fundraising_team",
+                      "description": "(Required) The specified Fundraising Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"alias\": \"My Super Awesome page\",\n  \"cover_photo_id\": 98374,\n  \"designation_id\": 34672,\n  \"ended_at\": \"2019-04-23T10:25:03Z\",\n  \"intro_text\": \"Thanks for visiting my fundraising page!<br>\",\n  \"is_tribute\": true,\n  \"logo_id\": 1002,\n  \"member_email_text\": \"<p>My email body</p>\",\n  \"member_id\": 2012,\n  \"raw_currency_code\": \"EUR\",\n  \"raw_goal\": \"100.00\",\n  \"supporter_first_name\": \"Alex\",\n  \"supporter_last_name\": \"Doe\",\n  \"thankyou_email_text\": \"<p>My email body</p>\",\n  \"thank_you_text\": \"Thank You!\",\n  \"title\": \"My Page Title\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9e10e16f-80c5-4852-9851-4a7befb4b4a8",
+              "name": "Fundraising Team not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-teams",
+                    ":fundraising_team",
+                    "fundraising-pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "fundraising_team",
+                      "description": "(Required) The specified Fundraising Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"alias\": \"My Super Awesome page\",\n  \"cover_photo_id\": 98374,\n  \"designation_id\": 34672,\n  \"ended_at\": \"2019-04-23T10:25:03Z\",\n  \"intro_text\": \"Thanks for visiting my fundraising page!<br>\",\n  \"is_tribute\": true,\n  \"logo_id\": 1002,\n  \"member_email_text\": \"<p>My email body</p>\",\n  \"member_id\": 2012,\n  \"raw_currency_code\": \"EUR\",\n  \"raw_goal\": \"100.00\",\n  \"supporter_first_name\": \"Alex\",\n  \"supporter_last_name\": \"Doe\",\n  \"thankyou_email_text\": \"<p>My email body</p>\",\n  \"thank_you_text\": \"Thank You!\",\n  \"title\": \"My Page Title\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4149cce1-7253-4c30-9c46-7935dc5567ec",
+          "name": "listMemberFundraisingPages",
+          "request": {
+            "name": "listMemberFundraisingPages",
+            "description": {
+              "content": "List all Fundraising Pages for specified Member",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "members",
+                ":member",
+                "fundraising-pages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "with",
+                  "value": "<string>",
+                  "description": "Request specific relationships to be returned with the Fundraising Page"
+                },
+                {
+                  "disabled": false,
+                  "key": "with",
+                  "value": "<string>",
+                  "description": "Request specific relationships to be returned with the Fundraising Page"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Indicator of which page of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Number of entries to return in each page of results"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "member",
+                  "description": "(Required) ID of desired Member"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d3e1463e-7bf9-4299-bae2-fd6bc364fa8e",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "members",
+                    ":member",
+                    "fundraising-pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "with",
+                      "value": "fundraising_team"
+                    },
+                    {
+                      "key": "with",
+                      "value": "fundraising_team"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "member",
+                      "description": "(Required) ID of desired Member"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"value\": \"<Error: Could not resolve allOf schema\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "19e2cb4e-721c-4dee-87f7-0974ff7fae46",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "members",
+                    ":member",
+                    "fundraising-pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "with",
+                      "value": "fundraising_team"
+                    },
+                    {
+                      "key": "with",
+                      "value": "fundraising_team"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "member",
+                      "description": "(Required) ID of desired Member"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e0d87ff3-1cfd-45ba-bea9-7670b3384ddf",
+              "name": "Member not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "members",
+                    ":member",
+                    "fundraising-pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "with",
+                      "value": "fundraising_team"
+                    },
+                    {
+                      "key": "with",
+                      "value": "fundraising_team"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "member",
+                      "description": "(Required) ID of desired Member"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f46a3743-0483-4d6c-a7ea-1b98c61df09f",
+          "name": "listOrganizationFundraisingPages",
+          "request": {
+            "name": "listOrganizationFundraisingPages",
+            "description": {
+              "content": "List all Fundraising Pages for specified Organization",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "organizations",
+                ":organization",
+                "fundraising-pages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "with",
+                  "value": "<string>",
+                  "description": "Request specific relationships to be returned with the Fundraising Page"
+                },
+                {
+                  "disabled": false,
+                  "key": "with",
+                  "value": "<string>",
+                  "description": "Request specific relationships to be returned with the Fundraising Page"
+                },
+                {
+                  "disabled": false,
+                  "key": "aggregates2",
+                  "value": "<boolean>",
+                  "description": "Request aggregate information to be returned with the Fundraising Page, including total donations, donors, amount raised and fundraisers."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Indicator of which page of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Number of entries to return in each page of results"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "organization",
+                  "description": "(Required) ID of desired Organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6f49e755-128b-4953-8434-9feb66b098a6",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organization",
+                    "fundraising-pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "with",
+                      "value": "fundraising_team"
+                    },
+                    {
+                      "key": "with",
+                      "value": "fundraising_team"
+                    },
+                    {
+                      "key": "aggregates2",
+                      "value": "true"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "organization",
+                      "description": "(Required) ID of desired Organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"value\": \"<Error: Could not resolve allOf schema\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dcaf452e-10c2-448c-b429-01822762c822",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organization",
+                    "fundraising-pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "with",
+                      "value": "fundraising_team"
+                    },
+                    {
+                      "key": "with",
+                      "value": "fundraising_team"
+                    },
+                    {
+                      "key": "aggregates2",
+                      "value": "true"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "organization",
+                      "description": "(Required) ID of desired Organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c7ab4609-72ea-4570-b786-cae2daec33d4",
+              "name": "Organization not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organization",
+                    "fundraising-pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "with",
+                      "value": "fundraising_team"
+                    },
+                    {
+                      "key": "with",
+                      "value": "fundraising_team"
+                    },
+                    {
+                      "key": "aggregates2",
+                      "value": "true"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "organization",
+                      "description": "(Required) ID of desired Organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://pro.gofundme.com/api/2.0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "/oauth2/auth"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "/oauth2/auth"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4ff606dc-f5ed-4294-93d1-e5e33f506012",
+    "name": "GoFundMe Pro Fundraising Page API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<h1>GoFundMe Pro API</h1>\n<p>Welcome to the GoFundMe Pro API (2.0.0), a powerful toolset that empowers innovative and creative minds to engineer the world for good. This documentation walks through the API’s latest endpoints.</p>\n<p>GoFundMe Pro APIs are crafted around REST and the REST architectural style to provide developers with a stateless and language-­agnostic interface. The GoFundMe Pro API leverages HTTP verbs and response codes, OAuth2 authentication, and resource-­oriented URLs.</p>\n<p>Currently, the GoFundMe Pro API only supports JSON. All POST/PUT requests required a valid JSON object for the request body.</p>\n<h2>Errors</h2>\n<p>The GoFundMe Pro API leverages standard HTTP response status codes for it’s error responses. Error codes are:</p>\n<p><br /></p>\n<table border='1'>\n<tr>\n<th width='100px'>Error Code</th>\n<th>Meaning</th>\n</tr>\n<tr>\n<td>400</td>\n<td>Bad Request: The request was malformed or provided incorrect/incomplete/conflicting parameters. Check the response for more detailed messaging about why the request was incorrect. Do not repeat request.</td>\n</tr>\n<tr>\n<td>401</td>\n<td>Unauthorized: The API does not recognize the request as authorized. API access token may be missing or invalid.</td>\n</tr>\n<tr>\n<td>403</td>\n<td>Forbidden: The API recognizes the authorized API user, but the API user does not have correct permissions to satisfy the request.</td>\n</tr>\n<tr>\n<td>404</td>\n<td>Not Found: The resource requested does not exist or was not found.</td>\n</tr>\n<tr>\n<td>405</td>\n<td>Method Not Allowed: Some REST endpoints only accept a subset of valid REST HTTP verbs. This error is sent when an unsupported verb is requested.</td>\n</tr>\n<tr>\n<td>429</td>\n<td>Too Many Requests: The rate limit has been exceeded. See the <a href=\"#rate-limiting\">Rate Limiting</a> section for details on rate limits and response headers.</td>\n</tr>\n<tr>\n<td>500</td>\n<td>Error: The request was valid, but something failed on the server. Additional messages may be available.</td>\n</tr>\n<tr>\n<td>503</td>\n<td>Service Unavailable: The service is temporarily unavailable.</td>\n</tr>\n</table>\n<h2>Requests</h2>\n<h3>Authenticating Requests</h3>\n<p>Most API requests will need to be signed with an Access Token.</p>\n<p>Refer to the <a href=\"https://developers.gofundme.com/pro/overview/authentication\" target=\"_blank\" rel=\"noopener noreferrer\">Resource Documentation</a> for the specific call you are making to see if an access token is required for your request. See <a href=\"https://developers.gofundme.com/pro/tutorials/samples\" target=\"_blank\" rel=\"noopener noreferrer\">this page</a> for a demonstration of usage through a sample app. \n<h3>Filters</h3>\n<p>We can filter a collection based on a set of input parameters. To do so, we can modify the query string using the parameters listed below.</p>\n\n<table border='1'>\n<tr>\n<th>Parameter</th>\n<th>Type</th>\n<th>Default</th>\n<th>Description</th>\n</tr>\n\n<tr>\n<td>with</td>\n<td>string</td>\n<td>N/A</td>\n<td>This allows you to include nested related resource. For example, you could request a campaign along with the organization it belongs to and the designation it was allocated to. In this case, <code>with=organization,designation.</code></td>\n</tr>\n\n<tr>\n<td>per_page</td>\n<td>integer</td>\n<td>20</td>\n<td>Set the total number of resources returned per page (Maximum: 100).</td>\n</tr>\n\n<tr>\n<td>page</td>\n<td>integer</td>\n<td>1</td>\n<td>Page to return.</td>\n</tr>\n\n<tr>\n<td>sort</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>\nOrder the resources depending upon their attributes. Examples:\n<ul>\n<li><strong>created_at</strong>: oldest resource will come first</li>\n<li><strong>created_at:desc</strong>: newest resource will come first</li>\n<li><strong>last_name:asc,first_name:asc</strong>: order resources by last_name in alphabetical order. If same last_name, order by first_name in alphabetical order.</li>\n</ul>\n</td>\n</tr>\n\n<tr>\n<td>fields</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>List of resources attributes separated with comma. Narrow the list of attributes returned for each resource.</td>\n</tr>\n\n<tr>\n<td>filter</td>\n<td>string</td>\n<td>NULL</td>\n<td>\nAllow to filter the list of resources returned. Format is: <code>{association}.{attribute1}{operand}{value}</code> where: <ul>\n<li>association is the association if this is a nested filter (optional)</li>\n<li>operand is one of the following: <code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, false can be expressed with <code>false</code> or <code>0</code>).</li>\n<li>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. with | string | NULL | This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</li>\n</ul>\n</td>\n</tr>\n</table>\n\n<p>When filtering, the operand should be one of the following:</p>\n<p><code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, <code>false</code> can be expressed with <code>false</code> or <code>0</code>).</p>\n<p>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</p>\n<p>Refer to the sample documentation for the specific call you are making to see which related resource can be fetched.</p>\n\n<h3>Date and Time Filtering</h3>\n<p>Unless otherwise noted, all Datetime attributes in API responses will be returned in an ISO8601 compliant format:</p>\n<><code>YYYY-MM-DDTHH:mm:ss.sssZ</code> (e.g. <code>2024-10-05T14:48:00.000Z</code>).</p>\n<h2 id=\"rate-limiting\">Rate Limiting</h2>\n<p>The GoFundMe Pro API implements rate limiting to ensure fair usage and maintain service quality for all users. Rate limits are applied on a per-application and per-user basis.</p>\n<h3>When Rate Limiting Applies</h3>\n<p>Rate limiting is applied to requests that meet the following conditions:</p>\n<ul>\n<li>The API application is <strong>not internal</strong> (external/third-party applications)</li>\n<li>The API application is associated to an Organization</li>\n</ul>\n<p>Internal applications are not subject to rate limiting.</p>\n<h3>Rate Limit Details</h3>\n<p>By default, the rate limit is:</p>\n<ul>\n<li><strong>1800 requests per minute</strong> per application</li>\n</ul>\n<p>Rate limits may be adjusted dynamically via flags for specific applications or users.</p>\n<h3>Rate Limit Headers</h3>\n<p>All API responses include the following headers to help you track your rate limit status:</p>\n<table border='1'>\n<tr>\n<th width='200px'>Header</th>\n<th>Description</th>\n</tr>\n<tr>\n<td><code>X-RateLimit-Limit</code></td>\n<td>The maximum number of requests allowed in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Remaining</code></td>\n<td>The number of requests remaining in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Reset</code></td>\n<td>Unix timestamp indicating when the rate limit window resets (only included when limit is exceeded)</td>\n</tr>\n<tr>\n<td><code>Retry-After</code></td>\n<td>Number of seconds to wait before retrying (only included in 429 responses)</td>\n</tr>\n</table>\n<h3>Handling Rate Limit Errors</h3>\n<p>When you exceed the rate limit, the API will return a <code>429 Too Many Requests</code> response with the following structure:</p>\n<pre><code>{\n  \"message\": \"Too Many Attempts.\",\n  \"retry_after\": 42\n}</code></pre>\n<p>The response will include the <code>Retry-After</code> header indicating how many seconds you should wait before making another request.</p>\n<h3>Best Practices</h3>\n<ul>\n<li>Monitor the <code>X-RateLimit-Remaining</code> header to track your usage</li>\n<li>Implement exponential backoff when you receive a 429 response</li>\n<li>Respect the <code>Retry-After</code> header value before retrying</li>\n<li>Cache responses when possible to reduce API calls</li>\n<li>Batch operations when the API supports it</li>\n</ul>",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "GoFundMe Pro Channel Fundraising Entity API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "/oauth2/auth",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Channel Fundraising Entity",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "showChannelFundraisingEntity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/channel-fundraising-entities/:channel_fundraising_entity",
+            "params": [
+              {
+                "name": "channel_fundraising_entity",
+                "value": "",
+                "type": "path",
+                "description": "The specified Channel Fundraising Entity ID"
+              }
+            ]
+          },
+          "docs": "Retrieves a Channel Fundraising Entity from ID"
+        },
+        {
+          "info": {
+            "name": "createChannelFundraisingEntity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-pages/:fundraising_page/channels",
+            "params": [
+              {
+                "name": "fundraising_page",
+                "value": "",
+                "type": "path",
+                "description": "The specified Fundraising Page ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create Channel such as Facebook for Fundraising Page"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

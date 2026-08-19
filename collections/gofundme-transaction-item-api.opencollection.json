@@ -1,0 +1,97 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "GoFundMe Pro Transaction Item API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "/oauth2/auth",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transaction Item",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "listTransactionItems",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/transactions/:transaction/items",
+            "params": [
+              {
+                "name": "transaction",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of Transaction"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Fetch Transaction Items."
+        },
+        {
+          "info": {
+            "name": "listOrganizationTransactionItems",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/organizations/:organization/transaction-items",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of Organization"
+              },
+              {
+                "name": "with",
+                "value": "",
+                "type": "query",
+                "description": "Request specific relationships to be returned with the Transaction Items"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Fetch Transaction Items for specific Organization."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

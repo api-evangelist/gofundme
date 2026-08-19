@@ -1,0 +1,177 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "GoFundMe Pro Designation API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "/oauth2/auth",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Designation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "fetchDesignation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/designations/:designation",
+            "params": [
+              {
+                "name": "designation",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of Designation"
+              }
+            ]
+          },
+          "docs": "Fetch specified Designation"
+        },
+        {
+          "info": {
+            "name": "updateDesignation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://pro.gofundme.com/api/2.0/designations/:designation",
+            "params": [
+              {
+                "name": "designation",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of Designation"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update specified Designation"
+        },
+        {
+          "info": {
+            "name": "deleteDesignation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://pro.gofundme.com/api/2.0/designations/:designation",
+            "params": [
+              {
+                "name": "designation",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of Designation"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete a specified Designation"
+        },
+        {
+          "info": {
+            "name": "listOrganizationDesignations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/organizations/:organization/designations",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The specified Organization ID"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to be returned"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all Designations related to the specified Organization"
+        },
+        {
+          "info": {
+            "name": "createOrganizationDesignation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/organizations/:organization/designations",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of Organization"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create Designation for specified Organization"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,265 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "GoFundMe Pro Update API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "/oauth2/auth",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Update",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "listCampaignUpdates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/campaigns/:campaign/updates",
+            "params": [
+              {
+                "name": "campaign",
+                "value": "",
+                "type": "path",
+                "description": "ID of desired Campaign"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "List Campaign Updates"
+        },
+        {
+          "info": {
+            "name": "listFundraisingPageUpdates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-pages/:fundraising_page/updates",
+            "params": [
+              {
+                "name": "fundraising_page",
+                "value": "",
+                "type": "path",
+                "description": "ID of desired Fundraising Page"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Lists a fundraising page's progress updates. Used by the fundraiser dashboard Updates tab (search/filter)."
+        },
+        {
+          "info": {
+            "name": "createFundraisingPageUpdate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-pages/:fundraising_page/updates",
+            "params": [
+              {
+                "name": "fundraising_page",
+                "value": "",
+                "type": "path",
+                "description": "ID of desired Fundraising Page"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Creates a progress update on a fundraising page. Used by the fundraiser dashboard Updates tab to post an update to family and friends."
+        },
+        {
+          "info": {
+            "name": "listFundraisingTeamUpdates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-teams/:fundraising_team/updates",
+            "params": [
+              {
+                "name": "fundraising_team",
+                "value": "",
+                "type": "path",
+                "description": "ID of desired Fundraising Team"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Lists a fundraising team's progress updates. Used by the team dashboard Updates tab (search/filter)."
+        },
+        {
+          "info": {
+            "name": "createFundraisingTeamUpdate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-teams/:fundraising_team/updates",
+            "params": [
+              {
+                "name": "fundraising_team",
+                "value": "",
+                "type": "path",
+                "description": "ID of desired Fundraising Team"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Creates a progress update on a fundraising team. Used by the team dashboard Updates tab to post an update to family and friends."
+        },
+        {
+          "info": {
+            "name": "fetchUpdate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/updates/:update",
+            "params": [
+              {
+                "name": "update",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of Update"
+              }
+            ]
+          },
+          "docs": "Fetch Update"
+        },
+        {
+          "info": {
+            "name": "updateUpdate",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://pro.gofundme.com/api/2.0/updates/:update",
+            "params": [
+              {
+                "name": "update",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of Update"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update Update"
+        },
+        {
+          "info": {
+            "name": "deleteUpdate",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://pro.gofundme.com/api/2.0/updates/:update",
+            "params": [
+              {
+                "name": "update",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of Update"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete Update"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

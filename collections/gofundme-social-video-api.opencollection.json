@@ -1,0 +1,155 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "GoFundMe Pro Social Video API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "/oauth2/auth",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Social Video",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "createStudioCampaignSocialVideo",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/studio-campaigns/:campaign_id/share-settings/social-videos",
+            "params": [
+              {
+                "name": "campaign_id",
+                "value": "",
+                "type": "path",
+                "description": "Campaign ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Creates a new social video for a studio campaign. The API automatically extracts most data from the campaign, with client-provided values treated as overrides."
+        },
+        {
+          "info": {
+            "name": "getStudioCampaignSocialVideo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/studio-campaigns/:campaign_id/share-settings/social-videos/:persona",
+            "params": [
+              {
+                "name": "campaign_id",
+                "value": "",
+                "type": "path",
+                "description": "Campaign ID"
+              },
+              {
+                "name": "persona",
+                "value": "",
+                "type": "path",
+                "description": "Persona type (e.g., donor)"
+              }
+            ]
+          },
+          "docs": "Retrieves a specific social video for a studio campaign by persona"
+        },
+        {
+          "info": {
+            "name": "updateStudioCampaignSocialVideoStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://pro.gofundme.com/api/2.0/studio-campaigns/:campaign_id/share-settings/social-videos/:persona/status",
+            "params": [
+              {
+                "name": "campaign_id",
+                "value": "",
+                "type": "path",
+                "description": "Campaign ID"
+              },
+              {
+                "name": "persona",
+                "value": "",
+                "type": "path",
+                "description": "Persona type (e.g., donor)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Updates the enabled status of a social video for a studio campaign"
+        },
+        {
+          "info": {
+            "name": "getSocialVideoByEntity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/social-videos/entity",
+            "params": [
+              {
+                "name": "entity_type",
+                "value": "",
+                "type": "query",
+                "description": "Entity type (e.g., studio_campaign)"
+              },
+              {
+                "name": "entity_id",
+                "value": "",
+                "type": "query",
+                "description": "Entity ID"
+              },
+              {
+                "name": "persona",
+                "value": "",
+                "type": "query",
+                "description": "Persona type (e.g., donor)"
+              }
+            ]
+          },
+          "docs": "Retrieves the status and details of a social video for a specific entity"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

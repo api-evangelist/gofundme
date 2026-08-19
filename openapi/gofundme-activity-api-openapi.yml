@@ -1,0 +1,1664 @@
+openapi: 3.2.0
+info:
+  title: GoFundMe Pro Activity API
+  description: "<h1>GoFundMe Pro API</h1>\n<p>Welcome to the GoFundMe Pro API (2.0.0), a powerful toolset that empowers innovative and creative minds to engineer the world for good. This documentation walks through the API’s latest endpoints.</p>\n<p>GoFundMe Pro APIs are crafted around REST and the REST architectural style to provide developers with a stateless and language-­agnostic interface. The GoFundMe Pro API leverages HTTP verbs and response codes, OAuth2 authentication, and resource-­oriented URLs.</p>\n<p>Currently, the GoFundMe Pro API only supports JSON. All POST/PUT requests required a valid JSON object for the request body.</p>\n<h2>Errors</h2>\n<p>The GoFundMe Pro API leverages standard HTTP response status codes for it’s error responses. Error codes are:</p>\n<p><br /></p>\n<table border='1'>\n<tr>\n<th width='100px'>Error Code</th>\n<th>Meaning</th>\n</tr>\n<tr>\n<td>400</td>\n<td>Bad Request: The request was malformed or provided incorrect/incomplete/conflicting parameters. Check the response for more detailed messaging about why the request was incorrect. Do not repeat request.</td>\n</tr>\n<tr>\n<td>401</td>\n<td>Unauthorized: The API does not recognize the request as authorized. API access token may be missing or invalid.</td>\n</tr>\n<tr>\n<td>403</td>\n<td>Forbidden: The API recognizes the authorized API user, but the API user does not have correct permissions to satisfy the request.</td>\n</tr>\n<tr>\n<td>404</td>\n<td>Not Found: The resource requested does not exist or was not found.</td>\n</tr>\n<tr>\n<td>405</td>\n<td>Method Not Allowed: Some REST endpoints only accept a subset of valid REST HTTP verbs. This error is sent when an unsupported verb is requested.</td>\n</tr>\n<tr>\n<td>429</td>\n<td>Too Many Requests: The rate limit has been exceeded. See the <a href=\"#rate-limiting\">Rate Limiting</a> section for details on rate limits and response headers.</td>\n</tr>\n<tr>\n<td>500</td>\n<td>Error: The request was valid, but something failed on the server. Additional messages may be available.</td>\n</tr>\n<tr>\n<td>503</td>\n<td>Service Unavailable: The service is temporarily unavailable.</td>\n</tr>\n</table>\n<h2>Requests</h2>\n<h3>Authenticating Requests</h3>\n<p>Most API requests will need to be signed with an Access Token.</p>\n<p>Refer to the <a href=\"https://developers.gofundme.com/pro/overview/authentication\" target=\"_blank\" rel=\"noopener noreferrer\">Resource Documentation</a> for the specific call you are making to see if an access token is required for your request. See <a href=\"https://developers.gofundme.com/pro/tutorials/samples\" target=\"_blank\" rel=\"noopener noreferrer\">this page</a> for a demonstration of usage through a sample app. \n<h3>Filters</h3>\n<p>We can filter a collection based on a set of input parameters. To do so, we can modify the query string using the parameters listed below.</p>\n\n<table border='1'>\n<tr>\n<th>Parameter</th>\n<th>Type</th>\n<th>Default</th>\n<th>Description</th>\n</tr>\n\n<tr>\n<td>with</td>\n<td>string</td>\n<td>N/A</td>\n<td>This allows you to include nested related resource. For example, you could request a campaign along with the organization it belongs to and the designation it was allocated to. In this case, <code>with=organization,designation.</code></td>\n</tr>\n\n<tr>\n<td>per_page</td>\n<td>integer</td>\n<td>20</td>\n<td>Set the total number of resources returned per page (Maximum: 100).</td>\n</tr>\n\n<tr>\n<td>page</td>\n<td>integer</td>\n<td>1</td>\n<td>Page to return.</td>\n</tr>\n\n<tr>\n<td>sort</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>\nOrder the resources depending upon their attributes. Examples:\n<ul>\n<li><strong>created_at</strong>: oldest resource will come first</li>\n<li><strong>created_at:desc</strong>: newest resource will come first</li>\n<li><strong>last_name:asc,first_name:asc</strong>: order resources by last_name in alphabetical order. If same last_name, order by first_name in alphabetical order.</li>\n</ul>\n</td>\n</tr>\n\n<tr>\n<td>fields</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>List of resources attributes separated with comma. Narrow the list of attributes returned for each resource.</td>\n</tr>\n\n<tr>\n<td>filter</td>\n<td>string</td>\n<td>NULL</td>\n<td>\nAllow to filter the list of resources returned. Format is: <code>{association}.{attribute1}{operand}{value}</code> where: <ul>\n<li>association is the association if this is a nested filter (optional)</li>\n<li>operand is one of the following: <code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, false can be expressed with <code>false</code> or <code>0</code>).</li>\n<li>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. with | string | NULL | This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</li>\n</ul>\n</td>\n</tr>\n</table>\n\n<p>When filtering, the operand should be one of the following:</p>\n<p><code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, <code>false</code> can be expressed with <code>false</code> or <code>0</code>).</p>\n<p>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</p>\n<p>Refer to the sample documentation for the specific call you are making to see which related resource can be fetched.</p>\n\n<h3>Date and Time Filtering</h3>\n<p>Unless otherwise noted, all Datetime attributes in API responses will be returned in an ISO8601 compliant format:</p>\n<><code>YYYY-MM-DDTHH:mm:ss.sssZ</code> (e.g. <code>2024-10-05T14:48:00.000Z</code>).</p>\n<h2 id=\"rate-limiting\">Rate Limiting</h2>\n<p>The GoFundMe Pro API implements rate limiting to ensure fair usage and maintain service quality for all users. Rate limits are applied on a per-application and per-user basis.</p>\n<h3>When Rate Limiting Applies</h3>\n<p>Rate limiting is applied to requests that meet the following conditions:</p>\n<ul>\n<li>The API application is <strong>not internal</strong> (external/third-party applications)</li>\n<li>The API application is associated to an Organization</li>\n</ul>\n<p>Internal applications are not subject to rate limiting.</p>\n<h3>Rate Limit Details</h3>\n<p>By default, the rate limit is:</p>\n<ul>\n<li><strong>1800 requests per minute</strong> per application</li>\n</ul>\n<p>Rate limits may be adjusted dynamically via flags for specific applications or users.</p>\n<h3>Rate Limit Headers</h3>\n<p>All API responses include the following headers to help you track your rate limit status:</p>\n<table border='1'>\n<tr>\n<th width='200px'>Header</th>\n<th>Description</th>\n</tr>\n<tr>\n<td><code>X-RateLimit-Limit</code></td>\n<td>The maximum number of requests allowed in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Remaining</code></td>\n<td>The number of requests remaining in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Reset</code></td>\n<td>Unix timestamp indicating when the rate limit window resets (only included when limit is exceeded)</td>\n</tr>\n<tr>\n<td><code>Retry-After</code></td>\n<td>Number of seconds to wait before retrying (only included in 429 responses)</td>\n</tr>\n</table>\n<h3>Handling Rate Limit Errors</h3>\n<p>When you exceed the rate limit, the API will return a <code>429 Too Many Requests</code> response with the following structure:</p>\n<pre><code>{\n  \"message\": \"Too Many Attempts.\",\n  \"retry_after\": 42\n}</code></pre>\n<p>The response will include the <code>Retry-After</code> header indicating how many seconds you should wait before making another request.</p>\n<h3>Best Practices</h3>\n<ul>\n<li>Monitor the <code>X-RateLimit-Remaining</code> header to track your usage</li>\n<li>Implement exponential backoff when you receive a 429 response</li>\n<li>Respect the <code>Retry-After</code> header value before retrying</li>\n<li>Cache responses when possible to reduce API calls</li>\n<li>Batch operations when the API supports it</li>\n</ul>"
+  version: 2.0.0
+servers:
+- url: https://pro.gofundme.com/api/2.0
+security:
+- OAuth2Application: []
+- OAuth2Member: []
+tags:
+- name: Activity
+  description: 'An activity is a record of an interaction with the GoFundMe Pro platform.
+
+    Activity types include creating a new donation, creating a new fundraising page or team, adding a new team member, and more.
+
+    Activities are not created directly via the API, but are generated as a side-effect of user interaction with other parts of the GoFundMe Pro system.'
+paths:
+  /campaigns/{campaign}/activity:
+    get:
+      tags:
+      - Activity
+      summary: listCampaignActivities
+      description: Retrieves a list of all Activities related to the specified Campaign
+      operationId: listCampaignActivities
+      parameters:
+      - name: campaign
+        in: path
+        description: The specified Campaign ID
+        required: true
+        schema:
+          type: integer
+          example: 227362
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginatedResponse'
+                - properties:
+                    data:
+                      description: Collection of Activities
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Activity'
+                    first_page_url:
+                      example: '{host}/campaigns/227362/activity?page=1'
+                    last_page_url:
+                      example: '{host}/campaigns/227362/activity?page=1'
+                    path:
+                      example: '{host}/campaigns/227362/activity'
+                  type: object
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Campaign not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+  /fundraising-pages/{fundraising_page}/activity:
+    get:
+      tags:
+      - Activity
+      summary: listFundraisingPageActivities
+      description: Retrieves a list of all Activities related to the specified Fundraising Page
+      operationId: listFundraisingPageActivities
+      parameters:
+      - name: fundraising_page
+        in: path
+        description: The specified Fundraising Page ID
+        required: true
+        schema:
+          type: integer
+          example: 2173528
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginatedResponse'
+                - properties:
+                    data:
+                      description: Collection of Activities
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Activity'
+                    first_page_url:
+                      example: '{host}/fundraising-pages/2173528/activity?page=1'
+                    last_page_url:
+                      example: '{host}/fundraising-pages/2173528/activity?page=1'
+                    path:
+                      example: '{host}/fundraising-pages/2173528/activity'
+                  type: object
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Fundraising Page not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+  /fundraising-teams/{fundraising_team}/activity:
+    get:
+      tags:
+      - Activity
+      summary: listFundraisingTeamActivities
+      description: Retrieves a list of all Activities related to the specified Fundraising Team
+      operationId: listFundraisingTeamActivities
+      parameters:
+      - name: fundraising_team
+        in: path
+        description: The specified Fundraising Team ID
+        required: true
+        schema:
+          type: integer
+          example: 209745
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginatedResponse'
+                - properties:
+                    data:
+                      description: Collection of Activities
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Activity'
+                      deprecated: true
+                    first_page_url:
+                      example: '{host}/fundraising-teams/209745/activity?page=1'
+                      deprecated: true
+                    last_page_url:
+                      example: '{host}/fundraising-teams/209745/activity?page=1'
+                      deprecated: true
+                    path:
+                      example: '{host}/fundraising-teams/209745/activity'
+                      deprecated: true
+                  type: object
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Fundraising Team not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+      deprecated: true
+  /organizations/{organization}/activity:
+    get:
+      tags:
+      - Activity
+      summary: listOrganizationActivities
+      description: Retrieves a list of all Activities related to the specified Organization
+      operationId: listOrganizationActivities
+      parameters:
+      - name: organization
+        in: path
+        description: The specified Organization ID
+        required: true
+        schema:
+          type: integer
+          example: 82364
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginatedResponse'
+                - properties:
+                    data:
+                      description: Collection of Activities
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Activity'
+                    first_page_url:
+                      example: '{host}/organizations/82364/activity?page=1'
+                    last_page_url:
+                      example: '{host}/organizations/82364/activity?page=1'
+                    path:
+                      example: '{host}/organizations/82364/activity'
+                  type: object
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Organization not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+components:
+  schemas:
+    Member:
+      title: Member
+      properties:
+        id:
+          description: Primary identifier of record
+          type: integer
+          example: 2012
+        okta_id:
+          description: ID of Okta
+          type:
+          - string
+          - 'null'
+          example: 00aaqm2iupwbJrgDv0h7
+        okta_synchronized_at:
+          description: Date/time of last sync update to Okta
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2021-04-23T10:25:03Z'
+        descope_user_id:
+          description: ID of Descope
+          type:
+          - string
+          - 'null'
+          example: 00aaqm2iupwbJrgDv0h7
+        descope_last_sync_at:
+          description: Date/time of last sync update to Descope
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2021-04-23T10:25:03Z'
+        first_name:
+          description: First name
+          type: string
+          example: Buster
+        last_name:
+          description: Last name
+          type: string
+          example: McTest
+        address1:
+          description: Address1
+          type:
+          - string
+          - 'null'
+          example: 123 Baker St
+        address2:
+          description: Address2
+          type:
+          - string
+          - 'null'
+          example: ''
+        city:
+          description: City
+          type:
+          - string
+          - 'null'
+          example: San Diego
+        state:
+          description: State
+          type:
+          - string
+          - 'null'
+          example: CA
+        country:
+          description: Country
+          type:
+          - string
+          - 'null'
+          example: US
+        postal_code:
+          description: Postal Code
+          type:
+          - string
+          - 'null'
+          example: '91111'
+        email_address:
+          description: Email address
+          type: string
+          format: email
+          example: user@example.com
+        date_of_birth:
+          description: Date of birth
+          type:
+          - string
+          - 'null'
+          example: '1990-01-01'
+        phone:
+          description: Phone number
+          type:
+          - string
+          - 'null'
+          example: '8883219876'
+        fax:
+          description: Fax
+          type:
+          - string
+          - 'null'
+          example: '123'
+        gender:
+          description: Gender
+          type:
+          - string
+          - 'null'
+          enum:
+          - M
+          - F
+          - m
+          - f
+          example: M
+        title:
+          description: Title
+          type:
+          - string
+          - 'null'
+          example: Mr
+        profile_image_id:
+          description: ID of associated Asset representing current profile image
+          type:
+          - integer
+          - 'null'
+          example: 432
+        thumbnail_large:
+          description: Thumbnail, large. This is a deprecated field.
+          type:
+          - string
+          - 'null'
+          example: https://cdn.example.com/members/2012/thumbnail_large.jpg
+          deprecated: true
+        thumbnail_medium:
+          description: Thumbnail, medium. This is a deprecated field.
+          type:
+          - string
+          - 'null'
+          example: https://cdn.example.com/members/2012/thumbnail_medium.jpg
+          deprecated: true
+        thumbnail_small:
+          description: Thumbnail, small. This is a deprecated field.
+          type:
+          - string
+          - 'null'
+          example: https://cdn.example.com/members/2012/thumbnail_small.jpg
+          deprecated: true
+        is_password_reset_locked:
+          description: Checks if password reset option has been locked
+          type: boolean
+          example: false
+        status:
+          description: Status of Member
+          type: string
+          enum:
+          - active
+          - deleted
+          - unclaimed
+          - unconfirmed
+          - locked
+        created_at:
+          description: Date/time of created Member
+          type: string
+          format: date-time
+          example: '2019-04-23T10:25:03Z'
+        last_login_at:
+          description: Date/time of Member successful login
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2019-04-23T10:25:03Z'
+      type: object
+    Business:
+      title: Business
+      properties:
+        id:
+          description: ID of Business
+          type: integer
+          example: 423
+        name:
+          description: Name of Business
+          type: string
+          example: Donation Match Org
+        created_at:
+          description: Date/time of creation
+          type: string
+          format: date-time
+          example: '2021-04-18T12:24:21Z'
+      type: object
+    Organization:
+      title: Organization
+      properties:
+        id:
+          description: Primary identifier of record
+          type: integer
+          example: 82364
+        address:
+          description: Organization address line
+          type: string
+          maxLength: 127
+          example: 123 GoFundMe Pro Dr
+        are_activity_feeds_disabled:
+          description: Whether activity feeds should be enabled for this Organization
+          type: boolean
+          example: false
+        allow_download_annual_receipts:
+          description: Control over whether I enable the ability for supporters to download annual donation receipts
+          type: boolean
+          example: false
+        city:
+          description: Organization city
+          type: string
+          maxLength: 50
+          example: San Diego
+        country:
+          description: Organization country
+          type: string
+          example: USA
+        currency:
+          description: The currency that the Organization collects transactions in. This is a legacy field.
+          type: string
+          example: USD
+        currency_code:
+          description: The currency that the Organization collects transactions in
+          type: string
+          example: USD
+        customer_tier:
+          description: Organization customer tier
+          type:
+          - integer
+          - 'null'
+          example: 2
+        description:
+          description: Organization Description
+          type: string
+          example: Helps saves all animals
+        facebook:
+          description: The name of the Organization's facebook page
+          type:
+          - string
+          - 'null'
+          maxLength: 150
+          example: save.animals
+        fixed_fot_percent:
+          description: Percentage to be added to fee on top (aka Classy Mode) transactions for the Organization to cover fees unless Campaign specifies differently
+          type: string
+          example: '5.00'
+        flex_rate_percent:
+          description: Percentage Organization elects to be added to donor covered fees calculation to cover any additional costs other than fees.
+          type: number
+          format: double
+          maximum: 5
+          minimum: 0
+          example: 5
+        gfm_charity_community_id:
+          description: GFM charity community ID
+          type:
+          - integer
+          - 'null'
+          example: 12345
+        gfm_npo_page_slug:
+          description: GFM NPO page slug
+          type:
+          - string
+          - 'null'
+          example: save-the-animals
+        gfm_connect_banner_count:
+          description: Number of times the GFM Connect banner was dismissed
+          type: integer
+          example: 2
+        gfm_connect_banner_dismissed_at:
+          description: Date/time of GFM Connect banner dismissal
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2025-04-24T10:25:03Z'
+        has_double_the_donation_enployer_match:
+          description: Enable employer matching through Double The Donation. Can only be enabled if the default currency is USD and other employer matching (e.g Donate Double) is not enabled.
+          type: boolean
+          example: false
+        has_employer_match:
+          description: Enabled employer matching through Donate Double. Can only be enabled if the default currency is USD.
+          type: boolean
+          example: false
+        is_gfm_npo_page_claimed:
+          description: Flag whether the organization has a gfm npo page claimed
+          type: boolean
+          example: false
+        is_gfm_npo_page_verified:
+          description: Flag whether the organization has a gfm npo page verified
+          type: boolean
+          example: false
+        is_gift_aid_available:
+          description: Flag whether the organization allows donors to opt into gift aid used by the UK
+          type: boolean
+          example: false
+        logo_id:
+          description: The asset ID of the organization's logo
+          type:
+          - string
+          - 'null'
+          example: '10'
+        marketplace_state:
+          description: 'Resolved Marketplace Self-Serve Sign Up (SSSU) capability state. One of: GFM_PRE_KYC (Consumer marketplace lifecycle, pre-verification; claim_source NULL or ''GFM''), GFM_POST_KYC (Consumer marketplace lifecycle, KYC done, GFM Pay active), GFM_PRO_PRE_KYC (SSSU Pro-website entry, awaiting KYC; claim_source ''GFM_PRO''), GFM_PRO_POST_KYC (SSSU Pro-website entry, KYC complete, active ClassyPay Stripe processor). LEGACY is a catch-all for orgs outside the SSSU scope: tier 3, null tier, orgs running on non-ClassyPay active processors (Authorize.net, WePay, etc.), and any inconsistent state; it does NOT mean ''any non-SSSU post-KYC org'' — a sales-provisioned paying tier-2 org with active Stripe buckets as GFM_POST_KYC, not LEGACY. Opt-in only: the field appears in the response when GET /organizations/{id} is called with ?include=marketplace_state. Resolving this field triggers a ClassyPay processor-latest call (60s Redis cache) for claim_source=''GFM_PRO'' orgs only; Consumer-lifecycle orgs classify by tier without a network hop.'
+          type: string
+          enum:
+          - GFM_PRE_KYC
+          - GFM_POST_KYC
+          - GFM_PRO_PRE_KYC
+          - GFM_PRO_POST_KYC
+          - LEGACY
+          example: GFM_PRO_POST_KYC
+        claim_source:
+          description: 'Origin of the Organization''s claim on the underlying charity record. `NULL` for pre-existing (legacy) orgs; `GFM` for SSSU via the Consumer website (gofundme.com); `GFM_PRO` for SSSU via the Pro website (pro.gofundme.com). Set once at POST /organizations/consumer-onboarding from the platform-services payload. **Read-only: ignored by PUT /organizations/{id}** (structurally immutable after creation). **Consumers should NOT branch on this field directly** — it is an internal routing signal that feeds `marketplace_state`. Branch on `marketplace_state` to stay decoupled from the underlying signal mix (which is subject to change without a wire-contract bump).'
+          type:
+          - string
+          - 'null'
+          enum:
+          - GFM
+          - GFM_PRO
+          readOnly: true
+          example: GFM_PRO
+        mission:
+          description: Organization's mission statement
+          type: string
+          example: Save all animals and find them a home
+        name:
+          description: Organization Name
+          type: string
+          maxLength: 127
+          example: Rescue All Animals
+        opt_in_wording:
+          description: Custom opt in language used to collect Supporters consent to receive communications
+          type:
+          - string
+          - 'null'
+          maxLength: 255
+          example: You have agreed to the terms and services.
+        plan_type:
+          description: Organization plan name
+          type: string
+          example: Enterprise
+        sms_opt_in_text:
+          description: SMS opt-in language for marketing consent. Returns default text with org name substituted if not customized. Set to empty string to disable SMS consent messaging.
+          type:
+          - string
+          - 'null'
+          example: It's OK to text me about ways I can continue to support Acme Charity and other important updates.
+        sms_opt_in_text_default:
+          description: The default SMS opt-in text with organization name substituted. Use this to display the default option in the UI.
+          type: string
+          example: It's OK to text me about ways I can continue to support Acme Charity and other important updates.
+        sms_opt_in_text_is_default:
+          description: Indicates whether sms_opt_in_text is using the default value (true) or a custom value (false)
+          type: boolean
+          example: true
+        sms_tos_url:
+          description: SMS Terms of Service URL for the organization
+          type:
+          - string
+          - 'null'
+          maxLength: 255
+          example: https://example.org/sms-terms
+        postal_code:
+          description: Organization postal code
+          type: string
+          example: '92000'
+        restricted_country_information:
+          description: Will be populated if the Organization has chosen to restrict transactions from certain countries. Otherwise null
+          type:
+          - string
+          - 'null'
+          example: UK
+        resend_receipt_flag:
+          description: If true, give the supporters the option to resend the receipts.
+          type: boolean
+          example: true
+        signature_id:
+          description: The asset ID of the signature
+          type:
+          - integer
+          - 'null'
+          example: 100
+        signature_name:
+          description: The name of the person signing
+          type:
+          - string
+          - 'null'
+          maxLength: 50
+          example: Bob Smith
+        signature_title:
+          description: The title of the person signing
+          type:
+          - string
+          - 'null'
+          maxLength: 50
+          example: CEO
+        signature_url:
+          description: The title of the person signing
+          type:
+          - string
+          - 'null'
+          example: https://example.org
+        state:
+          description: Organization state
+          type: string
+          example: CA
+        status:
+          description: Status of the organization
+          type: string
+          enum:
+          - trial
+          - active
+          - deleted
+          - cancelled
+          example: active
+        subscription_plan:
+          description: ID of the legacy base subscription plan
+          type: integer
+          enum:
+          - 0
+          - 3
+          - 4
+          - 5
+          - 8
+          deprecated: true
+        thumbnail:
+          description: Thumbnail
+          type:
+          - string
+          - 'null'
+          example: https://examplerta.org/thumbnail.png
+        timezone_identifier:
+          description: The timezone of the organization. This will be used for reporting.
+          type: string
+          example: UTC
+        twitter:
+          description: The twitter handle for the organization
+          type:
+          - string
+          - 'null'
+          maxLength: 50
+          example: '@animal.rescue'
+        privacy_policy_url:
+          description: The Privacy policy URL for the organization
+          type:
+          - string
+          - 'null'
+          maxLength: 150
+          example: https://examplerta.org
+        type:
+          description: Organization type
+          type:
+          - string
+          - 'null'
+          example: npo
+        url:
+          description: The website for the organization
+          type: string
+          example: https://examplerta.org
+        welcome_message:
+          description: This message appears at the top of the Supporter Hub.
+          type: string
+          maxLength: 100
+          example: Thank you for all you do to make our mission possible
+        created_at:
+          description: Date/time of created organization
+          type: string
+          format: date-time
+          example: '2019-04-23T10:25:03Z'
+        updated_at:
+          description: Date/time of updated organization
+          type: string
+          format: date-time
+          example: '2020-04-23T10:25:03Z'
+        has_gfm_npo_transactions:
+          description: Indicates whether the organization has GoFundMe NPO transactions
+          type: boolean
+          example: false
+        is_billing_address_required:
+          description: Indicates whether billing address is required for donations to this organization
+          type: boolean
+          example: false
+        is_intelligent_text_suggestion_opted_out:
+          description: Indicates whether Intelligent Text Suggestions (ITS) are opted out for this organization
+          type: boolean
+          example: false
+      type: object
+    PaginatedResponse:
+      title: Paginated Response
+      properties:
+        current_page:
+          description: Index of current page
+          type: integer
+          example: 1
+        data:
+          description: Collection of results
+          type: array
+          items:
+            type: object
+        first_page_url:
+          description: URL of first page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        from:
+          description: Index of first displayed result within total result set
+          type:
+          - integer
+          - 'null'
+          example: 1
+        last_page:
+          description: Index of last page in result set
+          type: integer
+          example: 1
+        last_page_url:
+          description: URL of last page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        next_page_url:
+          description: URL of next page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=2
+        path:
+          description: URL of current page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource
+        per_page:
+          description: Maximum number of records returned per page of results
+          type: integer
+          example: 20
+        prev_page_url:
+          description: URL of previous page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        links:
+          description: Collection of objects representing pages {label, URL, active} that can be used to request the associated page of records.
+          type: array
+          items:
+            $ref: '#/components/schemas/PaginationLink'
+        to:
+          description: Index of last displayed result within total result set
+          type:
+          - integer
+          - 'null'
+          example: 1
+        total:
+          description: Total count of records in result set
+          type: integer
+          example: 1
+      type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    Activity:
+      title: Activity
+      properties:
+        business:
+          $ref: '#/components/schemas/Business'
+        campaign:
+          $ref: '#/components/schemas/Campaign'
+        campaign_id:
+          description: Primary identifier of associated Campaign
+          type: integer
+          example: 227362
+        designation:
+          $ref: '#/components/schemas/Designation'
+        member:
+          $ref: '#/components/schemas/Member'
+        organization:
+          $ref: '#/components/schemas/Organization'
+        fundraising_page_id:
+          description: Primary identifier of associated Fundraising Page
+          type: integer
+          example: 2173528
+        fundraising_team_id:
+          description: Primary identifier of associated Fundraising Team
+          type: integer
+          example: 209745
+        id:
+          description: Primary identifier of record
+          type: integer
+          example: 324
+        link_id:
+          description: Primary identifier of the associated Link
+          type: integer
+          example: 111
+        link_text:
+          description: String that provides additional details about the activity
+          type: string
+          example: $12.00
+        member_id:
+          description: Primary identifier of the associated Member
+          type: integer
+          example: 2012
+        organization_id:
+          description: Primary identifier of the associated Organization
+          type: integer
+          example: 82364
+        transaction_id:
+          description: Primary identifier of the associated Transaction
+          type: integer
+          example: 1427264
+        type:
+          description: Type of Activity
+          type: string
+          enum:
+          - supporter_added
+          - blog_post_created
+          - campaign_created
+          - comment_created
+          - status_updated
+          - designation_created
+          - volunteer_opportunity_created
+          - volunteer_added
+          - project_milestone_created
+          - campaign_milestone_created
+          - donation_created
+          - ticket_purchased
+          - admin_note
+          - note
+          - fundraising_page_notification
+          - fundraising_page_created
+          - fundraising_team_created
+          - classy_award_nomination
+          - classy_award_vote
+          - fundraising_team_joined
+          - event_check_in
+          - fundraising_page_requested
+          - classy_onboarding
+          example: supporter_added
+      type: object
+    Designation:
+      title: Designation
+      properties:
+        city:
+          description: The name of the city associated with the Designation
+          type:
+          - string
+          - 'null'
+          maxLength: 100
+          example: San Diego
+        created_at:
+          description: Date/time of initial record creation
+          type: string
+          format: date-time
+          example: '2021-04-23T08:23:21Z'
+        description:
+          description: A brief description of the Designation
+          type:
+          - string
+          - 'null'
+          maxLength: 4095
+          example: My Designation Description
+        end_time:
+          description: Date/time that record ends
+          type:
+          - string
+          - 'null'
+          example: '2021-04-23 08:23:21'
+        external_reference_id:
+          description: Primary identifier of associated Member
+          type:
+          - string
+          - 'null'
+          maxLength: 100
+          example: my_unique_identifier
+        goal:
+          description: The fundraising goal for the Designation
+          type:
+          - string
+          - 'null'
+          format: float
+          minimum: 0
+          example: '1000.0'
+        id:
+          description: Primary identifier of record
+          type: integer
+          example: 34672
+        is_active:
+          description: Indicates whether Designation is active
+          type: boolean
+          example: true
+        is_complete:
+          description: Indicates whether Designation is complete
+          type: boolean
+          example: false
+        is_default:
+          description: Indicates whether this is the default Designation for the organization. Only one Designation per Organization can have this be true
+          type: boolean
+          example: false
+        name:
+          description: Name of the Designation, unique to this Organization
+          type:
+          - string
+          - 'null'
+          maxLength: 127
+          example: My Designation Name
+        organization_id:
+          description: Primary identifier of associated Organization
+          type: integer
+          example: 82364
+        postal_code:
+          description: Postal code associated with the Designation
+          type:
+          - string
+          - 'null'
+          maxLength: 10
+          example: '90210'
+        start_time:
+          description: Date/time that record starts
+          type:
+          - string
+          - 'null'
+          example: '2021-04-23 08:23:21'
+        state:
+          description: Two-letter abbreviation of the state associated with the Designation
+          type:
+          - string
+          - 'null'
+          maxLength: 2
+          minLength: 2
+          example: CA
+        updated_at:
+          description: Date/time of last record update
+          type: string
+          format: date-time
+          example: '2021-04-23T10:25:03Z'
+      type: object
+    Campaign:
+      title: Campaign
+      properties:
+        address1:
+          description: First line of address
+          type:
+          - string
+          - 'null'
+          maxLength: 250
+          example: 533 F Street
+        campaign_template_id:
+          description: Primary identifier of the Campaign Template this Campaign was created from
+          type:
+          - integer
+          - 'null'
+          readOnly: true
+          example: 413
+        studio_template_id:
+          description: Primary identifier of the Studio Template this Campaign was created from
+          type:
+          - integer
+          - 'null'
+          readOnly: true
+          example: 7
+        is_linked:
+          description: Whether the Campaign is currently consuming Studio Template updates. Defaults to false; set true when the campaign is created linked to a Studio Template, and false again on unlink.
+          type: boolean
+          readOnly: true
+          example: false
+        linked_at:
+          description: Set once when the campaign first becomes linked to a Studio Template at creation; never updated thereafter (no re-link path). NULL if never linked.
+          type:
+          - string
+          - 'null'
+          format: date-time
+          readOnly: true
+          example: '2021-04-23T08:23:21Z'
+        unlinked_at:
+          description: Timestamp of the unlink operation. NULL until the campaign is unlinked from its Studio Template; written only by the unlink flow, never at creation. Never cleared.
+          type:
+          - string
+          - 'null'
+          format: date-time
+          readOnly: true
+          example: '2021-04-23T08:23:21Z'
+        canonical_url:
+          description: Canonical url of the Campaign
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          example: /campaign/c0
+        category_id:
+          description: Category designation for Campaign
+          type:
+          - integer
+          - 'null'
+          example: 1
+        channel_id:
+          description: Channel designation for Campaign
+          type:
+          - integer
+          - 'null'
+          example: 2
+        channel_keywords:
+          description: List of keywords Campaign is tagged with
+          type:
+          - string
+          - 'null'
+          example: some_keyword
+        city:
+          description: City name
+          type:
+          - string
+          - 'null'
+          maxLength: 50
+          example: San Diego
+        contact_email:
+          description: Email address for the Campaign Contact. Set to the Organization Email by default if none is specified
+          type:
+          - string
+          - 'null'
+          example: test@gofundme.com
+        contact_phone:
+          description: Phone number for the Campaign Contact
+          type: string
+          maxLength: 32
+          example: 619-555-1212
+        country:
+          description: Country name
+          type:
+          - string
+          - 'null'
+          maxLength: 2
+          minLength: 2
+          example: US
+        created_at:
+          description: Date/time of initial record creation
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2021-04-23T08:23:21Z'
+        created_with:
+          description: Indicates which application created the Campaign
+          type: string
+          enum:
+          - api
+          - classyapp
+          readOnly: true
+          example: classyapp
+        currency_code:
+          description: ISO code of the currency against which this Campaign is normalized. Inherited from Organization's currency code.
+          type: string
+          readOnly: true
+          example: USD
+        default_page_appeal_email:
+          description: Default appeal text displayed on Fundraising Pages
+          type:
+          - string
+          - 'null'
+          example: Please donate to my fundraising page
+        default_page_goal:
+          description: Default goal for the Campaign's Fundraising Pages. Presented in units of the Campaign's currency_code
+          type: number
+          format: double
+          minimum: 1
+          example: 500
+        default_page_thank_you_email:
+          description: Default thank you email text for the Campaign's Fundraising Pages
+          type:
+          - string
+          - 'null'
+          example: Thank you
+        default_team_appeal_email:
+          description: Default appeal email text for Fundraising Teams
+          type:
+          - string
+          - 'null'
+          example: Please donate to my fundraising team
+        default_team_goal:
+          description: Default goal for the Campaign's Fundraising Teams. Presented in units of the Campaign's currency_code.
+          type: number
+          format: double
+          minimum: 1
+          example: 500
+        default_team_thank_you_email:
+          description: Default thank you email text for the Campaign's Fundraising Teams
+          type:
+          - string
+          - 'null'
+          example: Thank you
+        designation_id:
+          description: ID of Designation the Campaign Transactions will be allocated to
+          type:
+          - integer
+          - 'null'
+          example: 10
+        display_group_name:
+          description: Flag to determine if Designation Group Names should be shown
+          type: boolean
+          example: false
+        ended_at:
+          description: Date/time of when the campaign ends
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2021-04-23T08:23:21Z'
+        effective_fixed_fot_percent:
+          description: Percentage to be added to fee on top (aka Classy Mode) Transactions for the Campaign to cover fees. If fixed fot percent is null falls back on the Organization's fixed fot percent
+          type:
+          - string
+          - 'null'
+          format: double
+          readOnly: true
+          example: '4.00'
+        effective_flex_rate_percent:
+          description: Percentage Campaign elects to be added to donor covered fees calculation to cover any additional costs other than fees. If flex rate percent is null falls back on the Organization's flex rate percent
+          type:
+          - number
+          - 'null'
+          format: double
+          readOnly: true
+          example: 4.2
+        effective_recaptcha_settings:
+          description: Indicates whether or not captcha should be displayed on checkout pages. If false at Org level, will not display on campaigns.
+          type: string
+          enum:
+          - ENABLED
+          - DISABLED
+          readOnly: true
+          example: ENABLED
+        external_id:
+          description: A unique identifier provided by an external system (e.g., Salesforce) that is associated with this campaign.
+          type:
+          - string
+          - 'null'
+          example: 37e4d11a-ec0c-4358-94ed-f26cb1753512
+        external_url:
+          description: When set on a Campaign, GoFundMe Pro will push all requests for this Campaign to the specified URL via HTTP redirect. Commonly used to redirect traffic from ended Campaign to another Site/Campaign
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com
+        goal:
+          description: Fundraising goal for this Campaign normalized against currency_code
+          type:
+          - number
+          - 'null'
+          format: double
+          readOnly: true
+          example: 108.23
+        hide_from_profile:
+          description: Indicates whether the Campaign will be hidden on the profile
+          type:
+          - boolean
+          - 'null'
+          example: false
+        id:
+          description: Primary identifier of record
+          type: integer
+          readOnly: true
+          example: 227362
+        internal_name:
+          description: Internal name for Campaign. Can differ from name attribute
+          type:
+          - string
+          - 'null'
+          maxLength: 255
+          example: 'Event #F230DD'
+        is_fees_free:
+          description: Indicates whether the Campaign has Fees associated with it or not
+          type:
+          - boolean
+          - 'null'
+          readOnly: true
+          example: false
+        is_general:
+          description: Indicates whether the Campaign is general or not. Boolean returned as 0 or 1 accordingly.
+          type:
+          - number
+          - 'null'
+          readOnly: true
+          example: 1
+        location_details:
+          description: Additional information about the location of the event (e.g. directions, clarifications)
+          type: string
+          maxLength: 255
+          example: Heading north on I-5...
+        minimum_donation_amount:
+          description: Determines the minimum donation amount allowed.
+          type: number
+          example: 5
+        name:
+          description: Campaign name
+          type: string
+          example: My Campaign
+        organization_id:
+          description: Primary identifier for the associated Organization
+          type: integer
+          readOnly: true
+          example: 82364
+        postal_code:
+          description: Zip Code
+          type:
+          - string
+          - 'null'
+          example: '92101'
+        raw_currency_code:
+          description: ISO code of the currency in which this Campaign should be presented. Defaults to `currency_code` value if not specified.
+          type: string
+          example: EUR
+        raw_goal:
+          description: Raw Fundraising Goal for this Campaign
+          type: string
+          example: '100.000'
+        redirect_url:
+          description: Redirect the unpublish campaign to this url
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/
+        sort_designation_by:
+          description: How to sort within Designation Groups
+          type: string
+          enum:
+          - A-Z
+          - NEW-OLD
+          - OLD-NEW
+          example: A-Z
+        started_at:
+          description: Date/time the campaign begins
+          type: string
+          format: date-time
+          example: '2021-04-23T08:23:21Z'
+        state:
+          description: State/province name
+          type:
+          - string
+          - 'null'
+          maxLength: 20
+          example: CA
+        status:
+          description: Status of Campaign
+          type: string
+          enum:
+          - active
+          - deactivated
+          - draft
+          - unpublished
+          readOnly: true
+          example: active
+        timezone_identifier:
+          description: Timezone Identifier
+          type: string
+          example: America/Los_Angeles
+        type:
+          description: "The campaign's type, which determines its functionality and features:\n - donation:     Classic standard donation page (retired)\n - crowdfunding: Classic Crowdfunding campaign (retired)\n - peer_to_peer: Classic Peer-to-Peer campaign\n - ticketed:     Ticketed Event campaign\n - reg_w_fund:   Registration with Fundraising campaign\n - dynamic:      Campaign Studio Donation Page and Embedded Form campaigns\n - gfm_npo:      Campaign used to process transactions from an organization's GoFundMe Nonprofit Page and individual fundraisers on behalf of the organization (only available if the organization's GoFundMe Nonprofit Page is claimed)\n - gfm_p2p:      GoFundMe Peer-to-Peer campaign that leverages GoFundMe for the fundraising experience (only available if the organization's GoFundMe Nonprofit Page is claimed)"
+          type: string
+          enum:
+          - ticketed
+          - registration
+          - fund_for_entry
+          - peer_to_peer
+          - donation
+          - reg_w_fund
+          - crowdfunding
+          - dynamic
+          - gfm_npo
+          - gfm_p2p
+          example: ticketed
+        updated_at:
+          description: Date/time of last alteration
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2021-04-23T08:23:21Z'
+        venue:
+          description: Free text representing a location
+          type:
+          - string
+          - 'null'
+          maxLength: 500
+          example: City Townhall
+        add_registration_fee:
+          description: Indicates whether a registration fee is added or not
+          type: boolean
+          example: false
+        allow_duplicate_fundraisers:
+          description: Indicates whether a Campaign allows a single User to own several Fundraising Pages
+          type: boolean
+          example: false
+        allow_fundraising_pages:
+          description: Specifies whether a Campaign allows for the creation of new Fundraising Pages. Only relevant for Campaigns with types that allow for Fundraising Pages in general
+          type: boolean
+          example: false
+        allow_team_fundraising:
+          description: Specifies whether a Campaign allows for Team Fundraising
+          type: boolean
+          example: false
+        default_page_appeal:
+          description: Default appeal text displayed on Fundraising Pages
+          type:
+          - string
+          - 'null'
+          example: Please donate to my fundraising page
+        default_page_post_asset_id:
+          description: Default Asset ID of page story post
+          type:
+          - integer
+          - 'null'
+          example: 1
+        default_page_post_body:
+          description: Default body of page story post
+          type:
+          - string
+          - 'null'
+          example: Lorem ipsum
+        default_page_post_title:
+          description: Default title of page story post
+          type:
+          - string
+          - 'null'
+          example: Welcome to our team page!
+        default_team_appeal:
+          description: Default appeal text displayed on Fundraising Teams
+          type:
+          - string
+          - 'null'
+          example: Please donate to my fundraising team
+        default_team_post_asset_id:
+          description: Default Asset ID of team story post
+          type:
+          - integer
+          - 'null'
+          example: 1
+        default_team_post_body:
+          description: Default body of team story post
+          type:
+          - string
+          - 'null'
+          example: Lorem ipsum
+        default_team_post_title:
+          description: Default title of team story post
+          type:
+          - string
+          - 'null'
+          example: Welcome to our team page!
+        default_thank_you_text:
+          description: Default thank you text on the thank you page
+          type:
+          - string
+          - 'null'
+          example: Thank you so much!
+        fixed_fot_percent:
+          description: Percentage Campaign elects to be added to Fee on top (aka Classy Mode) Transactions to cover Fees
+          type:
+          - string
+          - 'null'
+          format: double
+          example: '4.00'
+        flex_rate_percent:
+          description: Percentage Campaign elects to be added to donor covered fees calculation to cover any additional costs other than fees.
+          type:
+          - number
+          - 'null'
+          format: double
+          example: 4
+        is_billing_address_required:
+          description: If true, a billing address must be provided when creating Transactions against the Campaign
+          type: boolean
+          example: false
+        is_ended_at_hidden:
+          description: If true, Campaign end date is not shown
+          type: boolean
+          example: false
+        is_started_at_hidden:
+          description: If true, Campaign start date is not shown
+          type: boolean
+          example: false
+        pages_can_set_appeal:
+          description: Indicates whether Fundraising Pages can set the appeal
+          type: boolean
+          example: false
+        pages_can_set_goal:
+          description: Indicates whether Fundraising Pages can set the goal
+          type: boolean
+          example: false
+        team_membership_policy:
+          description: Configuration indicating whether team membership for this Campaign's Fundraising Pages is optional, required, or prohibited
+          type: string
+          enum:
+          - optional
+          - required
+          - prohibited
+          example: optional
+        teams_can_set_appeal:
+          description: Indicates whether Fundraising Teams can set the appeal
+          type: boolean
+          example: false
+        teams_can_set_goal:
+          description: Indicates whether Fundraising Teams can set the goal
+          type: boolean
+          example: false
+        ticket_pass_on_fees:
+          description: Indicates whether a Campaign passes Fees from tickets to the user or not (fee on top for tickets)
+          type:
+          - boolean
+          - 'null'
+          example: false
+        allow_ecards:
+          description: Whether Ecard Dedications are available for this Campaign
+          type: boolean
+          example: false
+        classy_mode_appeal:
+          description: Classy mode appeal text
+          type:
+          - string
+          - 'null'
+          example: Example appeal text
+        classy_mode_checked_by_default:
+          description: Whether or not classymode or dcf is checked by default on a donation page. Despite the name, also applies to DCF
+          type: boolean
+          example: false
+        classy_mode_enabled:
+          description: If true, give the donor the option to cover the Transaction Fee via ClassyMode calculation
+          type:
+          - boolean
+          - 'null'
+          example: false
+        checkout_corporate_donation_enabled:
+          description: If true, show the company credit card option on the ticketing checkout page
+          type: boolean
+          example: true
+        corporate_donation_enabled:
+          description: If true, give the donor the option to donate on the behalf of a corporation
+          type: boolean
+          example: false
+        custom_url:
+          description: Custom URL
+          type:
+          - string
+          - 'null'
+          example: https://test.org/custom
+        daf_enabled:
+          description: If true, give the donor the ability to connect a donor advised fund (DAF)
+          type: boolean
+          example: false
+        dcf_enabled:
+          description: If true, give the donor the option to cover the Transaction Fee via Donor Covered Fees calculation
+          type: boolean
+          example: false
+        dcf_allowed:
+          description: Whether or not the campaign will use DCF or classymode. If true, this means the campaign must be treated as a dcf campaign. All newly created campaigns should have dcf_allowed = true. For whether or not dcf should show up on a donation page, please see dcf_enabled.
+          type: boolean
+          readOnly: true
+          example: false
+        disable_donation_attribution:
+          description: Flag to allow/disallow donors to select a Fundraising Page or Team to attribute their Donation to. If true, Donation Attribution is disabled. Set to false to enable Donation Attribution
+          type:
+          - boolean
+          - 'null'
+          example: false
+        hide_anonymous_donations:
+          description: If true, Donation forms will not display the anonymous Donation field
+          type: boolean
+          example: false
+        hide_recurring_end_date:
+          description: Indicates whether the end date for recurring donations will be hidden in the donation page
+          type: boolean
+          example: false
+        hide_contact_opt_in:
+          description: If true, Donation forms will not display the contact opt in field
+          type: boolean
+          example: false
+        hide_donation_amounts:
+          description: If true, donors will not be able to hide their donation amounts
+          type: boolean
+          example: false
+        hide_dedications:
+          description: If true, donation dedications will not be offered
+          type: boolean
+          example: false
+        hide_donation_comments:
+          description: If true, donation forms will not display the donation comments field
+          type: boolean
+          example: false
+        offer_dedication_postal_notifications:
+          description: If true, offer to collect mailing information for postal notifications for dedications
+          type: boolean
+          example: false
+        opt_in_checked_by_default:
+          description: If true, and if the hide_contact_opt_in option is false, this will check the opt-in selection by default on donation forms
+          type: boolean
+          example: false
+        return_url:
+          description: Return URL
+          type:
+          - string
+          - 'null'
+          example: https://test.org/return
+        send_dedication_emails:
+          description: If true, send dedication email for donation
+          type:
+          - boolean
+          - 'null'
+          example: false
+        logo_id:
+          description: Primary identifier of Asset used as the main Campaign Logo. Interpreted from associated Campaign Theme
+          type:
+          - integer
+          - 'null'
+          readOnly: true
+          example: 1002
+        logo_url:
+          description: URL for logo image. Either hardcoded URL for legacy Campaigns or interpreted from logo Asset specified by logo ID
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          example: https://gofundme-cdn-url.com/your-logo.png
+        team_cover_photo_id:
+          description: ID of the associated Asset that serves as the default cover photo for this Campaign's Teams (inherited from associated Theme)
+          type:
+          - integer
+          - 'null'
+          readOnly: true
+          example: 2345
+        team_cover_photo_url:
+          description: URL for Campaign's default team cover photo image. Interpreted from team cover photo Asset specified by team cover photo ID
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          example: https://gofundme-cdn-url.com/your-team-cover-photo.png
+        crypto_giving:
+          description: Indicates if Crypto Giving is Enabled, Disabled or Exclusive
+          type: string
+          enum:
+          - enabled
+          - disabled
+          - exclusive
+          example: enabled
+        embedded_giving:
+          description: Indicates if Embedded Giving is Disabled, Modal or Inline
+          type: string
+          enum:
+          - disabled
+          - modal
+          - inline
+          example: disabled
+        exit_modal:
+          description: Indicates if Exit Modal is toggle on/off for a certain Campaign
+          type: boolean
+          example: false
+        use_intelligent_ask_onetime:
+          description: Toggle Intelligent Ask Amount for One-time donations
+          type:
+          - boolean
+          - 'null'
+          example: false
+        use_intelligent_ask_recurring:
+          description: Toggle Intelligent Ask Amount for Recurring donations
+          type:
+          - boolean
+          - 'null'
+          example: false
+        whitelist_url:
+          description: Used to bypass security blocking conditions in the donor iframe, based on X-FRAME-OPTIONS ALLOW-FROM
+          type:
+          - string
+          - 'null'
+          example: https://www.myawesomecharity.org
+      type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
+      type: object
+  parameters:
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
+    page:
+      name: page
+      in: query
+      description: Indicator of which page of results to return
+      required: false
+      schema:
+        type: integer
+        example: 1
+  securitySchemes:
+    OAuth2Application:
+      type: oauth2
+      description: OAuth bearer token for client application
+      flows:
+        clientCredentials:
+          tokenUrl: /oauth2/auth
+          refreshUrl: /oauth2/auth
+          scopes:
+            read: Read access
+            write: Write access
+    OAuth2Member:
+      type: oauth2
+      description: OAuth bearer token for client application with additional member context
+      flows:
+        password:
+          tokenUrl: /oauth2/auth
+          refreshUrl: /oauth2/auth
+          scopes:
+            read: Read access
+            write: Write access

@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "GoFundMe Pro Matched Transaction API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "/oauth2/auth",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Matched Transaction",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "fetchMatchedTransaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/matched-transactions/:matched_transaction",
+            "params": [
+              {
+                "name": "matched_transaction",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of Matched Transaction"
+              }
+            ]
+          },
+          "docs": "Fetch specified Matched Transaction"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

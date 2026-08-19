@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "GoFundMe Pro Hard Credit Transfer API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "/oauth2/auth",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Hard Credit Transfer",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "createHardCreditTransfer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/transactions/:transaction/hard-credit-transfers",
+            "params": [
+              {
+                "name": "transaction",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of specified Transaction"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Creates a Hard Credit Transfer for the specified Transaction, thereby re-attributing it to the new Fundraising Entity"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

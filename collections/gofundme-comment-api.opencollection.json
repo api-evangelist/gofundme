@@ -1,0 +1,297 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "GoFundMe Pro Comment API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "/oauth2/auth",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Comment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "fetchComment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/comments/:comment",
+            "params": [
+              {
+                "name": "comment",
+                "value": "",
+                "type": "path",
+                "description": "The specified Comment ID"
+              }
+            ]
+          },
+          "docs": "Retrieves a Comment from the ID"
+        },
+        {
+          "info": {
+            "name": "updateComment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://pro.gofundme.com/api/2.0/comments/:comment",
+            "params": [
+              {
+                "name": "comment",
+                "value": "",
+                "type": "path",
+                "description": "The specified Comment ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update Comment"
+        },
+        {
+          "info": {
+            "name": "deleteComment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://pro.gofundme.com/api/2.0/comments/:comment",
+            "params": [
+              {
+                "name": "comment",
+                "value": "",
+                "type": "path",
+                "description": "Comment ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete Comment"
+        },
+        {
+          "info": {
+            "name": "listFeedItemComments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/feed-items/:feed_item/comments",
+            "params": [
+              {
+                "name": "feed_item",
+                "value": "",
+                "type": "path",
+                "description": "The specified Feed Item ID"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of Comments for a Feed Item"
+        },
+        {
+          "info": {
+            "name": "createFeedItemComment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/feed-items/:feed_item/comments",
+            "params": [
+              {
+                "name": "feed_item",
+                "value": "",
+                "type": "path",
+                "description": "The specified Feed Item ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create comment for specified Feed Item"
+        },
+        {
+          "info": {
+            "name": "listStoryComments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/stories/:story/comments",
+            "params": [
+              {
+                "name": "story",
+                "value": "",
+                "type": "path",
+                "description": "The specified Story ID"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of Comments for a Story"
+        },
+        {
+          "info": {
+            "name": "createStoryComment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/stories/:story/comments",
+            "params": [
+              {
+                "name": "story",
+                "value": "",
+                "type": "path",
+                "description": "The specified Story ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create Comment for specified Story"
+        },
+        {
+          "info": {
+            "name": "listUpdateComments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/updates/:update/comments",
+            "params": [
+              {
+                "name": "update",
+                "value": "",
+                "type": "path",
+                "description": "The specified Update ID"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of Comments for a Update"
+        },
+        {
+          "info": {
+            "name": "createUpdateComment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/updates/:update/comments",
+            "params": [
+              {
+                "name": "update",
+                "value": "",
+                "type": "path",
+                "description": "The specified Update ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create Comment for specified Update"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

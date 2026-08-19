@@ -1,0 +1,380 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "GoFundMe Pro Fundraising Team API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "/oauth2/auth",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Fundraising Team",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "listCampaignFundraisingTeams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/campaigns/:campaign/fundraising-teams",
+            "params": [
+              {
+                "name": "campaign",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of specified Campaign"
+              },
+              {
+                "name": "with",
+                "value": "",
+                "type": "query",
+                "description": "Request specific relationships to be returned with the FundraisingTeam"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to be returned."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all Fundraising Teams for the specified Campaign"
+        },
+        {
+          "info": {
+            "name": "createCampaignFundraisingTeam",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/campaigns/:campaign/fundraising-teams",
+            "params": [
+              {
+                "name": "campaign",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of specified Campaign"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a Fundraising Team for the specified Campaign"
+        },
+        {
+          "info": {
+            "name": "fetchFundraisingTeam",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-teams/:fundraising_team",
+            "params": [
+              {
+                "name": "fundraising_team",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of specified Fundraising Team"
+              },
+              {
+                "name": "aggregates",
+                "value": "",
+                "type": "query",
+                "description": "Request FundraisingTeam Aggregates to be returned"
+              },
+              {
+                "name": "with",
+                "value": "",
+                "type": "query",
+                "description": "Request specific relationships to be returned with the FundraisingTeam"
+              }
+            ]
+          },
+          "docs": "Retrieves a specified Fundraising Team"
+        },
+        {
+          "info": {
+            "name": "updateFundraisingTeam",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-teams/:fundraising_team",
+            "params": [
+              {
+                "name": "fundraising_team",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of Fundraising Team"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update a Fundraising Team"
+        },
+        {
+          "info": {
+            "name": "deleteFundraisingTeam",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-teams/:fundraising_team",
+            "params": [
+              {
+                "name": "fundraising_team",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of Fundraising Team"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete a Fundraising Team"
+        },
+        {
+          "info": {
+            "name": "listSubteams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-teams/:id/subteams",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of Fundraising Team"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all SubTeams for specified Fundraising Teams"
+        },
+        {
+          "info": {
+            "name": "fetchFundraisingTeamOverview",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-teams/:fundraising_team/overview",
+            "params": [
+              {
+                "name": "fundraising_team",
+                "value": "",
+                "type": "path",
+                "description": "The specified Fundraising Team ID"
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "Interval period of Fundraising Page overview"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "The date from which aggregation results will start. This is translated into a start_time, which is the beginning of the date presented in the timezone of the team's Campaign. If the Fundraising Team's Campaign has no associated timezone, this timezone will default to UTC."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "The date at which aggregation results will end. This is translated into a end_time, which is the end of the date presented in the timezone of the team's Campaign. If the Fundraising Team's Campaign has no associated timezone, this timezone will default to UTC."
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query",
+                "description": "Timezone for start_date and end_date."
+              }
+            ]
+          },
+          "docs": "Retrieves aggregate records for the Fundraising Page's transactions."
+        },
+        {
+          "info": {
+            "name": "listMemberFundraisingTeams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/members/:member_id/fundraising-teams",
+            "params": [
+              {
+                "name": "member_id",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of specified Member"
+              },
+              {
+                "name": "with",
+                "value": "",
+                "type": "query",
+                "description": "Request specific relationships to be returned with the Fundraising Team"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all Fundraising Teams for the specified Member"
+        },
+        {
+          "info": {
+            "name": "listMemberLeadingFundraisingTeams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/members/:member_id/leading-fundraising-teams",
+            "params": [
+              {
+                "name": "member_id",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of specified Member"
+              },
+              {
+                "name": "with",
+                "value": "",
+                "type": "query",
+                "description": "Request specific relationships to be returned with the Fundraising Team"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all Fundraising Teams for which the specified Member is the team lead"
+        },
+        {
+          "info": {
+            "name": "listOrganizationFundraisingTeams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/organizations/:organization/fundraising-teams",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of specified Organization"
+              },
+              {
+                "name": "with",
+                "value": "",
+                "type": "query",
+                "description": "Request specific relationships to be returned with the Fundraising Team"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all Fundraising Teams for the specified Organization"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

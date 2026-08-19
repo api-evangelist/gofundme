@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "GoFundMe Pro Campaign Series API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "/oauth2/auth",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Campaign Series",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "deleteCampaignSeries",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://pro.gofundme.com/api/2.0/campaign-series/:campaign_series",
+            "params": [
+              {
+                "name": "campaign_series",
+                "value": "",
+                "type": "path",
+                "description": "The specified Campaign Series ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete a Campaign Series and all its relationship entities (iterations, regions, collections, tree nodes). Campaigns are NOT deleted."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

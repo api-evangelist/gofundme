@@ -1,0 +1,1422 @@
+openapi: 3.2.0
+info:
+  title: GoFundMe Pro Fundraising Page API
+  description: "<h1>GoFundMe Pro API</h1>\n<p>Welcome to the GoFundMe Pro API (2.0.0), a powerful toolset that empowers innovative and creative minds to engineer the world for good. This documentation walks through the API’s latest endpoints.</p>\n<p>GoFundMe Pro APIs are crafted around REST and the REST architectural style to provide developers with a stateless and language-­agnostic interface. The GoFundMe Pro API leverages HTTP verbs and response codes, OAuth2 authentication, and resource-­oriented URLs.</p>\n<p>Currently, the GoFundMe Pro API only supports JSON. All POST/PUT requests required a valid JSON object for the request body.</p>\n<h2>Errors</h2>\n<p>The GoFundMe Pro API leverages standard HTTP response status codes for it’s error responses. Error codes are:</p>\n<p><br /></p>\n<table border='1'>\n<tr>\n<th width='100px'>Error Code</th>\n<th>Meaning</th>\n</tr>\n<tr>\n<td>400</td>\n<td>Bad Request: The request was malformed or provided incorrect/incomplete/conflicting parameters. Check the response for more detailed messaging about why the request was incorrect. Do not repeat request.</td>\n</tr>\n<tr>\n<td>401</td>\n<td>Unauthorized: The API does not recognize the request as authorized. API access token may be missing or invalid.</td>\n</tr>\n<tr>\n<td>403</td>\n<td>Forbidden: The API recognizes the authorized API user, but the API user does not have correct permissions to satisfy the request.</td>\n</tr>\n<tr>\n<td>404</td>\n<td>Not Found: The resource requested does not exist or was not found.</td>\n</tr>\n<tr>\n<td>405</td>\n<td>Method Not Allowed: Some REST endpoints only accept a subset of valid REST HTTP verbs. This error is sent when an unsupported verb is requested.</td>\n</tr>\n<tr>\n<td>429</td>\n<td>Too Many Requests: The rate limit has been exceeded. See the <a href=\"#rate-limiting\">Rate Limiting</a> section for details on rate limits and response headers.</td>\n</tr>\n<tr>\n<td>500</td>\n<td>Error: The request was valid, but something failed on the server. Additional messages may be available.</td>\n</tr>\n<tr>\n<td>503</td>\n<td>Service Unavailable: The service is temporarily unavailable.</td>\n</tr>\n</table>\n<h2>Requests</h2>\n<h3>Authenticating Requests</h3>\n<p>Most API requests will need to be signed with an Access Token.</p>\n<p>Refer to the <a href=\"https://developers.gofundme.com/pro/overview/authentication\" target=\"_blank\" rel=\"noopener noreferrer\">Resource Documentation</a> for the specific call you are making to see if an access token is required for your request. See <a href=\"https://developers.gofundme.com/pro/tutorials/samples\" target=\"_blank\" rel=\"noopener noreferrer\">this page</a> for a demonstration of usage through a sample app. \n<h3>Filters</h3>\n<p>We can filter a collection based on a set of input parameters. To do so, we can modify the query string using the parameters listed below.</p>\n\n<table border='1'>\n<tr>\n<th>Parameter</th>\n<th>Type</th>\n<th>Default</th>\n<th>Description</th>\n</tr>\n\n<tr>\n<td>with</td>\n<td>string</td>\n<td>N/A</td>\n<td>This allows you to include nested related resource. For example, you could request a campaign along with the organization it belongs to and the designation it was allocated to. In this case, <code>with=organization,designation.</code></td>\n</tr>\n\n<tr>\n<td>per_page</td>\n<td>integer</td>\n<td>20</td>\n<td>Set the total number of resources returned per page (Maximum: 100).</td>\n</tr>\n\n<tr>\n<td>page</td>\n<td>integer</td>\n<td>1</td>\n<td>Page to return.</td>\n</tr>\n\n<tr>\n<td>sort</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>\nOrder the resources depending upon their attributes. Examples:\n<ul>\n<li><strong>created_at</strong>: oldest resource will come first</li>\n<li><strong>created_at:desc</strong>: newest resource will come first</li>\n<li><strong>last_name:asc,first_name:asc</strong>: order resources by last_name in alphabetical order. If same last_name, order by first_name in alphabetical order.</li>\n</ul>\n</td>\n</tr>\n\n<tr>\n<td>fields</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>List of resources attributes separated with comma. Narrow the list of attributes returned for each resource.</td>\n</tr>\n\n<tr>\n<td>filter</td>\n<td>string</td>\n<td>NULL</td>\n<td>\nAllow to filter the list of resources returned. Format is: <code>{association}.{attribute1}{operand}{value}</code> where: <ul>\n<li>association is the association if this is a nested filter (optional)</li>\n<li>operand is one of the following: <code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, false can be expressed with <code>false</code> or <code>0</code>).</li>\n<li>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. with | string | NULL | This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</li>\n</ul>\n</td>\n</tr>\n</table>\n\n<p>When filtering, the operand should be one of the following:</p>\n<p><code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, <code>false</code> can be expressed with <code>false</code> or <code>0</code>).</p>\n<p>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</p>\n<p>Refer to the sample documentation for the specific call you are making to see which related resource can be fetched.</p>\n\n<h3>Date and Time Filtering</h3>\n<p>Unless otherwise noted, all Datetime attributes in API responses will be returned in an ISO8601 compliant format:</p>\n<><code>YYYY-MM-DDTHH:mm:ss.sssZ</code> (e.g. <code>2024-10-05T14:48:00.000Z</code>).</p>\n<h2 id=\"rate-limiting\">Rate Limiting</h2>\n<p>The GoFundMe Pro API implements rate limiting to ensure fair usage and maintain service quality for all users. Rate limits are applied on a per-application and per-user basis.</p>\n<h3>When Rate Limiting Applies</h3>\n<p>Rate limiting is applied to requests that meet the following conditions:</p>\n<ul>\n<li>The API application is <strong>not internal</strong> (external/third-party applications)</li>\n<li>The API application is associated to an Organization</li>\n</ul>\n<p>Internal applications are not subject to rate limiting.</p>\n<h3>Rate Limit Details</h3>\n<p>By default, the rate limit is:</p>\n<ul>\n<li><strong>1800 requests per minute</strong> per application</li>\n</ul>\n<p>Rate limits may be adjusted dynamically via flags for specific applications or users.</p>\n<h3>Rate Limit Headers</h3>\n<p>All API responses include the following headers to help you track your rate limit status:</p>\n<table border='1'>\n<tr>\n<th width='200px'>Header</th>\n<th>Description</th>\n</tr>\n<tr>\n<td><code>X-RateLimit-Limit</code></td>\n<td>The maximum number of requests allowed in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Remaining</code></td>\n<td>The number of requests remaining in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Reset</code></td>\n<td>Unix timestamp indicating when the rate limit window resets (only included when limit is exceeded)</td>\n</tr>\n<tr>\n<td><code>Retry-After</code></td>\n<td>Number of seconds to wait before retrying (only included in 429 responses)</td>\n</tr>\n</table>\n<h3>Handling Rate Limit Errors</h3>\n<p>When you exceed the rate limit, the API will return a <code>429 Too Many Requests</code> response with the following structure:</p>\n<pre><code>{\n  \"message\": \"Too Many Attempts.\",\n  \"retry_after\": 42\n}</code></pre>\n<p>The response will include the <code>Retry-After</code> header indicating how many seconds you should wait before making another request.</p>\n<h3>Best Practices</h3>\n<ul>\n<li>Monitor the <code>X-RateLimit-Remaining</code> header to track your usage</li>\n<li>Implement exponential backoff when you receive a 429 response</li>\n<li>Respect the <code>Retry-After</code> header value before retrying</li>\n<li>Cache responses when possible to reduce API calls</li>\n<li>Batch operations when the API supports it</li>\n</ul>"
+  version: 2.0.0
+servers:
+- url: https://pro.gofundme.com/api/2.0
+security:
+- OAuth2Application: []
+- OAuth2Member: []
+tags:
+- name: Fundraising Page
+  description: 'A fundraising page is a means for an individual fundraiser to raise funds for a
+
+    specific peer-to-peer campaign. Like other fundraising entities, each page allows
+
+    for the creation of an associated story and updates and displays a feed of
+
+    interactions that donors have had with the page throughout its lifecycle.'
+paths:
+  /campaigns/{campaign}/fundraising-pages:
+    get:
+      tags:
+      - Fundraising Page
+      summary: listCampaignFundraisingPages
+      description: List all Fundraising Pages for specified Campaign
+      operationId: listCampaignFundraisingPages
+      parameters:
+      - name: campaign
+        in: path
+        description: ID of desired Campaign
+        required: true
+        schema:
+          type: integer
+          example: 227362
+      - name: with
+        in: query
+        description: Request specific relationships to be returned with the Fundraising Page
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - commitment
+            - cover_photo
+            - fundraising_team
+            - logo
+            - member
+            - supporter
+            example: fundraising_team
+      - name: aggregates2
+        in: query
+        description: Request aggregate information to be returned with the Fundraising Page, including total donations, donors, amount raised and fundraisers.
+        required: false
+        schema:
+          type: boolean
+          example: true
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginatedResponse'
+                - properties:
+                    data:
+                      description: Collection of Fundraising Pages
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/FundraisingPage'
+                    first_page_url:
+                      example: '{host}/campaigns/227362/fundraising-pages?page=1'
+                    last_page_url:
+                      example: '{host}/campaigns/227362/fundraising-pages?page=1'
+                    path:
+                      example: '{host}/campaigns/227362/fundraising-pages'
+                  type: object
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Campaign not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+    post:
+      tags:
+      - Fundraising Page
+      summary: createCampaignFundraisingPage
+      description: Create new Campaign Fundraising Page
+      operationId: createCampaignFundraisingPage
+      parameters:
+      - name: campaign
+        in: path
+        description: The specified Campaign ID
+        required: true
+        schema:
+          type: integer
+          example: 227362
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FundraisingPageFillableCreate'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FundraisingPage'
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Campaign not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+  /fundraising-pages/{fundraising_page}/fitness-metrics:
+    get:
+      tags:
+      - Fundraising Page
+      summary: fetchFundraisingPageFitnessMetrics
+      description: Retrieves fitness activity tracking data for a fundraising page. Returns tracking settings and progress metrics for P2P Challenge campaign fundraisers. Returns 204 if the fundraiser has no GFM consumer mapping or no fitness data.
+      operationId: fetchFundraisingPageFitnessMetrics
+      parameters:
+      - name: fundraising_page
+        in: path
+        description: The specified Fundraising Page ID
+        required: true
+        schema:
+          type: integer
+          example: 2173528
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  tracking_settings:
+                    description: Fitness activity tracking settings from the campaign configuration
+                    properties:
+                      activityTypes:
+                        description: Activity types configured for the challenge
+                        type: array
+                        items:
+                          type: string
+                          example: Swim
+                      unit:
+                        description: Unit of measurement for the challenge goal
+                        type: string
+                        example: miles
+                      goal:
+                        description: Challenge goal amount
+                        type:
+                        - number
+                        - 'null'
+                        format: double
+                        example: 30
+                    type:
+                    - object
+                    - 'null'
+                  metrics:
+                    description: Aggregated fitness activity progress metrics
+                    properties:
+                      totalProgress:
+                        description: Total progress toward the goal
+                        type: number
+                        format: double
+                        example: 25
+                      goalProgressPercent:
+                        description: Percentage of goal completed (0-100)
+                        type:
+                        - number
+                        - 'null'
+                        format: double
+                        example: 83.33
+                    type:
+                    - object
+                    - 'null'
+                type: object
+        '204':
+          description: No fitness data available (not a P2P GFM fundraiser or no tracking configured)
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Fundraising Page not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+  /fundraising-pages/{fundraising_page}:
+    get:
+      tags:
+      - Fundraising Page
+      summary: fetchFundraisingPage
+      description: Show the Fundraising Page specified by the fundraising_page_id
+      operationId: fetchFundraisingPage
+      parameters:
+      - name: fundraising_page
+        in: path
+        description: The specified Fundraising Page ID
+        required: true
+        schema:
+          type: integer
+          example: 2173528
+      - name: aggregates
+        in: query
+        description: Request Fundraising Page Aggregates to be returned
+        required: false
+        schema:
+          type: boolean
+          example: true
+      - name: with
+        in: query
+        description: Request specific relationships to be returned with the Fundraising Page
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - answers
+            - campaign
+            - commitment
+            - cover_photo
+            - fundraising_team
+            - logo
+            - member
+            - registration
+            - source_tracking_codes
+            - supporter
+            example: answers
+      - name: aggregates2
+        in: query
+        description: Request aggregate information to be returned with the Fundraising Page, including total donations, donors, amount raised and fundraisers.
+        required: false
+        schema:
+          type: boolean
+          example: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FundraisingPage'
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Fundraising Page not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+    put:
+      tags:
+      - Fundraising Page
+      summary: updateFundraisingPage
+      description: Update Fundraising Page
+      operationId: updateFundraisingPage
+      parameters:
+      - name: fundraising_page
+        in: path
+        description: The specified Fundraising Page ID
+        required: true
+        schema:
+          type: integer
+          example: 2173528
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/FundraisingPageFillableUpdate'
+              - $ref: '#/components/schemas/FundraisingPageFundraisingTrackingCode'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/FundraisingPage'
+                - $ref: '#/components/schemas/FundraisingPageFundraisingTrackingCode'
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Fundraising Page not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+      security:
+      - OAuth2Member: []
+    delete:
+      tags:
+      - Fundraising Page
+      summary: deleteFundraisingPage
+      description: Delete a Fundraising Page
+      operationId: deleteFundraisingPage
+      parameters:
+      - name: fundraising_page
+        in: path
+        description: The specified Fundraising Page ID
+        required: true
+        schema:
+          type: integer
+          example: 2173528
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FundraisingPage'
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Fundraising Page not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+      security:
+      - OAuth2Member: []
+  /fundraising-pages/{fundraising_page}/moments:
+    get:
+      tags:
+      - Fundraising Page
+      summary: fetchFundraisingPageMoments
+      description: Retrieves the P2P moment a fundraiser selected at create time and their submitted answers to the moment's questions. Returns 204 if the fundraiser has no GFM consumer mapping or no moment data.
+      operationId: fetchFundraisingPageMoments
+      parameters:
+      - name: fundraising_page
+        in: path
+        description: The specified Fundraising Page ID
+        required: true
+        schema:
+          type: integer
+          example: 2173528
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  selected_moment:
+                    description: The catalog moment the fundraiser selected at create time. Null if no moment was picked.
+                    properties:
+                      momentId:
+                        description: ID of the moment in the catalog
+                        type: string
+                        example: '5'
+                      label:
+                        description: Display label of the moment
+                        type: string
+                        example: Birthday
+                    type:
+                    - object
+                    - 'null'
+                  answers:
+                    description: Question/answer pairs the fundraiser submitted.
+                    type: array
+                    items:
+                      properties:
+                        question:
+                          description: Question label as displayed at submission time
+                          type: string
+                          example: What's your date of birth?
+                        answer:
+                          description: Answer text submitted by the fundraiser
+                          type: string
+                          example: 08/12
+                      type: object
+                type: object
+        '204':
+          description: No moment data available (not a GFM fundraiser or no moment selected)
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Fundraising Page not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+  /fundraising-pages/{fundraising_page}/overview:
+    get:
+      tags:
+      - Fundraising Page
+      summary: fetchFundraisingPageOverview
+      description: Retrieves aggregate records for the Fundraising Page's transactions.
+      operationId: fetchFundraisingPageOverview
+      parameters:
+      - name: fundraising_page
+        in: path
+        description: The specified Fundraising Page ID
+        required: true
+        schema:
+          type: integer
+          example: 2173528
+      - name: interval
+        in: query
+        description: Interval period of Fundraising Page overview
+        required: false
+        schema:
+          type: string
+          enum:
+          - daily
+          - weekly
+          example: weekly
+      - name: start_date
+        in: query
+        description: The date from which aggregation results will start. This is translated into a start_time, which is the beginning of the date presented in the timezone of the page's Campaign. If the Fundraising Page's Campaign has no associated timezone, this timezone will default to UTC.
+        required: false
+        schema:
+          type: string
+          example: '2020-02-02 12:00:45'
+      - name: end_date
+        in: query
+        description: The date at which aggregation results will end. This is translated into a end_time, which is the end of the date presented in the timezone of the page's Campaign. If the Fundraising Page's Campaign has no associated timezone, this timezone will default to UTC.
+        required: false
+        schema:
+          type: string
+          example: '2020-02-02 12:00:45'
+      - name: timezone
+        in: query
+        description: Timezone for start_date and end_date.
+        required: false
+        schema:
+          type: string
+          example: America/Los_Angeles
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  end_time:
+                    description: The end time used to filter results represented in aggregation
+                    type:
+                    - string
+                    - 'null'
+                    format: date-time
+                    example: 2016-02-11T08:00:00+0000
+                  start_time:
+                    description: The start time used to filter results represented in aggregation
+                    type:
+                    - string
+                    - 'null'
+                    format: date-time
+                    example: 2016-02-11T08:00:00+0000
+                  timezone:
+                    description: The timezone used to establish date ranges and start/end times for aggregation
+                    type:
+                    - string
+                    - 'null'
+                    example: America/Los_Angeles
+                  metrics:
+                    description: The metrics of Fundraising Page overview
+                    properties:
+                      soft_credits_amount:
+                        description: Amount of soft credits
+                        type: number
+                        format: double
+                        example: 50
+                      start_date:
+                        description: The date from which aggregation results started.
+                        type:
+                        - string
+                        - 'null'
+                        format: date-time
+                        example: '2020-02-05T12:00:00'
+                      donations_amount:
+                        description: The gross amount raised from donations
+                        type: number
+                        format: double
+                        example: 1439.2
+                      donors_count:
+                        description: The number of unique Members who transacted with the Fundraising Page
+                        type: integer
+                        example: 20
+                      fees_amount:
+                        description: The total fees incurred by Fundraising Page transactions
+                        type: number
+                        format: double
+                        example: 5.4
+                      gross_amount:
+                        description: The gross amount transacted for the Fundraising Page
+                        type: number
+                        format: double
+                        example: 65
+                      net_amount:
+                        description: The net amount transacted for the Fundraising Page (gross_amount - fees_amount)
+                        type: number
+                        format: double
+                        example: 59.6
+                      percent_to_goal:
+                        description: The percentage of money transacted to the goal amount. (100 * gross_amount/goal)
+                        type: number
+                        format: double
+                        example: 1
+                      registrations_amount:
+                        description: The gross amount raised from Tickets and Registrations
+                        type: number
+                        format: double
+                        example: 560.2
+                      transactions_count:
+                        description: The number of discrete Transactions made for the Fundraising Page
+                        type: integer
+                        example: 20
+                    type: object
+                type: object
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Fundraising Page not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+  /fundraising-teams/{fundraising_team}/fundraising-pages:
+    get:
+      tags:
+      - Fundraising Page
+      summary: listFundraisingTeamFundraisingPages
+      description: List all Fundraising Pages for specified Fundraising Team
+      operationId: listFundraisingTeamFundraisingPages
+      parameters:
+      - name: fundraising_team
+        in: path
+        description: ID of desired Fundraising Team
+        required: true
+        schema:
+          type: integer
+          example: 209745
+      - name: with
+        in: query
+        description: Request specific relationships to be returned with the Fundraising Page
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - cover_photo
+            - fundraising_team
+            - logo
+            - member
+            - supporter
+            example: fundraising_team
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginatedResponse'
+                - properties:
+                    data:
+                      description: Collection of Fundraising Pages
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/FundraisingPage'
+                    first_page_url:
+                      example: '{host}/fundraising-teams/209745/fundraising-pages?page=1'
+                    last_page_url:
+                      example: '{host}/fundraising-teams/209745/fundraising-pages?page=1'
+                    path:
+                      example: '{host}/fundraising-teams/209745/fundraising-pages'
+                  type: object
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Fundraising Team not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+    post:
+      tags:
+      - Fundraising Page
+      summary: createFundraisingTeamFundraisingPage
+      description: Create new Fundraising Team Fundraising Page
+      operationId: createFundraisingTeamFundraisingPage
+      parameters:
+      - name: fundraising_team
+        in: path
+        description: The specified Fundraising Team ID
+        required: true
+        schema:
+          type: integer
+          example: 209745
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FundraisingPageFillableCreate'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FundraisingPage'
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Fundraising Team not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+  /members/{member}/fundraising-pages:
+    get:
+      tags:
+      - Fundraising Page
+      summary: listMemberFundraisingPages
+      description: List all Fundraising Pages for specified Member
+      operationId: listMemberFundraisingPages
+      parameters:
+      - name: member
+        in: path
+        description: ID of desired Member
+        required: true
+        schema:
+          type: integer
+          example: 2012
+      - name: with
+        in: query
+        description: Request specific relationships to be returned with the Fundraising Page
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - cover_photo
+            - fundraising_team
+            - logo
+            - member
+            - supporter
+            example: fundraising_team
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginatedResponse'
+                - properties:
+                    data:
+                      description: Collection of Fundraising Pages
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/FundraisingPage'
+                    first_page_url:
+                      example: '{host}/campaigns/227362/fundraising-pages?page=1'
+                    last_page_url:
+                      example: '{host}/campaigns/227362/fundraising-pages?page=1'
+                    path:
+                      example: '{host}/campaigns/227362/fundraising-pages'
+                  type: object
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Member not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+  /organizations/{organization}/fundraising-pages:
+    get:
+      tags:
+      - Fundraising Page
+      summary: listOrganizationFundraisingPages
+      description: List all Fundraising Pages for specified Organization
+      operationId: listOrganizationFundraisingPages
+      parameters:
+      - name: organization
+        in: path
+        description: ID of desired Organization
+        required: true
+        schema:
+          type: integer
+          example: 82364
+      - name: with
+        in: query
+        description: Request specific relationships to be returned with the Fundraising Page
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - cover_photo
+            - fundraising_team
+            - logo
+            - member
+            - supporter
+            example: fundraising_team
+      - name: aggregates2
+        in: query
+        description: Request aggregate information to be returned with the Fundraising Page, including total donations, donors, amount raised and fundraisers.
+        required: false
+        schema:
+          type: boolean
+          example: true
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginatedResponse'
+                - properties:
+                    data:
+                      description: Collection of Fundraising Pages
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/FundraisingPage'
+                    first_page_url:
+                      example: '{host}/campaigns/227362/fundraising-pages?page=1'
+                    last_page_url:
+                      example: '{host}/campaigns/227362/fundraising-pages?page=1'
+                    path:
+                      example: '{host}/campaigns/227362/fundraising-pages'
+                  type: object
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Organization not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+components:
+  schemas:
+    PaginatedResponse:
+      title: Paginated Response
+      properties:
+        current_page:
+          description: Index of current page
+          type: integer
+          example: 1
+        data:
+          description: Collection of results
+          type: array
+          items:
+            type: object
+        first_page_url:
+          description: URL of first page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        from:
+          description: Index of first displayed result within total result set
+          type:
+          - integer
+          - 'null'
+          example: 1
+        last_page:
+          description: Index of last page in result set
+          type: integer
+          example: 1
+        last_page_url:
+          description: URL of last page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        next_page_url:
+          description: URL of next page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=2
+        path:
+          description: URL of current page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource
+        per_page:
+          description: Maximum number of records returned per page of results
+          type: integer
+          example: 20
+        prev_page_url:
+          description: URL of previous page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        links:
+          description: Collection of objects representing pages {label, URL, active} that can be used to request the associated page of records.
+          type: array
+          items:
+            $ref: '#/components/schemas/PaginationLink'
+        to:
+          description: Index of last displayed result within total result set
+          type:
+          - integer
+          - 'null'
+          example: 1
+        total:
+          description: Total count of records in result set
+          type: integer
+          example: 1
+      type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    FundraisingPageFillableUpdate:
+      title: FundraisingPage (Fillable Update)
+      properties:
+        alias:
+          description: Alias of the Fundraising Page
+          type: string
+          example: My Super Awesome page
+        cover_photo_id:
+          description: Fundraising Page cover photo
+          type:
+          - integer
+          - 'null'
+          example: 98374
+        designation_id:
+          description: Designation ID for this Fundraising Page
+          type:
+          - integer
+          - 'null'
+          example: 34672
+        ended_at:
+          description: Page end date
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2019-04-23T10:25:03Z'
+        intro_text:
+          description: HTML Formatted string for intro text
+          type: string
+          example: Thanks for visiting my fundraising page!<br>
+        logo_id:
+          description: ID of asset used as the Fundraising Page logo
+          type:
+          - integer
+          - 'null'
+          example: 1002
+        member_email_text:
+          description: HTML formatted string for member email body
+          type:
+          - string
+          - 'null'
+          example: <p>My email body</p>
+        member_id:
+          description: Member ID associated with this Fundraising Page
+          type: integer
+          example: 2012
+        currency_code:
+          description: ISO code of the currency against which this Fundraising Page is normalized.
+          type:
+          - string
+          - 'null'
+          example: USD
+        goal:
+          description: Fundraising goal for this Fundraising Page
+          type: number
+          format: float
+          example: 123.23
+        is_tribute:
+          description: Flag denoting whether Fundraising Page is a tribute to someone
+          type:
+          - boolean
+          - 'null'
+          example: true
+        thankyou_email_text:
+          description: HTML formatted string for thank you email body
+          type: string
+          example: <p>My email body</p>
+        thank_you_text:
+          description: Default thank you text on the thank you page
+          type: string
+          example: Thank You!
+        title:
+          description: Page title
+          type: string
+          example: My Page Title
+      type: object
+    FundraisingPage:
+      title: FundraisingPage
+      properties:
+        id:
+          description: ID of Fundraising Page
+          type: integer
+          example: 227362
+        alias:
+          description: Alias of the Fundraising Page
+          type: string
+          example: My Super Awesome page
+        campaign_id:
+          description: Parent Campaign ID
+          type: integer
+          example: 227362
+        commitment_id:
+          description: Commitment ID
+          type:
+          - integer
+          - 'null'
+          example: 98374
+        cover_photo_id:
+          description: Fundraising Page cover photo
+          type:
+          - integer
+          - 'null'
+          example: 98374
+        created_at:
+          description: Datetime at which the Fundraising Page was created
+          type: string
+          format: date-time
+          example: '2019-04-23T10:25:03Z'
+        currency_code:
+          description: ISO code of the currency against which this Fundraising Page is normalized.
+          type:
+          - string
+          - 'null'
+          example: USD
+        designation_id:
+          description: Designation ID for this Fundraising Page
+          type:
+          - integer
+          - 'null'
+          example: 34672
+        ended_at:
+          description: Page end date
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2019-04-23T10:25:03Z'
+        fundraising_team_id:
+          description: Fundraising Team ID to whom this Fundraising Page is associated
+          type:
+          - integer
+          - 'null'
+          example: 209745
+        goal:
+          description: Fundraising goal for this Fundraising Page normalized against 'currency_code'
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 123.23
+        intro_text:
+          description: HTML Formatted string for intro text
+          type: string
+          example: Thanks for visiting my fundraising page!<br>
+        is_primary:
+          description: Flag denoting primary Fundraising Page for child Fundraising Pages
+          type: boolean
+          example: true
+        is_tribute:
+          description: Flag denoting whether Fundraising Page is a tribute to someone
+          type:
+          - boolean
+          - 'null'
+          example: true
+        logo_id:
+          description: ID of Asset used as the Fundraising Page logo
+          type:
+          - integer
+          - 'null'
+          example: 1002
+        logo_url:
+          description: URL for logo image
+          type:
+          - string
+          - 'null'
+          example: https://gofundme-cdn-url.com/your-logo.png
+        member_email_text:
+          description: HTML formatted string for member email body
+          type:
+          - string
+          - 'null'
+          example: <p>My email body</p>
+        member_id:
+          description: Member ID associated with this Page
+          type: integer
+          example: 2012
+        raw_currency_code:
+          description: ISO code of the default currency in which this Fundraising Page should be presented
+          type: string
+          example: EUR
+        raw_goal:
+          description: Raw fundraising goal for this Fundraising Page (returned as string)
+          type: string
+          example: '100.00'
+        organization_id:
+          description: Organization ID
+          type: integer
+          example: 82364
+        parent_id:
+          description: Parent Fundraising Page ID
+          type: integer
+          example: 1
+        questions:
+          description: Collection of Questions
+          type: array
+          items:
+            $ref: '#/components/schemas/Question'
+        status:
+          description: Status for this Fundraising Page
+          type: string
+          enum:
+          - active
+          - inactive
+          - deleted
+          - pending_questions
+          - pending_approval
+          - pending_more_info
+          example: active
+        supporter_id:
+          description: Supporter ID associated with the Fundraising Page
+          type:
+          - integer
+          - 'null'
+          example: 5827
+        team_role:
+          description: If Fundraising Page is for a Team Member, it will contain the role of the Team Member
+          type:
+          - string
+          - 'null'
+          enum:
+          - primary-captain
+          - co-captain
+          example: primary-captain
+        thankyou_email_text:
+          description: HTML formatted string for thank you email body
+          type:
+          - string
+          - 'null'
+          example: <p>My email body</p>
+        thank_you_text:
+          description: Default thank you text on the thank you page
+          type:
+          - string
+          - 'null'
+          example: Thank You!
+        title:
+          description: Page title
+          type: string
+          example: My Page Title
+        updated_at:
+          description: Date the Fundraising Page was last updated
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2019-04-23T10:25:03Z'
+        canonical_url:
+          description: The canonical url of the Fundraising Page
+          type: string
+          example: /fundraising-page/2173528
+      type: object
+    FundraisingPageFundraisingTrackingCode:
+      title: FundraisingPageFundraisingTrackingCode
+      properties:
+        fundraising_tracking_code:
+          description: Only in PUT call, to be added if org has tag early-access:fundraising-tracking-code
+          type:
+          - string
+          - 'null'
+          example: JD0146
+      type: object
+    Question:
+      title: Question
+      required:
+      - label
+      - location
+      - type
+      properties:
+        campaign_id:
+          description: Primary identifier of Campaign
+          type: integer
+          readOnly: true
+          example: 227362
+        created_at:
+          description: Date/time of when record created
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2021-04-23T10:25:03Z'
+        deleted_at:
+          description: Date/time of when record deleted
+          type:
+          - string
+          - 'null'
+          format: date-time
+          readOnly: true
+          example: '2021-04-23T10:25:03Z'
+        id:
+          description: Primary identifier of record
+          type: integer
+          readOnly: true
+          example: 45678
+        is_deleted:
+          description: Question deleted or not
+          type: boolean
+          readOnly: true
+          example: false
+          deprecated: true
+        is_required:
+          description: Whether the Question is required or not. If `is_required` is `true`, the question will be treated as pre-conversion (shown before donation), otherwise it will be treated as post-conversion (shown after donation) for supported workflows.
+          type: boolean
+          example: true
+        is_pre_conversion:
+          description: Whether the Question should be shown before donation (pre-conversion) or after donation (post-conversion). When true, the question is displayed before the donation is processed.
+          type: boolean
+          example: false
+        label:
+          description: Question label
+          type: string
+          example: Do you require accommodations due to a medical condition or disability?
+        location:
+          description: Question location
+          type: string
+          enum:
+          - donation_page
+          - team_creation
+          - page_creation
+          - campaign_registration
+          example: donation_page
+        product_id:
+          description: Identifier of associated product, such as a ticket
+          type:
+          - integer
+          - 'null'
+          example: 73647
+        tag:
+          description: Question tag, unique for a location on a campaign
+          type:
+          - string
+          - 'null'
+          enum:
+          - address
+          - address2
+          - address_type
+          - birthdate
+          - blog
+          - cellphone
+          - city
+          - company_name
+          - country
+          - email_address
+          - email_type
+          - emergency_first_name
+          - emergency_last_name
+          - emergency_phone
+          - event_waiver
+          - first_name
+          - gender
+          - pronoun
+          - homephone
+          - last_name
+          - middle_name
+          - postal_code
+          - prefix
+          - run_walk
+          - shirt_size
+          - state
+          - suffix
+          - text_opt_in
+          - website
+          example: email_address
+        type:
+          description: Type of the Question
+          type: string
+          enum:
+          - boolean
+          - integer
+          - currency
+          - enum
+          - text
+          - string
+          - date
+          - yes_no
+          example: boolean
+        updated_at:
+          description: Date/time of last record update
+          type:
+          - string
+          - 'null'
+          format: date-time
+          readOnly: true
+          example: '2021-04-23T10:25:03Z'
+        weight:
+          description: Weight of the Question, used for display order
+          type:
+          - integer
+          - 'null'
+          example: 0
+      type: object
+    FundraisingPageFillableCreate:
+      title: FundraisingPage (Fillable Create)
+      properties:
+        alias:
+          description: Alias of the Fundraising Page
+          type: string
+          example: My Super Awesome page
+        cover_photo_id:
+          description: Fundraising Page cover photo
+          type:
+          - integer
+          - 'null'
+          example: 98374
+        designation_id:
+          description: Designation ID for this Fundraising Page
+          type:
+          - integer
+          - 'null'
+          example: 34672
+        ended_at:
+          description: Page end date
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2019-04-23T10:25:03Z'
+        intro_text:
+          description: HTML Formatted string for intro text
+          type: string
+          example: Thanks for visiting my fundraising page!<br>
+        is_tribute:
+          description: Flag denoting whether Fundraising Page is a tribute to someone
+          type:
+          - boolean
+          - 'null'
+          example: true
+        logo_id:
+          description: ID of Asset used as the Fundraising Page logo
+          type:
+          - integer
+          - 'null'
+          example: 1002
+        member_email_text:
+          description: HTML formatted string for member email body
+          type:
+          - string
+          - 'null'
+          example: <p>My email body</p>
+        member_id:
+          description: Member ID associated with this Fundraising Page
+          type: integer
+          example: 2012
+        raw_currency_code:
+          description: ISO code of the default currency in which this Fundraising Page should be presented
+          type: string
+          example: EUR
+        raw_goal:
+          description: Raw fundraising goal for this Fundraising Page (returned as string)
+          type: string
+          example: '100.00'
+        supporter_first_name:
+          description: Optional. Recorded as the first name on the supporter created for the fundraising page owner when the campaign's organization has Contact-First Architecture enabled; ignored otherwise. Leading and trailing whitespace is trimmed before storage, and emoji characters are rejected with a 400 response. Honored only on fundraising-page creation (POST /campaigns/{campaign}/fundraising-pages and POST /fundraising-teams/{fundraising_team}/fundraising-pages); silently ignored on update (PUT /fundraising-pages/{fundraising_page}).
+          type:
+          - string
+          - 'null'
+          maxLength: 32
+          example: Alex
+        supporter_last_name:
+          description: Optional. Recorded as the last name on the supporter created for the fundraising page owner when the campaign's organization has Contact-First Architecture enabled; ignored otherwise. Leading and trailing whitespace is trimmed before storage, and emoji characters are rejected with a 400 response. Honored only on fundraising-page creation (POST /campaigns/{campaign}/fundraising-pages and POST /fundraising-teams/{fundraising_team}/fundraising-pages); silently ignored on update (PUT /fundraising-pages/{fundraising_page}).
+          type:
+          - string
+          - 'null'
+          maxLength: 32
+          example: Doe
+        thankyou_email_text:
+          description: HTML formatted string for thank you email body
+          type: string
+          example: <p>My email body</p>
+        thank_you_text:
+          description: Default thank you text on the thank you page
+          type: string
+          example: Thank You!
+        title:
+          description: Page title
+          type: string
+          example: My Page Title
+      type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
+      type: object
+  parameters:
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
+    page:
+      name: page
+      in: query
+      description: Indicator of which page of results to return
+      required: false
+      schema:
+        type: integer
+        example: 1
+  securitySchemes:
+    OAuth2Application:
+      type: oauth2
+      description: OAuth bearer token for client application
+      flows:
+        clientCredentials:
+          tokenUrl: /oauth2/auth
+          refreshUrl: /oauth2/auth
+          scopes:
+            read: Read access
+            write: Write access
+    OAuth2Member:
+      type: oauth2
+      description: OAuth bearer token for client application with additional member context
+      flows:
+        password:
+          tokenUrl: /oauth2/auth
+          refreshUrl: /oauth2/auth
+          scopes:
+            read: Read access
+            write: Write access

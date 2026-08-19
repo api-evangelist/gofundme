@@ -1,0 +1,144 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "GoFundMe Pro FAQ API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "/oauth2/auth",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "FAQ",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ListCampaignFAQs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/campaigns/:campaign/faqs",
+            "params": [
+              {
+                "name": "campaign",
+                "value": "",
+                "type": "path",
+                "description": "ID of desired Campaign"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "List all FAQs for specified campaign"
+        },
+        {
+          "info": {
+            "name": "createFAQ",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/campaigns/:campaign/faqs",
+            "params": [
+              {
+                "name": "campaign",
+                "value": "",
+                "type": "path",
+                "description": "ID of desired Campaign"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a FAQ for a campaign"
+        },
+        {
+          "info": {
+            "name": "fetchFAQ",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/faqs/:faq",
+            "params": [
+              {
+                "name": "faq",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of FAQ"
+              }
+            ]
+          },
+          "docs": "Fetch specified FAQ"
+        },
+        {
+          "info": {
+            "name": "updateFAQ",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://pro.gofundme.com/api/2.0/faqs/:faq",
+            "params": [
+              {
+                "name": "faq",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of FAQ"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a FAQ"
+        },
+        {
+          "info": {
+            "name": "deleteFAQ",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://pro.gofundme.com/api/2.0/faqs/:faq",
+            "params": [
+              {
+                "name": "faq",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of FAQ"
+              }
+            ]
+          },
+          "docs": "Delete a FAQ"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

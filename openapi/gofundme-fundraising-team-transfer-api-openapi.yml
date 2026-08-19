@@ -1,0 +1,932 @@
+openapi: 3.2.0
+info:
+  title: GoFundMe Pro Fundraising Team Transfer API
+  description: "<h1>GoFundMe Pro API</h1>\n<p>Welcome to the GoFundMe Pro API (2.0.0), a powerful toolset that empowers innovative and creative minds to engineer the world for good. This documentation walks through the API’s latest endpoints.</p>\n<p>GoFundMe Pro APIs are crafted around REST and the REST architectural style to provide developers with a stateless and language-­agnostic interface. The GoFundMe Pro API leverages HTTP verbs and response codes, OAuth2 authentication, and resource-­oriented URLs.</p>\n<p>Currently, the GoFundMe Pro API only supports JSON. All POST/PUT requests required a valid JSON object for the request body.</p>\n<h2>Errors</h2>\n<p>The GoFundMe Pro API leverages standard HTTP response status codes for it’s error responses. Error codes are:</p>\n<p><br /></p>\n<table border='1'>\n<tr>\n<th width='100px'>Error Code</th>\n<th>Meaning</th>\n</tr>\n<tr>\n<td>400</td>\n<td>Bad Request: The request was malformed or provided incorrect/incomplete/conflicting parameters. Check the response for more detailed messaging about why the request was incorrect. Do not repeat request.</td>\n</tr>\n<tr>\n<td>401</td>\n<td>Unauthorized: The API does not recognize the request as authorized. API access token may be missing or invalid.</td>\n</tr>\n<tr>\n<td>403</td>\n<td>Forbidden: The API recognizes the authorized API user, but the API user does not have correct permissions to satisfy the request.</td>\n</tr>\n<tr>\n<td>404</td>\n<td>Not Found: The resource requested does not exist or was not found.</td>\n</tr>\n<tr>\n<td>405</td>\n<td>Method Not Allowed: Some REST endpoints only accept a subset of valid REST HTTP verbs. This error is sent when an unsupported verb is requested.</td>\n</tr>\n<tr>\n<td>429</td>\n<td>Too Many Requests: The rate limit has been exceeded. See the <a href=\"#rate-limiting\">Rate Limiting</a> section for details on rate limits and response headers.</td>\n</tr>\n<tr>\n<td>500</td>\n<td>Error: The request was valid, but something failed on the server. Additional messages may be available.</td>\n</tr>\n<tr>\n<td>503</td>\n<td>Service Unavailable: The service is temporarily unavailable.</td>\n</tr>\n</table>\n<h2>Requests</h2>\n<h3>Authenticating Requests</h3>\n<p>Most API requests will need to be signed with an Access Token.</p>\n<p>Refer to the <a href=\"https://developers.gofundme.com/pro/overview/authentication\" target=\"_blank\" rel=\"noopener noreferrer\">Resource Documentation</a> for the specific call you are making to see if an access token is required for your request. See <a href=\"https://developers.gofundme.com/pro/tutorials/samples\" target=\"_blank\" rel=\"noopener noreferrer\">this page</a> for a demonstration of usage through a sample app. \n<h3>Filters</h3>\n<p>We can filter a collection based on a set of input parameters. To do so, we can modify the query string using the parameters listed below.</p>\n\n<table border='1'>\n<tr>\n<th>Parameter</th>\n<th>Type</th>\n<th>Default</th>\n<th>Description</th>\n</tr>\n\n<tr>\n<td>with</td>\n<td>string</td>\n<td>N/A</td>\n<td>This allows you to include nested related resource. For example, you could request a campaign along with the organization it belongs to and the designation it was allocated to. In this case, <code>with=organization,designation.</code></td>\n</tr>\n\n<tr>\n<td>per_page</td>\n<td>integer</td>\n<td>20</td>\n<td>Set the total number of resources returned per page (Maximum: 100).</td>\n</tr>\n\n<tr>\n<td>page</td>\n<td>integer</td>\n<td>1</td>\n<td>Page to return.</td>\n</tr>\n\n<tr>\n<td>sort</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>\nOrder the resources depending upon their attributes. Examples:\n<ul>\n<li><strong>created_at</strong>: oldest resource will come first</li>\n<li><strong>created_at:desc</strong>: newest resource will come first</li>\n<li><strong>last_name:asc,first_name:asc</strong>: order resources by last_name in alphabetical order. If same last_name, order by first_name in alphabetical order.</li>\n</ul>\n</td>\n</tr>\n\n<tr>\n<td>fields</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>List of resources attributes separated with comma. Narrow the list of attributes returned for each resource.</td>\n</tr>\n\n<tr>\n<td>filter</td>\n<td>string</td>\n<td>NULL</td>\n<td>\nAllow to filter the list of resources returned. Format is: <code>{association}.{attribute1}{operand}{value}</code> where: <ul>\n<li>association is the association if this is a nested filter (optional)</li>\n<li>operand is one of the following: <code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, false can be expressed with <code>false</code> or <code>0</code>).</li>\n<li>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. with | string | NULL | This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</li>\n</ul>\n</td>\n</tr>\n</table>\n\n<p>When filtering, the operand should be one of the following:</p>\n<p><code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, <code>false</code> can be expressed with <code>false</code> or <code>0</code>).</p>\n<p>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</p>\n<p>Refer to the sample documentation for the specific call you are making to see which related resource can be fetched.</p>\n\n<h3>Date and Time Filtering</h3>\n<p>Unless otherwise noted, all Datetime attributes in API responses will be returned in an ISO8601 compliant format:</p>\n<><code>YYYY-MM-DDTHH:mm:ss.sssZ</code> (e.g. <code>2024-10-05T14:48:00.000Z</code>).</p>\n<h2 id=\"rate-limiting\">Rate Limiting</h2>\n<p>The GoFundMe Pro API implements rate limiting to ensure fair usage and maintain service quality for all users. Rate limits are applied on a per-application and per-user basis.</p>\n<h3>When Rate Limiting Applies</h3>\n<p>Rate limiting is applied to requests that meet the following conditions:</p>\n<ul>\n<li>The API application is <strong>not internal</strong> (external/third-party applications)</li>\n<li>The API application is associated to an Organization</li>\n</ul>\n<p>Internal applications are not subject to rate limiting.</p>\n<h3>Rate Limit Details</h3>\n<p>By default, the rate limit is:</p>\n<ul>\n<li><strong>1800 requests per minute</strong> per application</li>\n</ul>\n<p>Rate limits may be adjusted dynamically via flags for specific applications or users.</p>\n<h3>Rate Limit Headers</h3>\n<p>All API responses include the following headers to help you track your rate limit status:</p>\n<table border='1'>\n<tr>\n<th width='200px'>Header</th>\n<th>Description</th>\n</tr>\n<tr>\n<td><code>X-RateLimit-Limit</code></td>\n<td>The maximum number of requests allowed in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Remaining</code></td>\n<td>The number of requests remaining in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Reset</code></td>\n<td>Unix timestamp indicating when the rate limit window resets (only included when limit is exceeded)</td>\n</tr>\n<tr>\n<td><code>Retry-After</code></td>\n<td>Number of seconds to wait before retrying (only included in 429 responses)</td>\n</tr>\n</table>\n<h3>Handling Rate Limit Errors</h3>\n<p>When you exceed the rate limit, the API will return a <code>429 Too Many Requests</code> response with the following structure:</p>\n<pre><code>{\n  \"message\": \"Too Many Attempts.\",\n  \"retry_after\": 42\n}</code></pre>\n<p>The response will include the <code>Retry-After</code> header indicating how many seconds you should wait before making another request.</p>\n<h3>Best Practices</h3>\n<ul>\n<li>Monitor the <code>X-RateLimit-Remaining</code> header to track your usage</li>\n<li>Implement exponential backoff when you receive a 429 response</li>\n<li>Respect the <code>Retry-After</code> header value before retrying</li>\n<li>Cache responses when possible to reduce API calls</li>\n<li>Batch operations when the API supports it</li>\n</ul>"
+  version: 2.0.0
+servers:
+- url: https://pro.gofundme.com/api/2.0
+security:
+- OAuth2Application: []
+- OAuth2Member: []
+tags:
+- name: Fundraising Team Transfer
+  description: 'Transfer a Fundraising Team within its Campaign/subteam infrastructure. This is done by specifying the team''s direct parent, making it either a direct team for its Campaign or a subteam for another team for its Campaign.
+
+
+    The endpoint requires two parameters within its post body: `new_parent_id` and `new_parent_type`. These parameters are used to specify the new direct parent of the Fundraising Team. At the moment, this can either be the Fundraising Team''s Campaign itself (making it a direct team for the Campaign) or another Fundraising Team associated with the Fundraising Team''s Campaign (making it a subteam of the specified team).
+
+
+    <b>NOTE</b>: An error will be returned if the new parent for a Fundraising Team is currently a subteam of the Fundraising Team.'
+paths:
+  /fundraising-teams/{fundraising_team}/transfers:
+    post:
+      tags:
+      - Fundraising Team Transfer
+      summary: transferFundraisingTeam
+      description: Transfer a Fundraising Team to fundraising_team or campaign.
+      operationId: transferFundraisingTeam
+      parameters:
+      - name: fundraising_team
+        in: path
+        description: The specified Fundraising Team ID
+        required: true
+        schema:
+          type: integer
+          example: 209745
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                new_parent_id:
+                  description: The ID of the new parent. This must reference a Fundraising Team associated with the Campaign of the Fundraising Team being moved or the Fundraising Team's Campaign itself.
+                  type: integer
+                  example: 227362
+                new_parent_type:
+                  description: They type of the new parent. This can either be `fundraising_team` or `campaign`
+                  type: string
+                  enum:
+                  - fundraising_team
+                  - campaign
+                  example: campaign
+              type: object
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/Campaign'
+                - $ref: '#/components/schemas/FundraisingTeam'
+        '400':
+          description: validation errors
+          content:
+            application/json:
+              schema:
+                properties:
+                  errors:
+                    description: Description of detected errors in request
+                    type: array
+                    items:
+                      type: string
+                      example: Unable to transfer fundraising team
+                type: object
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Fundraising Team not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+      security:
+      - OAuth2Member: []
+components:
+  schemas:
+    Campaign:
+      title: Campaign
+      properties:
+        address1:
+          description: First line of address
+          type:
+          - string
+          - 'null'
+          maxLength: 250
+          example: 533 F Street
+        campaign_template_id:
+          description: Primary identifier of the Campaign Template this Campaign was created from
+          type:
+          - integer
+          - 'null'
+          readOnly: true
+          example: 413
+        studio_template_id:
+          description: Primary identifier of the Studio Template this Campaign was created from
+          type:
+          - integer
+          - 'null'
+          readOnly: true
+          example: 7
+        is_linked:
+          description: Whether the Campaign is currently consuming Studio Template updates. Defaults to false; set true when the campaign is created linked to a Studio Template, and false again on unlink.
+          type: boolean
+          readOnly: true
+          example: false
+        linked_at:
+          description: Set once when the campaign first becomes linked to a Studio Template at creation; never updated thereafter (no re-link path). NULL if never linked.
+          type:
+          - string
+          - 'null'
+          format: date-time
+          readOnly: true
+          example: '2021-04-23T08:23:21Z'
+        unlinked_at:
+          description: Timestamp of the unlink operation. NULL until the campaign is unlinked from its Studio Template; written only by the unlink flow, never at creation. Never cleared.
+          type:
+          - string
+          - 'null'
+          format: date-time
+          readOnly: true
+          example: '2021-04-23T08:23:21Z'
+        canonical_url:
+          description: Canonical url of the Campaign
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          example: /campaign/c0
+        category_id:
+          description: Category designation for Campaign
+          type:
+          - integer
+          - 'null'
+          example: 1
+        channel_id:
+          description: Channel designation for Campaign
+          type:
+          - integer
+          - 'null'
+          example: 2
+        channel_keywords:
+          description: List of keywords Campaign is tagged with
+          type:
+          - string
+          - 'null'
+          example: some_keyword
+        city:
+          description: City name
+          type:
+          - string
+          - 'null'
+          maxLength: 50
+          example: San Diego
+        contact_email:
+          description: Email address for the Campaign Contact. Set to the Organization Email by default if none is specified
+          type:
+          - string
+          - 'null'
+          example: test@gofundme.com
+        contact_phone:
+          description: Phone number for the Campaign Contact
+          type: string
+          maxLength: 32
+          example: 619-555-1212
+        country:
+          description: Country name
+          type:
+          - string
+          - 'null'
+          maxLength: 2
+          minLength: 2
+          example: US
+        created_at:
+          description: Date/time of initial record creation
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2021-04-23T08:23:21Z'
+        created_with:
+          description: Indicates which application created the Campaign
+          type: string
+          enum:
+          - api
+          - classyapp
+          readOnly: true
+          example: classyapp
+        currency_code:
+          description: ISO code of the currency against which this Campaign is normalized. Inherited from Organization's currency code.
+          type: string
+          readOnly: true
+          example: USD
+        default_page_appeal_email:
+          description: Default appeal text displayed on Fundraising Pages
+          type:
+          - string
+          - 'null'
+          example: Please donate to my fundraising page
+        default_page_goal:
+          description: Default goal for the Campaign's Fundraising Pages. Presented in units of the Campaign's currency_code
+          type: number
+          format: double
+          minimum: 1
+          example: 500
+        default_page_thank_you_email:
+          description: Default thank you email text for the Campaign's Fundraising Pages
+          type:
+          - string
+          - 'null'
+          example: Thank you
+        default_team_appeal_email:
+          description: Default appeal email text for Fundraising Teams
+          type:
+          - string
+          - 'null'
+          example: Please donate to my fundraising team
+        default_team_goal:
+          description: Default goal for the Campaign's Fundraising Teams. Presented in units of the Campaign's currency_code.
+          type: number
+          format: double
+          minimum: 1
+          example: 500
+        default_team_thank_you_email:
+          description: Default thank you email text for the Campaign's Fundraising Teams
+          type:
+          - string
+          - 'null'
+          example: Thank you
+        designation_id:
+          description: ID of Designation the Campaign Transactions will be allocated to
+          type:
+          - integer
+          - 'null'
+          example: 10
+        display_group_name:
+          description: Flag to determine if Designation Group Names should be shown
+          type: boolean
+          example: false
+        ended_at:
+          description: Date/time of when the campaign ends
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2021-04-23T08:23:21Z'
+        effective_fixed_fot_percent:
+          description: Percentage to be added to fee on top (aka Classy Mode) Transactions for the Campaign to cover fees. If fixed fot percent is null falls back on the Organization's fixed fot percent
+          type:
+          - string
+          - 'null'
+          format: double
+          readOnly: true
+          example: '4.00'
+        effective_flex_rate_percent:
+          description: Percentage Campaign elects to be added to donor covered fees calculation to cover any additional costs other than fees. If flex rate percent is null falls back on the Organization's flex rate percent
+          type:
+          - number
+          - 'null'
+          format: double
+          readOnly: true
+          example: 4.2
+        effective_recaptcha_settings:
+          description: Indicates whether or not captcha should be displayed on checkout pages. If false at Org level, will not display on campaigns.
+          type: string
+          enum:
+          - ENABLED
+          - DISABLED
+          readOnly: true
+          example: ENABLED
+        external_id:
+          description: A unique identifier provided by an external system (e.g., Salesforce) that is associated with this campaign.
+          type:
+          - string
+          - 'null'
+          example: 37e4d11a-ec0c-4358-94ed-f26cb1753512
+        external_url:
+          description: When set on a Campaign, GoFundMe Pro will push all requests for this Campaign to the specified URL via HTTP redirect. Commonly used to redirect traffic from ended Campaign to another Site/Campaign
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com
+        goal:
+          description: Fundraising goal for this Campaign normalized against currency_code
+          type:
+          - number
+          - 'null'
+          format: double
+          readOnly: true
+          example: 108.23
+        hide_from_profile:
+          description: Indicates whether the Campaign will be hidden on the profile
+          type:
+          - boolean
+          - 'null'
+          example: false
+        id:
+          description: Primary identifier of record
+          type: integer
+          readOnly: true
+          example: 227362
+        internal_name:
+          description: Internal name for Campaign. Can differ from name attribute
+          type:
+          - string
+          - 'null'
+          maxLength: 255
+          example: 'Event #F230DD'
+        is_fees_free:
+          description: Indicates whether the Campaign has Fees associated with it or not
+          type:
+          - boolean
+          - 'null'
+          readOnly: true
+          example: false
+        is_general:
+          description: Indicates whether the Campaign is general or not. Boolean returned as 0 or 1 accordingly.
+          type:
+          - number
+          - 'null'
+          readOnly: true
+          example: 1
+        location_details:
+          description: Additional information about the location of the event (e.g. directions, clarifications)
+          type: string
+          maxLength: 255
+          example: Heading north on I-5...
+        minimum_donation_amount:
+          description: Determines the minimum donation amount allowed.
+          type: number
+          example: 5
+        name:
+          description: Campaign name
+          type: string
+          example: My Campaign
+        organization_id:
+          description: Primary identifier for the associated Organization
+          type: integer
+          readOnly: true
+          example: 82364
+        postal_code:
+          description: Zip Code
+          type:
+          - string
+          - 'null'
+          example: '92101'
+        raw_currency_code:
+          description: ISO code of the currency in which this Campaign should be presented. Defaults to `currency_code` value if not specified.
+          type: string
+          example: EUR
+        raw_goal:
+          description: Raw Fundraising Goal for this Campaign
+          type: string
+          example: '100.000'
+        redirect_url:
+          description: Redirect the unpublish campaign to this url
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/
+        sort_designation_by:
+          description: How to sort within Designation Groups
+          type: string
+          enum:
+          - A-Z
+          - NEW-OLD
+          - OLD-NEW
+          example: A-Z
+        started_at:
+          description: Date/time the campaign begins
+          type: string
+          format: date-time
+          example: '2021-04-23T08:23:21Z'
+        state:
+          description: State/province name
+          type:
+          - string
+          - 'null'
+          maxLength: 20
+          example: CA
+        status:
+          description: Status of Campaign
+          type: string
+          enum:
+          - active
+          - deactivated
+          - draft
+          - unpublished
+          readOnly: true
+          example: active
+        timezone_identifier:
+          description: Timezone Identifier
+          type: string
+          example: America/Los_Angeles
+        type:
+          description: "The campaign's type, which determines its functionality and features:\n - donation:     Classic standard donation page (retired)\n - crowdfunding: Classic Crowdfunding campaign (retired)\n - peer_to_peer: Classic Peer-to-Peer campaign\n - ticketed:     Ticketed Event campaign\n - reg_w_fund:   Registration with Fundraising campaign\n - dynamic:      Campaign Studio Donation Page and Embedded Form campaigns\n - gfm_npo:      Campaign used to process transactions from an organization's GoFundMe Nonprofit Page and individual fundraisers on behalf of the organization (only available if the organization's GoFundMe Nonprofit Page is claimed)\n - gfm_p2p:      GoFundMe Peer-to-Peer campaign that leverages GoFundMe for the fundraising experience (only available if the organization's GoFundMe Nonprofit Page is claimed)"
+          type: string
+          enum:
+          - ticketed
+          - registration
+          - fund_for_entry
+          - peer_to_peer
+          - donation
+          - reg_w_fund
+          - crowdfunding
+          - dynamic
+          - gfm_npo
+          - gfm_p2p
+          example: ticketed
+        updated_at:
+          description: Date/time of last alteration
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2021-04-23T08:23:21Z'
+        venue:
+          description: Free text representing a location
+          type:
+          - string
+          - 'null'
+          maxLength: 500
+          example: City Townhall
+        add_registration_fee:
+          description: Indicates whether a registration fee is added or not
+          type: boolean
+          example: false
+        allow_duplicate_fundraisers:
+          description: Indicates whether a Campaign allows a single User to own several Fundraising Pages
+          type: boolean
+          example: false
+        allow_fundraising_pages:
+          description: Specifies whether a Campaign allows for the creation of new Fundraising Pages. Only relevant for Campaigns with types that allow for Fundraising Pages in general
+          type: boolean
+          example: false
+        allow_team_fundraising:
+          description: Specifies whether a Campaign allows for Team Fundraising
+          type: boolean
+          example: false
+        default_page_appeal:
+          description: Default appeal text displayed on Fundraising Pages
+          type:
+          - string
+          - 'null'
+          example: Please donate to my fundraising page
+        default_page_post_asset_id:
+          description: Default Asset ID of page story post
+          type:
+          - integer
+          - 'null'
+          example: 1
+        default_page_post_body:
+          description: Default body of page story post
+          type:
+          - string
+          - 'null'
+          example: Lorem ipsum
+        default_page_post_title:
+          description: Default title of page story post
+          type:
+          - string
+          - 'null'
+          example: Welcome to our team page!
+        default_team_appeal:
+          description: Default appeal text displayed on Fundraising Teams
+          type:
+          - string
+          - 'null'
+          example: Please donate to my fundraising team
+        default_team_post_asset_id:
+          description: Default Asset ID of team story post
+          type:
+          - integer
+          - 'null'
+          example: 1
+        default_team_post_body:
+          description: Default body of team story post
+          type:
+          - string
+          - 'null'
+          example: Lorem ipsum
+        default_team_post_title:
+          description: Default title of team story post
+          type:
+          - string
+          - 'null'
+          example: Welcome to our team page!
+        default_thank_you_text:
+          description: Default thank you text on the thank you page
+          type:
+          - string
+          - 'null'
+          example: Thank you so much!
+        fixed_fot_percent:
+          description: Percentage Campaign elects to be added to Fee on top (aka Classy Mode) Transactions to cover Fees
+          type:
+          - string
+          - 'null'
+          format: double
+          example: '4.00'
+        flex_rate_percent:
+          description: Percentage Campaign elects to be added to donor covered fees calculation to cover any additional costs other than fees.
+          type:
+          - number
+          - 'null'
+          format: double
+          example: 4
+        is_billing_address_required:
+          description: If true, a billing address must be provided when creating Transactions against the Campaign
+          type: boolean
+          example: false
+        is_ended_at_hidden:
+          description: If true, Campaign end date is not shown
+          type: boolean
+          example: false
+        is_started_at_hidden:
+          description: If true, Campaign start date is not shown
+          type: boolean
+          example: false
+        pages_can_set_appeal:
+          description: Indicates whether Fundraising Pages can set the appeal
+          type: boolean
+          example: false
+        pages_can_set_goal:
+          description: Indicates whether Fundraising Pages can set the goal
+          type: boolean
+          example: false
+        team_membership_policy:
+          description: Configuration indicating whether team membership for this Campaign's Fundraising Pages is optional, required, or prohibited
+          type: string
+          enum:
+          - optional
+          - required
+          - prohibited
+          example: optional
+        teams_can_set_appeal:
+          description: Indicates whether Fundraising Teams can set the appeal
+          type: boolean
+          example: false
+        teams_can_set_goal:
+          description: Indicates whether Fundraising Teams can set the goal
+          type: boolean
+          example: false
+        ticket_pass_on_fees:
+          description: Indicates whether a Campaign passes Fees from tickets to the user or not (fee on top for tickets)
+          type:
+          - boolean
+          - 'null'
+          example: false
+        allow_ecards:
+          description: Whether Ecard Dedications are available for this Campaign
+          type: boolean
+          example: false
+        classy_mode_appeal:
+          description: Classy mode appeal text
+          type:
+          - string
+          - 'null'
+          example: Example appeal text
+        classy_mode_checked_by_default:
+          description: Whether or not classymode or dcf is checked by default on a donation page. Despite the name, also applies to DCF
+          type: boolean
+          example: false
+        classy_mode_enabled:
+          description: If true, give the donor the option to cover the Transaction Fee via ClassyMode calculation
+          type:
+          - boolean
+          - 'null'
+          example: false
+        checkout_corporate_donation_enabled:
+          description: If true, show the company credit card option on the ticketing checkout page
+          type: boolean
+          example: true
+        corporate_donation_enabled:
+          description: If true, give the donor the option to donate on the behalf of a corporation
+          type: boolean
+          example: false
+        custom_url:
+          description: Custom URL
+          type:
+          - string
+          - 'null'
+          example: https://test.org/custom
+        daf_enabled:
+          description: If true, give the donor the ability to connect a donor advised fund (DAF)
+          type: boolean
+          example: false
+        dcf_enabled:
+          description: If true, give the donor the option to cover the Transaction Fee via Donor Covered Fees calculation
+          type: boolean
+          example: false
+        dcf_allowed:
+          description: Whether or not the campaign will use DCF or classymode. If true, this means the campaign must be treated as a dcf campaign. All newly created campaigns should have dcf_allowed = true. For whether or not dcf should show up on a donation page, please see dcf_enabled.
+          type: boolean
+          readOnly: true
+          example: false
+        disable_donation_attribution:
+          description: Flag to allow/disallow donors to select a Fundraising Page or Team to attribute their Donation to. If true, Donation Attribution is disabled. Set to false to enable Donation Attribution
+          type:
+          - boolean
+          - 'null'
+          example: false
+        hide_anonymous_donations:
+          description: If true, Donation forms will not display the anonymous Donation field
+          type: boolean
+          example: false
+        hide_recurring_end_date:
+          description: Indicates whether the end date for recurring donations will be hidden in the donation page
+          type: boolean
+          example: false
+        hide_contact_opt_in:
+          description: If true, Donation forms will not display the contact opt in field
+          type: boolean
+          example: false
+        hide_donation_amounts:
+          description: If true, donors will not be able to hide their donation amounts
+          type: boolean
+          example: false
+        hide_dedications:
+          description: If true, donation dedications will not be offered
+          type: boolean
+          example: false
+        hide_donation_comments:
+          description: If true, donation forms will not display the donation comments field
+          type: boolean
+          example: false
+        offer_dedication_postal_notifications:
+          description: If true, offer to collect mailing information for postal notifications for dedications
+          type: boolean
+          example: false
+        opt_in_checked_by_default:
+          description: If true, and if the hide_contact_opt_in option is false, this will check the opt-in selection by default on donation forms
+          type: boolean
+          example: false
+        return_url:
+          description: Return URL
+          type:
+          - string
+          - 'null'
+          example: https://test.org/return
+        send_dedication_emails:
+          description: If true, send dedication email for donation
+          type:
+          - boolean
+          - 'null'
+          example: false
+        logo_id:
+          description: Primary identifier of Asset used as the main Campaign Logo. Interpreted from associated Campaign Theme
+          type:
+          - integer
+          - 'null'
+          readOnly: true
+          example: 1002
+        logo_url:
+          description: URL for logo image. Either hardcoded URL for legacy Campaigns or interpreted from logo Asset specified by logo ID
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          example: https://gofundme-cdn-url.com/your-logo.png
+        team_cover_photo_id:
+          description: ID of the associated Asset that serves as the default cover photo for this Campaign's Teams (inherited from associated Theme)
+          type:
+          - integer
+          - 'null'
+          readOnly: true
+          example: 2345
+        team_cover_photo_url:
+          description: URL for Campaign's default team cover photo image. Interpreted from team cover photo Asset specified by team cover photo ID
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          example: https://gofundme-cdn-url.com/your-team-cover-photo.png
+        crypto_giving:
+          description: Indicates if Crypto Giving is Enabled, Disabled or Exclusive
+          type: string
+          enum:
+          - enabled
+          - disabled
+          - exclusive
+          example: enabled
+        embedded_giving:
+          description: Indicates if Embedded Giving is Disabled, Modal or Inline
+          type: string
+          enum:
+          - disabled
+          - modal
+          - inline
+          example: disabled
+        exit_modal:
+          description: Indicates if Exit Modal is toggle on/off for a certain Campaign
+          type: boolean
+          example: false
+        use_intelligent_ask_onetime:
+          description: Toggle Intelligent Ask Amount for One-time donations
+          type:
+          - boolean
+          - 'null'
+          example: false
+        use_intelligent_ask_recurring:
+          description: Toggle Intelligent Ask Amount for Recurring donations
+          type:
+          - boolean
+          - 'null'
+          example: false
+        whitelist_url:
+          description: Used to bypass security blocking conditions in the donor iframe, based on X-FRAME-OPTIONS ALLOW-FROM
+          type:
+          - string
+          - 'null'
+          example: https://www.myawesomecharity.org
+      type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    FundraisingTeam:
+      title: Fundraising Team
+      properties:
+        campaign_id:
+          description: Primary identifier of associated Campaign
+          type: integer
+          example: 227362
+        city:
+          description: City
+          type:
+          - string
+          - 'null'
+          maxLength: 50
+          example: San Diego
+        country:
+          description: Country. Must be a valid ISO 3166-1 alpha-2 country code
+          type:
+          - string
+          - 'null'
+          maxLength: 2
+          example: US
+        cover_photo_id:
+          description: Primary identifier of asset used as the Fundraising Team cover photo
+          type:
+          - integer
+          - 'null'
+          example: 1145
+        cover_photo_url:
+          description: URL for cover photo image. Interpreted from cover_photo asset specified by cover_photo_id
+          type:
+          - string
+          - 'null'
+          example: https://gofundme-cdn-url.com/your-cover-photo.png
+        created_at:
+          description: Date/time of initial record creation
+          type: string
+          format: date-time
+          example: '2021-04-23T08:23:21Z'
+        currency_code:
+          description: ISO code of the currency against which this Fundraising Team is normalized. Defaults to USD
+          type: string
+          maxLength: 3
+          example: USD
+        description:
+          description: Team description
+          type:
+          - string
+          - 'null'
+          example: My team description
+        goal:
+          description: Fundraising Goal for this Team normalized against 'currency_code'. Defaults to the campaign's default team goal
+          type: number
+          format: float
+          example: 108.23
+        id:
+          description: Primary identifier of record
+          type: integer
+          example: 209745
+        logo_id:
+          description: Primary identifier of associated Asset
+          type:
+          - integer
+          - 'null'
+          example: 1145
+        logo_url:
+          description: URL for logo image. Either hardcoded URL for legacy Fundraising Teams or interpreted from logo Asset specified by logo_id
+          type:
+          - string
+          - 'null'
+          maxLength: 255
+          example: https://gofundme-cdn-url.com/your-cover-photo.png
+        name:
+          description: Team name
+          type: string
+          maxLength: 127
+          example: My Team
+        organization_id:
+          description: Primary identifier of associated Organization
+          type:
+          - integer
+          - 'null'
+          example: 82364
+        parent_id:
+          description: Parent Team ID. Used for creating a team hierarchy. Fundraising Team Policy must support SubTeam creation if a Parent Team ID is supplied
+          type:
+          - integer
+          - 'null'
+          example: 209750
+        postal_code:
+          description: Postal Code
+          type:
+          - string
+          - 'null'
+          maxLength: 50
+          example: '90210'
+        raw_currency_code:
+          description: ISO code of the default currency in which this Fundraising Team should be presented. Defaults to 'currency_code' if not specified
+          type: string
+          example: EUR
+        raw_goal:
+          description: Raw fundraising goal for this Team
+          type: string
+          example: '100'
+        root_id:
+          description: Team ID at the highest level of the hierarchy. Fundraising Team Policy must support SubTeam creation if a Root ID is supplied
+          type:
+          - integer
+          - 'null'
+          example: 3345
+        state:
+          description: State/province code. Must be a valid USPS state code
+          type:
+          - string
+          - 'null'
+          maxLength: 100
+          example: CA
+        status:
+          description: Team status
+          type:
+          - string
+          - 'null'
+          enum:
+          - active
+          - deleted
+          - pending_approval
+          - pending_cart_questions
+          - pending_cart_completion
+          example: active
+        team_lead_id:
+          description: Primary identifier of associated Team Lead
+          type:
+          - integer
+          - 'null'
+          example: 2012
+        team_lead_supporter_id:
+          description: Primary identifier of associated Team Lead Supporter
+          type:
+          - integer
+          - 'null'
+          example: 7845
+        thank_you_text:
+          description: Default thank you text on the thank you page
+          type:
+          - string
+          - 'null'
+          example: Thank you!
+        updated_at:
+          description: Date/time of last record update
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2021-04-23T10:25:03Z'
+        canonical_url:
+          description: The canonical url of the Fundraising Team
+          type:
+          - string
+          - 'null'
+          example: /team/10
+        designation_id:
+          description: Primary identifier of associated Designation
+          type:
+          - integer
+          - 'null'
+          example: 34672
+        team_policy_id:
+          description: Primary identifier of associated Team Policy
+          type:
+          - integer
+          - 'null'
+          example: 2354
+      type: object
+  securitySchemes:
+    OAuth2Application:
+      type: oauth2
+      description: OAuth bearer token for client application
+      flows:
+        clientCredentials:
+          tokenUrl: /oauth2/auth
+          refreshUrl: /oauth2/auth
+          scopes:
+            read: Read access
+            write: Write access
+    OAuth2Member:
+      type: oauth2
+      description: OAuth bearer token for client application with additional member context
+      flows:
+        password:
+          tokenUrl: /oauth2/auth
+          refreshUrl: /oauth2/auth
+          scopes:
+            read: Read access
+            write: Write access

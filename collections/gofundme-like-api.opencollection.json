@@ -1,0 +1,246 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "GoFundMe Pro Like API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "/oauth2/auth",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Like",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "listFeedItemLikes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/feed-items/:feed_item/likes",
+            "params": [
+              {
+                "name": "feed_item",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of specified Feed Item"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all Likes made for the specified Feed Item"
+        },
+        {
+          "info": {
+            "name": "createFeedItemLike",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/feed-items/:feed_item/likes",
+            "params": [
+              {
+                "name": "feed_item",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of specified Feed Item"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a Like for the specified Feed Item"
+        },
+        {
+          "info": {
+            "name": "deleteLike",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://pro.gofundme.com/api/2.0/likes/:like",
+            "params": [
+              {
+                "name": "like",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of Like"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete a Like"
+        },
+        {
+          "info": {
+            "name": "listStoryLikes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/stories/:story/likes",
+            "params": [
+              {
+                "name": "story",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of specified Story"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all Likes made for the specified Story"
+        },
+        {
+          "info": {
+            "name": "createStoryLike",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/stories/:story/likes",
+            "params": [
+              {
+                "name": "story",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of specified Story"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a Like for the specified Story"
+        },
+        {
+          "info": {
+            "name": "listUpdateLikes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/updates/:update/likes",
+            "params": [
+              {
+                "name": "update",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of specified Update"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all Likes made for the specified Update"
+        },
+        {
+          "info": {
+            "name": "createUpdateLike",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/updates/:update/likes",
+            "params": [
+              {
+                "name": "update",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of specified Update"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a Like for the specified Update"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

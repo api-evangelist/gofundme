@@ -1,0 +1,695 @@
+openapi: 3.2.0
+info:
+  title: GoFundMe Pro Recurring Donation Plan API
+  description: "<h1>GoFundMe Pro API</h1>\n<p>Welcome to the GoFundMe Pro API (2.0.0), a powerful toolset that empowers innovative and creative minds to engineer the world for good. This documentation walks through the API’s latest endpoints.</p>\n<p>GoFundMe Pro APIs are crafted around REST and the REST architectural style to provide developers with a stateless and language-­agnostic interface. The GoFundMe Pro API leverages HTTP verbs and response codes, OAuth2 authentication, and resource-­oriented URLs.</p>\n<p>Currently, the GoFundMe Pro API only supports JSON. All POST/PUT requests required a valid JSON object for the request body.</p>\n<h2>Errors</h2>\n<p>The GoFundMe Pro API leverages standard HTTP response status codes for it’s error responses. Error codes are:</p>\n<p><br /></p>\n<table border='1'>\n<tr>\n<th width='100px'>Error Code</th>\n<th>Meaning</th>\n</tr>\n<tr>\n<td>400</td>\n<td>Bad Request: The request was malformed or provided incorrect/incomplete/conflicting parameters. Check the response for more detailed messaging about why the request was incorrect. Do not repeat request.</td>\n</tr>\n<tr>\n<td>401</td>\n<td>Unauthorized: The API does not recognize the request as authorized. API access token may be missing or invalid.</td>\n</tr>\n<tr>\n<td>403</td>\n<td>Forbidden: The API recognizes the authorized API user, but the API user does not have correct permissions to satisfy the request.</td>\n</tr>\n<tr>\n<td>404</td>\n<td>Not Found: The resource requested does not exist or was not found.</td>\n</tr>\n<tr>\n<td>405</td>\n<td>Method Not Allowed: Some REST endpoints only accept a subset of valid REST HTTP verbs. This error is sent when an unsupported verb is requested.</td>\n</tr>\n<tr>\n<td>429</td>\n<td>Too Many Requests: The rate limit has been exceeded. See the <a href=\"#rate-limiting\">Rate Limiting</a> section for details on rate limits and response headers.</td>\n</tr>\n<tr>\n<td>500</td>\n<td>Error: The request was valid, but something failed on the server. Additional messages may be available.</td>\n</tr>\n<tr>\n<td>503</td>\n<td>Service Unavailable: The service is temporarily unavailable.</td>\n</tr>\n</table>\n<h2>Requests</h2>\n<h3>Authenticating Requests</h3>\n<p>Most API requests will need to be signed with an Access Token.</p>\n<p>Refer to the <a href=\"https://developers.gofundme.com/pro/overview/authentication\" target=\"_blank\" rel=\"noopener noreferrer\">Resource Documentation</a> for the specific call you are making to see if an access token is required for your request. See <a href=\"https://developers.gofundme.com/pro/tutorials/samples\" target=\"_blank\" rel=\"noopener noreferrer\">this page</a> for a demonstration of usage through a sample app. \n<h3>Filters</h3>\n<p>We can filter a collection based on a set of input parameters. To do so, we can modify the query string using the parameters listed below.</p>\n\n<table border='1'>\n<tr>\n<th>Parameter</th>\n<th>Type</th>\n<th>Default</th>\n<th>Description</th>\n</tr>\n\n<tr>\n<td>with</td>\n<td>string</td>\n<td>N/A</td>\n<td>This allows you to include nested related resource. For example, you could request a campaign along with the organization it belongs to and the designation it was allocated to. In this case, <code>with=organization,designation.</code></td>\n</tr>\n\n<tr>\n<td>per_page</td>\n<td>integer</td>\n<td>20</td>\n<td>Set the total number of resources returned per page (Maximum: 100).</td>\n</tr>\n\n<tr>\n<td>page</td>\n<td>integer</td>\n<td>1</td>\n<td>Page to return.</td>\n</tr>\n\n<tr>\n<td>sort</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>\nOrder the resources depending upon their attributes. Examples:\n<ul>\n<li><strong>created_at</strong>: oldest resource will come first</li>\n<li><strong>created_at:desc</strong>: newest resource will come first</li>\n<li><strong>last_name:asc,first_name:asc</strong>: order resources by last_name in alphabetical order. If same last_name, order by first_name in alphabetical order.</li>\n</ul>\n</td>\n</tr>\n\n<tr>\n<td>fields</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>List of resources attributes separated with comma. Narrow the list of attributes returned for each resource.</td>\n</tr>\n\n<tr>\n<td>filter</td>\n<td>string</td>\n<td>NULL</td>\n<td>\nAllow to filter the list of resources returned. Format is: <code>{association}.{attribute1}{operand}{value}</code> where: <ul>\n<li>association is the association if this is a nested filter (optional)</li>\n<li>operand is one of the following: <code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, false can be expressed with <code>false</code> or <code>0</code>).</li>\n<li>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. with | string | NULL | This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</li>\n</ul>\n</td>\n</tr>\n</table>\n\n<p>When filtering, the operand should be one of the following:</p>\n<p><code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, <code>false</code> can be expressed with <code>false</code> or <code>0</code>).</p>\n<p>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</p>\n<p>Refer to the sample documentation for the specific call you are making to see which related resource can be fetched.</p>\n\n<h3>Date and Time Filtering</h3>\n<p>Unless otherwise noted, all Datetime attributes in API responses will be returned in an ISO8601 compliant format:</p>\n<><code>YYYY-MM-DDTHH:mm:ss.sssZ</code> (e.g. <code>2024-10-05T14:48:00.000Z</code>).</p>\n<h2 id=\"rate-limiting\">Rate Limiting</h2>\n<p>The GoFundMe Pro API implements rate limiting to ensure fair usage and maintain service quality for all users. Rate limits are applied on a per-application and per-user basis.</p>\n<h3>When Rate Limiting Applies</h3>\n<p>Rate limiting is applied to requests that meet the following conditions:</p>\n<ul>\n<li>The API application is <strong>not internal</strong> (external/third-party applications)</li>\n<li>The API application is associated to an Organization</li>\n</ul>\n<p>Internal applications are not subject to rate limiting.</p>\n<h3>Rate Limit Details</h3>\n<p>By default, the rate limit is:</p>\n<ul>\n<li><strong>1800 requests per minute</strong> per application</li>\n</ul>\n<p>Rate limits may be adjusted dynamically via flags for specific applications or users.</p>\n<h3>Rate Limit Headers</h3>\n<p>All API responses include the following headers to help you track your rate limit status:</p>\n<table border='1'>\n<tr>\n<th width='200px'>Header</th>\n<th>Description</th>\n</tr>\n<tr>\n<td><code>X-RateLimit-Limit</code></td>\n<td>The maximum number of requests allowed in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Remaining</code></td>\n<td>The number of requests remaining in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Reset</code></td>\n<td>Unix timestamp indicating when the rate limit window resets (only included when limit is exceeded)</td>\n</tr>\n<tr>\n<td><code>Retry-After</code></td>\n<td>Number of seconds to wait before retrying (only included in 429 responses)</td>\n</tr>\n</table>\n<h3>Handling Rate Limit Errors</h3>\n<p>When you exceed the rate limit, the API will return a <code>429 Too Many Requests</code> response with the following structure:</p>\n<pre><code>{\n  \"message\": \"Too Many Attempts.\",\n  \"retry_after\": 42\n}</code></pre>\n<p>The response will include the <code>Retry-After</code> header indicating how many seconds you should wait before making another request.</p>\n<h3>Best Practices</h3>\n<ul>\n<li>Monitor the <code>X-RateLimit-Remaining</code> header to track your usage</li>\n<li>Implement exponential backoff when you receive a 429 response</li>\n<li>Respect the <code>Retry-After</code> header value before retrying</li>\n<li>Cache responses when possible to reduce API calls</li>\n<li>Batch operations when the API supports it</li>\n</ul>"
+  version: 2.0.0
+servers:
+- url: https://pro.gofundme.com/api/2.0
+security:
+- OAuth2Application: []
+- OAuth2Member: []
+tags:
+- name: Recurring Donation Plan
+  description: A Recurring Donation Plan is a record of a user's intent to provide recurring donations towards a campaign or fundraising page. The record itself contains the provided billing address and identifying credit card information for the plan.
+paths:
+  /campaigns/{campaign}/recurring-donation-plans:
+    get:
+      tags:
+      - Recurring Donation Plan
+      summary: listCampaignRecurringDonationPlans
+      description: Retrieves a list of all Recurring Donation Plans for a specific Campaign
+      operationId: listCampaignRecurringDonationPlans
+      parameters:
+      - name: campaign
+        in: path
+        description: The specified Campaign ID
+        required: true
+        schema:
+          type: integer
+          example: 227362
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginatedResponse'
+                - properties:
+                    data:
+                      description: Collection of Recurring Donation Plans
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/RecurringDonationPlan'
+                    first_page_url:
+                      example: '{host}/campaigns/{campaign}/recurring-donation-plans?page=1'
+                    last_page_url:
+                      example: '{host}/campaigns/{campaign}/recurring-donation-plans?page=1'
+                    path:
+                      example: '{host}/campaigns/{campaign}/recurring-donation-plans'
+                  type: object
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Campaign not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+  /members/{member}/recurring-donation-plans:
+    get:
+      tags:
+      - Recurring Donation Plan
+      summary: listMemberRecurringDonationPlans
+      description: Retrieves a list of all Recurring Donation Plans for a specific Member
+      operationId: listMemberRecurringDonationPlans
+      parameters:
+      - name: member
+        in: path
+        description: The specified Member ID
+        required: true
+        schema:
+          type: integer
+          example: 2012
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginatedResponse'
+                - properties:
+                    data:
+                      description: Collection of Recurring Donation Plans
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/RecurringDonationPlan'
+                    first_page_url:
+                      example: '{host}/members/{member_id}/recurring-donation-plans?page=1'
+                    last_page_url:
+                      example: '{host}/members/{member_id}/recurring-donation-plans?page=1'
+                    path:
+                      example: '{host}/members/{member_id}/recurring-donation-plans'
+                  type: object
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+  /organizations/{organization}/recurring-donation-plans:
+    get:
+      tags:
+      - Recurring Donation Plan
+      summary: listOrganizationRecurringDonationPlans
+      description: Retrieves a list of all Recurring Donation Plans for a specific Organization
+      operationId: listOrganizationRecurringDonationPlans
+      parameters:
+      - name: organization
+        in: path
+        description: The specified Organization ID
+        required: true
+        schema:
+          type: integer
+          example: 82364
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginatedResponse'
+                - properties:
+                    data:
+                      description: Collection of Recurring Donation Plans
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/RecurringDonationPlan'
+                    first_page_url:
+                      example: '{host}/organizations/{organization}/recurring-donation-plans?page=1'
+                    last_page_url:
+                      example: '{host}/organizations/{organization}/recurring-donation-plans?page=1'
+                    path:
+                      example: '{host}/organizations/{organization}/recurring-donation-plans'
+                  type: object
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Organization not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+  /recurring-donation-plans/{recurring_donation_plan}:
+    get:
+      tags:
+      - Recurring Donation Plan
+      summary: fetchRecurringDonationPlan
+      description: Fetch specified Recurring Donation Plan
+      operationId: fetchRecurringDonationPlan
+      parameters:
+      - name: recurring_donation_plan
+        in: path
+        description: Primary identifier of Recurring Donation Plan
+        required: true
+        schema:
+          type: integer
+          example: 85456
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecurringDonationPlan'
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Recurring Donation Plan not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+components:
+  schemas:
+    PaginatedResponse:
+      title: Paginated Response
+      properties:
+        current_page:
+          description: Index of current page
+          type: integer
+          example: 1
+        data:
+          description: Collection of results
+          type: array
+          items:
+            type: object
+        first_page_url:
+          description: URL of first page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        from:
+          description: Index of first displayed result within total result set
+          type:
+          - integer
+          - 'null'
+          example: 1
+        last_page:
+          description: Index of last page in result set
+          type: integer
+          example: 1
+        last_page_url:
+          description: URL of last page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        next_page_url:
+          description: URL of next page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=2
+        path:
+          description: URL of current page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource
+        per_page:
+          description: Maximum number of records returned per page of results
+          type: integer
+          example: 20
+        prev_page_url:
+          description: URL of previous page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        links:
+          description: Collection of objects representing pages {label, URL, active} that can be used to request the associated page of records.
+          type: array
+          items:
+            $ref: '#/components/schemas/PaginationLink'
+        to:
+          description: Index of last displayed result within total result set
+          type:
+          - integer
+          - 'null'
+          example: 1
+        total:
+          description: Total count of records in result set
+          type: integer
+          example: 1
+      type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    RecurringDonationPlan:
+      title: Recurring Donation Plan
+      properties:
+        address:
+          description: Line one of Billing address
+          type: string
+          example: 533 F Street
+        address2:
+          description: Line two of Billing address
+          type:
+          - string
+          - 'null'
+          example: Unit 26
+        applied_fot_percent:
+          description: The percentage to be added to all fee on top (aka Classy Mode) transactions created for this plan
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 4
+        campaign_id:
+          description: ID for Recurring Donation Plan's Campaign
+          type: integer
+          example: 227362
+        canceled_at:
+          description: Datetime representing cancellation time(can be null)
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: 2016-01-01T12:00:00+0000
+        cancel_by:
+          description: Type of user that cancelled Recurring Donation Plan
+          type:
+          - string
+          - 'null'
+          enum:
+          - admin
+          - supporter
+          example: supporter
+        cancel_reason_code:
+          description: Cancellation reason code
+          type:
+          - string
+          - 'null'
+          example: '1'
+        cancel_reason_text:
+          description: Cancellation reason for Recurring donation Plan
+          type:
+          - string
+          - 'null'
+          example: Can no longer afford it
+        cc_card_exp:
+          description: Expiration date for the credit card used
+          type: string
+          example: '201204'
+        cc_last_four:
+          description: Last four digits of the credit card used
+          type: string
+          example: '1223'
+        ach_last_four:
+          description: If the payment type is ACH, the last 4 digits of the ACH transaction is stored
+          type:
+          - integer
+          - 'null'
+          example: 6789
+        cc_type:
+          description: Type of credit card used
+          type:
+          - string
+          - 'null'
+          example: Visa
+        city:
+          description: Billing city
+          type: string
+          example: San Diego
+        company_name:
+          description: Company of recurring donator
+          type:
+          - string
+          - 'null'
+          example: Test Company
+        country:
+          description: Billing country
+          type: string
+          example: US
+        created_at:
+          description: Recurring Donation Plan created date
+          type: string
+          format: date-time
+          example: 2016-01-01T12:00:00+0000
+        currency_code:
+          description: ISO currency code for the Recurring Donation Plan
+          type: string
+          example: USD
+        designation_id:
+          description: ID for the Designation the Transactions created from the recurring Donation Plan will be allocated
+          type:
+          - number
+          - 'null'
+          example: 34672
+        donation_amount:
+          description: Recurring Donation amount in the organization's currency
+          type: number
+          format: float
+          example: 1
+        failed_at:
+          description: Datetime representing the last time the recurring Donation failed
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: 2016-01-01T12:00:00+0000
+        fee_on_top:
+          description: Flag describing if the recurring donation covers fees (classymode)
+          type: boolean
+          example: true
+        first_name:
+          description: Donator's First Name
+          type: string
+          example: John
+        frequency:
+          description: Rate at which a recurring transaction against this plan is made
+          type: string
+          enum:
+          - bi-weekly
+          - bi-monthly
+          - daily
+          - monthly
+          - one-time
+          - quarterly
+          - semi-annually
+          - weekly
+          - yearly
+          example: bi-weekly
+        fundraising_page_id:
+          description: Fundraising Page ID of recurring donator
+          type:
+          - integer
+          - 'null'
+          example: 2173528
+        fundraising_team_id:
+          description: Fundraising Team ID of recurring donator
+          type:
+          - integer
+          - 'null'
+          example: 209745
+        id:
+          description: ID of Recurring Donation Plan
+          type: integer
+          example: 85456
+        is_anonymous:
+          description: Flag determining if the Transactions should be anonymized
+          type: boolean
+          example: true
+        hide_amount:
+          description: Flag determining if the Transactions amount should be anonymized
+          type: boolean
+          example: true
+        is_gift_aid:
+          description: Flag whether the Donor opts into gift aid used by the UK or not. Can only be set if the Organization allows it
+          type: boolean
+          example: false
+        is_paused:
+          description: Flag which indicates if the recurring donation is paused. Can be set by Admin or the donor
+          type: boolean
+          default: false
+          example: false
+        can_be_reactivated:
+          description: Whether the plan can be reactivated through Supporter Center. True only when the plan's current internal_status is in [canceled, failed, ended] AND the org still has an active ClassyPay PPC attached. False otherwise (wrong starting status, missing pp_plan_id, no PPC, or non-ClassyPay PPC).
+          type: boolean
+          example: true
+        last_name:
+          description: Last name of recurring Donator
+          type: string
+          example: Doe
+        member_id:
+          description: Member ID of recurring donatior
+          type: integer
+          example: 2012
+        metadata:
+          oneOf:
+          - $ref: '#/components/schemas/Metadata'
+          description: Arbitrary JSON metadata
+        next_processing_date:
+          description: Next recurring charge date for recurring plan
+          type:
+          - string
+          - 'null'
+          format: date
+          example: '2016-01-01'
+        organization_id:
+          description: ID of Organization receiving the recurring donation
+          type: integer
+          example: 82364
+        pause_until:
+          description: This attribute indicates the date till the recurring donation plan is Paused
+          type:
+          - string
+          - 'null'
+          format: date
+          example: '2023-04-01'
+        plan_paused_on_date:
+          description: This attribute holds the date on which the recurring donation plan was Paused
+          type:
+          - string
+          - 'null'
+          format: date
+          example: '2023-01-01'
+        payment_gateway:
+          description: Payment processor. (Underlying payment processor for Classy Pay)
+          type:
+          - string
+          - 'null'
+          example: PayPal
+        payment_provider_configuration_name:
+          description: The Recurring Donation Plan Payment Provider
+          type:
+          - string
+          - 'null'
+          example: Classy Pay
+        payment_type:
+          description: Payment type of recurring
+          type:
+          - string
+          - 'null'
+          enum:
+          - Credit Card
+          - ACH
+          - Paypal
+          example: ACH
+        postal_code:
+          description: Billing postal code
+          type: string
+          example: '92101'
+        pp_plan_id:
+          description: ID of the Payment provider
+          type: string
+          example: 691e1e8d2add8
+        raw_currency_code:
+          description: The currency code of the plan's transactions. Cannot be updated after being set
+          type: string
+          example: JPY
+        raw_donation_amount:
+          description: The value donated, in the raw currency
+          type: string
+          example: '50.00'
+        recur_until:
+          description: Recurring plan end date
+          type:
+          - string
+          - 'null'
+          format: date
+          example: '2021-01-01'
+        schedule:
+          description: JSON information specifying schedule for recurring transaction creation
+          properties:
+            mmdd:
+              description: Two digits for month and two for day
+              type: string
+              example: 0109
+            month:
+              description: Month name
+              type: string
+              example: January
+            day:
+              description: Day number
+              type: integer
+              example: 9
+          type:
+          - object
+          - 'null'
+        started_at:
+          description: Start time for recurring donations
+          type: string
+          format: date-time
+          example: 2021-01-01T12:00:00+0000
+        state:
+          description: Billing state
+          type: string
+          example: CA
+        status:
+          description: Status of Recurring Donation Plan
+          type: string
+          enum:
+          - active
+          - attempted
+          - canceled
+          - draft
+          - failed
+          - failing
+          - ended
+          - paused
+          example: active
+        supporter_id:
+          description: ID of the Supporter that associates the Member and the Organization
+          type:
+          - integer
+          - 'null'
+          example: 5827
+        timezone_identifier:
+          description: Identifier of timezone against which recurring charges will be made
+          type: string
+          example: UTC
+        updated_at:
+          description: Last modification date
+          type: string
+          format: date-time
+          example: 2021-01-01T13:00:00+0000
+        is_donor_covered_fee:
+          description: Flag if the rdp is a donor covered fee or not
+          type: boolean
+          example: true
+        raw_initial_gross_amount:
+          description: Amount before any fee adjustments where added
+          type: number
+          format: float
+          example: 1.25
+        raw_adjustment_amount:
+          description: Total fee amount assessed
+          type: number
+          format: float
+          example: 0.25
+        dcf_enabled:
+          description: Flag that indicate if the campaign has dcf enable
+          type: boolean
+          example: true
+        dcf_allowed:
+          description: Flag that indicate if the campaign is allowed to have dcf
+          type: boolean
+          example: true
+        classy_mode_enabled:
+          description: Flag that indicate if the campaign has classy mode enable
+          type: boolean
+          example: true
+        effective_fixed_fot_percent:
+          description: Number of fixed fee on top percent
+          type: string
+          example: '5.00'
+        migrated:
+          description: Flag that indicates if the recurring plan is from a migration
+          type: boolean
+          example: true
+        migration_date:
+          description: Date when migration was completed
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: 2021-01-01T13:00:00+0000
+      type: object
+    Metadata:
+      title: Metadata
+      properties:
+        foo:
+          type: string
+          example: bar
+      type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
+      type: object
+  parameters:
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
+    page:
+      name: page
+      in: query
+      description: Indicator of which page of results to return
+      required: false
+      schema:
+        type: integer
+        example: 1
+  securitySchemes:
+    OAuth2Application:
+      type: oauth2
+      description: OAuth bearer token for client application
+      flows:
+        clientCredentials:
+          tokenUrl: /oauth2/auth
+          refreshUrl: /oauth2/auth
+          scopes:
+            read: Read access
+            write: Write access
+    OAuth2Member:
+      type: oauth2
+      description: OAuth bearer token for client application with additional member context
+      flows:
+        password:
+          tokenUrl: /oauth2/auth
+          refreshUrl: /oauth2/auth
+          scopes:
+            read: Read access
+            write: Write access

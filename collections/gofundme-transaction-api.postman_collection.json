@@ -1,0 +1,2167 @@
+{
+  "item": [
+    {
+      "id": "96752556-8399-4b11-bd31-cb41fd53302b",
+      "name": "Transaction",
+      "description": {
+        "content": "Transactions have three types of attributes relating to Passport: raw, charged, and normalized.\n\nRaw attributes reflect the donor/purchaser's intent when creating the Transaction. The only attribute directly specified on the Transaction is `raw_currency_code` - the other visible attributes (`raw_total_gross_amount`, `raw_donation_gross_amount`, and  `raw_overhead_net_amount`) are all derived from the raw values set on the transaction's items.\n\nCharged attributes reflect the values that are actually charged when the payment is processed. Since the potential values for a Transaction's `charged_currency_code` should be limited to those available to an Organization for processing, this value can differ from the Transaction's `raw_currency_code`. The amount that is charged is reflected in `charged_total_gross_amount`, while the fees are expressed in `charged_classy_fees_amount` and `charged_pp_fees_amount` (`charged_fees_amount` attribute is the sum of these two attributes). There is additionally a `charged_at` timestamp that is used for normalization.\n\nNormalized attributes reflect a conversion from raw and/or charged attributes into the Transaction's `currency_code`, which is the same for all Passport-enabled entities associated with the Transaction's Organization. This normalization occurs to allow for a constant basis of comparison across each of these entities. These normalized values are all converted from the associated raw or charged attributes, preferring the charged attribute over the raw attribute if available. For example, `charged_total_gross_amount` will be used instead of `raw_total_gross_amount` if both `charged_total_gross_amount` and `charged_currency_code` are present. If `charged_at` is also present, the exchange rate between `charged_currency_code` and `currency_code` at that time will be used if/when the Transaction is renormalized.\n\nIt should be noted that there is no notion of raw fees, as these are calculated at the time that a Transaction is charged and therefore only reflected as charged attributes. If a transaction is flagged as 'fee-on-top', this will be reflected by an increase in the `charged_total_gross_amount` that will not be visible in `raw_total_gross_amount`.\n\nTransactions may be in a number of different states: success, incomplete, canceled, refunded, cb_initiated, cb_lost, test, pending, failed\n\nAn additional transaction attribute relating to Passport is the `tax_entity_id`. Tax entities indicate that an Organization is tax compliant within a certain country. A single organization may have more than one tax entity. The `tax_entity_id` listed on the Transaction indicates which of the Organization's tax entities indicates the tax compliance of the Transaction.\n\nTransactions may have an associated 'context' attribute which provides data about the Transaction's original Campaign (this does not change between hard credit transfers) and whether or not the transaction is considered to incorporate Passport functionality. This attribute can be used for filtering and/or sorting when using index endpoints.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "eef6752a-9f7d-445d-8357-bf5a9ae509ad",
+          "name": "fetchTransaction",
+          "request": {
+            "name": "fetchTransaction",
+            "description": {
+              "content": "Retrieves a Transaction from the ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transactions",
+                ":transaction"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "with",
+                  "value": "<string>",
+                  "description": "Request specific relationships to be returned with the Transaction"
+                },
+                {
+                  "disabled": false,
+                  "key": "with",
+                  "value": "<string>",
+                  "description": "Request specific relationships to be returned with the Transaction"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "transaction",
+                  "description": "(Required) The specified Transaction ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "631c6ed2-b5a9-4974-bfca-b29d05cc3adc",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":transaction"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "with",
+                      "value": "campaign"
+                    },
+                    {
+                      "key": "with",
+                      "value": "campaign"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "transaction",
+                      "description": "(Required) The specified Transaction ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account_number\": \"1234\",\n  \"account_type\": \"savings\",\n  \"acknowledgements_count\": 3,\n  \"adjustment_amount\": 0.5,\n  \"application_fee_amount\": 42,\n  \"applied_application_fee_percent\": 3,\n  \"applied_flex_rate_percent\": 50,\n  \"applied_fot_percent\": 50,\n  \"applied_processor_fee_percent\": 2.2,\n  \"applied_raw_processor_fee_flat\": 0.2,\n  \"billing_address1\": \"533 F Street\",\n  \"billing_address2\": \"533 F Street\",\n  \"billing_city\": \"San Diego\",\n  \"billing_country\": \"US\",\n  \"billing_first_name\": \"GoFundMe Pro\",\n  \"billing_last_name\": \"Member\",\n  \"billing_postal_code\": \"92101\",\n  \"billing_state\": \"CA\",\n  \"browser_info\": \"information\",\n  \"campaign_id\": 227362,\n  \"card_expiration\": \"1017\",\n  \"card_last_four\": 1234,\n  \"card_type\": \"Visa\",\n  \"charged_at\": \"2017-01-01T12:02:01+0000\",\n  \"charged_classy_fees_amount\": 0.15,\n  \"charged_currency_code\": \"USD\",\n  \"charged_fees_amount\": 0.35,\n  \"charged_pp_fees_amount\": 0.15,\n  \"charged_total_gross_amount\": 1,\n  \"classy_fees_amount\": 0.34,\n  \"comment\": \"This is a comment\",\n  \"company_name\": \"GoFundMe Pro\",\n  \"context\": {\n    \"application_fee_campaign_category\": \"main_donate_button\",\n    \"application_fee_platform_fee_type\": \"non_migrated_recurring\",\n    \"commerce_order_id\": \"or_01HFSN0GJZ6656RM8602Z37DY1\",\n    \"customizations_metadata\": {\n      \"theme\": \"dark\",\n      \"custom_fields\": {\n        \"field1\": \"value1\"\n      }\n    },\n    \"created_by\": \"My App\",\n    \"commerce_confirmation_id\": \"C9UE75VB2\",\n    \"is_passport\": true,\n    \"source_campaign_id\": 227362,\n    \"source_campaign_type\": \"peer_to_peer\",\n    \"vendor_name\": \"Vendor XYZ\",\n    \"vendor_batch_number\": \"BATCH123456\",\n    \"vendor_batch_sequence\": \"001\",\n    \"vendor_batch_date\": \"2024-01-15\"\n  },\n  \"created_at\": \"2016-01-01T12:00:00+0000\",\n  \"currency_code\": \"USD\",\n  \"designation_id\": 34672,\n  \"donation_gross_amount\": 1.25,\n  \"donation_matching_plan_id\": 4237,\n  \"donation_net_amount\": 1.25,\n  \"fees_amount\": 1.25,\n  \"fee_on_top\": true,\n  \"flex_rate_amount\": 42,\n  \"frequency\": \"one-time\",\n  \"fundraising_page_id\": 2173528,\n  \"fundraising_team_id\": 209745,\n  \"hide_amount\": false,\n  \"id\": 8734,\n  \"initial_gross_amount\": 1.25,\n  \"institution\": \"ABC Bank\",\n  \"in_honor_of\": \"GoFundMe Pro Relation\",\n  \"is_anonymous\": false,\n  \"is_donor_covered_fee\": true,\n  \"is_gift_aid\": false,\n  \"is_reprocess\": true,\n  \"member_country\": \"US\",\n  \"member_email_address\": \"member@gofundme.com\",\n  \"member_id\": 2012,\n  \"member_name\": \"GoFundMe Pro Member\",\n  \"member_phone\": \"555-555-5555\",\n  \"member_cell_phone\": \"555-555-5555\",\n  \"consent\": {\n    \"sms_opt_in\": false,\n    \"sms_consent_decision_date\": \"2016-01-01T12:05:42+0000\",\n    \"email_opt_in\": false,\n    \"email_consent_decision_date\": \"2016-01-01T12:05:42+0000\"\n  },\n  \"metadata\": \"{foo: 'bar'}\",\n  \"organization_id\": 82364,\n  \"overhead_net_amount\": 25,\n  \"parent_transaction_id\": 8734,\n  \"payment_gateway\": \"BrainTree\",\n  \"payment_method\": \"WPP\",\n  \"payment_source\": \"WALLET\",\n  \"payment_type\": \"Credit Card\",\n  \"pp_fees_amount\": 0.15,\n  \"pp_reference_id\": \"12345\",\n  \"pp_response\": \"1023\",\n  \"pp_transaction_id\": \"12345\",\n  \"processor_decline_code\": \"64\",\n  \"processor_fee_amount\": 42,\n  \"promo_code_code\": \"PROMO\",\n  \"purchased_at\": \"2016-01-01T12:00:00+0000\",\n  \"raw_adjustment_amount\": 0.25,\n  \"raw_application_fee_amount\": 42,\n  \"raw_currency_code\": \"JPY\",\n  \"raw_donation_gross_amount\": 1.25,\n  \"raw_flex_rate_amount\": 1.25,\n  \"raw_initial_gross_amount\": 1.25,\n  \"raw_overhead_net_amount\": 0.25,\n  \"raw_processor_fee_amount\": 42,\n  \"raw_total_gross_amount\": 1,\n  \"recurring_donation_plan_id\": 23847,\n  \"refunded_at\": \"2016-01-01T12:00:00+0000\",\n  \"reprocess_attempts\": 2,\n  \"status\": \"canceled\",\n  \"supporter_id\": 5827,\n  \"tax_entity_id\": 331,\n  \"total_gross_amount\": 1.25,\n  \"updated_at\": \"2016-01-01T12:00:00+0000\",\n  \"utm\": {\n    \"campaign\": \"year_end_2025\",\n    \"content\": \"top_banner\",\n    \"medium\": \"email\",\n    \"source\": \"mailchimp\",\n    \"term\": \"donate now\"\n  },\n  \"opted_into_payment_sync\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e27a8fe0-886a-492d-9aad-29c657bf4221",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":transaction"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "with",
+                      "value": "campaign"
+                    },
+                    {
+                      "key": "with",
+                      "value": "campaign"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "transaction",
+                      "description": "(Required) The specified Transaction ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "08129e43-af48-4c6e-a553-f4770a1baff8",
+              "name": "Transaction not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":transaction"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "with",
+                      "value": "campaign"
+                    },
+                    {
+                      "key": "with",
+                      "value": "campaign"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "transaction",
+                      "description": "(Required) The specified Transaction ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "23add850-3024-42fc-9da1-89070796bd37",
+          "name": "updateTransaction",
+          "request": {
+            "name": "updateTransaction",
+            "description": {
+              "content": "Update an existing Transaction",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transactions",
+                ":transaction"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "transaction",
+                  "description": "(Required) The specified Transaction ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "/oauth2/auth"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/oauth2/auth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"billing_address1\": \"<string,null>\",\n  \"billing_address2\": \"<string,null>\",\n  \"billing_city\": \"<string,null>\",\n  \"billing_country\": \"<string,null>\",\n  \"billing_first_name\": \"<string,null>\",\n  \"billing_last_name\": \"<string,null>\",\n  \"billing_postal_code\": \"<string,null>\",\n  \"billing_state\": \"<string,null>\",\n  \"browser_info\": \"<string,null>\",\n  \"comment\": \"<string,null>\",\n  \"company_name\": \"<string,null>\",\n  \"hide_amount\": \"<boolean,null>\",\n  \"is_anonymous\": \"<boolean,null>\",\n  \"is_gift_aid\": \"<boolean,null>\",\n  \"is_reprocess\": \"<boolean,null>\",\n  \"member_country\": \"<string,null>\",\n  \"member_email_address\": \"<string,null>\",\n  \"member_name\": \"<string,null>\",\n  \"member_phone\": \"<string,null>\",\n  \"member_cell_phone\": \"<string,null>\",\n  \"metadata\": \"<string,null>\",\n  \"raw_currency_code\": \"<string,null>\",\n  \"status\": \"<string,null>\",\n  \"reprocess_attempt_info\": {\n    \"original_transaction_id\": \"<integer>\",\n    \"reprocess_transaction_id\": \"<integer>\",\n    \"initiated_by_id\": \"<integer>\",\n    \"pp_transaction_id\": \"<string>\",\n    \"state\": \"<string>\"\n  },\n  \"fundraising_tracking_code\": \"<string>\",\n  \"answers\": [\n    {\n      \"answer\": \"<string>\",\n      \"answerable_id\": \"<integer,null>\",\n      \"answerable_type\": \"<string,null>\",\n      \"campaign_id\": \"<integer>\",\n      \"created_at\": \"<dateTime>\",\n      \"id\": \"<integer>\",\n      \"member_id\": \"<integer>\",\n      \"question_id\": \"<integer>\",\n      \"updated_at\": \"<string,null-date-time>\"\n    },\n    {\n      \"answer\": \"<string>\",\n      \"answerable_id\": \"<integer,null>\",\n      \"answerable_type\": \"<string,null>\",\n      \"campaign_id\": \"<integer>\",\n      \"created_at\": \"<dateTime>\",\n      \"id\": \"<integer>\",\n      \"member_id\": \"<integer>\",\n      \"question_id\": \"<integer>\",\n      \"updated_at\": \"<string,null-date-time>\"\n    }\n  ],\n  \"items\": [\n    {\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"raw_final_price\": \"<number,null-double>\",\n      \"raw_overhead_amount\": \"<number,null-double>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"product_name\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"raw_final_price\": \"<number,null-double>\",\n      \"raw_overhead_amount\": \"<number,null-double>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5e09a53e-a1ec-4f95-93ce-9fd309b17708",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":transaction"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "transaction",
+                      "description": "(Required) The specified Transaction ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"billing_address1\": \"533 F Street\",\n  \"billing_address2\": \"533 F Street\",\n  \"billing_city\": \"San Diego\",\n  \"billing_country\": \"US\",\n  \"billing_first_name\": \"GoFundMe Pro\",\n  \"billing_last_name\": \"Member\",\n  \"billing_postal_code\": \"92101\",\n  \"billing_state\": \"CA\",\n  \"browser_info\": \"information\",\n  \"comment\": \"This is a comment\",\n  \"company_name\": \"GoFundMe Pro\",\n  \"hide_amount\": false,\n  \"is_anonymous\": false,\n  \"is_gift_aid\": false,\n  \"is_reprocess\": true,\n  \"member_country\": \"US\",\n  \"member_email_address\": \"member@gofundme.com\",\n  \"member_name\": \"GoFundMe Pro Member\",\n  \"member_phone\": \"555-555-5555\",\n  \"member_cell_phone\": \"555-555-5555\",\n  \"metadata\": \"{foo: 'bar'}\",\n  \"raw_currency_code\": \"JPY\",\n  \"status\": \"canceled\",\n  \"reprocess_attempt_info\": {\n    \"original_transaction_id\": 8734,\n    \"reprocess_transaction_id\": 7623371,\n    \"initiated_by_id\": 2012,\n    \"pp_transaction_id\": \"922337203687624342\",\n    \"state\": \"completed\"\n  },\n  \"fundraising_tracking_code\": \"JD0146\",\n  \"answers\": [\n    {\n      \"answer\": \"Example answer test\",\n      \"answerable_id\": 3245,\n      \"answerable_type\": \"fundraising_team\",\n      \"campaign_id\": 227362,\n      \"created_at\": \"2021-04-23T08:23:21Z\",\n      \"id\": 32459,\n      \"member_id\": 2012,\n      \"question_id\": 45678,\n      \"updated_at\": \"2021-04-23T10:25:03Z\"\n    },\n    {\n      \"answer\": \"Example answer test\",\n      \"answerable_id\": 3245,\n      \"answerable_type\": \"fundraising_team\",\n      \"campaign_id\": 227362,\n      \"created_at\": \"2021-04-23T08:23:21Z\",\n      \"id\": 32459,\n      \"member_id\": 2012,\n      \"question_id\": 45678,\n      \"updated_at\": \"2021-04-23T10:25:03Z\"\n    }\n  ],\n  \"items\": [\n    {\n      \"product_name\": \"Tickets\",\n      \"quantity\": 1,\n      \"raw_final_price\": 15,\n      \"raw_overhead_amount\": 15,\n      \"type\": \"donation\"\n    },\n    {\n      \"product_name\": \"Tickets\",\n      \"quantity\": 1,\n      \"raw_final_price\": 15,\n      \"raw_overhead_amount\": 15,\n      \"type\": \"donation\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account_number\": \"1234\",\n  \"account_type\": \"savings\",\n  \"acknowledgements_count\": 3,\n  \"adjustment_amount\": 0.5,\n  \"application_fee_amount\": 42,\n  \"applied_application_fee_percent\": 3,\n  \"applied_flex_rate_percent\": 50,\n  \"applied_fot_percent\": 50,\n  \"applied_processor_fee_percent\": 2.2,\n  \"applied_raw_processor_fee_flat\": 0.2,\n  \"billing_address1\": \"533 F Street\",\n  \"billing_address2\": \"533 F Street\",\n  \"billing_city\": \"San Diego\",\n  \"billing_country\": \"US\",\n  \"billing_first_name\": \"GoFundMe Pro\",\n  \"billing_last_name\": \"Member\",\n  \"billing_postal_code\": \"92101\",\n  \"billing_state\": \"CA\",\n  \"browser_info\": \"information\",\n  \"campaign_id\": 227362,\n  \"card_expiration\": \"1017\",\n  \"card_last_four\": 1234,\n  \"card_type\": \"Visa\",\n  \"charged_at\": \"2017-01-01T12:02:01+0000\",\n  \"charged_classy_fees_amount\": 0.15,\n  \"charged_currency_code\": \"USD\",\n  \"charged_fees_amount\": 0.35,\n  \"charged_pp_fees_amount\": 0.15,\n  \"charged_total_gross_amount\": 1,\n  \"classy_fees_amount\": 0.34,\n  \"comment\": \"This is a comment\",\n  \"company_name\": \"GoFundMe Pro\",\n  \"context\": {\n    \"application_fee_campaign_category\": \"main_donate_button\",\n    \"application_fee_platform_fee_type\": \"non_migrated_recurring\",\n    \"commerce_order_id\": \"or_01HFSN0GJZ6656RM8602Z37DY1\",\n    \"customizations_metadata\": {\n      \"theme\": \"dark\",\n      \"custom_fields\": {\n        \"field1\": \"value1\"\n      }\n    },\n    \"created_by\": \"My App\",\n    \"commerce_confirmation_id\": \"C9UE75VB2\",\n    \"is_passport\": true,\n    \"source_campaign_id\": 227362,\n    \"source_campaign_type\": \"peer_to_peer\",\n    \"vendor_name\": \"Vendor XYZ\",\n    \"vendor_batch_number\": \"BATCH123456\",\n    \"vendor_batch_sequence\": \"001\",\n    \"vendor_batch_date\": \"2024-01-15\"\n  },\n  \"created_at\": \"2016-01-01T12:00:00+0000\",\n  \"currency_code\": \"USD\",\n  \"designation_id\": 34672,\n  \"donation_gross_amount\": 1.25,\n  \"donation_matching_plan_id\": 4237,\n  \"donation_net_amount\": 1.25,\n  \"fees_amount\": 1.25,\n  \"fee_on_top\": true,\n  \"flex_rate_amount\": 42,\n  \"frequency\": \"one-time\",\n  \"fundraising_page_id\": 2173528,\n  \"fundraising_team_id\": 209745,\n  \"hide_amount\": false,\n  \"id\": 8734,\n  \"initial_gross_amount\": 1.25,\n  \"institution\": \"ABC Bank\",\n  \"in_honor_of\": \"GoFundMe Pro Relation\",\n  \"is_anonymous\": false,\n  \"is_donor_covered_fee\": true,\n  \"is_gift_aid\": false,\n  \"is_reprocess\": true,\n  \"member_country\": \"US\",\n  \"member_email_address\": \"member@gofundme.com\",\n  \"member_id\": 2012,\n  \"member_name\": \"GoFundMe Pro Member\",\n  \"member_phone\": \"555-555-5555\",\n  \"member_cell_phone\": \"555-555-5555\",\n  \"consent\": {\n    \"sms_opt_in\": false,\n    \"sms_consent_decision_date\": \"2016-01-01T12:05:42+0000\",\n    \"email_opt_in\": false,\n    \"email_consent_decision_date\": \"2016-01-01T12:05:42+0000\"\n  },\n  \"metadata\": \"{foo: 'bar'}\",\n  \"organization_id\": 82364,\n  \"overhead_net_amount\": 25,\n  \"parent_transaction_id\": 8734,\n  \"payment_gateway\": \"BrainTree\",\n  \"payment_method\": \"WPP\",\n  \"payment_source\": \"WALLET\",\n  \"payment_type\": \"Credit Card\",\n  \"pp_fees_amount\": 0.15,\n  \"pp_reference_id\": \"12345\",\n  \"pp_response\": \"1023\",\n  \"pp_transaction_id\": \"12345\",\n  \"processor_decline_code\": \"64\",\n  \"processor_fee_amount\": 42,\n  \"promo_code_code\": \"PROMO\",\n  \"purchased_at\": \"2016-01-01T12:00:00+0000\",\n  \"raw_adjustment_amount\": 0.25,\n  \"raw_application_fee_amount\": 42,\n  \"raw_currency_code\": \"JPY\",\n  \"raw_donation_gross_amount\": 1.25,\n  \"raw_flex_rate_amount\": 1.25,\n  \"raw_initial_gross_amount\": 1.25,\n  \"raw_overhead_net_amount\": 0.25,\n  \"raw_processor_fee_amount\": 42,\n  \"raw_total_gross_amount\": 1,\n  \"recurring_donation_plan_id\": 23847,\n  \"refunded_at\": \"2016-01-01T12:00:00+0000\",\n  \"reprocess_attempts\": 2,\n  \"status\": \"canceled\",\n  \"supporter_id\": 5827,\n  \"tax_entity_id\": 331,\n  \"total_gross_amount\": 1.25,\n  \"updated_at\": \"2016-01-01T12:00:00+0000\",\n  \"utm\": {\n    \"campaign\": \"year_end_2025\",\n    \"content\": \"top_banner\",\n    \"medium\": \"email\",\n    \"source\": \"mailchimp\",\n    \"term\": \"donate now\"\n  },\n  \"opted_into_payment_sync\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1cacbeef-9bd3-4234-8e8a-220cf3ff0f64",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":transaction"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "transaction",
+                      "description": "(Required) The specified Transaction ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"billing_address1\": \"533 F Street\",\n  \"billing_address2\": \"533 F Street\",\n  \"billing_city\": \"San Diego\",\n  \"billing_country\": \"US\",\n  \"billing_first_name\": \"GoFundMe Pro\",\n  \"billing_last_name\": \"Member\",\n  \"billing_postal_code\": \"92101\",\n  \"billing_state\": \"CA\",\n  \"browser_info\": \"information\",\n  \"comment\": \"This is a comment\",\n  \"company_name\": \"GoFundMe Pro\",\n  \"hide_amount\": false,\n  \"is_anonymous\": false,\n  \"is_gift_aid\": false,\n  \"is_reprocess\": true,\n  \"member_country\": \"US\",\n  \"member_email_address\": \"member@gofundme.com\",\n  \"member_name\": \"GoFundMe Pro Member\",\n  \"member_phone\": \"555-555-5555\",\n  \"member_cell_phone\": \"555-555-5555\",\n  \"metadata\": \"{foo: 'bar'}\",\n  \"raw_currency_code\": \"JPY\",\n  \"status\": \"canceled\",\n  \"reprocess_attempt_info\": {\n    \"original_transaction_id\": 8734,\n    \"reprocess_transaction_id\": 7623371,\n    \"initiated_by_id\": 2012,\n    \"pp_transaction_id\": \"922337203687624342\",\n    \"state\": \"completed\"\n  },\n  \"fundraising_tracking_code\": \"JD0146\",\n  \"answers\": [\n    {\n      \"answer\": \"Example answer test\",\n      \"answerable_id\": 3245,\n      \"answerable_type\": \"fundraising_team\",\n      \"campaign_id\": 227362,\n      \"created_at\": \"2021-04-23T08:23:21Z\",\n      \"id\": 32459,\n      \"member_id\": 2012,\n      \"question_id\": 45678,\n      \"updated_at\": \"2021-04-23T10:25:03Z\"\n    },\n    {\n      \"answer\": \"Example answer test\",\n      \"answerable_id\": 3245,\n      \"answerable_type\": \"fundraising_team\",\n      \"campaign_id\": 227362,\n      \"created_at\": \"2021-04-23T08:23:21Z\",\n      \"id\": 32459,\n      \"member_id\": 2012,\n      \"question_id\": 45678,\n      \"updated_at\": \"2021-04-23T10:25:03Z\"\n    }\n  ],\n  \"items\": [\n    {\n      \"product_name\": \"Tickets\",\n      \"quantity\": 1,\n      \"raw_final_price\": 15,\n      \"raw_overhead_amount\": 15,\n      \"type\": \"donation\"\n    },\n    {\n      \"product_name\": \"Tickets\",\n      \"quantity\": 1,\n      \"raw_final_price\": 15,\n      \"raw_overhead_amount\": 15,\n      \"type\": \"donation\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7d889a72-ebe3-4652-84c5-738256ea550c",
+              "name": "Transaction not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":transaction"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "transaction",
+                      "description": "(Required) The specified Transaction ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"billing_address1\": \"533 F Street\",\n  \"billing_address2\": \"533 F Street\",\n  \"billing_city\": \"San Diego\",\n  \"billing_country\": \"US\",\n  \"billing_first_name\": \"GoFundMe Pro\",\n  \"billing_last_name\": \"Member\",\n  \"billing_postal_code\": \"92101\",\n  \"billing_state\": \"CA\",\n  \"browser_info\": \"information\",\n  \"comment\": \"This is a comment\",\n  \"company_name\": \"GoFundMe Pro\",\n  \"hide_amount\": false,\n  \"is_anonymous\": false,\n  \"is_gift_aid\": false,\n  \"is_reprocess\": true,\n  \"member_country\": \"US\",\n  \"member_email_address\": \"member@gofundme.com\",\n  \"member_name\": \"GoFundMe Pro Member\",\n  \"member_phone\": \"555-555-5555\",\n  \"member_cell_phone\": \"555-555-5555\",\n  \"metadata\": \"{foo: 'bar'}\",\n  \"raw_currency_code\": \"JPY\",\n  \"status\": \"canceled\",\n  \"reprocess_attempt_info\": {\n    \"original_transaction_id\": 8734,\n    \"reprocess_transaction_id\": 7623371,\n    \"initiated_by_id\": 2012,\n    \"pp_transaction_id\": \"922337203687624342\",\n    \"state\": \"completed\"\n  },\n  \"fundraising_tracking_code\": \"JD0146\",\n  \"answers\": [\n    {\n      \"answer\": \"Example answer test\",\n      \"answerable_id\": 3245,\n      \"answerable_type\": \"fundraising_team\",\n      \"campaign_id\": 227362,\n      \"created_at\": \"2021-04-23T08:23:21Z\",\n      \"id\": 32459,\n      \"member_id\": 2012,\n      \"question_id\": 45678,\n      \"updated_at\": \"2021-04-23T10:25:03Z\"\n    },\n    {\n      \"answer\": \"Example answer test\",\n      \"answerable_id\": 3245,\n      \"answerable_type\": \"fundraising_team\",\n      \"campaign_id\": 227362,\n      \"created_at\": \"2021-04-23T08:23:21Z\",\n      \"id\": 32459,\n      \"member_id\": 2012,\n      \"question_id\": 45678,\n      \"updated_at\": \"2021-04-23T10:25:03Z\"\n    }\n  ],\n  \"items\": [\n    {\n      \"product_name\": \"Tickets\",\n      \"quantity\": 1,\n      \"raw_final_price\": 15,\n      \"raw_overhead_amount\": 15,\n      \"type\": \"donation\"\n    },\n    {\n      \"product_name\": \"Tickets\",\n      \"quantity\": 1,\n      \"raw_final_price\": 15,\n      \"raw_overhead_amount\": 15,\n      \"type\": \"donation\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1fc0b8f8-dd3b-48f7-9250-0452da868b36",
+          "name": "listCampaignTransactions",
+          "request": {
+            "name": "listCampaignTransactions",
+            "description": {
+              "content": "List Campaign Transactions",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaigns",
+                ":campaign",
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Indicator of which page of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Number of entries to return in each page of results"
+                },
+                {
+                  "disabled": false,
+                  "key": "with",
+                  "value": "<string>",
+                  "description": "Request specific relationships to be returned with the Transaction"
+                },
+                {
+                  "disabled": false,
+                  "key": "with",
+                  "value": "<string>",
+                  "description": "Request specific relationships to be returned with the Transaction"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to be returned"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "campaign",
+                  "description": "(Required) ID of Campaign"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "df9c9790-412c-45dc-9284-2261728c157f",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":campaign",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "with",
+                      "value": "items"
+                    },
+                    {
+                      "key": "with",
+                      "value": "items"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign",
+                      "description": "(Required) ID of Campaign"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"value\": \"<Error: Could not resolve allOf schema\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c7fa6e8-6ef9-47a2-acae-954dee7ad85e",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":campaign",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "with",
+                      "value": "items"
+                    },
+                    {
+                      "key": "with",
+                      "value": "items"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign",
+                      "description": "(Required) ID of Campaign"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "943c7905-fe96-4cd6-8358-c09c15b3291b",
+              "name": "Campaign not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":campaign",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "with",
+                      "value": "items"
+                    },
+                    {
+                      "key": "with",
+                      "value": "items"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign",
+                      "description": "(Required) ID of Campaign"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "77d5d682-7539-492a-a25d-bc6a2eb4b596",
+          "name": "createCampaignTransaction",
+          "request": {
+            "name": "createCampaignTransaction",
+            "description": {
+              "content": "For external requests this creates an “offline” transaction record for the specified campaign. An offline transaction represents funds collected outside of the GoFundMe Pro platform, but accounted for in GoFundMe Pro reporting, activity feeds, etc. Adding an offline transaction record does not charge any credit cards, nor credit any GoFundMe Pro accounts.\n\n   An array of TransactionItems must be included along with the basic Transaction information via the items attribute. Please view the Transaction Item documentation for formatting pertaining to this attribute.\n\n   NOTE: requests must include one of the following:\n   billing_first_name AND billing_last_name\n   OR member_email_address\n   OR company_name\n\n   Requests may contain all three. Please note that if an offline transaction only contains a company_name and is therefore a transaction by a company and not a person then answers will not be created for that transaction.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaigns",
+                ":campaign",
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "campaign",
+                  "description": "(Required) The specified Campaign ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "/oauth2/auth"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/oauth2/auth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"answers\": \"<array,null>\",\n  \"billing_address1\": \"<string,null>\",\n  \"billing_address2\": \"<string,null>\",\n  \"billing_city\": \"<string,null>\",\n  \"billing_country\": \"<string,null>\",\n  \"billing_first_name\": \"<string,null>\",\n  \"billing_last_name\": \"<string,null>\",\n  \"billing_postal_code\": \"<string,null>\",\n  \"billing_state\": \"<string,null>\",\n  \"browser_info\": \"<string,null>\",\n  \"comment\": \"<string,null>\",\n  \"company_name\": \"<string,null>\",\n  \"designation_id\": \"<integer,null>\",\n  \"fundraising_page_id\": \"<integer,null>\",\n  \"fundraising_team_id\": \"<integer,null>\",\n  \"hide_amount\": \"<boolean,null>\",\n  \"is_anonymous\": \"<boolean,null>\",\n  \"is_gift_aid\": \"<boolean,null>\",\n  \"is_reprocess\": \"<boolean,null>\",\n  \"items\": \"<array,null>\",\n  \"member_country\": \"<string,null>\",\n  \"member_email_address\": \"<string,null>\",\n  \"member_name\": \"<string,null>\",\n  \"member_phone\": \"<string,null>\",\n  \"member_cell_phone\": \"<string,null>\",\n  \"metadata\": \"<string,null>\",\n  \"offline_payment_info\": {\n    \"check_number\": \"<string,null>\",\n    \"description\": \"<string,null>\",\n    \"payment_type\": \"<string,null>\",\n    \"sync_third_party\": \"<boolean,null>\"\n  },\n  \"parent_transaction_id\": \"<integer,null>\",\n  \"purchased_at\": \"<string,null-date-time>\",\n  \"raw_currency_code\": \"<string,null>\",\n  \"refunded_at\": \"<string,null-date-time>\",\n  \"status\": \"<string,null>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "340132a3-b1e0-4adf-8f88-4f98ecfbf585",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":campaign",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"answers\": \"<array,null>\",\n  \"billing_address1\": \"533 F Street\",\n  \"billing_address2\": \"533 F Street\",\n  \"billing_city\": \"San Diego\",\n  \"billing_country\": \"US\",\n  \"billing_first_name\": \"GoFundMe Pro\",\n  \"billing_last_name\": \"Member\",\n  \"billing_postal_code\": \"92101\",\n  \"billing_state\": \"CA\",\n  \"browser_info\": \"information\",\n  \"comment\": \"This is a comment\",\n  \"company_name\": \"GoFundMe Pro\",\n  \"designation_id\": 564856,\n  \"fundraising_page_id\": 865125,\n  \"fundraising_team_id\": 256489,\n  \"hide_amount\": false,\n  \"is_anonymous\": false,\n  \"is_gift_aid\": false,\n  \"is_reprocess\": true,\n  \"items\": \"<array,null>\",\n  \"member_country\": \"US\",\n  \"member_email_address\": \"member@gofundme.com\",\n  \"member_name\": \"GoFundMe Pro Member\",\n  \"member_phone\": \"555-555-5555\",\n  \"member_cell_phone\": \"555-555-5555\",\n  \"metadata\": \"{foo: 'bar'}\",\n  \"offline_payment_info\": {\n    \"check_number\": \"456\",\n    \"description\": \"Lorem ipsum whatever\",\n    \"payment_type\": \"cash\",\n    \"sync_third_party\": false\n  },\n  \"parent_transaction_id\": 7133489,\n  \"purchased_at\": \"2016-01-01T12:00:00+0000\",\n  \"raw_currency_code\": \"JPY\",\n  \"refunded_at\": \"2016-01-01T12:00:00+0000\",\n  \"status\": \"canceled\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account_number\": \"1234\",\n  \"account_type\": \"savings\",\n  \"acknowledgements_count\": 3,\n  \"adjustment_amount\": 0.5,\n  \"application_fee_amount\": 42,\n  \"applied_application_fee_percent\": 3,\n  \"applied_flex_rate_percent\": 50,\n  \"applied_fot_percent\": 50,\n  \"applied_processor_fee_percent\": 2.2,\n  \"applied_raw_processor_fee_flat\": 0.2,\n  \"billing_address1\": \"533 F Street\",\n  \"billing_address2\": \"533 F Street\",\n  \"billing_city\": \"San Diego\",\n  \"billing_country\": \"US\",\n  \"billing_first_name\": \"GoFundMe Pro\",\n  \"billing_last_name\": \"Member\",\n  \"billing_postal_code\": \"92101\",\n  \"billing_state\": \"CA\",\n  \"browser_info\": \"information\",\n  \"campaign_id\": 227362,\n  \"card_expiration\": \"1017\",\n  \"card_last_four\": 1234,\n  \"card_type\": \"Visa\",\n  \"charged_at\": \"2017-01-01T12:02:01+0000\",\n  \"charged_classy_fees_amount\": 0.15,\n  \"charged_currency_code\": \"USD\",\n  \"charged_fees_amount\": 0.35,\n  \"charged_pp_fees_amount\": 0.15,\n  \"charged_total_gross_amount\": 1,\n  \"classy_fees_amount\": 0.34,\n  \"comment\": \"This is a comment\",\n  \"company_name\": \"GoFundMe Pro\",\n  \"context\": {\n    \"application_fee_campaign_category\": \"main_donate_button\",\n    \"application_fee_platform_fee_type\": \"non_migrated_recurring\",\n    \"commerce_order_id\": \"or_01HFSN0GJZ6656RM8602Z37DY1\",\n    \"customizations_metadata\": {\n      \"theme\": \"dark\",\n      \"custom_fields\": {\n        \"field1\": \"value1\"\n      }\n    },\n    \"created_by\": \"My App\",\n    \"commerce_confirmation_id\": \"C9UE75VB2\",\n    \"is_passport\": true,\n    \"source_campaign_id\": 227362,\n    \"source_campaign_type\": \"peer_to_peer\",\n    \"vendor_name\": \"Vendor XYZ\",\n    \"vendor_batch_number\": \"BATCH123456\",\n    \"vendor_batch_sequence\": \"001\",\n    \"vendor_batch_date\": \"2024-01-15\"\n  },\n  \"created_at\": \"2016-01-01T12:00:00+0000\",\n  \"currency_code\": \"USD\",\n  \"designation_id\": 34672,\n  \"donation_gross_amount\": 1.25,\n  \"donation_matching_plan_id\": 4237,\n  \"donation_net_amount\": 1.25,\n  \"fees_amount\": 1.25,\n  \"fee_on_top\": true,\n  \"flex_rate_amount\": 42,\n  \"frequency\": \"one-time\",\n  \"fundraising_page_id\": 2173528,\n  \"fundraising_team_id\": 209745,\n  \"hide_amount\": false,\n  \"id\": 8734,\n  \"initial_gross_amount\": 1.25,\n  \"institution\": \"ABC Bank\",\n  \"in_honor_of\": \"GoFundMe Pro Relation\",\n  \"is_anonymous\": false,\n  \"is_donor_covered_fee\": true,\n  \"is_gift_aid\": false,\n  \"is_reprocess\": true,\n  \"member_country\": \"US\",\n  \"member_email_address\": \"member@gofundme.com\",\n  \"member_id\": 2012,\n  \"member_name\": \"GoFundMe Pro Member\",\n  \"member_phone\": \"555-555-5555\",\n  \"member_cell_phone\": \"555-555-5555\",\n  \"consent\": {\n    \"sms_opt_in\": false,\n    \"sms_consent_decision_date\": \"2016-01-01T12:05:42+0000\",\n    \"email_opt_in\": false,\n    \"email_consent_decision_date\": \"2016-01-01T12:05:42+0000\"\n  },\n  \"metadata\": \"{foo: 'bar'}\",\n  \"organization_id\": 82364,\n  \"overhead_net_amount\": 25,\n  \"parent_transaction_id\": 8734,\n  \"payment_gateway\": \"BrainTree\",\n  \"payment_method\": \"WPP\",\n  \"payment_source\": \"WALLET\",\n  \"payment_type\": \"Credit Card\",\n  \"pp_fees_amount\": 0.15,\n  \"pp_reference_id\": \"12345\",\n  \"pp_response\": \"1023\",\n  \"pp_transaction_id\": \"12345\",\n  \"processor_decline_code\": \"64\",\n  \"processor_fee_amount\": 42,\n  \"promo_code_code\": \"PROMO\",\n  \"purchased_at\": \"2016-01-01T12:00:00+0000\",\n  \"raw_adjustment_amount\": 0.25,\n  \"raw_application_fee_amount\": 42,\n  \"raw_currency_code\": \"JPY\",\n  \"raw_donation_gross_amount\": 1.25,\n  \"raw_flex_rate_amount\": 1.25,\n  \"raw_initial_gross_amount\": 1.25,\n  \"raw_overhead_net_amount\": 0.25,\n  \"raw_processor_fee_amount\": 42,\n  \"raw_total_gross_amount\": 1,\n  \"recurring_donation_plan_id\": 23847,\n  \"refunded_at\": \"2016-01-01T12:00:00+0000\",\n  \"reprocess_attempts\": 2,\n  \"status\": \"canceled\",\n  \"supporter_id\": 5827,\n  \"tax_entity_id\": 331,\n  \"total_gross_amount\": 1.25,\n  \"updated_at\": \"2016-01-01T12:00:00+0000\",\n  \"utm\": {\n    \"campaign\": \"year_end_2025\",\n    \"content\": \"top_banner\",\n    \"medium\": \"email\",\n    \"source\": \"mailchimp\",\n    \"term\": \"donate now\"\n  },\n  \"opted_into_payment_sync\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5e5ae37e-18f7-4ceb-8b55-bbd14571a2de",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":campaign",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"answers\": \"<array,null>\",\n  \"billing_address1\": \"533 F Street\",\n  \"billing_address2\": \"533 F Street\",\n  \"billing_city\": \"San Diego\",\n  \"billing_country\": \"US\",\n  \"billing_first_name\": \"GoFundMe Pro\",\n  \"billing_last_name\": \"Member\",\n  \"billing_postal_code\": \"92101\",\n  \"billing_state\": \"CA\",\n  \"browser_info\": \"information\",\n  \"comment\": \"This is a comment\",\n  \"company_name\": \"GoFundMe Pro\",\n  \"designation_id\": 564856,\n  \"fundraising_page_id\": 865125,\n  \"fundraising_team_id\": 256489,\n  \"hide_amount\": false,\n  \"is_anonymous\": false,\n  \"is_gift_aid\": false,\n  \"is_reprocess\": true,\n  \"items\": \"<array,null>\",\n  \"member_country\": \"US\",\n  \"member_email_address\": \"member@gofundme.com\",\n  \"member_name\": \"GoFundMe Pro Member\",\n  \"member_phone\": \"555-555-5555\",\n  \"member_cell_phone\": \"555-555-5555\",\n  \"metadata\": \"{foo: 'bar'}\",\n  \"offline_payment_info\": {\n    \"check_number\": \"456\",\n    \"description\": \"Lorem ipsum whatever\",\n    \"payment_type\": \"cash\",\n    \"sync_third_party\": false\n  },\n  \"parent_transaction_id\": 7133489,\n  \"purchased_at\": \"2016-01-01T12:00:00+0000\",\n  \"raw_currency_code\": \"JPY\",\n  \"refunded_at\": \"2016-01-01T12:00:00+0000\",\n  \"status\": \"canceled\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "203b79d9-a8cb-4617-b6ee-57d1da26dbcb",
+              "name": "Campaign not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":campaign",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"answers\": \"<array,null>\",\n  \"billing_address1\": \"533 F Street\",\n  \"billing_address2\": \"533 F Street\",\n  \"billing_city\": \"San Diego\",\n  \"billing_country\": \"US\",\n  \"billing_first_name\": \"GoFundMe Pro\",\n  \"billing_last_name\": \"Member\",\n  \"billing_postal_code\": \"92101\",\n  \"billing_state\": \"CA\",\n  \"browser_info\": \"information\",\n  \"comment\": \"This is a comment\",\n  \"company_name\": \"GoFundMe Pro\",\n  \"designation_id\": 564856,\n  \"fundraising_page_id\": 865125,\n  \"fundraising_team_id\": 256489,\n  \"hide_amount\": false,\n  \"is_anonymous\": false,\n  \"is_gift_aid\": false,\n  \"is_reprocess\": true,\n  \"items\": \"<array,null>\",\n  \"member_country\": \"US\",\n  \"member_email_address\": \"member@gofundme.com\",\n  \"member_name\": \"GoFundMe Pro Member\",\n  \"member_phone\": \"555-555-5555\",\n  \"member_cell_phone\": \"555-555-5555\",\n  \"metadata\": \"{foo: 'bar'}\",\n  \"offline_payment_info\": {\n    \"check_number\": \"456\",\n    \"description\": \"Lorem ipsum whatever\",\n    \"payment_type\": \"cash\",\n    \"sync_third_party\": false\n  },\n  \"parent_transaction_id\": 7133489,\n  \"purchased_at\": \"2016-01-01T12:00:00+0000\",\n  \"raw_currency_code\": \"JPY\",\n  \"refunded_at\": \"2016-01-01T12:00:00+0000\",\n  \"status\": \"canceled\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5c02b701-cb34-4c4a-9128-0f5f405ec142",
+          "name": "listOrganizationTransactions",
+          "request": {
+            "name": "listOrganizationTransactions",
+            "description": {
+              "content": "List Organization Transactions",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "organizations",
+                ":organization",
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Indicator of which page of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Number of entries to return in each page of results"
+                },
+                {
+                  "disabled": false,
+                  "key": "with",
+                  "value": "<string>",
+                  "description": "Request specific relationships to be returned with the Transaction"
+                },
+                {
+                  "disabled": false,
+                  "key": "with",
+                  "value": "<string>",
+                  "description": "Request specific relationships to be returned with the Transaction"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "organization",
+                  "description": "(Required) ID of Organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a4a048c7-9a60-4f05-8517-0a4a77f32c64",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organization",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "with",
+                      "value": "items"
+                    },
+                    {
+                      "key": "with",
+                      "value": "items"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "organization",
+                      "description": "(Required) ID of Organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"value\": \"<Error: Could not resolve allOf schema\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "463b069e-2083-464a-b7e3-d02a583cedfe",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organization",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "with",
+                      "value": "items"
+                    },
+                    {
+                      "key": "with",
+                      "value": "items"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "organization",
+                      "description": "(Required) ID of Organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d985941c-3a1a-4578-bd6f-f80aad867c63",
+              "name": "Organization not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organization",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "with",
+                      "value": "items"
+                    },
+                    {
+                      "key": "with",
+                      "value": "items"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "organization",
+                      "description": "(Required) ID of Organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7aa72ba1-760e-4f03-ac09-f1a74b9a9fb6",
+          "name": "listRecurringDonationPlanTransactions",
+          "request": {
+            "name": "listRecurringDonationPlanTransactions",
+            "description": {
+              "content": "List Recurring Donation Plan Transactions",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "recurring-donation-plans",
+                ":recurring_donation_plan",
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Indicator of which page of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Number of entries to return in each page of results"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "recurring_donation_plan",
+                  "description": "(Required) ID of Recurring Donation Plan"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b6ca013d-dc95-4312-91c6-84441551b59e",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recurring-donation-plans",
+                    ":recurring_donation_plan",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recurring_donation_plan",
+                      "description": "(Required) ID of Recurring Donation Plan"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"value\": \"<Error: Could not resolve allOf schema\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d89dcc72-ce7d-466c-a020-4f7d13a0dcb7",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recurring-donation-plans",
+                    ":recurring_donation_plan",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recurring_donation_plan",
+                      "description": "(Required) ID of Recurring Donation Plan"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "81f12ff3-7a99-4eb1-a463-edf333f0c3e7",
+              "name": "Recurring Donation Plan not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recurring-donation-plans",
+                    ":recurring_donation_plan",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recurring_donation_plan",
+                      "description": "(Required) ID of Recurring Donation Plan"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cbae1592-e759-4116-a5d1-90140e99893f",
+          "name": "reprocessRecurringDonationPlanTransaction",
+          "request": {
+            "name": "reprocessRecurringDonationPlanTransaction",
+            "description": {
+              "content": "Reprocess a Transactions for a Recurring Donation Plan",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "recurring-donation-plans",
+                ":id",
+                "transactions",
+                ":transaction_id",
+                "reprocess"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The specified Recurring Donation Plan ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "transaction_id",
+                  "description": "(Required) The specified Transaction ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "/oauth2/auth"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/oauth2/auth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"billing_address1\": \"<string,null>\",\n  \"billing_address2\": \"<string,null>\",\n  \"billing_city\": \"<string,null>\",\n  \"billing_country\": \"<string,null>\",\n  \"billing_first_name\": \"<string,null>\",\n  \"billing_last_name\": \"<string,null>\",\n  \"billing_postal_code\": \"<string,null>\",\n  \"billing_state\": \"<string,null>\",\n  \"browser_info\": \"<string,null>\",\n  \"comment\": \"<string,null>\",\n  \"company_name\": \"<string,null>\",\n  \"hide_amount\": \"<boolean,null>\",\n  \"is_anonymous\": \"<boolean,null>\",\n  \"is_gift_aid\": \"<boolean,null>\",\n  \"is_reprocess\": \"<boolean,null>\",\n  \"member_country\": \"<string,null>\",\n  \"member_email_address\": \"<string,null>\",\n  \"member_name\": \"<string,null>\",\n  \"member_phone\": \"<string,null>\",\n  \"member_cell_phone\": \"<string,null>\",\n  \"metadata\": \"<string,null>\",\n  \"raw_currency_code\": \"<string,null>\",\n  \"status\": \"<string,null>\",\n  \"reprocess_attempt_info\": {\n    \"original_transaction_id\": \"<integer>\",\n    \"reprocess_transaction_id\": \"<integer>\",\n    \"initiated_by_id\": \"<integer>\",\n    \"pp_transaction_id\": \"<string>\",\n    \"state\": \"<string>\"\n  },\n  \"fundraising_tracking_code\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e27ef053-7c97-46c9-a1d9-eef9534d6c8b",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recurring-donation-plans",
+                    ":id",
+                    "transactions",
+                    ":transaction_id",
+                    "reprocess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The specified Recurring Donation Plan ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "transaction_id",
+                      "description": "(Required) The specified Transaction ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"billing_address1\": \"533 F Street\",\n  \"billing_address2\": \"533 F Street\",\n  \"billing_city\": \"San Diego\",\n  \"billing_country\": \"US\",\n  \"billing_first_name\": \"GoFundMe Pro\",\n  \"billing_last_name\": \"Member\",\n  \"billing_postal_code\": \"92101\",\n  \"billing_state\": \"CA\",\n  \"browser_info\": \"information\",\n  \"comment\": \"This is a comment\",\n  \"company_name\": \"GoFundMe Pro\",\n  \"hide_amount\": false,\n  \"is_anonymous\": false,\n  \"is_gift_aid\": false,\n  \"is_reprocess\": true,\n  \"member_country\": \"US\",\n  \"member_email_address\": \"member@gofundme.com\",\n  \"member_name\": \"GoFundMe Pro Member\",\n  \"member_phone\": \"555-555-5555\",\n  \"member_cell_phone\": \"555-555-5555\",\n  \"metadata\": \"{foo: 'bar'}\",\n  \"raw_currency_code\": \"JPY\",\n  \"status\": \"canceled\",\n  \"reprocess_attempt_info\": {\n    \"original_transaction_id\": 8734,\n    \"reprocess_transaction_id\": 7623371,\n    \"initiated_by_id\": 2012,\n    \"pp_transaction_id\": \"922337203687624342\",\n    \"state\": \"completed\"\n  },\n  \"fundraising_tracking_code\": \"JD0146\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": \"2021-01-01T12:00:00+0000\",\n  \"initiated_by_id\": 2012,\n  \"original_transaction_id\": 8734,\n  \"reprocess_transaction_id\": 7623371,\n  \"state\": \"completed\",\n  \"updated_at\": \"2021-01-01T12:00:00+0000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "590b5055-6726-4606-b11e-6e2b7b81e9a5",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recurring-donation-plans",
+                    ":id",
+                    "transactions",
+                    ":transaction_id",
+                    "reprocess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The specified Recurring Donation Plan ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "transaction_id",
+                      "description": "(Required) The specified Transaction ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"billing_address1\": \"533 F Street\",\n  \"billing_address2\": \"533 F Street\",\n  \"billing_city\": \"San Diego\",\n  \"billing_country\": \"US\",\n  \"billing_first_name\": \"GoFundMe Pro\",\n  \"billing_last_name\": \"Member\",\n  \"billing_postal_code\": \"92101\",\n  \"billing_state\": \"CA\",\n  \"browser_info\": \"information\",\n  \"comment\": \"This is a comment\",\n  \"company_name\": \"GoFundMe Pro\",\n  \"hide_amount\": false,\n  \"is_anonymous\": false,\n  \"is_gift_aid\": false,\n  \"is_reprocess\": true,\n  \"member_country\": \"US\",\n  \"member_email_address\": \"member@gofundme.com\",\n  \"member_name\": \"GoFundMe Pro Member\",\n  \"member_phone\": \"555-555-5555\",\n  \"member_cell_phone\": \"555-555-5555\",\n  \"metadata\": \"{foo: 'bar'}\",\n  \"raw_currency_code\": \"JPY\",\n  \"status\": \"canceled\",\n  \"reprocess_attempt_info\": {\n    \"original_transaction_id\": 8734,\n    \"reprocess_transaction_id\": 7623371,\n    \"initiated_by_id\": 2012,\n    \"pp_transaction_id\": \"922337203687624342\",\n    \"state\": \"completed\"\n  },\n  \"fundraising_tracking_code\": \"JD0146\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "668ae957-7c8b-421c-8e83-380ec0f84e4a",
+              "name": "Recurring Donation Plan or Transaction not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recurring-donation-plans",
+                    ":id",
+                    "transactions",
+                    ":transaction_id",
+                    "reprocess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The specified Recurring Donation Plan ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "transaction_id",
+                      "description": "(Required) The specified Transaction ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"billing_address1\": \"533 F Street\",\n  \"billing_address2\": \"533 F Street\",\n  \"billing_city\": \"San Diego\",\n  \"billing_country\": \"US\",\n  \"billing_first_name\": \"GoFundMe Pro\",\n  \"billing_last_name\": \"Member\",\n  \"billing_postal_code\": \"92101\",\n  \"billing_state\": \"CA\",\n  \"browser_info\": \"information\",\n  \"comment\": \"This is a comment\",\n  \"company_name\": \"GoFundMe Pro\",\n  \"hide_amount\": false,\n  \"is_anonymous\": false,\n  \"is_gift_aid\": false,\n  \"is_reprocess\": true,\n  \"member_country\": \"US\",\n  \"member_email_address\": \"member@gofundme.com\",\n  \"member_name\": \"GoFundMe Pro Member\",\n  \"member_phone\": \"555-555-5555\",\n  \"member_cell_phone\": \"555-555-5555\",\n  \"metadata\": \"{foo: 'bar'}\",\n  \"raw_currency_code\": \"JPY\",\n  \"status\": \"canceled\",\n  \"reprocess_attempt_info\": {\n    \"original_transaction_id\": 8734,\n    \"reprocess_transaction_id\": 7623371,\n    \"initiated_by_id\": 2012,\n    \"pp_transaction_id\": \"922337203687624342\",\n    \"state\": \"completed\"\n  },\n  \"fundraising_tracking_code\": \"JD0146\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8948b3e1-918a-4bc6-810e-29acde189e43",
+          "name": "updateReprocessAttemptInfo",
+          "request": {
+            "name": "updateReprocessAttemptInfo",
+            "description": {
+              "content": "Update a Reprocess Attempt Info Record",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reprocess-attempt-info",
+                ":reprocess_attempt_info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "reprocess_attempt_info",
+                  "description": "(Required) The specified Reprocess Transaction ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"original_transaction_id\": \"<integer>\",\n  \"reprocess_transaction_id\": \"<integer>\",\n  \"initiated_by_id\": \"<integer>\",\n  \"pp_transaction_id\": \"<string>\",\n  \"state\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1243b746-1e30-46fd-a6a3-39eeb4a980e2",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reprocess-attempt-info",
+                    ":reprocess_attempt_info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "reprocess_attempt_info",
+                      "description": "(Required) The specified Reprocess Transaction ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"original_transaction_id\": 8734,\n  \"reprocess_transaction_id\": 7623371,\n  \"initiated_by_id\": 2012,\n  \"pp_transaction_id\": \"922337203687624342\",\n  \"state\": \"completed\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": \"2021-01-01T12:00:00+0000\",\n  \"initiated_by_id\": 2012,\n  \"original_transaction_id\": 8734,\n  \"reprocess_transaction_id\": 7623371,\n  \"state\": \"completed\",\n  \"updated_at\": \"2021-01-01T12:00:00+0000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "14dc46dd-96c1-478a-b2be-a8b2d4930405",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reprocess-attempt-info",
+                    ":reprocess_attempt_info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "reprocess_attempt_info",
+                      "description": "(Required) The specified Reprocess Transaction ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"original_transaction_id\": 8734,\n  \"reprocess_transaction_id\": 7623371,\n  \"initiated_by_id\": 2012,\n  \"pp_transaction_id\": \"922337203687624342\",\n  \"state\": \"completed\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "850a84b4-4bae-4036-a2bd-f02a38099d84",
+              "name": "Reprocess Attempt Info record not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reprocess-attempt-info",
+                    ":reprocess_attempt_info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "reprocess_attempt_info",
+                      "description": "(Required) The specified Reprocess Transaction ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"original_transaction_id\": 8734,\n  \"reprocess_transaction_id\": 7623371,\n  \"initiated_by_id\": 2012,\n  \"pp_transaction_id\": \"922337203687624342\",\n  \"state\": \"completed\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://pro.gofundme.com/api/2.0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "/oauth2/auth"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "/oauth2/auth"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "42cd1cfd-af86-40e6-bf4c-2725a3687248",
+    "name": "GoFundMe Pro Transaction API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<h1>GoFundMe Pro API</h1>\n<p>Welcome to the GoFundMe Pro API (2.0.0), a powerful toolset that empowers innovative and creative minds to engineer the world for good. This documentation walks through the API’s latest endpoints.</p>\n<p>GoFundMe Pro APIs are crafted around REST and the REST architectural style to provide developers with a stateless and language-­agnostic interface. The GoFundMe Pro API leverages HTTP verbs and response codes, OAuth2 authentication, and resource-­oriented URLs.</p>\n<p>Currently, the GoFundMe Pro API only supports JSON. All POST/PUT requests required a valid JSON object for the request body.</p>\n<h2>Errors</h2>\n<p>The GoFundMe Pro API leverages standard HTTP response status codes for it’s error responses. Error codes are:</p>\n<p><br /></p>\n<table border='1'>\n<tr>\n<th width='100px'>Error Code</th>\n<th>Meaning</th>\n</tr>\n<tr>\n<td>400</td>\n<td>Bad Request: The request was malformed or provided incorrect/incomplete/conflicting parameters. Check the response for more detailed messaging about why the request was incorrect. Do not repeat request.</td>\n</tr>\n<tr>\n<td>401</td>\n<td>Unauthorized: The API does not recognize the request as authorized. API access token may be missing or invalid.</td>\n</tr>\n<tr>\n<td>403</td>\n<td>Forbidden: The API recognizes the authorized API user, but the API user does not have correct permissions to satisfy the request.</td>\n</tr>\n<tr>\n<td>404</td>\n<td>Not Found: The resource requested does not exist or was not found.</td>\n</tr>\n<tr>\n<td>405</td>\n<td>Method Not Allowed: Some REST endpoints only accept a subset of valid REST HTTP verbs. This error is sent when an unsupported verb is requested.</td>\n</tr>\n<tr>\n<td>429</td>\n<td>Too Many Requests: The rate limit has been exceeded. See the <a href=\"#rate-limiting\">Rate Limiting</a> section for details on rate limits and response headers.</td>\n</tr>\n<tr>\n<td>500</td>\n<td>Error: The request was valid, but something failed on the server. Additional messages may be available.</td>\n</tr>\n<tr>\n<td>503</td>\n<td>Service Unavailable: The service is temporarily unavailable.</td>\n</tr>\n</table>\n<h2>Requests</h2>\n<h3>Authenticating Requests</h3>\n<p>Most API requests will need to be signed with an Access Token.</p>\n<p>Refer to the <a href=\"https://developers.gofundme.com/pro/overview/authentication\" target=\"_blank\" rel=\"noopener noreferrer\">Resource Documentation</a> for the specific call you are making to see if an access token is required for your request. See <a href=\"https://developers.gofundme.com/pro/tutorials/samples\" target=\"_blank\" rel=\"noopener noreferrer\">this page</a> for a demonstration of usage through a sample app. \n<h3>Filters</h3>\n<p>We can filter a collection based on a set of input parameters. To do so, we can modify the query string using the parameters listed below.</p>\n\n<table border='1'>\n<tr>\n<th>Parameter</th>\n<th>Type</th>\n<th>Default</th>\n<th>Description</th>\n</tr>\n\n<tr>\n<td>with</td>\n<td>string</td>\n<td>N/A</td>\n<td>This allows you to include nested related resource. For example, you could request a campaign along with the organization it belongs to and the designation it was allocated to. In this case, <code>with=organization,designation.</code></td>\n</tr>\n\n<tr>\n<td>per_page</td>\n<td>integer</td>\n<td>20</td>\n<td>Set the total number of resources returned per page (Maximum: 100).</td>\n</tr>\n\n<tr>\n<td>page</td>\n<td>integer</td>\n<td>1</td>\n<td>Page to return.</td>\n</tr>\n\n<tr>\n<td>sort</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>\nOrder the resources depending upon their attributes. Examples:\n<ul>\n<li><strong>created_at</strong>: oldest resource will come first</li>\n<li><strong>created_at:desc</strong>: newest resource will come first</li>\n<li><strong>last_name:asc,first_name:asc</strong>: order resources by last_name in alphabetical order. If same last_name, order by first_name in alphabetical order.</li>\n</ul>\n</td>\n</tr>\n\n<tr>\n<td>fields</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>List of resources attributes separated with comma. Narrow the list of attributes returned for each resource.</td>\n</tr>\n\n<tr>\n<td>filter</td>\n<td>string</td>\n<td>NULL</td>\n<td>\nAllow to filter the list of resources returned. Format is: <code>{association}.{attribute1}{operand}{value}</code> where: <ul>\n<li>association is the association if this is a nested filter (optional)</li>\n<li>operand is one of the following: <code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, false can be expressed with <code>false</code> or <code>0</code>).</li>\n<li>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. with | string | NULL | This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</li>\n</ul>\n</td>\n</tr>\n</table>\n\n<p>When filtering, the operand should be one of the following:</p>\n<p><code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, <code>false</code> can be expressed with <code>false</code> or <code>0</code>).</p>\n<p>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</p>\n<p>Refer to the sample documentation for the specific call you are making to see which related resource can be fetched.</p>\n\n<h3>Date and Time Filtering</h3>\n<p>Unless otherwise noted, all Datetime attributes in API responses will be returned in an ISO8601 compliant format:</p>\n<><code>YYYY-MM-DDTHH:mm:ss.sssZ</code> (e.g. <code>2024-10-05T14:48:00.000Z</code>).</p>\n<h2 id=\"rate-limiting\">Rate Limiting</h2>\n<p>The GoFundMe Pro API implements rate limiting to ensure fair usage and maintain service quality for all users. Rate limits are applied on a per-application and per-user basis.</p>\n<h3>When Rate Limiting Applies</h3>\n<p>Rate limiting is applied to requests that meet the following conditions:</p>\n<ul>\n<li>The API application is <strong>not internal</strong> (external/third-party applications)</li>\n<li>The API application is associated to an Organization</li>\n</ul>\n<p>Internal applications are not subject to rate limiting.</p>\n<h3>Rate Limit Details</h3>\n<p>By default, the rate limit is:</p>\n<ul>\n<li><strong>1800 requests per minute</strong> per application</li>\n</ul>\n<p>Rate limits may be adjusted dynamically via flags for specific applications or users.</p>\n<h3>Rate Limit Headers</h3>\n<p>All API responses include the following headers to help you track your rate limit status:</p>\n<table border='1'>\n<tr>\n<th width='200px'>Header</th>\n<th>Description</th>\n</tr>\n<tr>\n<td><code>X-RateLimit-Limit</code></td>\n<td>The maximum number of requests allowed in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Remaining</code></td>\n<td>The number of requests remaining in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Reset</code></td>\n<td>Unix timestamp indicating when the rate limit window resets (only included when limit is exceeded)</td>\n</tr>\n<tr>\n<td><code>Retry-After</code></td>\n<td>Number of seconds to wait before retrying (only included in 429 responses)</td>\n</tr>\n</table>\n<h3>Handling Rate Limit Errors</h3>\n<p>When you exceed the rate limit, the API will return a <code>429 Too Many Requests</code> response with the following structure:</p>\n<pre><code>{\n  \"message\": \"Too Many Attempts.\",\n  \"retry_after\": 42\n}</code></pre>\n<p>The response will include the <code>Retry-After</code> header indicating how many seconds you should wait before making another request.</p>\n<h3>Best Practices</h3>\n<ul>\n<li>Monitor the <code>X-RateLimit-Remaining</code> header to track your usage</li>\n<li>Implement exponential backoff when you receive a 429 response</li>\n<li>Respect the <code>Retry-After</code> header value before retrying</li>\n<li>Cache responses when possible to reduce API calls</li>\n<li>Batch operations when the API supports it</li>\n</ul>",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,171 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "GoFundMe Pro Organization Notification API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "/oauth2/auth",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Organization Notification",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "listOrganizationNotifications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/organizations/:organization/notifications",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "Primary Identifier of specified Organization"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all Nofications made for the specified Organization"
+        },
+        {
+          "info": {
+            "name": "createOrganizationNotification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/organizations/:organization/notifications",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "Primary Identifier of specified Organization"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a Nofication for the specified Organization"
+        },
+        {
+          "info": {
+            "name": "fetchOrganizationNotification",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/organization-notifications/:organization_notification",
+            "params": [
+              {
+                "name": "organization_notification",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier for specified Organization Notification"
+              }
+            ]
+          },
+          "docs": "Retrieves a specific notification by id"
+        },
+        {
+          "info": {
+            "name": "updateOrganizationNotification",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://pro.gofundme.com/api/2.0/organization-notifications/:organization_notification",
+            "params": [
+              {
+                "name": "organization_notification",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of Organization Notification"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update nofication"
+        },
+        {
+          "info": {
+            "name": "deleteOrganizationNotification",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://pro.gofundme.com/api/2.0/organization-notifications/:organization_notification",
+            "params": [
+              {
+                "name": "organization_notification",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of Organization Notification"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete a Organization Notification"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

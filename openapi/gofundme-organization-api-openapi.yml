@@ -1,0 +1,1029 @@
+openapi: 3.2.0
+info:
+  title: GoFundMe Pro Organization API
+  description: "<h1>GoFundMe Pro API</h1>\n<p>Welcome to the GoFundMe Pro API (2.0.0), a powerful toolset that empowers innovative and creative minds to engineer the world for good. This documentation walks through the API’s latest endpoints.</p>\n<p>GoFundMe Pro APIs are crafted around REST and the REST architectural style to provide developers with a stateless and language-­agnostic interface. The GoFundMe Pro API leverages HTTP verbs and response codes, OAuth2 authentication, and resource-­oriented URLs.</p>\n<p>Currently, the GoFundMe Pro API only supports JSON. All POST/PUT requests required a valid JSON object for the request body.</p>\n<h2>Errors</h2>\n<p>The GoFundMe Pro API leverages standard HTTP response status codes for it’s error responses. Error codes are:</p>\n<p><br /></p>\n<table border='1'>\n<tr>\n<th width='100px'>Error Code</th>\n<th>Meaning</th>\n</tr>\n<tr>\n<td>400</td>\n<td>Bad Request: The request was malformed or provided incorrect/incomplete/conflicting parameters. Check the response for more detailed messaging about why the request was incorrect. Do not repeat request.</td>\n</tr>\n<tr>\n<td>401</td>\n<td>Unauthorized: The API does not recognize the request as authorized. API access token may be missing or invalid.</td>\n</tr>\n<tr>\n<td>403</td>\n<td>Forbidden: The API recognizes the authorized API user, but the API user does not have correct permissions to satisfy the request.</td>\n</tr>\n<tr>\n<td>404</td>\n<td>Not Found: The resource requested does not exist or was not found.</td>\n</tr>\n<tr>\n<td>405</td>\n<td>Method Not Allowed: Some REST endpoints only accept a subset of valid REST HTTP verbs. This error is sent when an unsupported verb is requested.</td>\n</tr>\n<tr>\n<td>429</td>\n<td>Too Many Requests: The rate limit has been exceeded. See the <a href=\"#rate-limiting\">Rate Limiting</a> section for details on rate limits and response headers.</td>\n</tr>\n<tr>\n<td>500</td>\n<td>Error: The request was valid, but something failed on the server. Additional messages may be available.</td>\n</tr>\n<tr>\n<td>503</td>\n<td>Service Unavailable: The service is temporarily unavailable.</td>\n</tr>\n</table>\n<h2>Requests</h2>\n<h3>Authenticating Requests</h3>\n<p>Most API requests will need to be signed with an Access Token.</p>\n<p>Refer to the <a href=\"https://developers.gofundme.com/pro/overview/authentication\" target=\"_blank\" rel=\"noopener noreferrer\">Resource Documentation</a> for the specific call you are making to see if an access token is required for your request. See <a href=\"https://developers.gofundme.com/pro/tutorials/samples\" target=\"_blank\" rel=\"noopener noreferrer\">this page</a> for a demonstration of usage through a sample app. \n<h3>Filters</h3>\n<p>We can filter a collection based on a set of input parameters. To do so, we can modify the query string using the parameters listed below.</p>\n\n<table border='1'>\n<tr>\n<th>Parameter</th>\n<th>Type</th>\n<th>Default</th>\n<th>Description</th>\n</tr>\n\n<tr>\n<td>with</td>\n<td>string</td>\n<td>N/A</td>\n<td>This allows you to include nested related resource. For example, you could request a campaign along with the organization it belongs to and the designation it was allocated to. In this case, <code>with=organization,designation.</code></td>\n</tr>\n\n<tr>\n<td>per_page</td>\n<td>integer</td>\n<td>20</td>\n<td>Set the total number of resources returned per page (Maximum: 100).</td>\n</tr>\n\n<tr>\n<td>page</td>\n<td>integer</td>\n<td>1</td>\n<td>Page to return.</td>\n</tr>\n\n<tr>\n<td>sort</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>\nOrder the resources depending upon their attributes. Examples:\n<ul>\n<li><strong>created_at</strong>: oldest resource will come first</li>\n<li><strong>created_at:desc</strong>: newest resource will come first</li>\n<li><strong>last_name:asc,first_name:asc</strong>: order resources by last_name in alphabetical order. If same last_name, order by first_name in alphabetical order.</li>\n</ul>\n</td>\n</tr>\n\n<tr>\n<td>fields</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>List of resources attributes separated with comma. Narrow the list of attributes returned for each resource.</td>\n</tr>\n\n<tr>\n<td>filter</td>\n<td>string</td>\n<td>NULL</td>\n<td>\nAllow to filter the list of resources returned. Format is: <code>{association}.{attribute1}{operand}{value}</code> where: <ul>\n<li>association is the association if this is a nested filter (optional)</li>\n<li>operand is one of the following: <code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, false can be expressed with <code>false</code> or <code>0</code>).</li>\n<li>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. with | string | NULL | This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</li>\n</ul>\n</td>\n</tr>\n</table>\n\n<p>When filtering, the operand should be one of the following:</p>\n<p><code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, <code>false</code> can be expressed with <code>false</code> or <code>0</code>).</p>\n<p>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</p>\n<p>Refer to the sample documentation for the specific call you are making to see which related resource can be fetched.</p>\n\n<h3>Date and Time Filtering</h3>\n<p>Unless otherwise noted, all Datetime attributes in API responses will be returned in an ISO8601 compliant format:</p>\n<><code>YYYY-MM-DDTHH:mm:ss.sssZ</code> (e.g. <code>2024-10-05T14:48:00.000Z</code>).</p>\n<h2 id=\"rate-limiting\">Rate Limiting</h2>\n<p>The GoFundMe Pro API implements rate limiting to ensure fair usage and maintain service quality for all users. Rate limits are applied on a per-application and per-user basis.</p>\n<h3>When Rate Limiting Applies</h3>\n<p>Rate limiting is applied to requests that meet the following conditions:</p>\n<ul>\n<li>The API application is <strong>not internal</strong> (external/third-party applications)</li>\n<li>The API application is associated to an Organization</li>\n</ul>\n<p>Internal applications are not subject to rate limiting.</p>\n<h3>Rate Limit Details</h3>\n<p>By default, the rate limit is:</p>\n<ul>\n<li><strong>1800 requests per minute</strong> per application</li>\n</ul>\n<p>Rate limits may be adjusted dynamically via flags for specific applications or users.</p>\n<h3>Rate Limit Headers</h3>\n<p>All API responses include the following headers to help you track your rate limit status:</p>\n<table border='1'>\n<tr>\n<th width='200px'>Header</th>\n<th>Description</th>\n</tr>\n<tr>\n<td><code>X-RateLimit-Limit</code></td>\n<td>The maximum number of requests allowed in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Remaining</code></td>\n<td>The number of requests remaining in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Reset</code></td>\n<td>Unix timestamp indicating when the rate limit window resets (only included when limit is exceeded)</td>\n</tr>\n<tr>\n<td><code>Retry-After</code></td>\n<td>Number of seconds to wait before retrying (only included in 429 responses)</td>\n</tr>\n</table>\n<h3>Handling Rate Limit Errors</h3>\n<p>When you exceed the rate limit, the API will return a <code>429 Too Many Requests</code> response with the following structure:</p>\n<pre><code>{\n  \"message\": \"Too Many Attempts.\",\n  \"retry_after\": 42\n}</code></pre>\n<p>The response will include the <code>Retry-After</code> header indicating how many seconds you should wait before making another request.</p>\n<h3>Best Practices</h3>\n<ul>\n<li>Monitor the <code>X-RateLimit-Remaining</code> header to track your usage</li>\n<li>Implement exponential backoff when you receive a 429 response</li>\n<li>Respect the <code>Retry-After</code> header value before retrying</li>\n<li>Cache responses when possible to reduce API calls</li>\n<li>Batch operations when the API supports it</li>\n</ul>"
+  version: 2.0.0
+servers:
+- url: https://pro.gofundme.com/api/2.0
+security:
+- OAuth2Application: []
+- OAuth2Member: []
+tags:
+- name: Organization
+  description: 'Represents an organization account.
+
+
+    An organization''s `currency_code` is used for Passport functionality.
+
+    `currency_code` dictates the currency code that is used to normalize all of the organization''s fundraising entities
+
+    (e.g. campaigns, fundraising teams, and fundraising pages).'
+paths:
+  /organizations/{organization_id}/annual-summary-reports/{year}:
+    get:
+      tags:
+      - Organization
+      summary: Get Organization ASR Batch for Year
+      description: Get the ASR batch for an organization for a specific year. Returns the single batch or 404 if none exists.
+      operationId: getOrganizationAsrBatch
+      parameters:
+      - name: organization_id
+        in: path
+        description: The specified Organization ID
+        required: true
+        schema:
+          type: integer
+          example: 1
+      - name: year
+        in: path
+        description: The report year
+        required: true
+        schema:
+          type: integer
+          example: 2024
+      - name: status
+        in: query
+        description: Filter by batch status
+        required: false
+        schema:
+          type: string
+          enum:
+          - pending
+          - processing
+          - generating
+          - completed
+          - failed
+          example: completed
+      - name: limit
+        in: query
+        description: Number of results per page
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          example: 10
+      responses:
+        '200':
+          description: Batch information
+          content:
+            application/json:
+              schema:
+                properties:
+                  organization_id:
+                    type: integer
+                    example: 1
+                  report_year:
+                    type: integer
+                    example: 2024
+                  status:
+                    type: string
+                    example: completed
+                  total_count:
+                    type: integer
+                    example: 1000
+                  completed_count:
+                    type: integer
+                    example: 1000
+                  failed_count:
+                    type: integer
+                    example: 0
+                  progress_percentage:
+                    type: integer
+                    example: 100
+                  is_complete:
+                    type: boolean
+                    example: true
+                  is_processing:
+                    type: boolean
+                    example: false
+                  started_at:
+                    type:
+                    - string
+                    - 'null'
+                    example: '2024-10-06T12:00:00+00:00'
+                  completed_at:
+                    type:
+                    - string
+                    - 'null'
+                    example: '2024-10-06T12:30:00+00:00'
+                  scheduled_at:
+                    type:
+                    - string
+                    - 'null'
+                    example: '2024-10-06T14:00:00+00:00'
+                  audience:
+                    description: Audience segmentation for the batch
+                    properties:
+                      offline:
+                        type: boolean
+                        example: true
+                      one_time:
+                        type: boolean
+                        example: true
+                      recurring:
+                        type: boolean
+                        example: true
+                    type: object
+                  created_at:
+                    type: string
+                    example: '2024-10-06T11:55:00+00:00'
+                  updated_at:
+                    type: string
+                    example: '2024-10-06T12:30:00+00:00'
+                type: object
+        '404':
+          description: No batch found for this year
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    type: string
+                    example: No batch found for this year
+                  message:
+                    type: string
+                    example: No ASR batch exists for 2024. Use POST to create one.
+                type: object
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+    post:
+      tags:
+      - Organization
+      summary: Generate Annual Summary Reports for Organization (Batch)
+      description: Generate ASR PDFs for all supporters in an organization who made transactions in the specified year. This is an asynchronous operation.
+      operationId: generateOrganizationAsrBatch
+      parameters:
+      - name: organization_id
+        in: path
+        description: The specified Organization ID
+        required: true
+        schema:
+          type: integer
+          example: 1
+      - name: year
+        in: path
+        description: The report year
+        required: true
+        schema:
+          type: integer
+          example: 2024
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                start_date:
+                  description: Start date for the report (optional, defaults to January 1st of report_year)
+                  type: string
+                  format: date
+                  example: '2024-01-01'
+                end_date:
+                  description: End date for the report (optional, defaults to December 31st of report_year)
+                  type: string
+                  format: date
+                  example: '2024-12-31'
+              type: object
+      responses:
+        '202':
+          description: Batch generation started
+          content:
+            application/json:
+              schema:
+                properties:
+                  organization_id:
+                    description: Organization ID
+                    type: integer
+                    example: 1
+                  report_year:
+                    description: Report year
+                    type: integer
+                    example: 2024
+                  status:
+                    description: Current batch status
+                    type: string
+                    example: pending
+                  message:
+                    type: string
+                    example: Batch generation started.
+                type: object
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Organization not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    type: string
+                    example: Validation failed
+                  errors:
+                    type: object
+                    example:
+                      report_year:
+                      - The report year field is required.
+                type: object
+  /organizations/{organization_id}/annual-summary-reports/{year}/supporters/{supporter_id}/download:
+    get:
+      tags:
+      - Organization
+      summary: Download PDF from Batch ASR Generation
+      description: Get a presigned download URL for a supporter's PDF from a completed batch
+      operationId: downloadBatchAsrPdf
+      parameters:
+      - name: organization_id
+        in: path
+        description: The specified Organization ID
+        required: true
+        schema:
+          type: integer
+          example: 1
+      - name: year
+        in: path
+        description: The report year
+        required: true
+        schema:
+          type: integer
+          example: 2024
+      - name: supporter_id
+        in: path
+        description: The specified Supporter ID
+        required: true
+        schema:
+          type: integer
+          example: 7
+      responses:
+        '200':
+          description: Presigned download URL
+          content:
+            application/json:
+              schema:
+                properties:
+                  download_url:
+                    description: S3 presigned URL for file download
+                    type: string
+                    example: https://s3.amazonaws.com/bucket/file.pdf?presigned-params
+                  filename:
+                    description: Suggested filename
+                    type: string
+                    example: GivingSummary_JohnDoe_2024.pdf
+                  expires_at:
+                    description: ISO 8601 timestamp when the presigned URL expires
+                    type: string
+                    example: '2024-10-08T12:00:00+00:00'
+                  content_type:
+                    description: MIME type
+                    type: string
+                    example: application/pdf
+                type: object
+        '400':
+          description: Batch is not yet completed
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    type: string
+                    example: Batch is not yet completed
+                  status:
+                    type: string
+                    example: generating
+                type: object
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Batch or supporter not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+  /organizations/{organization_id}/annual-summary-reports/{year}/schedule:
+    put:
+      tags:
+      - Organization
+      summary: Update ASR Batch Schedule and/or Audience
+      description: Update the scheduled delivery time and/or audience filters for an ASR batch. Both parameters are optional - you can update schedule only, audience only, or both together. The batch must be in 'scheduled' or 'pending' status. Changes are synced to the legacy MongoDB Message for compatibility.
+      operationId: updateOrganizationAsrBatchSchedule
+      parameters:
+      - name: organization_id
+        in: path
+        description: The specified Organization ID
+        required: true
+        schema:
+          type: integer
+          example: 1
+      - name: year
+        in: path
+        description: The report year
+        required: true
+        schema:
+          type: integer
+          example: 2024
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                scheduled_at:
+                  description: When to execute the batch (optional, must be in the future)
+                  type: string
+                  format: date-time
+                  example: '2024-12-31T23:59:59Z'
+                audience:
+                  description: Audience filters to determine which supporters receive reports (optional). At least one type must be enabled if provided.
+                  properties:
+                    offline:
+                      description: Include supporters with offline donations
+                      type: boolean
+                      example: true
+                    one_time:
+                      description: Include supporters with one-time donations
+                      type: boolean
+                      example: true
+                    recurring:
+                      description: Include supporters with recurring donations
+                      type: boolean
+                      example: true
+                  type: object
+              type: object
+      responses:
+        '200':
+          description: Batch updated successfully
+          content:
+            application/json:
+              schema:
+                properties:
+                  organization_id:
+                    type: integer
+                    example: 1
+                  report_year:
+                    type: integer
+                    example: 2024
+                  status:
+                    type: string
+                    example: scheduled
+                  scheduled_at:
+                    type:
+                    - string
+                    - 'null'
+                    example: '2024-12-31T23:59:59+00:00'
+                  audience:
+                    properties:
+                      offline:
+                        type: boolean
+                        example: true
+                      one_time:
+                        type: boolean
+                        example: true
+                      recurring:
+                        type: boolean
+                        example: true
+                    type: object
+                  message:
+                    type: string
+                    example: Batch updated successfully.
+                type: object
+        '404':
+          description: Batch not found
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    type: string
+                    example: Batch not found
+                type: object
+        '422':
+          description: Validation error or cannot update batch in current status
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - properties:
+                    error:
+                      type: string
+                      example: Validation failed
+                    errors:
+                      type: object
+                      example:
+                        scheduled_at:
+                        - The scheduled at must be a date after now.
+                        audience:
+                        - At least one audience type must be enabled (offline, one_time, or recurring).
+                  type: object
+                - properties:
+                    error:
+                      type: string
+                      example: Cannot update batch
+                    message:
+                      type: string
+                      example: Batch is currently processing and cannot be updated
+                  type: object
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+  /organizations/{organization_id}/supporters/{supporter_id}/annual-summary:
+    post:
+      tags:
+      - Organization
+      summary: Send Annual Summary Email to Supporter (Admin)
+      description: Send an annual summary email to a specific supporter. This is an admin-initiated action that does not require a bulk batch send.
+      operationId: sendSupporterAnnualSummaryEmail
+      parameters:
+      - name: organization_id
+        in: path
+        description: The specified Organization ID
+        required: true
+        schema:
+          type: integer
+          example: 1
+      - name: supporter_id
+        in: path
+        description: The specified Supporter ID
+        required: true
+        schema:
+          type: integer
+          example: 5827
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+              - report_year
+              properties:
+                report_year:
+                  description: Four digit year for which the summary is being requested
+                  type: integer
+                  example: 2025
+                email:
+                  description: Optional email address to send the summary to (defaults to supporter's email)
+                  type: string
+                  example: donor@example.com
+              type: object
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Annual summary email queued for delivery
+                type: object
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Supporter not found or does not belong to organization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    type: string
+                    example: Validation failed
+                  errors:
+                    type: object
+                type: object
+      security:
+      - OAuth2Member: []
+  /apps/{app}/organizations:
+    get:
+      tags:
+      - Organization
+      summary: listApiAppOrganizations
+      description: Retrieves a list of all Organizations for specified Client
+      operationId: listApiAppOrganizations
+      parameters:
+      - name: with
+        in: query
+        description: Request specific relationships to be returned with the Organization
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            example: branding
+      - name: app
+        in: path
+        description: Primary identifier of Client
+        required: true
+        schema:
+          type: string
+          example: aSn3uWmolgnEnasT
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginatedResponse'
+                - properties:
+                    data:
+                      description: Collection of Organizations
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Organization'
+                    first_page_url:
+                      example: '{host}/apps/aSn3uWmolgnEnasT/organizations?page=1'
+                    last_page_url:
+                      description: '{host}/apps/aSn3uWmolgnEnasT/organizations?page=1'
+                    path:
+                      description: '{host}/apps/aSn3uWmolgnEnasT/organizations'
+                  type: object
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Client not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+components:
+  schemas:
+    Organization:
+      title: Organization
+      properties:
+        id:
+          description: Primary identifier of record
+          type: integer
+          example: 82364
+        address:
+          description: Organization address line
+          type: string
+          maxLength: 127
+          example: 123 GoFundMe Pro Dr
+        are_activity_feeds_disabled:
+          description: Whether activity feeds should be enabled for this Organization
+          type: boolean
+          example: false
+        allow_download_annual_receipts:
+          description: Control over whether I enable the ability for supporters to download annual donation receipts
+          type: boolean
+          example: false
+        city:
+          description: Organization city
+          type: string
+          maxLength: 50
+          example: San Diego
+        country:
+          description: Organization country
+          type: string
+          example: USA
+        currency:
+          description: The currency that the Organization collects transactions in. This is a legacy field.
+          type: string
+          example: USD
+        currency_code:
+          description: The currency that the Organization collects transactions in
+          type: string
+          example: USD
+        customer_tier:
+          description: Organization customer tier
+          type:
+          - integer
+          - 'null'
+          example: 2
+        description:
+          description: Organization Description
+          type: string
+          example: Helps saves all animals
+        facebook:
+          description: The name of the Organization's facebook page
+          type:
+          - string
+          - 'null'
+          maxLength: 150
+          example: save.animals
+        fixed_fot_percent:
+          description: Percentage to be added to fee on top (aka Classy Mode) transactions for the Organization to cover fees unless Campaign specifies differently
+          type: string
+          example: '5.00'
+        flex_rate_percent:
+          description: Percentage Organization elects to be added to donor covered fees calculation to cover any additional costs other than fees.
+          type: number
+          format: double
+          maximum: 5
+          minimum: 0
+          example: 5
+        gfm_charity_community_id:
+          description: GFM charity community ID
+          type:
+          - integer
+          - 'null'
+          example: 12345
+        gfm_npo_page_slug:
+          description: GFM NPO page slug
+          type:
+          - string
+          - 'null'
+          example: save-the-animals
+        gfm_connect_banner_count:
+          description: Number of times the GFM Connect banner was dismissed
+          type: integer
+          example: 2
+        gfm_connect_banner_dismissed_at:
+          description: Date/time of GFM Connect banner dismissal
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2025-04-24T10:25:03Z'
+        has_double_the_donation_enployer_match:
+          description: Enable employer matching through Double The Donation. Can only be enabled if the default currency is USD and other employer matching (e.g Donate Double) is not enabled.
+          type: boolean
+          example: false
+        has_employer_match:
+          description: Enabled employer matching through Donate Double. Can only be enabled if the default currency is USD.
+          type: boolean
+          example: false
+        is_gfm_npo_page_claimed:
+          description: Flag whether the organization has a gfm npo page claimed
+          type: boolean
+          example: false
+        is_gfm_npo_page_verified:
+          description: Flag whether the organization has a gfm npo page verified
+          type: boolean
+          example: false
+        is_gift_aid_available:
+          description: Flag whether the organization allows donors to opt into gift aid used by the UK
+          type: boolean
+          example: false
+        logo_id:
+          description: The asset ID of the organization's logo
+          type:
+          - string
+          - 'null'
+          example: '10'
+        marketplace_state:
+          description: 'Resolved Marketplace Self-Serve Sign Up (SSSU) capability state. One of: GFM_PRE_KYC (Consumer marketplace lifecycle, pre-verification; claim_source NULL or ''GFM''), GFM_POST_KYC (Consumer marketplace lifecycle, KYC done, GFM Pay active), GFM_PRO_PRE_KYC (SSSU Pro-website entry, awaiting KYC; claim_source ''GFM_PRO''), GFM_PRO_POST_KYC (SSSU Pro-website entry, KYC complete, active ClassyPay Stripe processor). LEGACY is a catch-all for orgs outside the SSSU scope: tier 3, null tier, orgs running on non-ClassyPay active processors (Authorize.net, WePay, etc.), and any inconsistent state; it does NOT mean ''any non-SSSU post-KYC org'' — a sales-provisioned paying tier-2 org with active Stripe buckets as GFM_POST_KYC, not LEGACY. Opt-in only: the field appears in the response when GET /organizations/{id} is called with ?include=marketplace_state. Resolving this field triggers a ClassyPay processor-latest call (60s Redis cache) for claim_source=''GFM_PRO'' orgs only; Consumer-lifecycle orgs classify by tier without a network hop.'
+          type: string
+          enum:
+          - GFM_PRE_KYC
+          - GFM_POST_KYC
+          - GFM_PRO_PRE_KYC
+          - GFM_PRO_POST_KYC
+          - LEGACY
+          example: GFM_PRO_POST_KYC
+        claim_source:
+          description: 'Origin of the Organization''s claim on the underlying charity record. `NULL` for pre-existing (legacy) orgs; `GFM` for SSSU via the Consumer website (gofundme.com); `GFM_PRO` for SSSU via the Pro website (pro.gofundme.com). Set once at POST /organizations/consumer-onboarding from the platform-services payload. **Read-only: ignored by PUT /organizations/{id}** (structurally immutable after creation). **Consumers should NOT branch on this field directly** — it is an internal routing signal that feeds `marketplace_state`. Branch on `marketplace_state` to stay decoupled from the underlying signal mix (which is subject to change without a wire-contract bump).'
+          type:
+          - string
+          - 'null'
+          enum:
+          - GFM
+          - GFM_PRO
+          readOnly: true
+          example: GFM_PRO
+        mission:
+          description: Organization's mission statement
+          type: string
+          example: Save all animals and find them a home
+        name:
+          description: Organization Name
+          type: string
+          maxLength: 127
+          example: Rescue All Animals
+        opt_in_wording:
+          description: Custom opt in language used to collect Supporters consent to receive communications
+          type:
+          - string
+          - 'null'
+          maxLength: 255
+          example: You have agreed to the terms and services.
+        plan_type:
+          description: Organization plan name
+          type: string
+          example: Enterprise
+        sms_opt_in_text:
+          description: SMS opt-in language for marketing consent. Returns default text with org name substituted if not customized. Set to empty string to disable SMS consent messaging.
+          type:
+          - string
+          - 'null'
+          example: It's OK to text me about ways I can continue to support Acme Charity and other important updates.
+        sms_opt_in_text_default:
+          description: The default SMS opt-in text with organization name substituted. Use this to display the default option in the UI.
+          type: string
+          example: It's OK to text me about ways I can continue to support Acme Charity and other important updates.
+        sms_opt_in_text_is_default:
+          description: Indicates whether sms_opt_in_text is using the default value (true) or a custom value (false)
+          type: boolean
+          example: true
+        sms_tos_url:
+          description: SMS Terms of Service URL for the organization
+          type:
+          - string
+          - 'null'
+          maxLength: 255
+          example: https://example.org/sms-terms
+        postal_code:
+          description: Organization postal code
+          type: string
+          example: '92000'
+        restricted_country_information:
+          description: Will be populated if the Organization has chosen to restrict transactions from certain countries. Otherwise null
+          type:
+          - string
+          - 'null'
+          example: UK
+        resend_receipt_flag:
+          description: If true, give the supporters the option to resend the receipts.
+          type: boolean
+          example: true
+        signature_id:
+          description: The asset ID of the signature
+          type:
+          - integer
+          - 'null'
+          example: 100
+        signature_name:
+          description: The name of the person signing
+          type:
+          - string
+          - 'null'
+          maxLength: 50
+          example: Bob Smith
+        signature_title:
+          description: The title of the person signing
+          type:
+          - string
+          - 'null'
+          maxLength: 50
+          example: CEO
+        signature_url:
+          description: The title of the person signing
+          type:
+          - string
+          - 'null'
+          example: https://example.org
+        state:
+          description: Organization state
+          type: string
+          example: CA
+        status:
+          description: Status of the organization
+          type: string
+          enum:
+          - trial
+          - active
+          - deleted
+          - cancelled
+          example: active
+        subscription_plan:
+          description: ID of the legacy base subscription plan
+          type: integer
+          enum:
+          - 0
+          - 3
+          - 4
+          - 5
+          - 8
+          deprecated: true
+        thumbnail:
+          description: Thumbnail
+          type:
+          - string
+          - 'null'
+          example: https://examplerta.org/thumbnail.png
+        timezone_identifier:
+          description: The timezone of the organization. This will be used for reporting.
+          type: string
+          example: UTC
+        twitter:
+          description: The twitter handle for the organization
+          type:
+          - string
+          - 'null'
+          maxLength: 50
+          example: '@animal.rescue'
+        privacy_policy_url:
+          description: The Privacy policy URL for the organization
+          type:
+          - string
+          - 'null'
+          maxLength: 150
+          example: https://examplerta.org
+        type:
+          description: Organization type
+          type:
+          - string
+          - 'null'
+          example: npo
+        url:
+          description: The website for the organization
+          type: string
+          example: https://examplerta.org
+        welcome_message:
+          description: This message appears at the top of the Supporter Hub.
+          type: string
+          maxLength: 100
+          example: Thank you for all you do to make our mission possible
+        created_at:
+          description: Date/time of created organization
+          type: string
+          format: date-time
+          example: '2019-04-23T10:25:03Z'
+        updated_at:
+          description: Date/time of updated organization
+          type: string
+          format: date-time
+          example: '2020-04-23T10:25:03Z'
+        has_gfm_npo_transactions:
+          description: Indicates whether the organization has GoFundMe NPO transactions
+          type: boolean
+          example: false
+        is_billing_address_required:
+          description: Indicates whether billing address is required for donations to this organization
+          type: boolean
+          example: false
+        is_intelligent_text_suggestion_opted_out:
+          description: Indicates whether Intelligent Text Suggestions (ITS) are opted out for this organization
+          type: boolean
+          example: false
+      type: object
+    PaginatedResponse:
+      title: Paginated Response
+      properties:
+        current_page:
+          description: Index of current page
+          type: integer
+          example: 1
+        data:
+          description: Collection of results
+          type: array
+          items:
+            type: object
+        first_page_url:
+          description: URL of first page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        from:
+          description: Index of first displayed result within total result set
+          type:
+          - integer
+          - 'null'
+          example: 1
+        last_page:
+          description: Index of last page in result set
+          type: integer
+          example: 1
+        last_page_url:
+          description: URL of last page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        next_page_url:
+          description: URL of next page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=2
+        path:
+          description: URL of current page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource
+        per_page:
+          description: Maximum number of records returned per page of results
+          type: integer
+          example: 20
+        prev_page_url:
+          description: URL of previous page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        links:
+          description: Collection of objects representing pages {label, URL, active} that can be used to request the associated page of records.
+          type: array
+          items:
+            $ref: '#/components/schemas/PaginationLink'
+        to:
+          description: Index of last displayed result within total result set
+          type:
+          - integer
+          - 'null'
+          example: 1
+        total:
+          description: Total count of records in result set
+          type: integer
+          example: 1
+      type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
+      type: object
+  parameters:
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
+    page:
+      name: page
+      in: query
+      description: Indicator of which page of results to return
+      required: false
+      schema:
+        type: integer
+        example: 1
+  securitySchemes:
+    OAuth2Application:
+      type: oauth2
+      description: OAuth bearer token for client application
+      flows:
+        clientCredentials:
+          tokenUrl: /oauth2/auth
+          refreshUrl: /oauth2/auth
+          scopes:
+            read: Read access
+            write: Write access
+    OAuth2Member:
+      type: oauth2
+      description: OAuth bearer token for client application with additional member context
+      flows:
+        password:
+          tokenUrl: /oauth2/auth
+          refreshUrl: /oauth2/auth
+          scopes:
+            read: Read access
+            write: Write access

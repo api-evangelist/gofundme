@@ -1,0 +1,2402 @@
+{
+  "item": [
+    {
+      "id": "87e0c7c8-c24e-474c-8b28-d5c94b4a3383",
+      "name": "Campaign",
+      "description": {
+        "content": "The fundraising aspect of GoFundMe Pro takes place within Campaigns and Events. Use the campaign endpoint to retrieve information about a campaign by its unique ID.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4aed1e83-3f05-47a9-8e1d-8965c716f341",
+          "name": "duplicateCampaign",
+          "request": {
+            "name": "duplicateCampaign",
+            "description": {
+              "content": "Create a Campaign using a source Campaign as Template",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaigns",
+                ":id",
+                "duplicate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The specified Campaign ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "/oauth2/auth"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/oauth2/auth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"duplicates\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"overrides\": {\n    \"address1\": \"<string,null>\",\n    \"category_id\": \"<integer,null>\",\n    \"channel_id\": \"<integer,null>\",\n    \"channel_keywords\": \"<string,null>\",\n    \"city\": \"<string,null>\",\n    \"contact_email\": \"<string,null>\",\n    \"contact_phone\": \"<string>\",\n    \"country\": \"<string,null>\",\n    \"default_page_appeal_email\": \"<string,null>\",\n    \"default_page_goal\": \"<double>\",\n    \"default_page_thank_you_email\": \"<string,null>\",\n    \"default_team_appeal_email\": \"<string,null>\",\n    \"default_team_goal\": \"<double>\",\n    \"default_team_thank_you_email\": \"<string,null>\",\n    \"designation_id\": \"<integer,null>\",\n    \"display_group_name\": \"<boolean>\",\n    \"ended_at\": \"<string,null-date-time>\",\n    \"external_id\": \"<string,null>\",\n    \"external_url\": \"<string,null>\",\n    \"hide_from_profile\": \"<boolean,null>\",\n    \"internal_name\": \"<string,null>\",\n    \"location_details\": \"<string>\",\n    \"minimum_donation_amount\": \"<number>\",\n    \"name\": \"<string>\",\n    \"postal_code\": \"<string,null>\",\n    \"raw_currency_code\": \"<string>\",\n    \"raw_goal\": \"<string>\",\n    \"redirect_url\": \"<string,null>\",\n    \"sort_designation_by\": \"<string>\",\n    \"started_at\": \"<dateTime>\",\n    \"state\": \"<string,null>\",\n    \"timezone_identifier\": \"<string>\",\n    \"type\": \"<string>\",\n    \"venue\": \"<string,null>\",\n    \"add_registration_fee\": \"<boolean>\",\n    \"allow_duplicate_fundraisers\": \"<boolean>\",\n    \"allow_fundraising_pages\": \"<boolean>\",\n    \"allow_team_fundraising\": \"<boolean>\",\n    \"default_page_appeal\": \"<string,null>\",\n    \"default_page_post_asset_id\": \"<integer,null>\",\n    \"default_page_post_body\": \"<string,null>\",\n    \"default_page_post_title\": \"<string,null>\",\n    \"default_team_appeal\": \"<string,null>\",\n    \"default_team_post_asset_id\": \"<integer,null>\",\n    \"default_team_post_body\": \"<string,null>\",\n    \"default_team_post_title\": \"<string,null>\",\n    \"default_thank_you_text\": \"<string,null>\",\n    \"fixed_fot_percent\": \"<string,null-double>\",\n    \"flex_rate_percent\": \"<number,null-double>\",\n    \"is_billing_address_required\": \"<boolean>\",\n    \"is_ended_at_hidden\": \"<boolean>\",\n    \"is_started_at_hidden\": \"<boolean>\",\n    \"pages_can_set_appeal\": \"<boolean>\",\n    \"pages_can_set_goal\": \"<boolean>\",\n    \"team_membership_policy\": \"<string>\",\n    \"teams_can_set_appeal\": \"<boolean>\",\n    \"teams_can_set_goal\": \"<boolean>\",\n    \"ticket_pass_on_fees\": \"<boolean,null>\",\n    \"allow_ecards\": \"<boolean>\",\n    \"classy_mode_appeal\": \"<string,null>\",\n    \"classy_mode_checked_by_default\": \"<boolean>\",\n    \"classy_mode_enabled\": \"<boolean,null>\",\n    \"checkout_corporate_donation_enabled\": \"<boolean>\",\n    \"corporate_donation_enabled\": \"<boolean>\",\n    \"custom_url\": \"<string,null>\",\n    \"daf_enabled\": \"<boolean>\",\n    \"dcf_enabled\": \"<boolean>\",\n    \"disable_donation_attribution\": \"<boolean,null>\",\n    \"hide_anonymous_donations\": \"<boolean>\",\n    \"hide_recurring_end_date\": \"<boolean>\",\n    \"hide_contact_opt_in\": \"<boolean>\",\n    \"hide_donation_amounts\": \"<boolean>\",\n    \"hide_dedications\": \"<boolean>\",\n    \"hide_donation_comments\": \"<boolean>\",\n    \"offer_dedication_postal_notifications\": \"<boolean>\",\n    \"opt_in_checked_by_default\": \"<boolean>\",\n    \"return_url\": \"<string,null>\",\n    \"send_dedication_emails\": \"<boolean,null>\",\n    \"crypto_giving\": \"<string>\",\n    \"embedded_giving\": \"<string>\",\n    \"exit_modal\": \"<boolean>\",\n    \"use_intelligent_ask_onetime\": \"<boolean,null>\",\n    \"use_intelligent_ask_recurring\": \"<boolean,null>\",\n    \"whitelist_url\": \"<string,null>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f39cf720-2915-4f42-b26e-a8bce2a4186a",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "duplicate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"duplicates\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"overrides\": {\n    \"address1\": \"533 F Street\",\n    \"category_id\": 1,\n    \"channel_id\": 2,\n    \"channel_keywords\": \"some_keyword\",\n    \"city\": \"San Diego\",\n    \"contact_email\": \"test@gofundme.com\",\n    \"contact_phone\": \"619-555-1212\",\n    \"country\": \"US\",\n    \"default_page_appeal_email\": \"Please donate to my fundraising page\",\n    \"default_page_goal\": 500,\n    \"default_page_thank_you_email\": \"Thank you\",\n    \"default_team_appeal_email\": \"Please donate to my fundraising team\",\n    \"default_team_goal\": 500,\n    \"default_team_thank_you_email\": \"Thank you\",\n    \"designation_id\": 10,\n    \"display_group_name\": false,\n    \"ended_at\": \"2021-04-23T08:23:21Z\",\n    \"external_id\": \"37e4d11a-ec0c-4358-94ed-f26cb1753512\",\n    \"external_url\": \"https://pro.gofundme.com\",\n    \"hide_from_profile\": false,\n    \"internal_name\": \"Event #F230DD\",\n    \"location_details\": \"Heading north on I-5...\",\n    \"minimum_donation_amount\": 5,\n    \"name\": \"My Campaign\",\n    \"postal_code\": \"92101\",\n    \"raw_currency_code\": \"EUR\",\n    \"raw_goal\": \"100.000\",\n    \"redirect_url\": \"https://pro.gofundme.com/\",\n    \"sort_designation_by\": \"A-Z\",\n    \"started_at\": \"2021-04-23T08:23:21Z\",\n    \"state\": \"CA\",\n    \"timezone_identifier\": \"America/Los_Angeles\",\n    \"type\": \"ticketed\",\n    \"venue\": \"City Townhall\",\n    \"add_registration_fee\": false,\n    \"allow_duplicate_fundraisers\": false,\n    \"allow_fundraising_pages\": false,\n    \"allow_team_fundraising\": false,\n    \"default_page_appeal\": \"Please donate to my fundraising page\",\n    \"default_page_post_asset_id\": 1,\n    \"default_page_post_body\": \"Lorem ipsum\",\n    \"default_page_post_title\": \"Welcome to our team page!\",\n    \"default_team_appeal\": \"Please donate to my fundraising team\",\n    \"default_team_post_asset_id\": 1,\n    \"default_team_post_body\": \"Lorem ipsum\",\n    \"default_team_post_title\": \"Welcome to our team page!\",\n    \"default_thank_you_text\": \"Thank you so much!\",\n    \"fixed_fot_percent\": \"4.00\",\n    \"flex_rate_percent\": 4,\n    \"is_billing_address_required\": false,\n    \"is_ended_at_hidden\": false,\n    \"is_started_at_hidden\": false,\n    \"pages_can_set_appeal\": false,\n    \"pages_can_set_goal\": false,\n    \"team_membership_policy\": \"optional\",\n    \"teams_can_set_appeal\": false,\n    \"teams_can_set_goal\": false,\n    \"ticket_pass_on_fees\": false,\n    \"allow_ecards\": false,\n    \"classy_mode_appeal\": \"Example appeal text\",\n    \"classy_mode_checked_by_default\": false,\n    \"classy_mode_enabled\": false,\n    \"checkout_corporate_donation_enabled\": true,\n    \"corporate_donation_enabled\": false,\n    \"custom_url\": \"https://test.org/custom\",\n    \"daf_enabled\": false,\n    \"dcf_enabled\": false,\n    \"disable_donation_attribution\": false,\n    \"hide_anonymous_donations\": false,\n    \"hide_recurring_end_date\": false,\n    \"hide_contact_opt_in\": false,\n    \"hide_donation_amounts\": false,\n    \"hide_dedications\": false,\n    \"hide_donation_comments\": false,\n    \"offer_dedication_postal_notifications\": false,\n    \"opt_in_checked_by_default\": false,\n    \"return_url\": \"https://test.org/return\",\n    \"send_dedication_emails\": false,\n    \"crypto_giving\": \"enabled\",\n    \"embedded_giving\": \"disabled\",\n    \"exit_modal\": false,\n    \"use_intelligent_ask_onetime\": false,\n    \"use_intelligent_ask_recurring\": false,\n    \"whitelist_url\": \"https://www.myawesomecharity.org\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address1\": \"533 F Street\",\n  \"campaign_template_id\": 413,\n  \"studio_template_id\": 7,\n  \"is_linked\": false,\n  \"linked_at\": \"2021-04-23T08:23:21Z\",\n  \"unlinked_at\": \"2021-04-23T08:23:21Z\",\n  \"canonical_url\": \"/campaign/c0\",\n  \"category_id\": 1,\n  \"channel_id\": 2,\n  \"channel_keywords\": \"some_keyword\",\n  \"city\": \"San Diego\",\n  \"contact_email\": \"test@gofundme.com\",\n  \"contact_phone\": \"619-555-1212\",\n  \"country\": \"US\",\n  \"created_at\": \"2021-04-23T08:23:21Z\",\n  \"created_with\": \"classyapp\",\n  \"currency_code\": \"USD\",\n  \"default_page_appeal_email\": \"Please donate to my fundraising page\",\n  \"default_page_goal\": 500,\n  \"default_page_thank_you_email\": \"Thank you\",\n  \"default_team_appeal_email\": \"Please donate to my fundraising team\",\n  \"default_team_goal\": 500,\n  \"default_team_thank_you_email\": \"Thank you\",\n  \"designation_id\": 10,\n  \"display_group_name\": false,\n  \"ended_at\": \"2021-04-23T08:23:21Z\",\n  \"effective_fixed_fot_percent\": \"4.00\",\n  \"effective_flex_rate_percent\": 4.2,\n  \"effective_recaptcha_settings\": \"ENABLED\",\n  \"external_id\": \"37e4d11a-ec0c-4358-94ed-f26cb1753512\",\n  \"external_url\": \"https://pro.gofundme.com\",\n  \"goal\": 108.23,\n  \"hide_from_profile\": false,\n  \"id\": 227362,\n  \"internal_name\": \"Event #F230DD\",\n  \"is_fees_free\": false,\n  \"is_general\": 1,\n  \"location_details\": \"Heading north on I-5...\",\n  \"minimum_donation_amount\": 5,\n  \"name\": \"My Campaign\",\n  \"organization_id\": 82364,\n  \"postal_code\": \"92101\",\n  \"raw_currency_code\": \"EUR\",\n  \"raw_goal\": \"100.000\",\n  \"redirect_url\": \"https://pro.gofundme.com/\",\n  \"sort_designation_by\": \"A-Z\",\n  \"started_at\": \"2021-04-23T08:23:21Z\",\n  \"state\": \"CA\",\n  \"status\": \"active\",\n  \"timezone_identifier\": \"America/Los_Angeles\",\n  \"type\": \"ticketed\",\n  \"updated_at\": \"2021-04-23T08:23:21Z\",\n  \"venue\": \"City Townhall\",\n  \"add_registration_fee\": false,\n  \"allow_duplicate_fundraisers\": false,\n  \"allow_fundraising_pages\": false,\n  \"allow_team_fundraising\": false,\n  \"default_page_appeal\": \"Please donate to my fundraising page\",\n  \"default_page_post_asset_id\": 1,\n  \"default_page_post_body\": \"Lorem ipsum\",\n  \"default_page_post_title\": \"Welcome to our team page!\",\n  \"default_team_appeal\": \"Please donate to my fundraising team\",\n  \"default_team_post_asset_id\": 1,\n  \"default_team_post_body\": \"Lorem ipsum\",\n  \"default_team_post_title\": \"Welcome to our team page!\",\n  \"default_thank_you_text\": \"Thank you so much!\",\n  \"fixed_fot_percent\": \"4.00\",\n  \"flex_rate_percent\": 4,\n  \"is_billing_address_required\": false,\n  \"is_ended_at_hidden\": false,\n  \"is_started_at_hidden\": false,\n  \"pages_can_set_appeal\": false,\n  \"pages_can_set_goal\": false,\n  \"team_membership_policy\": \"optional\",\n  \"teams_can_set_appeal\": false,\n  \"teams_can_set_goal\": false,\n  \"ticket_pass_on_fees\": false,\n  \"allow_ecards\": false,\n  \"classy_mode_appeal\": \"Example appeal text\",\n  \"classy_mode_checked_by_default\": false,\n  \"classy_mode_enabled\": false,\n  \"checkout_corporate_donation_enabled\": true,\n  \"corporate_donation_enabled\": false,\n  \"custom_url\": \"https://test.org/custom\",\n  \"daf_enabled\": false,\n  \"dcf_enabled\": false,\n  \"dcf_allowed\": false,\n  \"disable_donation_attribution\": false,\n  \"hide_anonymous_donations\": false,\n  \"hide_recurring_end_date\": false,\n  \"hide_contact_opt_in\": false,\n  \"hide_donation_amounts\": false,\n  \"hide_dedications\": false,\n  \"hide_donation_comments\": false,\n  \"offer_dedication_postal_notifications\": false,\n  \"opt_in_checked_by_default\": false,\n  \"return_url\": \"https://test.org/return\",\n  \"send_dedication_emails\": false,\n  \"logo_id\": 1002,\n  \"logo_url\": \"https://gofundme-cdn-url.com/your-logo.png\",\n  \"team_cover_photo_id\": 2345,\n  \"team_cover_photo_url\": \"https://gofundme-cdn-url.com/your-team-cover-photo.png\",\n  \"crypto_giving\": \"enabled\",\n  \"embedded_giving\": \"disabled\",\n  \"exit_modal\": false,\n  \"use_intelligent_ask_onetime\": false,\n  \"use_intelligent_ask_recurring\": false,\n  \"whitelist_url\": \"https://www.myawesomecharity.org\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8eea1cfc-ba07-40ed-bcf5-b33a80c58108",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "duplicate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"duplicates\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"overrides\": {\n    \"address1\": \"533 F Street\",\n    \"category_id\": 1,\n    \"channel_id\": 2,\n    \"channel_keywords\": \"some_keyword\",\n    \"city\": \"San Diego\",\n    \"contact_email\": \"test@gofundme.com\",\n    \"contact_phone\": \"619-555-1212\",\n    \"country\": \"US\",\n    \"default_page_appeal_email\": \"Please donate to my fundraising page\",\n    \"default_page_goal\": 500,\n    \"default_page_thank_you_email\": \"Thank you\",\n    \"default_team_appeal_email\": \"Please donate to my fundraising team\",\n    \"default_team_goal\": 500,\n    \"default_team_thank_you_email\": \"Thank you\",\n    \"designation_id\": 10,\n    \"display_group_name\": false,\n    \"ended_at\": \"2021-04-23T08:23:21Z\",\n    \"external_id\": \"37e4d11a-ec0c-4358-94ed-f26cb1753512\",\n    \"external_url\": \"https://pro.gofundme.com\",\n    \"hide_from_profile\": false,\n    \"internal_name\": \"Event #F230DD\",\n    \"location_details\": \"Heading north on I-5...\",\n    \"minimum_donation_amount\": 5,\n    \"name\": \"My Campaign\",\n    \"postal_code\": \"92101\",\n    \"raw_currency_code\": \"EUR\",\n    \"raw_goal\": \"100.000\",\n    \"redirect_url\": \"https://pro.gofundme.com/\",\n    \"sort_designation_by\": \"A-Z\",\n    \"started_at\": \"2021-04-23T08:23:21Z\",\n    \"state\": \"CA\",\n    \"timezone_identifier\": \"America/Los_Angeles\",\n    \"type\": \"ticketed\",\n    \"venue\": \"City Townhall\",\n    \"add_registration_fee\": false,\n    \"allow_duplicate_fundraisers\": false,\n    \"allow_fundraising_pages\": false,\n    \"allow_team_fundraising\": false,\n    \"default_page_appeal\": \"Please donate to my fundraising page\",\n    \"default_page_post_asset_id\": 1,\n    \"default_page_post_body\": \"Lorem ipsum\",\n    \"default_page_post_title\": \"Welcome to our team page!\",\n    \"default_team_appeal\": \"Please donate to my fundraising team\",\n    \"default_team_post_asset_id\": 1,\n    \"default_team_post_body\": \"Lorem ipsum\",\n    \"default_team_post_title\": \"Welcome to our team page!\",\n    \"default_thank_you_text\": \"Thank you so much!\",\n    \"fixed_fot_percent\": \"4.00\",\n    \"flex_rate_percent\": 4,\n    \"is_billing_address_required\": false,\n    \"is_ended_at_hidden\": false,\n    \"is_started_at_hidden\": false,\n    \"pages_can_set_appeal\": false,\n    \"pages_can_set_goal\": false,\n    \"team_membership_policy\": \"optional\",\n    \"teams_can_set_appeal\": false,\n    \"teams_can_set_goal\": false,\n    \"ticket_pass_on_fees\": false,\n    \"allow_ecards\": false,\n    \"classy_mode_appeal\": \"Example appeal text\",\n    \"classy_mode_checked_by_default\": false,\n    \"classy_mode_enabled\": false,\n    \"checkout_corporate_donation_enabled\": true,\n    \"corporate_donation_enabled\": false,\n    \"custom_url\": \"https://test.org/custom\",\n    \"daf_enabled\": false,\n    \"dcf_enabled\": false,\n    \"disable_donation_attribution\": false,\n    \"hide_anonymous_donations\": false,\n    \"hide_recurring_end_date\": false,\n    \"hide_contact_opt_in\": false,\n    \"hide_donation_amounts\": false,\n    \"hide_dedications\": false,\n    \"hide_donation_comments\": false,\n    \"offer_dedication_postal_notifications\": false,\n    \"opt_in_checked_by_default\": false,\n    \"return_url\": \"https://test.org/return\",\n    \"send_dedication_emails\": false,\n    \"crypto_giving\": \"enabled\",\n    \"embedded_giving\": \"disabled\",\n    \"exit_modal\": false,\n    \"use_intelligent_ask_onetime\": false,\n    \"use_intelligent_ask_recurring\": false,\n    \"whitelist_url\": \"https://www.myawesomecharity.org\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b6b51bdd-9def-4cdb-9f99-55613a18c230",
+              "name": "Campaign not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "duplicate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"duplicates\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"overrides\": {\n    \"address1\": \"533 F Street\",\n    \"category_id\": 1,\n    \"channel_id\": 2,\n    \"channel_keywords\": \"some_keyword\",\n    \"city\": \"San Diego\",\n    \"contact_email\": \"test@gofundme.com\",\n    \"contact_phone\": \"619-555-1212\",\n    \"country\": \"US\",\n    \"default_page_appeal_email\": \"Please donate to my fundraising page\",\n    \"default_page_goal\": 500,\n    \"default_page_thank_you_email\": \"Thank you\",\n    \"default_team_appeal_email\": \"Please donate to my fundraising team\",\n    \"default_team_goal\": 500,\n    \"default_team_thank_you_email\": \"Thank you\",\n    \"designation_id\": 10,\n    \"display_group_name\": false,\n    \"ended_at\": \"2021-04-23T08:23:21Z\",\n    \"external_id\": \"37e4d11a-ec0c-4358-94ed-f26cb1753512\",\n    \"external_url\": \"https://pro.gofundme.com\",\n    \"hide_from_profile\": false,\n    \"internal_name\": \"Event #F230DD\",\n    \"location_details\": \"Heading north on I-5...\",\n    \"minimum_donation_amount\": 5,\n    \"name\": \"My Campaign\",\n    \"postal_code\": \"92101\",\n    \"raw_currency_code\": \"EUR\",\n    \"raw_goal\": \"100.000\",\n    \"redirect_url\": \"https://pro.gofundme.com/\",\n    \"sort_designation_by\": \"A-Z\",\n    \"started_at\": \"2021-04-23T08:23:21Z\",\n    \"state\": \"CA\",\n    \"timezone_identifier\": \"America/Los_Angeles\",\n    \"type\": \"ticketed\",\n    \"venue\": \"City Townhall\",\n    \"add_registration_fee\": false,\n    \"allow_duplicate_fundraisers\": false,\n    \"allow_fundraising_pages\": false,\n    \"allow_team_fundraising\": false,\n    \"default_page_appeal\": \"Please donate to my fundraising page\",\n    \"default_page_post_asset_id\": 1,\n    \"default_page_post_body\": \"Lorem ipsum\",\n    \"default_page_post_title\": \"Welcome to our team page!\",\n    \"default_team_appeal\": \"Please donate to my fundraising team\",\n    \"default_team_post_asset_id\": 1,\n    \"default_team_post_body\": \"Lorem ipsum\",\n    \"default_team_post_title\": \"Welcome to our team page!\",\n    \"default_thank_you_text\": \"Thank you so much!\",\n    \"fixed_fot_percent\": \"4.00\",\n    \"flex_rate_percent\": 4,\n    \"is_billing_address_required\": false,\n    \"is_ended_at_hidden\": false,\n    \"is_started_at_hidden\": false,\n    \"pages_can_set_appeal\": false,\n    \"pages_can_set_goal\": false,\n    \"team_membership_policy\": \"optional\",\n    \"teams_can_set_appeal\": false,\n    \"teams_can_set_goal\": false,\n    \"ticket_pass_on_fees\": false,\n    \"allow_ecards\": false,\n    \"classy_mode_appeal\": \"Example appeal text\",\n    \"classy_mode_checked_by_default\": false,\n    \"classy_mode_enabled\": false,\n    \"checkout_corporate_donation_enabled\": true,\n    \"corporate_donation_enabled\": false,\n    \"custom_url\": \"https://test.org/custom\",\n    \"daf_enabled\": false,\n    \"dcf_enabled\": false,\n    \"disable_donation_attribution\": false,\n    \"hide_anonymous_donations\": false,\n    \"hide_recurring_end_date\": false,\n    \"hide_contact_opt_in\": false,\n    \"hide_donation_amounts\": false,\n    \"hide_dedications\": false,\n    \"hide_donation_comments\": false,\n    \"offer_dedication_postal_notifications\": false,\n    \"opt_in_checked_by_default\": false,\n    \"return_url\": \"https://test.org/return\",\n    \"send_dedication_emails\": false,\n    \"crypto_giving\": \"enabled\",\n    \"embedded_giving\": \"disabled\",\n    \"exit_modal\": false,\n    \"use_intelligent_ask_onetime\": false,\n    \"use_intelligent_ask_recurring\": false,\n    \"whitelist_url\": \"https://www.myawesomecharity.org\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5da39b22-fb6c-48d3-bc41-03bc2ef5be35",
+          "name": "fetchCampaign",
+          "request": {
+            "name": "fetchCampaign",
+            "description": {
+              "content": "Retrieves Campaign by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaigns",
+                ":campaign"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to be returned"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "campaign",
+                  "description": "(Required) The specified Campaign ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5e76a715-896e-42a2-a5cd-869aaf52bb35",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":campaign"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address1\": \"533 F Street\",\n  \"campaign_template_id\": 413,\n  \"studio_template_id\": 7,\n  \"is_linked\": false,\n  \"linked_at\": \"2021-04-23T08:23:21Z\",\n  \"unlinked_at\": \"2021-04-23T08:23:21Z\",\n  \"canonical_url\": \"/campaign/c0\",\n  \"category_id\": 1,\n  \"channel_id\": 2,\n  \"channel_keywords\": \"some_keyword\",\n  \"city\": \"San Diego\",\n  \"contact_email\": \"test@gofundme.com\",\n  \"contact_phone\": \"619-555-1212\",\n  \"country\": \"US\",\n  \"created_at\": \"2021-04-23T08:23:21Z\",\n  \"created_with\": \"classyapp\",\n  \"currency_code\": \"USD\",\n  \"default_page_appeal_email\": \"Please donate to my fundraising page\",\n  \"default_page_goal\": 500,\n  \"default_page_thank_you_email\": \"Thank you\",\n  \"default_team_appeal_email\": \"Please donate to my fundraising team\",\n  \"default_team_goal\": 500,\n  \"default_team_thank_you_email\": \"Thank you\",\n  \"designation_id\": 10,\n  \"display_group_name\": false,\n  \"ended_at\": \"2021-04-23T08:23:21Z\",\n  \"effective_fixed_fot_percent\": \"4.00\",\n  \"effective_flex_rate_percent\": 4.2,\n  \"effective_recaptcha_settings\": \"ENABLED\",\n  \"external_id\": \"37e4d11a-ec0c-4358-94ed-f26cb1753512\",\n  \"external_url\": \"https://pro.gofundme.com\",\n  \"goal\": 108.23,\n  \"hide_from_profile\": false,\n  \"id\": 227362,\n  \"internal_name\": \"Event #F230DD\",\n  \"is_fees_free\": false,\n  \"is_general\": 1,\n  \"location_details\": \"Heading north on I-5...\",\n  \"minimum_donation_amount\": 5,\n  \"name\": \"My Campaign\",\n  \"organization_id\": 82364,\n  \"postal_code\": \"92101\",\n  \"raw_currency_code\": \"EUR\",\n  \"raw_goal\": \"100.000\",\n  \"redirect_url\": \"https://pro.gofundme.com/\",\n  \"sort_designation_by\": \"A-Z\",\n  \"started_at\": \"2021-04-23T08:23:21Z\",\n  \"state\": \"CA\",\n  \"status\": \"active\",\n  \"timezone_identifier\": \"America/Los_Angeles\",\n  \"type\": \"ticketed\",\n  \"updated_at\": \"2021-04-23T08:23:21Z\",\n  \"venue\": \"City Townhall\",\n  \"add_registration_fee\": false,\n  \"allow_duplicate_fundraisers\": false,\n  \"allow_fundraising_pages\": false,\n  \"allow_team_fundraising\": false,\n  \"default_page_appeal\": \"Please donate to my fundraising page\",\n  \"default_page_post_asset_id\": 1,\n  \"default_page_post_body\": \"Lorem ipsum\",\n  \"default_page_post_title\": \"Welcome to our team page!\",\n  \"default_team_appeal\": \"Please donate to my fundraising team\",\n  \"default_team_post_asset_id\": 1,\n  \"default_team_post_body\": \"Lorem ipsum\",\n  \"default_team_post_title\": \"Welcome to our team page!\",\n  \"default_thank_you_text\": \"Thank you so much!\",\n  \"fixed_fot_percent\": \"4.00\",\n  \"flex_rate_percent\": 4,\n  \"is_billing_address_required\": false,\n  \"is_ended_at_hidden\": false,\n  \"is_started_at_hidden\": false,\n  \"pages_can_set_appeal\": false,\n  \"pages_can_set_goal\": false,\n  \"team_membership_policy\": \"optional\",\n  \"teams_can_set_appeal\": false,\n  \"teams_can_set_goal\": false,\n  \"ticket_pass_on_fees\": false,\n  \"allow_ecards\": false,\n  \"classy_mode_appeal\": \"Example appeal text\",\n  \"classy_mode_checked_by_default\": false,\n  \"classy_mode_enabled\": false,\n  \"checkout_corporate_donation_enabled\": true,\n  \"corporate_donation_enabled\": false,\n  \"custom_url\": \"https://test.org/custom\",\n  \"daf_enabled\": false,\n  \"dcf_enabled\": false,\n  \"dcf_allowed\": false,\n  \"disable_donation_attribution\": false,\n  \"hide_anonymous_donations\": false,\n  \"hide_recurring_end_date\": false,\n  \"hide_contact_opt_in\": false,\n  \"hide_donation_amounts\": false,\n  \"hide_dedications\": false,\n  \"hide_donation_comments\": false,\n  \"offer_dedication_postal_notifications\": false,\n  \"opt_in_checked_by_default\": false,\n  \"return_url\": \"https://test.org/return\",\n  \"send_dedication_emails\": false,\n  \"logo_id\": 1002,\n  \"logo_url\": \"https://gofundme-cdn-url.com/your-logo.png\",\n  \"team_cover_photo_id\": 2345,\n  \"team_cover_photo_url\": \"https://gofundme-cdn-url.com/your-team-cover-photo.png\",\n  \"crypto_giving\": \"enabled\",\n  \"embedded_giving\": \"disabled\",\n  \"exit_modal\": false,\n  \"use_intelligent_ask_onetime\": false,\n  \"use_intelligent_ask_recurring\": false,\n  \"whitelist_url\": \"https://www.myawesomecharity.org\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "826e535d-e962-4ce0-8ab0-0a7b8662a7e2",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":campaign"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8e9fefb0-c45c-48af-8c17-537782fadf03",
+              "name": "Campaign not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":campaign"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "id"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2a431027-38ab-4e21-870a-619d78dfd3ae",
+          "name": "updateCampaign",
+          "request": {
+            "name": "updateCampaign",
+            "description": {
+              "content": "Updates an existing Campaign",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaigns",
+                ":campaign"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "campaign",
+                  "description": "(Required) The specified Campaign ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "/oauth2/auth"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/oauth2/auth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"address1\": \"<string,null>\",\n  \"category_id\": \"<integer,null>\",\n  \"channel_id\": \"<integer,null>\",\n  \"channel_keywords\": \"<string,null>\",\n  \"city\": \"<string,null>\",\n  \"contact_email\": \"<string,null>\",\n  \"contact_phone\": \"<string>\",\n  \"country\": \"<string,null>\",\n  \"default_page_appeal_email\": \"<string,null>\",\n  \"default_page_goal\": \"<double>\",\n  \"default_page_thank_you_email\": \"<string,null>\",\n  \"default_team_appeal_email\": \"<string,null>\",\n  \"default_team_goal\": \"<double>\",\n  \"default_team_thank_you_email\": \"<string,null>\",\n  \"designation_id\": \"<integer,null>\",\n  \"display_group_name\": \"<boolean>\",\n  \"ended_at\": \"<string,null-date-time>\",\n  \"external_id\": \"<string,null>\",\n  \"external_url\": \"<string,null>\",\n  \"hide_from_profile\": \"<boolean,null>\",\n  \"internal_name\": \"<string,null>\",\n  \"location_details\": \"<string>\",\n  \"minimum_donation_amount\": \"<number>\",\n  \"name\": \"<string>\",\n  \"postal_code\": \"<string,null>\",\n  \"raw_currency_code\": \"<string>\",\n  \"raw_goal\": \"<string>\",\n  \"redirect_url\": \"<string,null>\",\n  \"sort_designation_by\": \"<string>\",\n  \"started_at\": \"<dateTime>\",\n  \"state\": \"<string,null>\",\n  \"timezone_identifier\": \"<string>\",\n  \"type\": \"<string>\",\n  \"venue\": \"<string,null>\",\n  \"add_registration_fee\": \"<boolean>\",\n  \"allow_duplicate_fundraisers\": \"<boolean>\",\n  \"allow_fundraising_pages\": \"<boolean>\",\n  \"allow_team_fundraising\": \"<boolean>\",\n  \"default_page_appeal\": \"<string,null>\",\n  \"default_page_post_asset_id\": \"<integer,null>\",\n  \"default_page_post_body\": \"<string,null>\",\n  \"default_page_post_title\": \"<string,null>\",\n  \"default_team_appeal\": \"<string,null>\",\n  \"default_team_post_asset_id\": \"<integer,null>\",\n  \"default_team_post_body\": \"<string,null>\",\n  \"default_team_post_title\": \"<string,null>\",\n  \"default_thank_you_text\": \"<string,null>\",\n  \"fixed_fot_percent\": \"<string,null-double>\",\n  \"flex_rate_percent\": \"<number,null-double>\",\n  \"is_billing_address_required\": \"<boolean>\",\n  \"is_ended_at_hidden\": \"<boolean>\",\n  \"is_started_at_hidden\": \"<boolean>\",\n  \"pages_can_set_appeal\": \"<boolean>\",\n  \"pages_can_set_goal\": \"<boolean>\",\n  \"team_membership_policy\": \"<string>\",\n  \"teams_can_set_appeal\": \"<boolean>\",\n  \"teams_can_set_goal\": \"<boolean>\",\n  \"ticket_pass_on_fees\": \"<boolean,null>\",\n  \"allow_ecards\": \"<boolean>\",\n  \"classy_mode_appeal\": \"<string,null>\",\n  \"classy_mode_checked_by_default\": \"<boolean>\",\n  \"classy_mode_enabled\": \"<boolean,null>\",\n  \"checkout_corporate_donation_enabled\": \"<boolean>\",\n  \"corporate_donation_enabled\": \"<boolean>\",\n  \"custom_url\": \"<string,null>\",\n  \"daf_enabled\": \"<boolean>\",\n  \"dcf_enabled\": \"<boolean>\",\n  \"disable_donation_attribution\": \"<boolean,null>\",\n  \"hide_anonymous_donations\": \"<boolean>\",\n  \"hide_recurring_end_date\": \"<boolean>\",\n  \"hide_contact_opt_in\": \"<boolean>\",\n  \"hide_donation_amounts\": \"<boolean>\",\n  \"hide_dedications\": \"<boolean>\",\n  \"hide_donation_comments\": \"<boolean>\",\n  \"offer_dedication_postal_notifications\": \"<boolean>\",\n  \"opt_in_checked_by_default\": \"<boolean>\",\n  \"return_url\": \"<string,null>\",\n  \"send_dedication_emails\": \"<boolean,null>\",\n  \"crypto_giving\": \"<string>\",\n  \"embedded_giving\": \"<string>\",\n  \"exit_modal\": \"<boolean>\",\n  \"use_intelligent_ask_onetime\": \"<boolean,null>\",\n  \"use_intelligent_ask_recurring\": \"<boolean,null>\",\n  \"whitelist_url\": \"<string,null>\",\n  \"fundraising_tracking_code\": \"<string,null>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b89cf83b-ae65-429d-b752-7d9d9fb44841",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":campaign"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address1\": \"533 F Street\",\n  \"category_id\": 1,\n  \"channel_id\": 2,\n  \"channel_keywords\": \"some_keyword\",\n  \"city\": \"San Diego\",\n  \"contact_email\": \"test@gofundme.com\",\n  \"contact_phone\": \"619-555-1212\",\n  \"country\": \"US\",\n  \"default_page_appeal_email\": \"Please donate to my fundraising page\",\n  \"default_page_goal\": 500,\n  \"default_page_thank_you_email\": \"Thank you\",\n  \"default_team_appeal_email\": \"Please donate to my fundraising team\",\n  \"default_team_goal\": 500,\n  \"default_team_thank_you_email\": \"Thank you\",\n  \"designation_id\": 10,\n  \"display_group_name\": false,\n  \"ended_at\": \"2021-04-23T08:23:21Z\",\n  \"external_id\": \"37e4d11a-ec0c-4358-94ed-f26cb1753512\",\n  \"external_url\": \"https://pro.gofundme.com\",\n  \"hide_from_profile\": false,\n  \"internal_name\": \"Event #F230DD\",\n  \"location_details\": \"Heading north on I-5...\",\n  \"minimum_donation_amount\": 5,\n  \"name\": \"My Campaign\",\n  \"postal_code\": \"92101\",\n  \"raw_currency_code\": \"EUR\",\n  \"raw_goal\": \"100.000\",\n  \"redirect_url\": \"https://pro.gofundme.com/\",\n  \"sort_designation_by\": \"A-Z\",\n  \"started_at\": \"2021-04-23T08:23:21Z\",\n  \"state\": \"CA\",\n  \"timezone_identifier\": \"America/Los_Angeles\",\n  \"type\": \"ticketed\",\n  \"venue\": \"City Townhall\",\n  \"add_registration_fee\": false,\n  \"allow_duplicate_fundraisers\": false,\n  \"allow_fundraising_pages\": false,\n  \"allow_team_fundraising\": false,\n  \"default_page_appeal\": \"Please donate to my fundraising page\",\n  \"default_page_post_asset_id\": 1,\n  \"default_page_post_body\": \"Lorem ipsum\",\n  \"default_page_post_title\": \"Welcome to our team page!\",\n  \"default_team_appeal\": \"Please donate to my fundraising team\",\n  \"default_team_post_asset_id\": 1,\n  \"default_team_post_body\": \"Lorem ipsum\",\n  \"default_team_post_title\": \"Welcome to our team page!\",\n  \"default_thank_you_text\": \"Thank you so much!\",\n  \"fixed_fot_percent\": \"4.00\",\n  \"flex_rate_percent\": 4,\n  \"is_billing_address_required\": false,\n  \"is_ended_at_hidden\": false,\n  \"is_started_at_hidden\": false,\n  \"pages_can_set_appeal\": false,\n  \"pages_can_set_goal\": false,\n  \"team_membership_policy\": \"optional\",\n  \"teams_can_set_appeal\": false,\n  \"teams_can_set_goal\": false,\n  \"ticket_pass_on_fees\": false,\n  \"allow_ecards\": false,\n  \"classy_mode_appeal\": \"Example appeal text\",\n  \"classy_mode_checked_by_default\": false,\n  \"classy_mode_enabled\": false,\n  \"checkout_corporate_donation_enabled\": true,\n  \"corporate_donation_enabled\": false,\n  \"custom_url\": \"https://test.org/custom\",\n  \"daf_enabled\": false,\n  \"dcf_enabled\": false,\n  \"disable_donation_attribution\": false,\n  \"hide_anonymous_donations\": false,\n  \"hide_recurring_end_date\": false,\n  \"hide_contact_opt_in\": false,\n  \"hide_donation_amounts\": false,\n  \"hide_dedications\": false,\n  \"hide_donation_comments\": false,\n  \"offer_dedication_postal_notifications\": false,\n  \"opt_in_checked_by_default\": false,\n  \"return_url\": \"https://test.org/return\",\n  \"send_dedication_emails\": false,\n  \"crypto_giving\": \"enabled\",\n  \"embedded_giving\": \"disabled\",\n  \"exit_modal\": false,\n  \"use_intelligent_ask_onetime\": false,\n  \"use_intelligent_ask_recurring\": false,\n  \"whitelist_url\": \"https://www.myawesomecharity.org\",\n  \"fundraising_tracking_code\": \"JD0146\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address1\": \"533 F Street\",\n  \"campaign_template_id\": 413,\n  \"studio_template_id\": 7,\n  \"is_linked\": false,\n  \"linked_at\": \"2021-04-23T08:23:21Z\",\n  \"unlinked_at\": \"2021-04-23T08:23:21Z\",\n  \"canonical_url\": \"/campaign/c0\",\n  \"category_id\": 1,\n  \"channel_id\": 2,\n  \"channel_keywords\": \"some_keyword\",\n  \"city\": \"San Diego\",\n  \"contact_email\": \"test@gofundme.com\",\n  \"contact_phone\": \"619-555-1212\",\n  \"country\": \"US\",\n  \"created_at\": \"2021-04-23T08:23:21Z\",\n  \"created_with\": \"classyapp\",\n  \"currency_code\": \"USD\",\n  \"default_page_appeal_email\": \"Please donate to my fundraising page\",\n  \"default_page_goal\": 500,\n  \"default_page_thank_you_email\": \"Thank you\",\n  \"default_team_appeal_email\": \"Please donate to my fundraising team\",\n  \"default_team_goal\": 500,\n  \"default_team_thank_you_email\": \"Thank you\",\n  \"designation_id\": 10,\n  \"display_group_name\": false,\n  \"ended_at\": \"2021-04-23T08:23:21Z\",\n  \"effective_fixed_fot_percent\": \"4.00\",\n  \"effective_flex_rate_percent\": 4.2,\n  \"effective_recaptcha_settings\": \"ENABLED\",\n  \"external_id\": \"37e4d11a-ec0c-4358-94ed-f26cb1753512\",\n  \"external_url\": \"https://pro.gofundme.com\",\n  \"goal\": 108.23,\n  \"hide_from_profile\": false,\n  \"id\": 227362,\n  \"internal_name\": \"Event #F230DD\",\n  \"is_fees_free\": false,\n  \"is_general\": 1,\n  \"location_details\": \"Heading north on I-5...\",\n  \"minimum_donation_amount\": 5,\n  \"name\": \"My Campaign\",\n  \"organization_id\": 82364,\n  \"postal_code\": \"92101\",\n  \"raw_currency_code\": \"EUR\",\n  \"raw_goal\": \"100.000\",\n  \"redirect_url\": \"https://pro.gofundme.com/\",\n  \"sort_designation_by\": \"A-Z\",\n  \"started_at\": \"2021-04-23T08:23:21Z\",\n  \"state\": \"CA\",\n  \"status\": \"active\",\n  \"timezone_identifier\": \"America/Los_Angeles\",\n  \"type\": \"ticketed\",\n  \"updated_at\": \"2021-04-23T08:23:21Z\",\n  \"venue\": \"City Townhall\",\n  \"add_registration_fee\": false,\n  \"allow_duplicate_fundraisers\": false,\n  \"allow_fundraising_pages\": false,\n  \"allow_team_fundraising\": false,\n  \"default_page_appeal\": \"Please donate to my fundraising page\",\n  \"default_page_post_asset_id\": 1,\n  \"default_page_post_body\": \"Lorem ipsum\",\n  \"default_page_post_title\": \"Welcome to our team page!\",\n  \"default_team_appeal\": \"Please donate to my fundraising team\",\n  \"default_team_post_asset_id\": 1,\n  \"default_team_post_body\": \"Lorem ipsum\",\n  \"default_team_post_title\": \"Welcome to our team page!\",\n  \"default_thank_you_text\": \"Thank you so much!\",\n  \"fixed_fot_percent\": \"4.00\",\n  \"flex_rate_percent\": 4,\n  \"is_billing_address_required\": false,\n  \"is_ended_at_hidden\": false,\n  \"is_started_at_hidden\": false,\n  \"pages_can_set_appeal\": false,\n  \"pages_can_set_goal\": false,\n  \"team_membership_policy\": \"optional\",\n  \"teams_can_set_appeal\": false,\n  \"teams_can_set_goal\": false,\n  \"ticket_pass_on_fees\": false,\n  \"allow_ecards\": false,\n  \"classy_mode_appeal\": \"Example appeal text\",\n  \"classy_mode_checked_by_default\": false,\n  \"classy_mode_enabled\": false,\n  \"checkout_corporate_donation_enabled\": true,\n  \"corporate_donation_enabled\": false,\n  \"custom_url\": \"https://test.org/custom\",\n  \"daf_enabled\": false,\n  \"dcf_enabled\": false,\n  \"dcf_allowed\": false,\n  \"disable_donation_attribution\": false,\n  \"hide_anonymous_donations\": false,\n  \"hide_recurring_end_date\": false,\n  \"hide_contact_opt_in\": false,\n  \"hide_donation_amounts\": false,\n  \"hide_dedications\": false,\n  \"hide_donation_comments\": false,\n  \"offer_dedication_postal_notifications\": false,\n  \"opt_in_checked_by_default\": false,\n  \"return_url\": \"https://test.org/return\",\n  \"send_dedication_emails\": false,\n  \"logo_id\": 1002,\n  \"logo_url\": \"https://gofundme-cdn-url.com/your-logo.png\",\n  \"team_cover_photo_id\": 2345,\n  \"team_cover_photo_url\": \"https://gofundme-cdn-url.com/your-team-cover-photo.png\",\n  \"crypto_giving\": \"enabled\",\n  \"embedded_giving\": \"disabled\",\n  \"exit_modal\": false,\n  \"use_intelligent_ask_onetime\": false,\n  \"use_intelligent_ask_recurring\": false,\n  \"whitelist_url\": \"https://www.myawesomecharity.org\",\n  \"fundraising_tracking_code\": \"JD0146\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8c5313f8-3597-4ea6-8478-0f07dcf9ecc0",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":campaign"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address1\": \"533 F Street\",\n  \"category_id\": 1,\n  \"channel_id\": 2,\n  \"channel_keywords\": \"some_keyword\",\n  \"city\": \"San Diego\",\n  \"contact_email\": \"test@gofundme.com\",\n  \"contact_phone\": \"619-555-1212\",\n  \"country\": \"US\",\n  \"default_page_appeal_email\": \"Please donate to my fundraising page\",\n  \"default_page_goal\": 500,\n  \"default_page_thank_you_email\": \"Thank you\",\n  \"default_team_appeal_email\": \"Please donate to my fundraising team\",\n  \"default_team_goal\": 500,\n  \"default_team_thank_you_email\": \"Thank you\",\n  \"designation_id\": 10,\n  \"display_group_name\": false,\n  \"ended_at\": \"2021-04-23T08:23:21Z\",\n  \"external_id\": \"37e4d11a-ec0c-4358-94ed-f26cb1753512\",\n  \"external_url\": \"https://pro.gofundme.com\",\n  \"hide_from_profile\": false,\n  \"internal_name\": \"Event #F230DD\",\n  \"location_details\": \"Heading north on I-5...\",\n  \"minimum_donation_amount\": 5,\n  \"name\": \"My Campaign\",\n  \"postal_code\": \"92101\",\n  \"raw_currency_code\": \"EUR\",\n  \"raw_goal\": \"100.000\",\n  \"redirect_url\": \"https://pro.gofundme.com/\",\n  \"sort_designation_by\": \"A-Z\",\n  \"started_at\": \"2021-04-23T08:23:21Z\",\n  \"state\": \"CA\",\n  \"timezone_identifier\": \"America/Los_Angeles\",\n  \"type\": \"ticketed\",\n  \"venue\": \"City Townhall\",\n  \"add_registration_fee\": false,\n  \"allow_duplicate_fundraisers\": false,\n  \"allow_fundraising_pages\": false,\n  \"allow_team_fundraising\": false,\n  \"default_page_appeal\": \"Please donate to my fundraising page\",\n  \"default_page_post_asset_id\": 1,\n  \"default_page_post_body\": \"Lorem ipsum\",\n  \"default_page_post_title\": \"Welcome to our team page!\",\n  \"default_team_appeal\": \"Please donate to my fundraising team\",\n  \"default_team_post_asset_id\": 1,\n  \"default_team_post_body\": \"Lorem ipsum\",\n  \"default_team_post_title\": \"Welcome to our team page!\",\n  \"default_thank_you_text\": \"Thank you so much!\",\n  \"fixed_fot_percent\": \"4.00\",\n  \"flex_rate_percent\": 4,\n  \"is_billing_address_required\": false,\n  \"is_ended_at_hidden\": false,\n  \"is_started_at_hidden\": false,\n  \"pages_can_set_appeal\": false,\n  \"pages_can_set_goal\": false,\n  \"team_membership_policy\": \"optional\",\n  \"teams_can_set_appeal\": false,\n  \"teams_can_set_goal\": false,\n  \"ticket_pass_on_fees\": false,\n  \"allow_ecards\": false,\n  \"classy_mode_appeal\": \"Example appeal text\",\n  \"classy_mode_checked_by_default\": false,\n  \"classy_mode_enabled\": false,\n  \"checkout_corporate_donation_enabled\": true,\n  \"corporate_donation_enabled\": false,\n  \"custom_url\": \"https://test.org/custom\",\n  \"daf_enabled\": false,\n  \"dcf_enabled\": false,\n  \"disable_donation_attribution\": false,\n  \"hide_anonymous_donations\": false,\n  \"hide_recurring_end_date\": false,\n  \"hide_contact_opt_in\": false,\n  \"hide_donation_amounts\": false,\n  \"hide_dedications\": false,\n  \"hide_donation_comments\": false,\n  \"offer_dedication_postal_notifications\": false,\n  \"opt_in_checked_by_default\": false,\n  \"return_url\": \"https://test.org/return\",\n  \"send_dedication_emails\": false,\n  \"crypto_giving\": \"enabled\",\n  \"embedded_giving\": \"disabled\",\n  \"exit_modal\": false,\n  \"use_intelligent_ask_onetime\": false,\n  \"use_intelligent_ask_recurring\": false,\n  \"whitelist_url\": \"https://www.myawesomecharity.org\",\n  \"fundraising_tracking_code\": \"JD0146\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fda0dd4f-9f56-4a2d-b8e3-9c0766cd9fe1",
+              "name": "Campaign not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":campaign"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address1\": \"533 F Street\",\n  \"category_id\": 1,\n  \"channel_id\": 2,\n  \"channel_keywords\": \"some_keyword\",\n  \"city\": \"San Diego\",\n  \"contact_email\": \"test@gofundme.com\",\n  \"contact_phone\": \"619-555-1212\",\n  \"country\": \"US\",\n  \"default_page_appeal_email\": \"Please donate to my fundraising page\",\n  \"default_page_goal\": 500,\n  \"default_page_thank_you_email\": \"Thank you\",\n  \"default_team_appeal_email\": \"Please donate to my fundraising team\",\n  \"default_team_goal\": 500,\n  \"default_team_thank_you_email\": \"Thank you\",\n  \"designation_id\": 10,\n  \"display_group_name\": false,\n  \"ended_at\": \"2021-04-23T08:23:21Z\",\n  \"external_id\": \"37e4d11a-ec0c-4358-94ed-f26cb1753512\",\n  \"external_url\": \"https://pro.gofundme.com\",\n  \"hide_from_profile\": false,\n  \"internal_name\": \"Event #F230DD\",\n  \"location_details\": \"Heading north on I-5...\",\n  \"minimum_donation_amount\": 5,\n  \"name\": \"My Campaign\",\n  \"postal_code\": \"92101\",\n  \"raw_currency_code\": \"EUR\",\n  \"raw_goal\": \"100.000\",\n  \"redirect_url\": \"https://pro.gofundme.com/\",\n  \"sort_designation_by\": \"A-Z\",\n  \"started_at\": \"2021-04-23T08:23:21Z\",\n  \"state\": \"CA\",\n  \"timezone_identifier\": \"America/Los_Angeles\",\n  \"type\": \"ticketed\",\n  \"venue\": \"City Townhall\",\n  \"add_registration_fee\": false,\n  \"allow_duplicate_fundraisers\": false,\n  \"allow_fundraising_pages\": false,\n  \"allow_team_fundraising\": false,\n  \"default_page_appeal\": \"Please donate to my fundraising page\",\n  \"default_page_post_asset_id\": 1,\n  \"default_page_post_body\": \"Lorem ipsum\",\n  \"default_page_post_title\": \"Welcome to our team page!\",\n  \"default_team_appeal\": \"Please donate to my fundraising team\",\n  \"default_team_post_asset_id\": 1,\n  \"default_team_post_body\": \"Lorem ipsum\",\n  \"default_team_post_title\": \"Welcome to our team page!\",\n  \"default_thank_you_text\": \"Thank you so much!\",\n  \"fixed_fot_percent\": \"4.00\",\n  \"flex_rate_percent\": 4,\n  \"is_billing_address_required\": false,\n  \"is_ended_at_hidden\": false,\n  \"is_started_at_hidden\": false,\n  \"pages_can_set_appeal\": false,\n  \"pages_can_set_goal\": false,\n  \"team_membership_policy\": \"optional\",\n  \"teams_can_set_appeal\": false,\n  \"teams_can_set_goal\": false,\n  \"ticket_pass_on_fees\": false,\n  \"allow_ecards\": false,\n  \"classy_mode_appeal\": \"Example appeal text\",\n  \"classy_mode_checked_by_default\": false,\n  \"classy_mode_enabled\": false,\n  \"checkout_corporate_donation_enabled\": true,\n  \"corporate_donation_enabled\": false,\n  \"custom_url\": \"https://test.org/custom\",\n  \"daf_enabled\": false,\n  \"dcf_enabled\": false,\n  \"disable_donation_attribution\": false,\n  \"hide_anonymous_donations\": false,\n  \"hide_recurring_end_date\": false,\n  \"hide_contact_opt_in\": false,\n  \"hide_donation_amounts\": false,\n  \"hide_dedications\": false,\n  \"hide_donation_comments\": false,\n  \"offer_dedication_postal_notifications\": false,\n  \"opt_in_checked_by_default\": false,\n  \"return_url\": \"https://test.org/return\",\n  \"send_dedication_emails\": false,\n  \"crypto_giving\": \"enabled\",\n  \"embedded_giving\": \"disabled\",\n  \"exit_modal\": false,\n  \"use_intelligent_ask_onetime\": false,\n  \"use_intelligent_ask_recurring\": false,\n  \"whitelist_url\": \"https://www.myawesomecharity.org\",\n  \"fundraising_tracking_code\": \"JD0146\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f2bf0deb-44f9-48bc-bf36-2b792955c87d",
+          "name": "checkSlugAvailable",
+          "request": {
+            "name": "checkSlugAvailable",
+            "description": {
+              "content": "Checks if Slug is already taken",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaigns",
+                "custom-url",
+                ":customUrl"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customUrl",
+                  "description": "(Required) Custom URL"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b52d7838-22a1-4bee-8429-d66c3138e9ee",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    "custom-url",
+                    ":customUrl"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customUrl",
+                      "description": "(Required) Custom URL"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"available\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ef58a663-ed53-415d-b99c-e836f4d45098",
+              "name": "Malformed payload provided",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    "custom-url",
+                    ":customUrl"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customUrl",
+                      "description": "(Required) Custom URL"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"Malformed JSON payload.\",\n    \"Malformed JSON payload.\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "60ef3e80-8089-4449-aee1-ee280527fda4",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    "custom-url",
+                    ":customUrl"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customUrl",
+                      "description": "(Required) Custom URL"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "48e79b7a-2027-4279-8353-04fc6b0dd864",
+              "name": "Custom URL not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    "custom-url",
+                    ":customUrl"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customUrl",
+                      "description": "(Required) Custom URL"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1f3a41c9-9239-4b3e-823f-92ff9c54958e",
+          "name": "publishCampaign",
+          "request": {
+            "name": "publishCampaign",
+            "description": {
+              "content": "Publish a Campaign",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaigns",
+                ":id",
+                "publish"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The specified Campaign ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "/oauth2/auth"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/oauth2/auth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a30f85e2-2199-4d03-8dd1-c0e02bbb0b48",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "publish"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address1\": \"533 F Street\",\n  \"campaign_template_id\": 413,\n  \"studio_template_id\": 7,\n  \"is_linked\": false,\n  \"linked_at\": \"2021-04-23T08:23:21Z\",\n  \"unlinked_at\": \"2021-04-23T08:23:21Z\",\n  \"canonical_url\": \"/campaign/c0\",\n  \"category_id\": 1,\n  \"channel_id\": 2,\n  \"channel_keywords\": \"some_keyword\",\n  \"city\": \"San Diego\",\n  \"contact_email\": \"test@gofundme.com\",\n  \"contact_phone\": \"619-555-1212\",\n  \"country\": \"US\",\n  \"created_at\": \"2021-04-23T08:23:21Z\",\n  \"created_with\": \"classyapp\",\n  \"currency_code\": \"USD\",\n  \"default_page_appeal_email\": \"Please donate to my fundraising page\",\n  \"default_page_goal\": 500,\n  \"default_page_thank_you_email\": \"Thank you\",\n  \"default_team_appeal_email\": \"Please donate to my fundraising team\",\n  \"default_team_goal\": 500,\n  \"default_team_thank_you_email\": \"Thank you\",\n  \"designation_id\": 10,\n  \"display_group_name\": false,\n  \"ended_at\": \"2021-04-23T08:23:21Z\",\n  \"effective_fixed_fot_percent\": \"4.00\",\n  \"effective_flex_rate_percent\": 4.2,\n  \"effective_recaptcha_settings\": \"ENABLED\",\n  \"external_id\": \"37e4d11a-ec0c-4358-94ed-f26cb1753512\",\n  \"external_url\": \"https://pro.gofundme.com\",\n  \"goal\": 108.23,\n  \"hide_from_profile\": false,\n  \"id\": 227362,\n  \"internal_name\": \"Event #F230DD\",\n  \"is_fees_free\": false,\n  \"is_general\": 1,\n  \"location_details\": \"Heading north on I-5...\",\n  \"minimum_donation_amount\": 5,\n  \"name\": \"My Campaign\",\n  \"organization_id\": 82364,\n  \"postal_code\": \"92101\",\n  \"raw_currency_code\": \"EUR\",\n  \"raw_goal\": \"100.000\",\n  \"redirect_url\": \"https://pro.gofundme.com/\",\n  \"sort_designation_by\": \"A-Z\",\n  \"started_at\": \"2021-04-23T08:23:21Z\",\n  \"state\": \"CA\",\n  \"status\": \"active\",\n  \"timezone_identifier\": \"America/Los_Angeles\",\n  \"type\": \"ticketed\",\n  \"updated_at\": \"2021-04-23T08:23:21Z\",\n  \"venue\": \"City Townhall\",\n  \"add_registration_fee\": false,\n  \"allow_duplicate_fundraisers\": false,\n  \"allow_fundraising_pages\": false,\n  \"allow_team_fundraising\": false,\n  \"default_page_appeal\": \"Please donate to my fundraising page\",\n  \"default_page_post_asset_id\": 1,\n  \"default_page_post_body\": \"Lorem ipsum\",\n  \"default_page_post_title\": \"Welcome to our team page!\",\n  \"default_team_appeal\": \"Please donate to my fundraising team\",\n  \"default_team_post_asset_id\": 1,\n  \"default_team_post_body\": \"Lorem ipsum\",\n  \"default_team_post_title\": \"Welcome to our team page!\",\n  \"default_thank_you_text\": \"Thank you so much!\",\n  \"fixed_fot_percent\": \"4.00\",\n  \"flex_rate_percent\": 4,\n  \"is_billing_address_required\": false,\n  \"is_ended_at_hidden\": false,\n  \"is_started_at_hidden\": false,\n  \"pages_can_set_appeal\": false,\n  \"pages_can_set_goal\": false,\n  \"team_membership_policy\": \"optional\",\n  \"teams_can_set_appeal\": false,\n  \"teams_can_set_goal\": false,\n  \"ticket_pass_on_fees\": false,\n  \"allow_ecards\": false,\n  \"classy_mode_appeal\": \"Example appeal text\",\n  \"classy_mode_checked_by_default\": false,\n  \"classy_mode_enabled\": false,\n  \"checkout_corporate_donation_enabled\": true,\n  \"corporate_donation_enabled\": false,\n  \"custom_url\": \"https://test.org/custom\",\n  \"daf_enabled\": false,\n  \"dcf_enabled\": false,\n  \"dcf_allowed\": false,\n  \"disable_donation_attribution\": false,\n  \"hide_anonymous_donations\": false,\n  \"hide_recurring_end_date\": false,\n  \"hide_contact_opt_in\": false,\n  \"hide_donation_amounts\": false,\n  \"hide_dedications\": false,\n  \"hide_donation_comments\": false,\n  \"offer_dedication_postal_notifications\": false,\n  \"opt_in_checked_by_default\": false,\n  \"return_url\": \"https://test.org/return\",\n  \"send_dedication_emails\": false,\n  \"logo_id\": 1002,\n  \"logo_url\": \"https://gofundme-cdn-url.com/your-logo.png\",\n  \"team_cover_photo_id\": 2345,\n  \"team_cover_photo_url\": \"https://gofundme-cdn-url.com/your-team-cover-photo.png\",\n  \"crypto_giving\": \"enabled\",\n  \"embedded_giving\": \"disabled\",\n  \"exit_modal\": false,\n  \"use_intelligent_ask_onetime\": false,\n  \"use_intelligent_ask_recurring\": false,\n  \"whitelist_url\": \"https://www.myawesomecharity.org\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "76d9492d-d10a-4258-98ea-7e5b72c11092",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "publish"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3d487f57-8fea-4b0f-8b68-645df45dde25",
+              "name": "Campaign not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "publish"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1afb09a8-916b-4213-93e4-52f523e8cfcb",
+              "name": "Method Not Allowed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "publish"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2e42702c-2aaf-464a-a007-6a32f9644969",
+          "name": "unpublishCampaign",
+          "request": {
+            "name": "unpublishCampaign",
+            "description": {
+              "content": "Unpublish a Campaign",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaigns",
+                ":id",
+                "unpublish"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The specified Campaign ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "/oauth2/auth"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/oauth2/auth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "91f03194-062f-4d96-9714-d4322ab0c96b",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "unpublish"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address1\": \"533 F Street\",\n  \"campaign_template_id\": 413,\n  \"studio_template_id\": 7,\n  \"is_linked\": false,\n  \"linked_at\": \"2021-04-23T08:23:21Z\",\n  \"unlinked_at\": \"2021-04-23T08:23:21Z\",\n  \"canonical_url\": \"/campaign/c0\",\n  \"category_id\": 1,\n  \"channel_id\": 2,\n  \"channel_keywords\": \"some_keyword\",\n  \"city\": \"San Diego\",\n  \"contact_email\": \"test@gofundme.com\",\n  \"contact_phone\": \"619-555-1212\",\n  \"country\": \"US\",\n  \"created_at\": \"2021-04-23T08:23:21Z\",\n  \"created_with\": \"classyapp\",\n  \"currency_code\": \"USD\",\n  \"default_page_appeal_email\": \"Please donate to my fundraising page\",\n  \"default_page_goal\": 500,\n  \"default_page_thank_you_email\": \"Thank you\",\n  \"default_team_appeal_email\": \"Please donate to my fundraising team\",\n  \"default_team_goal\": 500,\n  \"default_team_thank_you_email\": \"Thank you\",\n  \"designation_id\": 10,\n  \"display_group_name\": false,\n  \"ended_at\": \"2021-04-23T08:23:21Z\",\n  \"effective_fixed_fot_percent\": \"4.00\",\n  \"effective_flex_rate_percent\": 4.2,\n  \"effective_recaptcha_settings\": \"ENABLED\",\n  \"external_id\": \"37e4d11a-ec0c-4358-94ed-f26cb1753512\",\n  \"external_url\": \"https://pro.gofundme.com\",\n  \"goal\": 108.23,\n  \"hide_from_profile\": false,\n  \"id\": 227362,\n  \"internal_name\": \"Event #F230DD\",\n  \"is_fees_free\": false,\n  \"is_general\": 1,\n  \"location_details\": \"Heading north on I-5...\",\n  \"minimum_donation_amount\": 5,\n  \"name\": \"My Campaign\",\n  \"organization_id\": 82364,\n  \"postal_code\": \"92101\",\n  \"raw_currency_code\": \"EUR\",\n  \"raw_goal\": \"100.000\",\n  \"redirect_url\": \"https://pro.gofundme.com/\",\n  \"sort_designation_by\": \"A-Z\",\n  \"started_at\": \"2021-04-23T08:23:21Z\",\n  \"state\": \"CA\",\n  \"status\": \"active\",\n  \"timezone_identifier\": \"America/Los_Angeles\",\n  \"type\": \"ticketed\",\n  \"updated_at\": \"2021-04-23T08:23:21Z\",\n  \"venue\": \"City Townhall\",\n  \"add_registration_fee\": false,\n  \"allow_duplicate_fundraisers\": false,\n  \"allow_fundraising_pages\": false,\n  \"allow_team_fundraising\": false,\n  \"default_page_appeal\": \"Please donate to my fundraising page\",\n  \"default_page_post_asset_id\": 1,\n  \"default_page_post_body\": \"Lorem ipsum\",\n  \"default_page_post_title\": \"Welcome to our team page!\",\n  \"default_team_appeal\": \"Please donate to my fundraising team\",\n  \"default_team_post_asset_id\": 1,\n  \"default_team_post_body\": \"Lorem ipsum\",\n  \"default_team_post_title\": \"Welcome to our team page!\",\n  \"default_thank_you_text\": \"Thank you so much!\",\n  \"fixed_fot_percent\": \"4.00\",\n  \"flex_rate_percent\": 4,\n  \"is_billing_address_required\": false,\n  \"is_ended_at_hidden\": false,\n  \"is_started_at_hidden\": false,\n  \"pages_can_set_appeal\": false,\n  \"pages_can_set_goal\": false,\n  \"team_membership_policy\": \"optional\",\n  \"teams_can_set_appeal\": false,\n  \"teams_can_set_goal\": false,\n  \"ticket_pass_on_fees\": false,\n  \"allow_ecards\": false,\n  \"classy_mode_appeal\": \"Example appeal text\",\n  \"classy_mode_checked_by_default\": false,\n  \"classy_mode_enabled\": false,\n  \"checkout_corporate_donation_enabled\": true,\n  \"corporate_donation_enabled\": false,\n  \"custom_url\": \"https://test.org/custom\",\n  \"daf_enabled\": false,\n  \"dcf_enabled\": false,\n  \"dcf_allowed\": false,\n  \"disable_donation_attribution\": false,\n  \"hide_anonymous_donations\": false,\n  \"hide_recurring_end_date\": false,\n  \"hide_contact_opt_in\": false,\n  \"hide_donation_amounts\": false,\n  \"hide_dedications\": false,\n  \"hide_donation_comments\": false,\n  \"offer_dedication_postal_notifications\": false,\n  \"opt_in_checked_by_default\": false,\n  \"return_url\": \"https://test.org/return\",\n  \"send_dedication_emails\": false,\n  \"logo_id\": 1002,\n  \"logo_url\": \"https://gofundme-cdn-url.com/your-logo.png\",\n  \"team_cover_photo_id\": 2345,\n  \"team_cover_photo_url\": \"https://gofundme-cdn-url.com/your-team-cover-photo.png\",\n  \"crypto_giving\": \"enabled\",\n  \"embedded_giving\": \"disabled\",\n  \"exit_modal\": false,\n  \"use_intelligent_ask_onetime\": false,\n  \"use_intelligent_ask_recurring\": false,\n  \"whitelist_url\": \"https://www.myawesomecharity.org\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa25fcd9-b87c-4127-8b09-29d03e3ddf10",
+              "name": "Malformed payload provided",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "unpublish"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"Malformed JSON payload.\",\n    \"Malformed JSON payload.\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7b034694-67be-4738-acb2-7031530122a7",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "unpublish"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c14209fb-c007-40a5-922c-d5051cf6fd72",
+              "name": "Campaign not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "unpublish"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "00026259-2260-4740-885a-201f4f177a1a",
+          "name": "deactivateCampaign",
+          "request": {
+            "name": "deactivateCampaign",
+            "description": {
+              "content": "Deactivate a Campaign",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaigns",
+                ":id",
+                "deactivate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The specified Campaign ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "/oauth2/auth"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/oauth2/auth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b2bdbe21-004a-4751-806d-9c35323f1992",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address1\": \"533 F Street\",\n  \"campaign_template_id\": 413,\n  \"studio_template_id\": 7,\n  \"is_linked\": false,\n  \"linked_at\": \"2021-04-23T08:23:21Z\",\n  \"unlinked_at\": \"2021-04-23T08:23:21Z\",\n  \"canonical_url\": \"/campaign/c0\",\n  \"category_id\": 1,\n  \"channel_id\": 2,\n  \"channel_keywords\": \"some_keyword\",\n  \"city\": \"San Diego\",\n  \"contact_email\": \"test@gofundme.com\",\n  \"contact_phone\": \"619-555-1212\",\n  \"country\": \"US\",\n  \"created_at\": \"2021-04-23T08:23:21Z\",\n  \"created_with\": \"classyapp\",\n  \"currency_code\": \"USD\",\n  \"default_page_appeal_email\": \"Please donate to my fundraising page\",\n  \"default_page_goal\": 500,\n  \"default_page_thank_you_email\": \"Thank you\",\n  \"default_team_appeal_email\": \"Please donate to my fundraising team\",\n  \"default_team_goal\": 500,\n  \"default_team_thank_you_email\": \"Thank you\",\n  \"designation_id\": 10,\n  \"display_group_name\": false,\n  \"ended_at\": \"2021-04-23T08:23:21Z\",\n  \"effective_fixed_fot_percent\": \"4.00\",\n  \"effective_flex_rate_percent\": 4.2,\n  \"effective_recaptcha_settings\": \"ENABLED\",\n  \"external_id\": \"37e4d11a-ec0c-4358-94ed-f26cb1753512\",\n  \"external_url\": \"https://pro.gofundme.com\",\n  \"goal\": 108.23,\n  \"hide_from_profile\": false,\n  \"id\": 227362,\n  \"internal_name\": \"Event #F230DD\",\n  \"is_fees_free\": false,\n  \"is_general\": 1,\n  \"location_details\": \"Heading north on I-5...\",\n  \"minimum_donation_amount\": 5,\n  \"name\": \"My Campaign\",\n  \"organization_id\": 82364,\n  \"postal_code\": \"92101\",\n  \"raw_currency_code\": \"EUR\",\n  \"raw_goal\": \"100.000\",\n  \"redirect_url\": \"https://pro.gofundme.com/\",\n  \"sort_designation_by\": \"A-Z\",\n  \"started_at\": \"2021-04-23T08:23:21Z\",\n  \"state\": \"CA\",\n  \"status\": \"active\",\n  \"timezone_identifier\": \"America/Los_Angeles\",\n  \"type\": \"ticketed\",\n  \"updated_at\": \"2021-04-23T08:23:21Z\",\n  \"venue\": \"City Townhall\",\n  \"add_registration_fee\": false,\n  \"allow_duplicate_fundraisers\": false,\n  \"allow_fundraising_pages\": false,\n  \"allow_team_fundraising\": false,\n  \"default_page_appeal\": \"Please donate to my fundraising page\",\n  \"default_page_post_asset_id\": 1,\n  \"default_page_post_body\": \"Lorem ipsum\",\n  \"default_page_post_title\": \"Welcome to our team page!\",\n  \"default_team_appeal\": \"Please donate to my fundraising team\",\n  \"default_team_post_asset_id\": 1,\n  \"default_team_post_body\": \"Lorem ipsum\",\n  \"default_team_post_title\": \"Welcome to our team page!\",\n  \"default_thank_you_text\": \"Thank you so much!\",\n  \"fixed_fot_percent\": \"4.00\",\n  \"flex_rate_percent\": 4,\n  \"is_billing_address_required\": false,\n  \"is_ended_at_hidden\": false,\n  \"is_started_at_hidden\": false,\n  \"pages_can_set_appeal\": false,\n  \"pages_can_set_goal\": false,\n  \"team_membership_policy\": \"optional\",\n  \"teams_can_set_appeal\": false,\n  \"teams_can_set_goal\": false,\n  \"ticket_pass_on_fees\": false,\n  \"allow_ecards\": false,\n  \"classy_mode_appeal\": \"Example appeal text\",\n  \"classy_mode_checked_by_default\": false,\n  \"classy_mode_enabled\": false,\n  \"checkout_corporate_donation_enabled\": true,\n  \"corporate_donation_enabled\": false,\n  \"custom_url\": \"https://test.org/custom\",\n  \"daf_enabled\": false,\n  \"dcf_enabled\": false,\n  \"dcf_allowed\": false,\n  \"disable_donation_attribution\": false,\n  \"hide_anonymous_donations\": false,\n  \"hide_recurring_end_date\": false,\n  \"hide_contact_opt_in\": false,\n  \"hide_donation_amounts\": false,\n  \"hide_dedications\": false,\n  \"hide_donation_comments\": false,\n  \"offer_dedication_postal_notifications\": false,\n  \"opt_in_checked_by_default\": false,\n  \"return_url\": \"https://test.org/return\",\n  \"send_dedication_emails\": false,\n  \"logo_id\": 1002,\n  \"logo_url\": \"https://gofundme-cdn-url.com/your-logo.png\",\n  \"team_cover_photo_id\": 2345,\n  \"team_cover_photo_url\": \"https://gofundme-cdn-url.com/your-team-cover-photo.png\",\n  \"crypto_giving\": \"enabled\",\n  \"embedded_giving\": \"disabled\",\n  \"exit_modal\": false,\n  \"use_intelligent_ask_onetime\": false,\n  \"use_intelligent_ask_recurring\": false,\n  \"whitelist_url\": \"https://www.myawesomecharity.org\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4377a874-5b78-4ef1-8d15-d1852d4147b2",
+              "name": "Campaign is already deactivated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"Malformed JSON payload.\",\n    \"Malformed JSON payload.\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6ec48a9c-4f46-4658-8cfc-6d3f0cf1c505",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ddcf7203-4ff4-49f8-a79d-60dca91c9826",
+              "name": "Campaign not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6061272f-b33a-430f-9b40-ddb312746692",
+          "name": "reactivateCampaign",
+          "request": {
+            "name": "reactivateCampaign",
+            "description": {
+              "content": "Reactivate a Campaign",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaigns",
+                ":id",
+                "reactivate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The specified Campaign ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "/oauth2/auth"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/oauth2/auth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1d39d2af-16d0-4978-a43a-3ff5476a4129",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "reactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address1\": \"533 F Street\",\n  \"campaign_template_id\": 413,\n  \"studio_template_id\": 7,\n  \"is_linked\": false,\n  \"linked_at\": \"2021-04-23T08:23:21Z\",\n  \"unlinked_at\": \"2021-04-23T08:23:21Z\",\n  \"canonical_url\": \"/campaign/c0\",\n  \"category_id\": 1,\n  \"channel_id\": 2,\n  \"channel_keywords\": \"some_keyword\",\n  \"city\": \"San Diego\",\n  \"contact_email\": \"test@gofundme.com\",\n  \"contact_phone\": \"619-555-1212\",\n  \"country\": \"US\",\n  \"created_at\": \"2021-04-23T08:23:21Z\",\n  \"created_with\": \"classyapp\",\n  \"currency_code\": \"USD\",\n  \"default_page_appeal_email\": \"Please donate to my fundraising page\",\n  \"default_page_goal\": 500,\n  \"default_page_thank_you_email\": \"Thank you\",\n  \"default_team_appeal_email\": \"Please donate to my fundraising team\",\n  \"default_team_goal\": 500,\n  \"default_team_thank_you_email\": \"Thank you\",\n  \"designation_id\": 10,\n  \"display_group_name\": false,\n  \"ended_at\": \"2021-04-23T08:23:21Z\",\n  \"effective_fixed_fot_percent\": \"4.00\",\n  \"effective_flex_rate_percent\": 4.2,\n  \"effective_recaptcha_settings\": \"ENABLED\",\n  \"external_id\": \"37e4d11a-ec0c-4358-94ed-f26cb1753512\",\n  \"external_url\": \"https://pro.gofundme.com\",\n  \"goal\": 108.23,\n  \"hide_from_profile\": false,\n  \"id\": 227362,\n  \"internal_name\": \"Event #F230DD\",\n  \"is_fees_free\": false,\n  \"is_general\": 1,\n  \"location_details\": \"Heading north on I-5...\",\n  \"minimum_donation_amount\": 5,\n  \"name\": \"My Campaign\",\n  \"organization_id\": 82364,\n  \"postal_code\": \"92101\",\n  \"raw_currency_code\": \"EUR\",\n  \"raw_goal\": \"100.000\",\n  \"redirect_url\": \"https://pro.gofundme.com/\",\n  \"sort_designation_by\": \"A-Z\",\n  \"started_at\": \"2021-04-23T08:23:21Z\",\n  \"state\": \"CA\",\n  \"status\": \"active\",\n  \"timezone_identifier\": \"America/Los_Angeles\",\n  \"type\": \"ticketed\",\n  \"updated_at\": \"2021-04-23T08:23:21Z\",\n  \"venue\": \"City Townhall\",\n  \"add_registration_fee\": false,\n  \"allow_duplicate_fundraisers\": false,\n  \"allow_fundraising_pages\": false,\n  \"allow_team_fundraising\": false,\n  \"default_page_appeal\": \"Please donate to my fundraising page\",\n  \"default_page_post_asset_id\": 1,\n  \"default_page_post_body\": \"Lorem ipsum\",\n  \"default_page_post_title\": \"Welcome to our team page!\",\n  \"default_team_appeal\": \"Please donate to my fundraising team\",\n  \"default_team_post_asset_id\": 1,\n  \"default_team_post_body\": \"Lorem ipsum\",\n  \"default_team_post_title\": \"Welcome to our team page!\",\n  \"default_thank_you_text\": \"Thank you so much!\",\n  \"fixed_fot_percent\": \"4.00\",\n  \"flex_rate_percent\": 4,\n  \"is_billing_address_required\": false,\n  \"is_ended_at_hidden\": false,\n  \"is_started_at_hidden\": false,\n  \"pages_can_set_appeal\": false,\n  \"pages_can_set_goal\": false,\n  \"team_membership_policy\": \"optional\",\n  \"teams_can_set_appeal\": false,\n  \"teams_can_set_goal\": false,\n  \"ticket_pass_on_fees\": false,\n  \"allow_ecards\": false,\n  \"classy_mode_appeal\": \"Example appeal text\",\n  \"classy_mode_checked_by_default\": false,\n  \"classy_mode_enabled\": false,\n  \"checkout_corporate_donation_enabled\": true,\n  \"corporate_donation_enabled\": false,\n  \"custom_url\": \"https://test.org/custom\",\n  \"daf_enabled\": false,\n  \"dcf_enabled\": false,\n  \"dcf_allowed\": false,\n  \"disable_donation_attribution\": false,\n  \"hide_anonymous_donations\": false,\n  \"hide_recurring_end_date\": false,\n  \"hide_contact_opt_in\": false,\n  \"hide_donation_amounts\": false,\n  \"hide_dedications\": false,\n  \"hide_donation_comments\": false,\n  \"offer_dedication_postal_notifications\": false,\n  \"opt_in_checked_by_default\": false,\n  \"return_url\": \"https://test.org/return\",\n  \"send_dedication_emails\": false,\n  \"logo_id\": 1002,\n  \"logo_url\": \"https://gofundme-cdn-url.com/your-logo.png\",\n  \"team_cover_photo_id\": 2345,\n  \"team_cover_photo_url\": \"https://gofundme-cdn-url.com/your-team-cover-photo.png\",\n  \"crypto_giving\": \"enabled\",\n  \"embedded_giving\": \"disabled\",\n  \"exit_modal\": false,\n  \"use_intelligent_ask_onetime\": false,\n  \"use_intelligent_ask_recurring\": false,\n  \"whitelist_url\": \"https://www.myawesomecharity.org\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "09b36de9-35d6-471e-b301-8eed02cd7833",
+              "name": "Can only reactivate a Campaign whose status is 'deactivated'",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "reactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"Malformed JSON payload.\",\n    \"Malformed JSON payload.\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e0a09afa-a520-43cc-845d-70ffe6dcce36",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "reactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "58ea6f3a-179e-4b9f-b409-91998e20788b",
+              "name": "Campaign not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "reactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The specified Campaign ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "023af29d-63cd-442a-99fa-20a17302cf5c",
+          "name": "listOrganizationCampaigns",
+          "request": {
+            "name": "listOrganizationCampaigns",
+            "description": {
+              "content": "Retrieves a list of all Campaigns for a specific Organization",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "organizations",
+                ":organization",
+                "campaigns"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Indicator of which page of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Number of entries to return in each page of results"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "organization",
+                  "description": "(Required) The specified Organization ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7e1b9dc8-73bc-4f89-9232-2147951ea7fc",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organization",
+                    "campaigns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "organization",
+                      "description": "(Required) The specified Organization ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"value\": \"<Error: Could not resolve allOf schema\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "31b7d0d6-cb7e-49db-b627-7592e5e91e9f",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organization",
+                    "campaigns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "organization",
+                      "description": "(Required) The specified Organization ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fb37ca46-31ab-4da4-a2e3-b7a06d3b7104",
+              "name": "Organization not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organization",
+                    "campaigns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "organization",
+                      "description": "(Required) The specified Organization ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://pro.gofundme.com/api/2.0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "/oauth2/auth"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "/oauth2/auth"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8645fe02-e832-46fb-88a8-29aa961e18a1",
+    "name": "GoFundMe Pro Campaign API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<h1>GoFundMe Pro API</h1>\n<p>Welcome to the GoFundMe Pro API (2.0.0), a powerful toolset that empowers innovative and creative minds to engineer the world for good. This documentation walks through the API’s latest endpoints.</p>\n<p>GoFundMe Pro APIs are crafted around REST and the REST architectural style to provide developers with a stateless and language-­agnostic interface. The GoFundMe Pro API leverages HTTP verbs and response codes, OAuth2 authentication, and resource-­oriented URLs.</p>\n<p>Currently, the GoFundMe Pro API only supports JSON. All POST/PUT requests required a valid JSON object for the request body.</p>\n<h2>Errors</h2>\n<p>The GoFundMe Pro API leverages standard HTTP response status codes for it’s error responses. Error codes are:</p>\n<p><br /></p>\n<table border='1'>\n<tr>\n<th width='100px'>Error Code</th>\n<th>Meaning</th>\n</tr>\n<tr>\n<td>400</td>\n<td>Bad Request: The request was malformed or provided incorrect/incomplete/conflicting parameters. Check the response for more detailed messaging about why the request was incorrect. Do not repeat request.</td>\n</tr>\n<tr>\n<td>401</td>\n<td>Unauthorized: The API does not recognize the request as authorized. API access token may be missing or invalid.</td>\n</tr>\n<tr>\n<td>403</td>\n<td>Forbidden: The API recognizes the authorized API user, but the API user does not have correct permissions to satisfy the request.</td>\n</tr>\n<tr>\n<td>404</td>\n<td>Not Found: The resource requested does not exist or was not found.</td>\n</tr>\n<tr>\n<td>405</td>\n<td>Method Not Allowed: Some REST endpoints only accept a subset of valid REST HTTP verbs. This error is sent when an unsupported verb is requested.</td>\n</tr>\n<tr>\n<td>429</td>\n<td>Too Many Requests: The rate limit has been exceeded. See the <a href=\"#rate-limiting\">Rate Limiting</a> section for details on rate limits and response headers.</td>\n</tr>\n<tr>\n<td>500</td>\n<td>Error: The request was valid, but something failed on the server. Additional messages may be available.</td>\n</tr>\n<tr>\n<td>503</td>\n<td>Service Unavailable: The service is temporarily unavailable.</td>\n</tr>\n</table>\n<h2>Requests</h2>\n<h3>Authenticating Requests</h3>\n<p>Most API requests will need to be signed with an Access Token.</p>\n<p>Refer to the <a href=\"https://developers.gofundme.com/pro/overview/authentication\" target=\"_blank\" rel=\"noopener noreferrer\">Resource Documentation</a> for the specific call you are making to see if an access token is required for your request. See <a href=\"https://developers.gofundme.com/pro/tutorials/samples\" target=\"_blank\" rel=\"noopener noreferrer\">this page</a> for a demonstration of usage through a sample app. \n<h3>Filters</h3>\n<p>We can filter a collection based on a set of input parameters. To do so, we can modify the query string using the parameters listed below.</p>\n\n<table border='1'>\n<tr>\n<th>Parameter</th>\n<th>Type</th>\n<th>Default</th>\n<th>Description</th>\n</tr>\n\n<tr>\n<td>with</td>\n<td>string</td>\n<td>N/A</td>\n<td>This allows you to include nested related resource. For example, you could request a campaign along with the organization it belongs to and the designation it was allocated to. In this case, <code>with=organization,designation.</code></td>\n</tr>\n\n<tr>\n<td>per_page</td>\n<td>integer</td>\n<td>20</td>\n<td>Set the total number of resources returned per page (Maximum: 100).</td>\n</tr>\n\n<tr>\n<td>page</td>\n<td>integer</td>\n<td>1</td>\n<td>Page to return.</td>\n</tr>\n\n<tr>\n<td>sort</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>\nOrder the resources depending upon their attributes. Examples:\n<ul>\n<li><strong>created_at</strong>: oldest resource will come first</li>\n<li><strong>created_at:desc</strong>: newest resource will come first</li>\n<li><strong>last_name:asc,first_name:asc</strong>: order resources by last_name in alphabetical order. If same last_name, order by first_name in alphabetical order.</li>\n</ul>\n</td>\n</tr>\n\n<tr>\n<td>fields</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>List of resources attributes separated with comma. Narrow the list of attributes returned for each resource.</td>\n</tr>\n\n<tr>\n<td>filter</td>\n<td>string</td>\n<td>NULL</td>\n<td>\nAllow to filter the list of resources returned. Format is: <code>{association}.{attribute1}{operand}{value}</code> where: <ul>\n<li>association is the association if this is a nested filter (optional)</li>\n<li>operand is one of the following: <code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, false can be expressed with <code>false</code> or <code>0</code>).</li>\n<li>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. with | string | NULL | This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</li>\n</ul>\n</td>\n</tr>\n</table>\n\n<p>When filtering, the operand should be one of the following:</p>\n<p><code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, <code>false</code> can be expressed with <code>false</code> or <code>0</code>).</p>\n<p>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</p>\n<p>Refer to the sample documentation for the specific call you are making to see which related resource can be fetched.</p>\n\n<h3>Date and Time Filtering</h3>\n<p>Unless otherwise noted, all Datetime attributes in API responses will be returned in an ISO8601 compliant format:</p>\n<><code>YYYY-MM-DDTHH:mm:ss.sssZ</code> (e.g. <code>2024-10-05T14:48:00.000Z</code>).</p>\n<h2 id=\"rate-limiting\">Rate Limiting</h2>\n<p>The GoFundMe Pro API implements rate limiting to ensure fair usage and maintain service quality for all users. Rate limits are applied on a per-application and per-user basis.</p>\n<h3>When Rate Limiting Applies</h3>\n<p>Rate limiting is applied to requests that meet the following conditions:</p>\n<ul>\n<li>The API application is <strong>not internal</strong> (external/third-party applications)</li>\n<li>The API application is associated to an Organization</li>\n</ul>\n<p>Internal applications are not subject to rate limiting.</p>\n<h3>Rate Limit Details</h3>\n<p>By default, the rate limit is:</p>\n<ul>\n<li><strong>1800 requests per minute</strong> per application</li>\n</ul>\n<p>Rate limits may be adjusted dynamically via flags for specific applications or users.</p>\n<h3>Rate Limit Headers</h3>\n<p>All API responses include the following headers to help you track your rate limit status:</p>\n<table border='1'>\n<tr>\n<th width='200px'>Header</th>\n<th>Description</th>\n</tr>\n<tr>\n<td><code>X-RateLimit-Limit</code></td>\n<td>The maximum number of requests allowed in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Remaining</code></td>\n<td>The number of requests remaining in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Reset</code></td>\n<td>Unix timestamp indicating when the rate limit window resets (only included when limit is exceeded)</td>\n</tr>\n<tr>\n<td><code>Retry-After</code></td>\n<td>Number of seconds to wait before retrying (only included in 429 responses)</td>\n</tr>\n</table>\n<h3>Handling Rate Limit Errors</h3>\n<p>When you exceed the rate limit, the API will return a <code>429 Too Many Requests</code> response with the following structure:</p>\n<pre><code>{\n  \"message\": \"Too Many Attempts.\",\n  \"retry_after\": 42\n}</code></pre>\n<p>The response will include the <code>Retry-After</code> header indicating how many seconds you should wait before making another request.</p>\n<h3>Best Practices</h3>\n<ul>\n<li>Monitor the <code>X-RateLimit-Remaining</code> header to track your usage</li>\n<li>Implement exponential backoff when you receive a 429 response</li>\n<li>Respect the <code>Retry-After</code> header value before retrying</li>\n<li>Cache responses when possible to reduce API calls</li>\n<li>Batch operations when the API supports it</li>\n</ul>",
+      "type": "text/plain"
+    }
+  }
+}

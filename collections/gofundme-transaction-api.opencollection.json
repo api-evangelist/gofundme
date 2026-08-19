@@ -1,0 +1,290 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "GoFundMe Pro Transaction API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "/oauth2/auth",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transaction",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "fetchTransaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/transactions/:transaction",
+            "params": [
+              {
+                "name": "transaction",
+                "value": "",
+                "type": "path",
+                "description": "The specified Transaction ID"
+              },
+              {
+                "name": "with",
+                "value": "",
+                "type": "query",
+                "description": "Request specific relationships to be returned with the Transaction"
+              }
+            ]
+          },
+          "docs": "Retrieves a Transaction from the ID"
+        },
+        {
+          "info": {
+            "name": "updateTransaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://pro.gofundme.com/api/2.0/transactions/:transaction",
+            "params": [
+              {
+                "name": "transaction",
+                "value": "",
+                "type": "path",
+                "description": "The specified Transaction ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update an existing Transaction"
+        },
+        {
+          "info": {
+            "name": "listCampaignTransactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/campaigns/:campaign/transactions",
+            "params": [
+              {
+                "name": "campaign",
+                "value": "",
+                "type": "path",
+                "description": "ID of Campaign"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              },
+              {
+                "name": "with",
+                "value": "",
+                "type": "query",
+                "description": "Request specific relationships to be returned with the Transaction"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to be returned"
+              }
+            ]
+          },
+          "docs": "List Campaign Transactions"
+        },
+        {
+          "info": {
+            "name": "createCampaignTransaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/campaigns/:campaign/transactions",
+            "params": [
+              {
+                "name": "campaign",
+                "value": "",
+                "type": "path",
+                "description": "The specified Campaign ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "For external requests this creates an “offline” transaction record for the specified campaign. An offline transaction represents funds collected outside of the GoFundMe Pro platform, but accounted for in GoFundMe Pro reporting, activity feeds, etc. Adding an offline transaction record does not charge any credit cards, nor credit any GoFundMe Pro accounts.\n\n   An array of TransactionItems must be included along with the basic Transaction information via the items attribute. Please view the Transa"
+        },
+        {
+          "info": {
+            "name": "listOrganizationTransactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/organizations/:organization/transactions",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "ID of Organization"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              },
+              {
+                "name": "with",
+                "value": "",
+                "type": "query",
+                "description": "Request specific relationships to be returned with the Transaction"
+              }
+            ]
+          },
+          "docs": "List Organization Transactions"
+        },
+        {
+          "info": {
+            "name": "listRecurringDonationPlanTransactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/recurring-donation-plans/:recurring_donation_plan/transactions",
+            "params": [
+              {
+                "name": "recurring_donation_plan",
+                "value": "",
+                "type": "path",
+                "description": "ID of Recurring Donation Plan"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "List Recurring Donation Plan Transactions"
+        },
+        {
+          "info": {
+            "name": "reprocessRecurringDonationPlanTransaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/recurring-donation-plans/:id/transactions/:transaction_id/reprocess",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The specified Recurring Donation Plan ID"
+              },
+              {
+                "name": "transaction_id",
+                "value": "",
+                "type": "path",
+                "description": "The specified Transaction ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Reprocess a Transactions for a Recurring Donation Plan"
+        },
+        {
+          "info": {
+            "name": "updateReprocessAttemptInfo",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://pro.gofundme.com/api/2.0/reprocess-attempt-info/:reprocess_attempt_info",
+            "params": [
+              {
+                "name": "reprocess_attempt_info",
+                "value": "",
+                "type": "path",
+                "description": "The specified Reprocess Transaction ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Reprocess Attempt Info Record"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

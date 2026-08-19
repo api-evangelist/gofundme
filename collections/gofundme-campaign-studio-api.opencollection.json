@@ -1,0 +1,130 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "GoFundMe Pro Campaign Studio API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "/oauth2/auth",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Campaign Studio",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get JavaScript customization for a campaign block",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/studio-campaigns/:campaign_id/js-customizations/:block_id",
+            "params": [
+              {
+                "name": "campaign_id",
+                "value": "",
+                "type": "path",
+                "description": "Campaign ID"
+              },
+              {
+                "name": "block_id",
+                "value": "",
+                "type": "path",
+                "description": "Block identifier"
+              },
+              {
+                "name": "published",
+                "value": "",
+                "type": "query",
+                "description": "If true, return latest published; else latest regardless of status"
+              }
+            ]
+          },
+          "docs": "Requires privateEndpoint auth and organization tag 'custom-embedded-code'. When published=true, returns the latest published version; otherwise returns the latest version regardless of status."
+        },
+        {
+          "info": {
+            "name": "Create first JavaScript customization version for a block",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/studio-campaigns/:campaign_id/js-customizations/:block_id",
+            "params": [
+              {
+                "name": "campaign_id",
+                "value": "",
+                "type": "path",
+                "description": "Campaign ID"
+              },
+              {
+                "name": "block_id",
+                "value": "",
+                "type": "path",
+                "description": "Block identifier"
+              },
+              {
+                "name": "scan",
+                "value": "",
+                "type": "query",
+                "description": "Set to 1 to trigger security scan"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Requires privateEndpoint auth and admin authorization. Organization must have 'custom-embedded-code' tag. Creates version 1 for the block and fails if the block already exists. Security scan is only triggered if scan=1 parameter is included."
+        },
+        {
+          "info": {
+            "name": "Update or create a new JavaScript customization version",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://pro.gofundme.com/api/2.0/studio-campaigns/:campaign_id/js-customizations/:block_id",
+            "params": [
+              {
+                "name": "campaign_id",
+                "value": "",
+                "type": "path",
+                "description": "Campaign ID"
+              },
+              {
+                "name": "block_id",
+                "value": "",
+                "type": "path",
+                "description": "Block identifier"
+              },
+              {
+                "name": "scan",
+                "value": "",
+                "type": "query",
+                "description": "Set to 1 to trigger security scan"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Requires privateEndpoint auth and admin authorization. Organization must have 'custom-embedded-code' tag. If latest is published, creates a new draft version; otherwise updates existing draft in place. Security scan is only triggered if scan=1 parameter is included."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

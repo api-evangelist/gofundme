@@ -1,0 +1,1231 @@
+openapi: 3.2.0
+info:
+  title: GoFundMe Pro GFM NPO Page API
+  description: "<h1>GoFundMe Pro API</h1>\n<p>Welcome to the GoFundMe Pro API (2.0.0), a powerful toolset that empowers innovative and creative minds to engineer the world for good. This documentation walks through the API’s latest endpoints.</p>\n<p>GoFundMe Pro APIs are crafted around REST and the REST architectural style to provide developers with a stateless and language-­agnostic interface. The GoFundMe Pro API leverages HTTP verbs and response codes, OAuth2 authentication, and resource-­oriented URLs.</p>\n<p>Currently, the GoFundMe Pro API only supports JSON. All POST/PUT requests required a valid JSON object for the request body.</p>\n<h2>Errors</h2>\n<p>The GoFundMe Pro API leverages standard HTTP response status codes for it’s error responses. Error codes are:</p>\n<p><br /></p>\n<table border='1'>\n<tr>\n<th width='100px'>Error Code</th>\n<th>Meaning</th>\n</tr>\n<tr>\n<td>400</td>\n<td>Bad Request: The request was malformed or provided incorrect/incomplete/conflicting parameters. Check the response for more detailed messaging about why the request was incorrect. Do not repeat request.</td>\n</tr>\n<tr>\n<td>401</td>\n<td>Unauthorized: The API does not recognize the request as authorized. API access token may be missing or invalid.</td>\n</tr>\n<tr>\n<td>403</td>\n<td>Forbidden: The API recognizes the authorized API user, but the API user does not have correct permissions to satisfy the request.</td>\n</tr>\n<tr>\n<td>404</td>\n<td>Not Found: The resource requested does not exist or was not found.</td>\n</tr>\n<tr>\n<td>405</td>\n<td>Method Not Allowed: Some REST endpoints only accept a subset of valid REST HTTP verbs. This error is sent when an unsupported verb is requested.</td>\n</tr>\n<tr>\n<td>429</td>\n<td>Too Many Requests: The rate limit has been exceeded. See the <a href=\"#rate-limiting\">Rate Limiting</a> section for details on rate limits and response headers.</td>\n</tr>\n<tr>\n<td>500</td>\n<td>Error: The request was valid, but something failed on the server. Additional messages may be available.</td>\n</tr>\n<tr>\n<td>503</td>\n<td>Service Unavailable: The service is temporarily unavailable.</td>\n</tr>\n</table>\n<h2>Requests</h2>\n<h3>Authenticating Requests</h3>\n<p>Most API requests will need to be signed with an Access Token.</p>\n<p>Refer to the <a href=\"https://developers.gofundme.com/pro/overview/authentication\" target=\"_blank\" rel=\"noopener noreferrer\">Resource Documentation</a> for the specific call you are making to see if an access token is required for your request. See <a href=\"https://developers.gofundme.com/pro/tutorials/samples\" target=\"_blank\" rel=\"noopener noreferrer\">this page</a> for a demonstration of usage through a sample app. \n<h3>Filters</h3>\n<p>We can filter a collection based on a set of input parameters. To do so, we can modify the query string using the parameters listed below.</p>\n\n<table border='1'>\n<tr>\n<th>Parameter</th>\n<th>Type</th>\n<th>Default</th>\n<th>Description</th>\n</tr>\n\n<tr>\n<td>with</td>\n<td>string</td>\n<td>N/A</td>\n<td>This allows you to include nested related resource. For example, you could request a campaign along with the organization it belongs to and the designation it was allocated to. In this case, <code>with=organization,designation.</code></td>\n</tr>\n\n<tr>\n<td>per_page</td>\n<td>integer</td>\n<td>20</td>\n<td>Set the total number of resources returned per page (Maximum: 100).</td>\n</tr>\n\n<tr>\n<td>page</td>\n<td>integer</td>\n<td>1</td>\n<td>Page to return.</td>\n</tr>\n\n<tr>\n<td>sort</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>\nOrder the resources depending upon their attributes. Examples:\n<ul>\n<li><strong>created_at</strong>: oldest resource will come first</li>\n<li><strong>created_at:desc</strong>: newest resource will come first</li>\n<li><strong>last_name:asc,first_name:asc</strong>: order resources by last_name in alphabetical order. If same last_name, order by first_name in alphabetical order.</li>\n</ul>\n</td>\n</tr>\n\n<tr>\n<td>fields</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>List of resources attributes separated with comma. Narrow the list of attributes returned for each resource.</td>\n</tr>\n\n<tr>\n<td>filter</td>\n<td>string</td>\n<td>NULL</td>\n<td>\nAllow to filter the list of resources returned. Format is: <code>{association}.{attribute1}{operand}{value}</code> where: <ul>\n<li>association is the association if this is a nested filter (optional)</li>\n<li>operand is one of the following: <code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, false can be expressed with <code>false</code> or <code>0</code>).</li>\n<li>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. with | string | NULL | This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</li>\n</ul>\n</td>\n</tr>\n</table>\n\n<p>When filtering, the operand should be one of the following:</p>\n<p><code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, <code>false</code> can be expressed with <code>false</code> or <code>0</code>).</p>\n<p>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</p>\n<p>Refer to the sample documentation for the specific call you are making to see which related resource can be fetched.</p>\n\n<h3>Date and Time Filtering</h3>\n<p>Unless otherwise noted, all Datetime attributes in API responses will be returned in an ISO8601 compliant format:</p>\n<><code>YYYY-MM-DDTHH:mm:ss.sssZ</code> (e.g. <code>2024-10-05T14:48:00.000Z</code>).</p>\n<h2 id=\"rate-limiting\">Rate Limiting</h2>\n<p>The GoFundMe Pro API implements rate limiting to ensure fair usage and maintain service quality for all users. Rate limits are applied on a per-application and per-user basis.</p>\n<h3>When Rate Limiting Applies</h3>\n<p>Rate limiting is applied to requests that meet the following conditions:</p>\n<ul>\n<li>The API application is <strong>not internal</strong> (external/third-party applications)</li>\n<li>The API application is associated to an Organization</li>\n</ul>\n<p>Internal applications are not subject to rate limiting.</p>\n<h3>Rate Limit Details</h3>\n<p>By default, the rate limit is:</p>\n<ul>\n<li><strong>1800 requests per minute</strong> per application</li>\n</ul>\n<p>Rate limits may be adjusted dynamically via flags for specific applications or users.</p>\n<h3>Rate Limit Headers</h3>\n<p>All API responses include the following headers to help you track your rate limit status:</p>\n<table border='1'>\n<tr>\n<th width='200px'>Header</th>\n<th>Description</th>\n</tr>\n<tr>\n<td><code>X-RateLimit-Limit</code></td>\n<td>The maximum number of requests allowed in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Remaining</code></td>\n<td>The number of requests remaining in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Reset</code></td>\n<td>Unix timestamp indicating when the rate limit window resets (only included when limit is exceeded)</td>\n</tr>\n<tr>\n<td><code>Retry-After</code></td>\n<td>Number of seconds to wait before retrying (only included in 429 responses)</td>\n</tr>\n</table>\n<h3>Handling Rate Limit Errors</h3>\n<p>When you exceed the rate limit, the API will return a <code>429 Too Many Requests</code> response with the following structure:</p>\n<pre><code>{\n  \"message\": \"Too Many Attempts.\",\n  \"retry_after\": 42\n}</code></pre>\n<p>The response will include the <code>Retry-After</code> header indicating how many seconds you should wait before making another request.</p>\n<h3>Best Practices</h3>\n<ul>\n<li>Monitor the <code>X-RateLimit-Remaining</code> header to track your usage</li>\n<li>Implement exponential backoff when you receive a 429 response</li>\n<li>Respect the <code>Retry-After</code> header value before retrying</li>\n<li>Cache responses when possible to reduce API calls</li>\n<li>Batch operations when the API supports it</li>\n</ul>"
+  version: 2.0.0
+servers:
+- url: https://pro.gofundme.com/api/2.0
+security:
+- OAuth2Application: []
+- OAuth2Member: []
+tags:
+- name: GFM NPO Page
+  description: GFM NPO Page
+paths:
+  /organizations/{organization_id}/gfm-npo-page:
+    put:
+      tags:
+      - GFM NPO Page
+      summary: Update NPO page profile information
+      description: Updates the GoFundMe NPO page profile information for an organization
+      operationId: updateNpoPage
+      parameters:
+      - name: organization_id
+        in: path
+        description: The organization ID
+        required: true
+        schema:
+          type: integer
+          example: 123
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                displayName:
+                  description: Display name of the charity
+                  type: string
+                  maxLength: 255
+                  example: Updated Charity Name
+                establishedYear:
+                  description: Year the charity was established
+                  type: integer
+                  minimum: 1800
+                  example: 2020
+                addressLine1:
+                  description: Primary address line
+                  type: string
+                  maxLength: 255
+                  example: 123 Main St
+                city:
+                  description: City name
+                  type: string
+                  maxLength: 255
+                  example: San Francisco
+                stateCode:
+                  description: Two-letter state code
+                  type: string
+                  maxLength: 2
+                  minLength: 2
+                  example: CA
+                zipCode:
+                  description: ZIP or postal code
+                  type: string
+                  maxLength: 10
+                  example: '12345'
+                logoUrl:
+                  description: URL to charity logo
+                  type: string
+                  format: url
+                  maxLength: 500
+                  example: https://example.com/logo.png
+                causeCategories:
+                  description: Categories that describe the charity's cause
+                  type: array
+                  items:
+                    type: string
+                    maxLength: 100
+                  example:
+                  - Education
+                  - Health
+                  - Environment
+                mission:
+                  description: Mission statement
+                  type: string
+                  maxLength: 1000
+                  example: Our mission is to help people in need through education and healthcare initiatives
+                showAddress:
+                  description: Whether to display the address publicly
+                  type: boolean
+                  example: true
+                showLinks:
+                  description: Whether to display social links publicly
+                  type: boolean
+                  example: true
+                showLogo:
+                  description: Whether to display the logo publicly
+                  type: boolean
+                  example: true
+                showMission:
+                  description: Whether to display the mission publicly
+                  type: boolean
+                  example: true
+                updatedSlug:
+                  description: New slug for the charity page URL
+                  type: string
+                  maxLength: 255
+                  example: new-charity-slug
+                social:
+                  description: Social media links and configuration
+                  properties:
+                    facebook:
+                      description: Facebook page URL
+                      type: string
+                      format: url
+                      maxLength: 500
+                      example: https://facebook.com/charity
+                    instagram:
+                      description: Instagram profile URL
+                      type: string
+                      format: url
+                      maxLength: 500
+                      example: https://instagram.com/charity
+                    linkedin:
+                      description: LinkedIn company page URL
+                      type: string
+                      format: url
+                      maxLength: 500
+                      example: https://linkedin.com/company/charity
+                    twitter:
+                      description: Twitter profile URL
+                      type: string
+                      format: url
+                      maxLength: 500
+                      example: https://twitter.com/charity
+                    youtube:
+                      description: YouTube channel URL
+                      type: string
+                      format: url
+                      maxLength: 500
+                      example: https://youtube.com/charity
+                    website:
+                      description: Official website URL
+                      type: string
+                      format: url
+                      maxLength: 500
+                      example: https://charity.org
+                    tiktok:
+                      description: TikTok profile URL
+                      type: string
+                      format: url
+                      maxLength: 500
+                      example: https://tiktok.com/@charity
+                    candid:
+                      description: Candid profile URL
+                      type: string
+                      format: url
+                      maxLength: 500
+                      example: https://candid.org/charity
+                    charityNavigator:
+                      description: Charity Navigator profile URL
+                      type: string
+                      format: url
+                      maxLength: 500
+                      example: https://charitynavigator.org/charity
+                    blueSky:
+                      description: BlueSky profile URL
+                      type: string
+                      format: url
+                      maxLength: 500
+                      example: https://bsky.app/charity
+                    twitch:
+                      description: Twitch channel URL
+                      type: string
+                      format: url
+                      maxLength: 500
+                      example: https://twitch.tv/charity
+                    discord:
+                      description: Discord server URL
+                      type: string
+                      format: url
+                      maxLength: 500
+                      example: https://discord.gg/charity
+                    threads:
+                      description: Threads profile URL
+                      type: string
+                      format: url
+                      maxLength: 500
+                      example: https://threads.net/@charity
+                    custom:
+                      description: Custom platform URL
+                      type: string
+                      format: url
+                      maxLength: 500
+                      example: https://custom-platform.com/charity
+                    x:
+                      description: X (formerly Twitter) profile URL
+                      type: string
+                      format: url
+                      maxLength: 500
+                      example: https://x.com/charity
+                  type: object
+              type: object
+      responses:
+        '200':
+          description: NPO page updated successfully
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    description: Response from GoFundMe GraphQL API
+                    type: object
+                type: object
+        '400':
+          description: Bad request - validation failed or missing mapping
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Organization does not have a consumer charity mapping
+                type: object
+        '403':
+          description: Forbidden - insufficient permissions
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: You do not have permission to update this organization
+                type: object
+        '404':
+          description: Organization not found
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Organization not found with ID: 123'
+                type: object
+        '422':
+          description: Validation failed
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Validation failed
+                  errors:
+                    description: Validation error details
+                    type: object
+                type: object
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Failed to update NPO: Error message'
+                type: object
+  /organizations/{organization_id}/gfm-npo-page/settings:
+    put:
+      tags:
+      - GFM NPO Page
+      summary: Update charity settings
+      description: Updates the GoFundMe charity settings for an organization
+      operationId: updateCharitySettings
+      parameters:
+      - name: organization_id
+        in: path
+        description: The organization ID
+        required: true
+        schema:
+          type: integer
+          example: 123
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              description: At least one field must be provided
+              properties:
+                status:
+                  description: Charity Community status
+                  type: string
+                  enum:
+                  - ACTIVE
+                  - INACTIVE
+                  - HIDDEN
+                  - BANNED
+                  - UNKNOWN
+                  example: ACTIVE
+                isSeoIndexable:
+                  description: Whether the charity should be indexed by search engines
+                  type: boolean
+                  example: true
+                allowsFundraiserCreation:
+                  description: Whether the charity consents to fundraiser creation on its behalf
+                  type: boolean
+                  example: true
+                includeInRecommendations:
+                  description: Whether to include the charity in recommendations
+                  type: boolean
+                  example: true
+                marketplaceDiscoveryOptIn:
+                  description: Whether the charity opts into marketplace discovery across GoFundMe surfaces; translates to Consumer updateCharityPlacementOptInsAll bulk mutation (II-1807)
+                  type: boolean
+                  example: true
+                donationCadenceMandate:
+                  description: Donation cadence mandate applied to campaigns benefiting the NPO; persisted in Consumer charities_meta (PRO-3407/PRO-4338)
+                  type: string
+                  enum:
+                  - ONE_TIME_ONLY
+                  - MONTHLY_ONLY
+                  - SMART_DEFAULT
+                  example: SMART_DEFAULT
+              type: object
+      responses:
+        '200':
+          description: Charity settings updated successfully
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    properties:
+                      updateCharitySettings:
+                        properties:
+                          success:
+                            type: boolean
+                            example: true
+                          charity_updated:
+                            description: ID of updated charity (if charity fields were updated)
+                            type: integer
+                            example: 123
+                          recommendations_updated:
+                            description: Success status of recommendations update (if includeInRecommendations was updated)
+                            type: boolean
+                            example: true
+                          marketplace_discovery_updated:
+                            description: Success status of marketplace discovery opt-in update (if marketplaceDiscoveryOptIn was updated)
+                            type: boolean
+                            example: true
+                          donation_cadence_updated:
+                            description: Persisted cadence mandate (if donationCadenceMandate was updated)
+                            type: string
+                            enum:
+                            - ONE_TIME_ONLY
+                            - MONTHLY_ONLY
+                            - SMART_DEFAULT
+                            example: SMART_DEFAULT
+                          updated_fields:
+                            description: List of fields that were updated
+                            type: array
+                            items:
+                              type: string
+                            example:
+                            - status
+                            - isSeoIndexable
+                            - includeInRecommendations
+                            - marketplaceDiscoveryOptIn
+                            - donationCadenceMandate
+                        type: object
+                    type: object
+                type: object
+        '400':
+          description: Bad request - validation failed or missing mapping
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Organization does not have a consumer charity mapping
+                type: object
+        '403':
+          description: Forbidden - insufficient permissions
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: You do not have permission to update this organization
+                type: object
+        '404':
+          description: Organization not found
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Organization not found with ID: 123'
+                type: object
+        '422':
+          description: Validation failed
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Validation failed
+                  errors:
+                    description: Validation error details
+                    type: object
+                type: object
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: An unexpected error occurred while updating charity settings
+                type: object
+  /organizations/{organization_id}/gfm-npo-page/include-default-photos:
+    put:
+      tags:
+      - GFM NPO Page
+      summary: Update charity include default photos setting
+      description: Updates whether the charity includes default photos
+      operationId: updateCharityIncludeDefaultPhotos
+      parameters:
+      - name: organization_id
+        in: path
+        description: The organization ID
+        required: true
+        schema:
+          type: integer
+          example: 123
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+              - includeDefaultPhotos
+              properties:
+                includeDefaultPhotos:
+                  description: Whether to include default photos
+                  type: boolean
+                  example: true
+              type: object
+      responses:
+        '200':
+          description: Default photos setting updated successfully
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    properties:
+                      updateCharityIncludeDefaultPhotos:
+                        properties:
+                          success:
+                            type: boolean
+                            example: true
+                          includeDefaultPhotos:
+                            type: boolean
+                            example: true
+                        type: object
+                    type: object
+                type: object
+        '400':
+          description: Bad request - validation failed or missing mapping
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Organization does not have a consumer charity mapping
+                type: object
+        '403':
+          description: Forbidden - insufficient permissions
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: You do not have permission to update this organization
+                type: object
+        '404':
+          description: Organization not found
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Organization not found with ID: 123'
+                type: object
+        '422':
+          description: Validation failed
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Validation failed
+                  errors:
+                    description: Validation error details
+                    type: object
+                type: object
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: An unexpected error occurred while updating default photos setting
+                type: object
+  /organizations/{organization_id}/gfm-npo-page/npo-profile-opt-in:
+    put:
+      tags:
+      - GFM NPO Page
+      summary: Update charity NPO Profile opt-in
+      description: Sets whether the charity has opted into the redesigned NPO profile experience.
+      operationId: updateCharityNpoProfileOptIn
+      parameters:
+      - name: organization_id
+        in: path
+        description: The organization ID
+        required: true
+        schema:
+          type: integer
+          example: 123
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+              - npoProfileOptIn
+              properties:
+                npoProfileOptIn:
+                  description: Whether to opt into the redesigned NPO profile experience
+                  type: boolean
+                  example: true
+              type: object
+      responses:
+        '200':
+          description: Opt-in setting updated
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    properties:
+                      updateCharityNpoProfileOptIn:
+                        properties:
+                          success:
+                            type: boolean
+                            example: true
+                        type: object
+                    type: object
+                type: object
+        '400':
+          description: Missing consumer charity mapping or GraphQL errors
+        '403':
+          description: Forbidden
+        '404':
+          description: Organization not found
+        '422':
+          description: Validation failed
+        '500':
+          description: Internal server error
+  /organizations/{organization_id}/gfm-npo-page/pro-status:
+    put:
+      tags:
+      - GFM NPO Page
+      summary: Update GFM Pro account status
+      description: Updates the GoFundMe Pro status for the organization's NPO account.
+      operationId: updateGfmProStatus
+      parameters:
+      - name: organization_id
+        in: path
+        description: The organization ID
+        required: true
+        schema:
+          type: integer
+          example: 123
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+              - status
+              properties:
+                status:
+                  description: GFM Pro account status
+                  type: string
+                  enum:
+                  - CREATED
+                  - ACTIVE
+                  - FAILED
+                  example: ACTIVE
+              type: object
+      responses:
+        '200':
+          description: Status updated successfully
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    properties:
+                      updateGfmProStatus:
+                        type: boolean
+                        example: true
+                    type: object
+                type: object
+        '400':
+          description: Bad request - missing mapping or GraphQL error from GFM
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Failed to update GFM Pro status (GraphQL error)
+                type: object
+        '403':
+          description: Forbidden - insufficient permissions
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: You do not have permission to update this organization
+                type: object
+        '404':
+          description: Organization not found
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Organization not found with ID: 123'
+                type: object
+        '422':
+          description: Validation failed
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Validation failed
+                type: object
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: An unexpected error occurred while updating GFM Pro status
+                type: object
+  /organizations/{organization_id}/gfm-npo-page/photo-status:
+    put:
+      tags:
+      - GFM NPO Page
+      summary: Update charity fundraiser photo status
+      description: Updates the status of a charity fundraiser photo
+      operationId: updateCharityFundraiserPhotoStatus
+      parameters:
+      - name: organization_id
+        in: path
+        description: The organization ID
+        required: true
+        schema:
+          type: integer
+          example: 123
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+              - npoPhotoId
+              - status
+              properties:
+                npoPhotoId:
+                  description: The NPO photo ID
+                  type: string
+                  example: '4'
+                status:
+                  description: The photo status
+                  type: string
+                  example: ACTIVE
+                comments:
+                  description: Optional comments about the status change
+                  type: string
+                  example: Photo approved
+              type: object
+      responses:
+        '200':
+          description: Photo status updated successfully
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    properties:
+                      updateCharityFundraiserPhotoStatus:
+                        properties:
+                          success:
+                            type: boolean
+                            example: true
+                          npoPhotoId:
+                            type: string
+                            example: '4'
+                          status:
+                            type: string
+                            example: ACTIVE
+                          comments:
+                            type: string
+                            example: Photo approved
+                        type: object
+                    type: object
+                type: object
+        '400':
+          description: Bad request - validation failed or missing mapping
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Organization does not have a consumer charity mapping
+                type: object
+        '403':
+          description: Forbidden - insufficient permissions
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: You do not have permission to update this organization
+                type: object
+        '404':
+          description: Organization not found
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Organization not found with ID: 123'
+                type: object
+        '422':
+          description: Validation failed
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Validation failed
+                  errors:
+                    description: Validation error details
+                    type: object
+                type: object
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: An unexpected error occurred while updating photo status
+                type: object
+  /organizations/{organization_id}/gfm-npo-page/upload-image:
+    post:
+      tags:
+      - GFM NPO Page
+      summary: Upload image to GFM NPO page
+      description: Creates a presigned URL, uploads the file to S3, and finalizes the image in the GFM brand kit.
+      operationId: uploadGfmNpoImage
+      parameters:
+      - name: organization_id
+        in: path
+        description: The organization ID
+        required: true
+        schema:
+          type: integer
+          example: 123
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              required:
+              - photoType
+              - file
+              properties:
+                photoType:
+                  description: Type of photo being uploaded
+                  type: string
+                  enum:
+                  - CHARITY_LOGO
+                  - CHARITY_FUNDRAISER_COVER_PHOTO
+                  - PROFILE_BACKGROUND_IMAGE
+                  example: CHARITY_LOGO
+                file:
+                  description: Image file to upload
+                  type: string
+                  format: binary
+              type: object
+      responses:
+        '200':
+          description: Image uploaded and finalized successfully
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    properties:
+                      photoType:
+                        type: string
+                        example: CHARITY_LOGO
+                      url:
+                        type: string
+                        format: url
+                        example: https://cdn.example.com/logo.png
+                      final_object_key:
+                        type: string
+                        example: assets/charity/logos/admin/uuid/my_logo.png
+                    type: object
+                type: object
+        '400':
+          description: Bad request - validation failed or missing mapping
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Organization does not have a consumer charity mapping
+                type: object
+        '403':
+          description: Forbidden - insufficient permissions
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: You do not have permission to update this organization
+                type: object
+        '404':
+          description: Organization not found
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Organization not found with ID: 123'
+                type: object
+        '422':
+          description: Validation failed
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  errors:
+                    type: object
+                type: object
+        '500':
+          description: Unexpected error during upload
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Failed to upload image
+                type: object
+  /organizations/{organization_id}/gfm-npo-page/download-fundraisers-report:
+    get:
+      tags:
+      - GFM NPO Page
+      summary: Download Fundraisers Report
+      description: Downloads the most recent fundraisers report CSV file for an organization
+      operationId: downloadFundraisersReport
+      parameters:
+      - name: organization_id
+        in: path
+        description: Primary identifier of Organization
+        required: true
+        schema:
+          type: integer
+      - name: environment
+        in: query
+        description: Environment to download from
+        required: false
+        schema:
+          type: string
+          default: prod
+          enum:
+          - prod
+          - test
+      responses:
+        '200':
+          description: Success - Returns download URL
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  download_url:
+                    type: string
+                    example: https://s3.amazonaws.com/bucket/path?signed-params
+                  filename:
+                    type: string
+                    example: humane-society-of-manatee-county-fund-1727778600.csv
+                  expires_at:
+                    type: string
+                    format: date-time
+                    example: '2024-09-22T10:30:00Z'
+                  file_size:
+                    type: integer
+                    example: 12345
+                  organization_id:
+                    type: integer
+                    example: 1169661
+                  type:
+                    type: string
+                    example: fundraisers
+                type: object
+        '403':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Unauthorized access to organization reports
+                type: object
+        '404':
+          description: Report not found
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: No fundraisers report available for organization 1169661
+                  organization_id:
+                    type: integer
+                    example: 1169661
+                  type:
+                    type: string
+                    example: fundraisers
+                type: object
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: An error occurred while processing the fundraisers report download request
+                type: object
+  /organizations/{organization_id}/gfm-npo-page/download-donations-report:
+    get:
+      tags:
+      - GFM NPO Page
+      summary: Download Donations Report
+      description: Downloads the most recent donations report CSV file for an organization
+      operationId: downloadDonationsReport
+      parameters:
+      - name: organization_id
+        in: path
+        description: Primary identifier of Organization
+        required: true
+        schema:
+          type: integer
+      - name: environment
+        in: query
+        description: Environment to download from
+        required: false
+        schema:
+          type: string
+          default: prod
+          enum:
+          - prod
+          - test
+      responses:
+        '200':
+          description: Success - Returns download URL
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  download_url:
+                    type: string
+                    example: https://s3.amazonaws.com/bucket/path?signed-params
+                  filename:
+                    type: string
+                    example: humane-society-of-manatee-county-donation-1727778600.csv
+                  expires_at:
+                    type: string
+                    format: date-time
+                    example: '2024-09-22T10:30:00Z'
+                  file_size:
+                    type: integer
+                    example: 12345
+                  organization_id:
+                    type: integer
+                    example: 1169661
+                  type:
+                    type: string
+                    example: donations
+                type: object
+        '403':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Unauthorized access to organization reports
+                type: object
+        '404':
+          description: Report not found
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: No donations report available for organization 1169661
+                  organization_id:
+                    type: integer
+                    example: 1169661
+                  type:
+                    type: string
+                    example: donations
+                type: object
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: An error occurred while processing the donations report download request
+                type: object
+components:
+  securitySchemes:
+    OAuth2Application:
+      type: oauth2
+      description: OAuth bearer token for client application
+      flows:
+        clientCredentials:
+          tokenUrl: /oauth2/auth
+          refreshUrl: /oauth2/auth
+          scopes:
+            read: Read access
+            write: Write access
+    OAuth2Member:
+      type: oauth2
+      description: OAuth bearer token for client application with additional member context
+      flows:
+        password:
+          tokenUrl: /oauth2/auth
+          refreshUrl: /oauth2/auth
+          scopes:
+            read: Read access
+            write: Write access

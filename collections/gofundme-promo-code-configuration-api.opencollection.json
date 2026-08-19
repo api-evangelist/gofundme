@@ -1,0 +1,155 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "GoFundMe Pro Promo Code Configuration API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "/oauth2/auth",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Promo Code Configuration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "listPromoCodeConfigurations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/promo-codes/:promo_code/promo-code-configurations",
+            "params": [
+              {
+                "name": "promo_code",
+                "value": "",
+                "type": "path",
+                "description": "The specified Promo Code ID"
+              },
+              {
+                "name": "with",
+                "value": "",
+                "type": "query",
+                "description": "Request specific relationships to be returned with the PromoCodeConfiguration"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all Promo Code Configurations for the specified Promo Code"
+        },
+        {
+          "info": {
+            "name": "createPromoCodeConfiguration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/promo-code-configurations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create Promo Code Configuration"
+        },
+        {
+          "info": {
+            "name": "deletePromoCodeConfiguration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://pro.gofundme.com/api/2.0/promo-code-configurations/:promo_code_configuration",
+            "params": [
+              {
+                "name": "promo_code_configuration",
+                "value": "",
+                "type": "path",
+                "description": "Primary identifier of Promo Code Configuration"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete Promo Code Configuration"
+        },
+        {
+          "info": {
+            "name": "listTicketTypePromoCodeConfigurations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/ticket-types/:ticket_type/promo-code-configurations",
+            "params": [
+              {
+                "name": "ticket_type",
+                "value": "",
+                "type": "path",
+                "description": "The specified Tiket Type ID"
+              },
+              {
+                "name": "with",
+                "value": "",
+                "type": "query",
+                "description": "Request specific relationships to be returned with the PromoCodeConfiguration"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all Promo Code Configurations for the specified Ticket Type"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

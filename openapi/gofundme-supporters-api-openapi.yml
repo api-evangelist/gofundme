@@ -1,0 +1,1450 @@
+openapi: 3.2.0
+info:
+  title: GoFundMe Pro Supporters API
+  description: "<h1>GoFundMe Pro API</h1>\n<p>Welcome to the GoFundMe Pro API (2.0.0), a powerful toolset that empowers innovative and creative minds to engineer the world for good. This documentation walks through the API’s latest endpoints.</p>\n<p>GoFundMe Pro APIs are crafted around REST and the REST architectural style to provide developers with a stateless and language-­agnostic interface. The GoFundMe Pro API leverages HTTP verbs and response codes, OAuth2 authentication, and resource-­oriented URLs.</p>\n<p>Currently, the GoFundMe Pro API only supports JSON. All POST/PUT requests required a valid JSON object for the request body.</p>\n<h2>Errors</h2>\n<p>The GoFundMe Pro API leverages standard HTTP response status codes for it’s error responses. Error codes are:</p>\n<p><br /></p>\n<table border='1'>\n<tr>\n<th width='100px'>Error Code</th>\n<th>Meaning</th>\n</tr>\n<tr>\n<td>400</td>\n<td>Bad Request: The request was malformed or provided incorrect/incomplete/conflicting parameters. Check the response for more detailed messaging about why the request was incorrect. Do not repeat request.</td>\n</tr>\n<tr>\n<td>401</td>\n<td>Unauthorized: The API does not recognize the request as authorized. API access token may be missing or invalid.</td>\n</tr>\n<tr>\n<td>403</td>\n<td>Forbidden: The API recognizes the authorized API user, but the API user does not have correct permissions to satisfy the request.</td>\n</tr>\n<tr>\n<td>404</td>\n<td>Not Found: The resource requested does not exist or was not found.</td>\n</tr>\n<tr>\n<td>405</td>\n<td>Method Not Allowed: Some REST endpoints only accept a subset of valid REST HTTP verbs. This error is sent when an unsupported verb is requested.</td>\n</tr>\n<tr>\n<td>429</td>\n<td>Too Many Requests: The rate limit has been exceeded. See the <a href=\"#rate-limiting\">Rate Limiting</a> section for details on rate limits and response headers.</td>\n</tr>\n<tr>\n<td>500</td>\n<td>Error: The request was valid, but something failed on the server. Additional messages may be available.</td>\n</tr>\n<tr>\n<td>503</td>\n<td>Service Unavailable: The service is temporarily unavailable.</td>\n</tr>\n</table>\n<h2>Requests</h2>\n<h3>Authenticating Requests</h3>\n<p>Most API requests will need to be signed with an Access Token.</p>\n<p>Refer to the <a href=\"https://developers.gofundme.com/pro/overview/authentication\" target=\"_blank\" rel=\"noopener noreferrer\">Resource Documentation</a> for the specific call you are making to see if an access token is required for your request. See <a href=\"https://developers.gofundme.com/pro/tutorials/samples\" target=\"_blank\" rel=\"noopener noreferrer\">this page</a> for a demonstration of usage through a sample app. \n<h3>Filters</h3>\n<p>We can filter a collection based on a set of input parameters. To do so, we can modify the query string using the parameters listed below.</p>\n\n<table border='1'>\n<tr>\n<th>Parameter</th>\n<th>Type</th>\n<th>Default</th>\n<th>Description</th>\n</tr>\n\n<tr>\n<td>with</td>\n<td>string</td>\n<td>N/A</td>\n<td>This allows you to include nested related resource. For example, you could request a campaign along with the organization it belongs to and the designation it was allocated to. In this case, <code>with=organization,designation.</code></td>\n</tr>\n\n<tr>\n<td>per_page</td>\n<td>integer</td>\n<td>20</td>\n<td>Set the total number of resources returned per page (Maximum: 100).</td>\n</tr>\n\n<tr>\n<td>page</td>\n<td>integer</td>\n<td>1</td>\n<td>Page to return.</td>\n</tr>\n\n<tr>\n<td>sort</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>\nOrder the resources depending upon their attributes. Examples:\n<ul>\n<li><strong>created_at</strong>: oldest resource will come first</li>\n<li><strong>created_at:desc</strong>: newest resource will come first</li>\n<li><strong>last_name:asc,first_name:asc</strong>: order resources by last_name in alphabetical order. If same last_name, order by first_name in alphabetical order.</li>\n</ul>\n</td>\n</tr>\n\n<tr>\n<td>fields</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>List of resources attributes separated with comma. Narrow the list of attributes returned for each resource.</td>\n</tr>\n\n<tr>\n<td>filter</td>\n<td>string</td>\n<td>NULL</td>\n<td>\nAllow to filter the list of resources returned. Format is: <code>{association}.{attribute1}{operand}{value}</code> where: <ul>\n<li>association is the association if this is a nested filter (optional)</li>\n<li>operand is one of the following: <code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, false can be expressed with <code>false</code> or <code>0</code>).</li>\n<li>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. with | string | NULL | This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</li>\n</ul>\n</td>\n</tr>\n</table>\n\n<p>When filtering, the operand should be one of the following:</p>\n<p><code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, <code>false</code> can be expressed with <code>false</code> or <code>0</code>).</p>\n<p>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</p>\n<p>Refer to the sample documentation for the specific call you are making to see which related resource can be fetched.</p>\n\n<h3>Date and Time Filtering</h3>\n<p>Unless otherwise noted, all Datetime attributes in API responses will be returned in an ISO8601 compliant format:</p>\n<><code>YYYY-MM-DDTHH:mm:ss.sssZ</code> (e.g. <code>2024-10-05T14:48:00.000Z</code>).</p>\n<h2 id=\"rate-limiting\">Rate Limiting</h2>\n<p>The GoFundMe Pro API implements rate limiting to ensure fair usage and maintain service quality for all users. Rate limits are applied on a per-application and per-user basis.</p>\n<h3>When Rate Limiting Applies</h3>\n<p>Rate limiting is applied to requests that meet the following conditions:</p>\n<ul>\n<li>The API application is <strong>not internal</strong> (external/third-party applications)</li>\n<li>The API application is associated to an Organization</li>\n</ul>\n<p>Internal applications are not subject to rate limiting.</p>\n<h3>Rate Limit Details</h3>\n<p>By default, the rate limit is:</p>\n<ul>\n<li><strong>1800 requests per minute</strong> per application</li>\n</ul>\n<p>Rate limits may be adjusted dynamically via flags for specific applications or users.</p>\n<h3>Rate Limit Headers</h3>\n<p>All API responses include the following headers to help you track your rate limit status:</p>\n<table border='1'>\n<tr>\n<th width='200px'>Header</th>\n<th>Description</th>\n</tr>\n<tr>\n<td><code>X-RateLimit-Limit</code></td>\n<td>The maximum number of requests allowed in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Remaining</code></td>\n<td>The number of requests remaining in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Reset</code></td>\n<td>Unix timestamp indicating when the rate limit window resets (only included when limit is exceeded)</td>\n</tr>\n<tr>\n<td><code>Retry-After</code></td>\n<td>Number of seconds to wait before retrying (only included in 429 responses)</td>\n</tr>\n</table>\n<h3>Handling Rate Limit Errors</h3>\n<p>When you exceed the rate limit, the API will return a <code>429 Too Many Requests</code> response with the following structure:</p>\n<pre><code>{\n  \"message\": \"Too Many Attempts.\",\n  \"retry_after\": 42\n}</code></pre>\n<p>The response will include the <code>Retry-After</code> header indicating how many seconds you should wait before making another request.</p>\n<h3>Best Practices</h3>\n<ul>\n<li>Monitor the <code>X-RateLimit-Remaining</code> header to track your usage</li>\n<li>Implement exponential backoff when you receive a 429 response</li>\n<li>Respect the <code>Retry-After</code> header value before retrying</li>\n<li>Cache responses when possible to reduce API calls</li>\n<li>Batch operations when the API supports it</li>\n</ul>"
+  version: 2.0.0
+servers:
+- url: https://pro.gofundme.com/api/2.0
+security:
+- OAuth2Application: []
+- OAuth2Member: []
+tags:
+- name: Supporters
+  description: Supporters
+paths:
+  /fundraising-pages/{id}/donors:
+    get:
+      tags:
+      - Supporters
+      summary: List fundraising page donations
+      description: Returns all successful donations to the fundraising page. Each donation/order is a separate entry, so supporters who made multiple donations appear multiple times. Includes anonymous donations and offline donations without email addresses. Only accessible to admins.
+      operationId: listFundraisingPageDonors
+      parameters:
+      - name: id
+        in: path
+        description: ID of Fundraising Page
+        required: true
+        schema:
+          type: integer
+          example: 2173528
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginatedResponse'
+                - properties:
+                    data:
+                      description: List of successful donations. Each donation is a separate entry and may have a null email_address (for example, offline donations without email).
+                      type: array
+                      items:
+                        type: object
+                        allOf:
+                        - $ref: '#/components/schemas/Transaction'
+                        - required:
+                          - donation_id
+                          - amount
+                          - purchased_at
+                          properties:
+                            first_name:
+                              description: Donor first name from billing information when available; otherwise supporter/contact first name
+                              type:
+                              - string
+                              - 'null'
+                              example: John
+                            last_name:
+                              description: Donor last name from billing information when available; otherwise supporter/contact last name
+                              type:
+                              - string
+                              - 'null'
+                              example: Doe
+                            email_address:
+                              description: Donor email address when known; can be null for offline donations
+                              type:
+                              - string
+                              - 'null'
+                              format: email
+                              example: donor@example.com
+                            feed_item_id:
+                              description: Related feed item ID for this donation when available. Use this ID for feed-item comment APIs.
+                              type:
+                              - integer
+                              - 'null'
+                              example: 160736679
+                            amount:
+                              description: Total donation amount for this order
+                              type: number
+                              format: float
+                              example: 100
+                            donation_id:
+                              description: ID of the donation/order
+                              type: integer
+                              example: 42486777
+                            purchased_at:
+                              description: Date and time when the donation was made
+                              type: string
+                              format: date-time
+                              example: '2024-06-01T10:00:00Z'
+                          type: object
+                  type: object
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+  /fundraising-pages/{id}/donor-emails:
+    get:
+      tags:
+      - Supporters
+      summary: List unique donor email addresses
+      description: Returns unique non-empty email addresses from donations to this fundraising page. Each email appears only once, even if the donor made multiple donations. Donations without email are intentionally excluded. Pagination counts reflect unique emails, not total donations. Optimized for bulk operations like 'copy all emails'.
+      operationId: listFundraisingPageDonorEmails
+      parameters:
+      - name: id
+        in: path
+        description: ID of Fundraising Page
+        required: true
+        schema:
+          type: integer
+          example: 2173528
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginatedResponse'
+                - properties:
+                    data:
+                      description: List of unique email addresses. Each email appears once regardless of donation count.
+                      type: array
+                      items:
+                        required:
+                        - email_address
+                        properties:
+                          email_address:
+                            description: Unique donor email address
+                            type: string
+                            format: email
+                            example: donor@example.com
+                        type: object
+                  type: object
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+  /fundraising-pages/{id}/past-donors:
+    get:
+      tags:
+      - Supporters
+      summary: List fundraiser past donors
+      description: Returns one row per supporter (deduplicated by customers_id + charity_id) who made at least one successful donation to another page owned by the current fundraiser in this organization. Offline donations and donations with no email address are included. For each supporter the response exposes billing name/email (with fallback to contact record), the fundraising page ID and title of their most recent qualifying order, the timestamp of that latest order, the aggregate SUM of every qualifying donation amount, and a flag indicating whether they have also donated to the current page. Default order is alphabetical by donor name ascending; pass sortReverse=true to invert.
+      operationId: listFundraisingPagePastDonors
+      parameters:
+      - name: id
+        in: path
+        description: ID of Fundraising Page
+        required: true
+        schema:
+          type: integer
+          example: 2173528
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      - name: sortReverse
+        in: query
+        description: Reverse the default alphabetical sort (Z→A when true).
+        schema:
+          type: boolean
+          default: false
+      - name: hideAlreadyDonated
+        in: query
+        description: When true, supporters who have already donated to the current page are omitted.
+        schema:
+          type: boolean
+          default: false
+      - name: search
+        in: query
+        description: Case-insensitive substring match applied to donor first name, last name, full name, and email address.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginatedResponse'
+                - properties:
+                    data:
+                      description: List of past donors, one row per unique supporter.
+                      type: array
+                      items:
+                        required:
+                        - id
+                        - fundraising_page_id
+                        - title
+                        - purchased_at
+                        - amount
+                        - donated_to_current
+                        properties:
+                          id:
+                            description: Orders ID of the supporter's latest qualifying donation, unique per row.
+                            type: integer
+                            example: 42486777
+                          member_id:
+                            description: Customer/supporter identifier that ties this donor's records together across orders.
+                            type:
+                            - integer
+                            - 'null'
+                            example: 918273
+                          first_name:
+                            description: Donor first name. Uses the order's billing first name when available; otherwise falls back to the contact record.
+                            type:
+                            - string
+                            - 'null'
+                            example: Jane
+                          last_name:
+                            description: Donor last name. Uses the order's billing last name when available; otherwise falls back to the contact record.
+                            type:
+                            - string
+                            - 'null'
+                            example: Doe
+                          email_address:
+                            description: Donor email. Uses the order's billing email when available; otherwise falls back to the contact email. May be null for offline donations with no email on record.
+                            type:
+                            - string
+                            - 'null'
+                            format: email
+                            example: jane.doe@example.org
+                          fundraising_page_id:
+                            description: Fundraising page ID the supporter donated to in their most recent qualifying order.
+                            type: integer
+                            example: 2173528
+                          title:
+                            description: page_title of the fundraising page referenced by the most recent qualifying order.
+                            type: string
+                            example: Help Build a School
+                          purchased_at:
+                            description: Timestamp of the supporter's most recent qualifying order.
+                            type: string
+                            format: date-time
+                            example: '2024-01-15T10:45:00Z'
+                          amount:
+                            description: Aggregate SUM of order_total across every qualifying donation made by this supporter, not just the latest order.
+                            type: number
+                            format: float
+                            example: 150
+                          donated_to_current:
+                            description: Whether the supporter has also made a successful donation to the current fundraising page.
+                            type: boolean
+                            example: true
+                        type: object
+                  type: object
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+  /fundraising-teams/{id}/donors:
+    get:
+      tags:
+      - Supporters
+      summary: List fundraising team donations
+      description: Returns all successful donations to the fundraising team. Each donation/order is a separate entry, so supporters who made multiple donations appear multiple times. Includes anonymous donations and offline donations without email addresses. Only accessible to admins.
+      operationId: listFundraisingTeamDonors
+      parameters:
+      - name: id
+        in: path
+        description: ID of Fundraising Team
+        required: true
+        schema:
+          type: integer
+          example: 2173528
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginatedResponse'
+                - properties:
+                    data:
+                      description: List of successful donations. Each donation is a separate entry and may have a null email_address (for example, offline donations without email).
+                      type: array
+                      items:
+                        type: object
+                        allOf:
+                        - $ref: '#/components/schemas/Transaction'
+                        - required:
+                          - donation_id
+                          - amount
+                          - purchased_at
+                          properties:
+                            first_name:
+                              description: Donor first name from billing information when available; otherwise supporter/contact first name
+                              type:
+                              - string
+                              - 'null'
+                              example: John
+                            last_name:
+                              description: Donor last name from billing information when available; otherwise supporter/contact last name
+                              type:
+                              - string
+                              - 'null'
+                              example: Doe
+                            email_address:
+                              description: Donor email address when known; can be null for offline donations
+                              type:
+                              - string
+                              - 'null'
+                              format: email
+                              example: donor@example.com
+                            feed_item_id:
+                              description: Related feed item ID for this donation when available. Use this ID for feed-item comment APIs.
+                              type:
+                              - integer
+                              - 'null'
+                              example: 160736679
+                            amount:
+                              description: Total donation amount for this order
+                              type: number
+                              format: float
+                              example: 100
+                            donation_id:
+                              description: ID of the donation/order
+                              type: integer
+                              example: 42486777
+                            purchased_at:
+                              description: Date and time when the donation was made
+                              type: string
+                              format: date-time
+                              example: '2024-06-01T10:00:00Z'
+                          type: object
+                  type: object
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+  /fundraising-teams/{id}/past-donors:
+    get:
+      tags:
+      - Supporters
+      summary: List fundraising team past donors
+      description: Returns one row per supporter (deduplicated by customers_id + charity_id) who made at least one successful donation to another team owned by the current team lead in this organization (the current team is excluded). Offline donations and donations with no email address are included. For each supporter the response exposes billing name/email (with fallback to contact record), the fundraising page ID the latest qualifying donation was made to, the team name (title) of the team that owns that page, the timestamp of the latest order, the aggregate SUM of every qualifying donation amount, and a flag indicating whether they have also donated to the current team. Default order is alphabetical by donor name ascending; pass sortReverse=true to invert.
+      operationId: listFundraisingTeamPastDonors
+      parameters:
+      - name: id
+        in: path
+        description: ID of Fundraising Team
+        required: true
+        schema:
+          type: integer
+          example: 2173528
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      - name: sortReverse
+        in: query
+        description: Reverse the default alphabetical sort (Z→A when true).
+        schema:
+          type: boolean
+          default: false
+      - name: hideAlreadyDonated
+        in: query
+        description: When true, supporters who have already donated to the current team are omitted.
+        schema:
+          type: boolean
+          default: false
+      - name: search
+        in: query
+        description: Case-insensitive substring match applied to donor first name, last name, full name, and email address.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginatedResponse'
+                - properties:
+                    data:
+                      description: List of past donors, one row per unique supporter.
+                      type: array
+                      items:
+                        required:
+                        - id
+                        - fundraising_page_id
+                        - title
+                        - purchased_at
+                        - amount
+                        - donated_to_current
+                        properties:
+                          id:
+                            description: Orders ID of the supporter's latest qualifying donation, unique per row.
+                            type: integer
+                            example: 42486777
+                          member_id:
+                            description: Customer/supporter identifier that ties this donor's records together across orders.
+                            type:
+                            - integer
+                            - 'null'
+                            example: 918273
+                          first_name:
+                            description: Donor first name. Uses the order's billing first name when available; otherwise falls back to the contact record.
+                            type:
+                            - string
+                            - 'null'
+                            example: Jane
+                          last_name:
+                            description: Donor last name. Uses the order's billing last name when available; otherwise falls back to the contact record.
+                            type:
+                            - string
+                            - 'null'
+                            example: Doe
+                          email_address:
+                            description: Donor email. Uses the order's billing email when available; otherwise falls back to the contact email. May be null for offline donations with no email on record.
+                            type:
+                            - string
+                            - 'null'
+                            format: email
+                            example: jane.doe@example.org
+                          fundraising_page_id:
+                            description: Fundraising page ID the supporter donated to in their most recent qualifying order.
+                            type: integer
+                            example: 2173528
+                          title:
+                            description: team_name of the fundraising team that owns the page referenced by the most recent qualifying order.
+                            type: string
+                            example: Team Alpha
+                          purchased_at:
+                            description: Timestamp of the supporter's most recent qualifying order.
+                            type: string
+                            format: date-time
+                            example: '2024-01-15T10:00:00Z'
+                          amount:
+                            description: Aggregate SUM of order_total across every qualifying donation made by this supporter, not just the latest order.
+                            type: number
+                            format: float
+                            example: 150
+                          donated_to_current:
+                            description: Whether the supporter has also made a successful donation to the current fundraising team.
+                            type: boolean
+                            example: true
+                        type: object
+                  type: object
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+components:
+  schemas:
+    TransactionContext:
+      title: Transaction Context
+      properties:
+        application_fee_campaign_category:
+          description: Campaign Category the Transaction belongs to
+          type:
+          - string
+          - 'null'
+          enum:
+          - main_donate_button
+          - recurring_migration
+          - high_value
+          - virtual
+          example: main_donate_button
+        application_fee_platform_fee_type:
+          description: type of VRP Platform Fee the Transaction has, if applicable
+          type:
+          - string
+          - 'null'
+          enum:
+          - non_migrated_recurring
+          - migrated_recurring
+          - major_gift
+          example: non_migrated_recurring
+        commerce_order_id:
+          description: Commerce Order ID
+          type:
+          - string
+          - 'null'
+          example: or_01HFSN0GJZ6656RM8602Z37DY1
+        customizations_metadata:
+          description: Arbitrary JSON metadata set by a custom embedded Studio block
+          type:
+          - object
+          - 'null'
+          example:
+            theme: dark
+            custom_fields:
+              field1: value1
+        created_by:
+          description: Name of associated App
+          type:
+          - string
+          - 'null'
+          example: My App
+        commerce_confirmation_id:
+          description: Commerce Confirmation ID
+          type:
+          - string
+          - 'null'
+          example: C9UE75VB2
+        is_passport:
+          description: Passport Transaction
+          type: boolean
+          example: true
+        source_campaign_id:
+          description: Source Campaign identifier
+          type: integer
+          example: 227362
+        source_campaign_type:
+          description: Source Campaign type
+          type: string
+          enum:
+          - crowdfunding
+          - donation
+          - fund_for_entry
+          - peer_to_peer
+          - reg_w_fund
+          - registration
+          - ticketed
+          - dynamic
+          example: peer_to_peer
+        vendor_name:
+          description: Vendor name
+          type:
+          - string
+          - 'null'
+          example: Vendor XYZ
+        vendor_batch_number:
+          description: Vendor batch number
+          type:
+          - string
+          - 'null'
+          example: BATCH123456
+        vendor_batch_sequence:
+          description: Vendor batch sequence
+          type:
+          - string
+          - 'null'
+          example: '001'
+        vendor_batch_date:
+          description: Vendor batch date
+          type:
+          - string
+          - 'null'
+          example: '2024-01-15'
+      type: object
+    PaginatedResponse:
+      title: Paginated Response
+      properties:
+        current_page:
+          description: Index of current page
+          type: integer
+          example: 1
+        data:
+          description: Collection of results
+          type: array
+          items:
+            type: object
+        first_page_url:
+          description: URL of first page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        from:
+          description: Index of first displayed result within total result set
+          type:
+          - integer
+          - 'null'
+          example: 1
+        last_page:
+          description: Index of last page in result set
+          type: integer
+          example: 1
+        last_page_url:
+          description: URL of last page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        next_page_url:
+          description: URL of next page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=2
+        path:
+          description: URL of current page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource
+        per_page:
+          description: Maximum number of records returned per page of results
+          type: integer
+          example: 20
+        prev_page_url:
+          description: URL of previous page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        links:
+          description: Collection of objects representing pages {label, URL, active} that can be used to request the associated page of records.
+          type: array
+          items:
+            $ref: '#/components/schemas/PaginationLink'
+        to:
+          description: Index of last displayed result within total result set
+          type:
+          - integer
+          - 'null'
+          example: 1
+        total:
+          description: Total count of records in result set
+          type: integer
+          example: 1
+      type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    Transaction:
+      title: Transaction
+      properties:
+        account_number:
+          description: For ACH, the last digits of the account funds were drawn from
+          type:
+          - string
+          - 'null'
+          example: '1234'
+        account_type:
+          description: For ACH, what type of account funds were drawn from (savings, checking)
+          type:
+          - string
+          - 'null'
+          enum:
+          - savings
+          - checking
+          example: savings
+        acknowledgements_count:
+          description: Number of times Transaction was acknowledged by staff
+          type: integer
+          example: 3
+        adjustment_amount:
+          description: The total value the transaction's total_gross_amount has been adjusted
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 0.5
+        application_fee_amount:
+          description: Flat amount associated with the application fee (normalized value)
+          type:
+          - number
+          - 'null'
+          format: float
+          minimum: 0
+          example: 42
+        applied_application_fee_percent:
+          description: Percent taken by GoFundMe Pro
+          type:
+          - number
+          - 'null'
+          format: float
+          maximum: 100
+          minimum: 0.01
+          example: 3
+        applied_flex_rate_percent:
+          description: Add on rate set by organization
+          type:
+          - number
+          - 'null'
+          format: float
+          maximum: 100
+          minimum: 0.01
+          example: 50
+        applied_fot_percent:
+          description: Percentage added to Fee on Top (aka Classy Mode) Transactions to cover fees. Null if the Transaction is not fee on top
+          type:
+          - number
+          - 'null'
+          format: float
+          maximum: 100
+          minimum: 0.01
+          example: 50
+        applied_processor_fee_percent:
+          description: Percent taken by card processor
+          type:
+          - number
+          - 'null'
+          format: float
+          maximum: 100
+          minimum: 0.01
+          example: 2.2
+        applied_raw_processor_fee_flat:
+          description: Flat rate taken by card processor
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 0.2
+        billing_address1:
+          description: Billing address
+          type:
+          - string
+          - 'null'
+          maxLength: 512
+          example: 533 F Street
+        billing_address2:
+          description: Billing address 2
+          type:
+          - string
+          - 'null'
+          maxLength: 255
+          example: 533 F Street
+        billing_city:
+          description: Billing city
+          type:
+          - string
+          - 'null'
+          maxLength: 50
+          example: San Diego
+        billing_country:
+          description: Billing country. Must be a valid ISO 3166-1 alpha-2 country code
+          type:
+          - string
+          - 'null'
+          maxLength: 2
+          minLength: 2
+          example: US
+        billing_first_name:
+          description: ' Billing first name'
+          type:
+          - string
+          - 'null'
+          maxLength: 50
+          example: GoFundMe Pro
+        billing_last_name:
+          description: Billing last name
+          type:
+          - string
+          - 'null'
+          maxLength: 50
+          example: Member
+        billing_postal_code:
+          description: Billing zip/postal code
+          type:
+          - string
+          - 'null'
+          maxLength: 50
+          minLength: 1
+          example: '92101'
+        billing_state:
+          description: Billing state/province
+          type:
+          - string
+          - 'null'
+          maxLength: 32
+          example: CA
+        browser_info:
+          description: Browser information
+          type:
+          - string
+          - 'null'
+          example: information
+        campaign_id:
+          description: ID of Campaign Transaction is associated with
+          type: integer
+          example: 227362
+        card_expiration:
+          description: The expiration of credit card used (when applicable) in MMYY format
+          type:
+          - string
+          - 'null'
+          example: '1017'
+        card_last_four:
+          description: The last four digits of the credit card (when applicable)
+          type:
+          - integer
+          - 'null'
+          example: 1234
+        card_type:
+          description: Type of credit card used (when applicable)
+          type:
+          - string
+          - 'null'
+          example: Visa
+        charged_at:
+          description: Date and time Transaction was charged
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: 2017-01-01T12:02:01+0000
+        charged_classy_fees_amount:
+          description: Total fees applied by GoFundMe Pro
+          type:
+          - number
+          - 'null'
+          format: float
+          minimum: 0
+          example: 0.15
+        charged_currency_code:
+          description: Currency code of final charge. Required if charged_pp_fees_amount, charged_total_gross_amount or charged_classy_fees_amount are present.
+          type:
+          - string
+          - 'null'
+          example: USD
+        charged_fees_amount:
+          description: Total fees applied to Transaction (GoFundMe Pro and payment processor)
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 0.35
+        charged_pp_fees_amount:
+          description: Total fees applied to by payment processor
+          type:
+          - number
+          - 'null'
+          format: float
+          minimum: 0
+          example: 0.15
+        charged_total_gross_amount:
+          description: Gross total charged to purchaser
+          type:
+          - number
+          - 'null'
+          format: float
+          minimum: 0
+          example: 1
+        classy_fees_amount:
+          description: Amount of fees applied by GoFundMe Pro
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 0.34
+        comment:
+          description: Organization comment
+          type:
+          - string
+          - 'null'
+          example: This is a comment
+        company_name:
+          description: Name of company this Transaction has ties to
+          type:
+          - string
+          - 'null'
+          example: GoFundMe Pro
+        context:
+          oneOf:
+          - $ref: '#/components/schemas/TransactionContext'
+          description: Contextual data about the transaction that can be used for filtering/sorting
+        created_at:
+          description: Date Transaction record was created
+          type: string
+          format: date-time
+          example: 2016-01-01T12:00:00+0000
+        currency_code:
+          description: Currency code
+          type:
+          - string
+          - 'null'
+          example: USD
+        designation_id:
+          description: ID of the Designation this Transaction is allocated to
+          type:
+          - integer
+          - 'null'
+          example: 34672
+        donation_gross_amount:
+          description: Gross total applied to purchaser in the raw currency
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 1.25
+        donation_matching_plan_id:
+          description: ID of the Donation Matching Plan this Transaction is associated with
+          type:
+          - integer
+          - 'null'
+          example: 4237
+        donation_net_amount:
+          description: Total gross amount - Overhead net amount - Fees amount
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 1.25
+        fees_amount:
+          description: Payment for professional service
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 1.25
+        fee_on_top:
+          description: Flag if the transaction is a fee on top (classymode) or not
+          type: boolean
+          example: true
+        flex_rate_amount:
+          description: Flat amount associated with the flex rate percent (normalized value)
+          type:
+          - number
+          - 'null'
+          format: float
+          minimum: 0
+          example: 42
+        frequency:
+          description: 'Frequency of transaction: one-time or recurring'
+          type:
+          - string
+          - 'null'
+          enum:
+          - bi-weekly
+          - bi-monthly
+          - daily
+          - monthly
+          - one-time
+          - quarterly
+          - semi-annual
+          - weekly
+          - yearly
+          example: one-time
+        fundraising_page_id:
+          description: ID of the Fundraising Page Transaction is associated with
+          type:
+          - integer
+          - 'null'
+          example: 2173528
+        fundraising_team_id:
+          description: ID of Fundraising Team Transaction is associated with
+          type:
+          - integer
+          - 'null'
+          example: 209745
+        hide_amount:
+          description: Whether purchaser indicated if Transaction amount should be hidden
+          type: boolean
+          example: false
+        id:
+          description: Unique ID of the Transaction
+          type: integer
+          example: 8734
+        initial_gross_amount:
+          description: Amount before any fee adjustments where added (Normalization value)
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 1.25
+        institution:
+          description: For ACH, the name of the banking institution funds were drawn from
+          type:
+          - string
+          - 'null'
+          maxLength: 255
+          example: ABC Bank
+        in_honor_of:
+          description: A person this donation is in honor or memory of. Deprecated, this field was replaced for the dedication object. When fetching the transaction, use the with query parameter with the dedication value to include it in the response.
+          type:
+          - string
+          - 'null'
+          example: GoFundMe Pro Relation
+        is_anonymous:
+          description: Whether purchaser indicated if transaction should be anonymous
+          type: boolean
+          example: false
+        is_donor_covered_fee:
+          description: Flag if the transaction is a donor covered fee or not
+          type: boolean
+          example: true
+        is_gift_aid:
+          description: Flag whether the donor opted into gift aid used by the UK or not. Can only be set if the organization allows it
+          type: boolean
+          example: false
+        is_reprocess:
+          description: If it is a reprocessed transaction or not
+          type: boolean
+          example: true
+        member_country:
+          description: Country of the Member. Must be a valid ISO 3166-1 alpha-2 country code
+          type:
+          - string
+          - 'null'
+          example: US
+        member_email_address:
+          description: Email address of purchaser GoFundMe Pro Member
+          type:
+          - string
+          - 'null'
+          example: member@gofundme.com
+        member_id:
+          description: Primary ID of the purchaser GoFundMe Pro Member
+          type:
+          - integer
+          - 'null'
+          example: 2012
+        member_name:
+          description: ' Name of purchaser GoFundMe Pro Member'
+          type:
+          - string
+          - 'null'
+          example: GoFundMe Pro Member
+        member_phone:
+          description: Phone number of purchaser GoFundMe Pro Member
+          type:
+          - string
+          - 'null'
+          example: 555-555-5555
+        member_cell_phone:
+          description: Cell phone number of purchaser GoFundMe Pro Member — the SMS consent target when collected
+          type:
+          - string
+          - 'null'
+          example: 555-555-5555
+        consent:
+          description: Consent details captured for this transaction
+          properties:
+            sms_opt_in:
+              description: Whether supporter opted in to SMS communication
+              type:
+              - boolean
+              - 'null'
+              example: false
+            sms_consent_decision_date:
+              description: Date/time of SMS consent decision
+              type:
+              - string
+              - 'null'
+              format: date-time
+              example: 2016-01-01T12:05:42+0000
+            email_opt_in:
+              description: Whether supporter opted in to email communication
+              type:
+              - boolean
+              - 'null'
+              example: false
+            email_consent_decision_date:
+              description: Date/time of email consent decision
+              type:
+              - string
+              - 'null'
+              format: date-time
+              example: 2016-01-01T12:05:42+0000
+          type: object
+        metadata:
+          description: An optional set of unstructured metadata to be stored with a Transaction
+          type:
+          - string
+          - 'null'
+          example: '{foo: ''bar''}'
+        organization_id:
+          description: ' ID of Organization Transaction is associated with'
+          type: integer
+          example: 82364
+        overhead_net_amount:
+          description: Amount of event/host fees
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 25
+        parent_transaction_id:
+          description: Parent Transaction identifier
+          type:
+          - integer
+          - 'null'
+          example: 8734
+        payment_gateway:
+          description: Payment processor
+          type:
+          - string
+          - 'null'
+          enum:
+          - ''
+          - StayClassy PayPal
+          - Authorize.net
+          - PayPal
+          - NetworkForGood
+          - WePay
+          - PayPalExternal
+          - BrainTree
+          - Classy Pay
+          - Dwolla
+          - Stripe
+          - PayPalCommerce
+          - Coinbase
+          - Double the Donation Pay
+          - Facebook Pay
+          example: BrainTree
+        payment_method:
+          description: Service for processing payment
+          type:
+          - string
+          - 'null'
+          example: WPP
+        payment_source:
+          description: How payment information was captured
+          type:
+          - string
+          - 'null'
+          enum:
+          - APPLE_PAY
+          - GOOGLE_PAY
+          - STRIPE_LINK
+          - MANUAL
+          - PAYPAL
+          - PLAID
+          - WALLET
+          - VENMO
+          - COINBASE
+          example: WALLET
+        payment_type:
+          description: How payment was made
+          type:
+          - string
+          - 'null'
+          enum:
+          - Credit Card
+          - ACH
+          - PayPal
+          - Venmo
+          - Crypto
+          example: Credit Card
+        pp_fees_amount:
+          description: Total fees applied by payment processor
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 0.15
+        pp_reference_id:
+          description: Reference ID for underlying transaction processing.
+          type:
+          - string
+          - 'null'
+          example: '12345'
+        pp_response:
+          description: Paypal response
+          type:
+          - string
+          - 'null'
+          example: '1023'
+        pp_transaction_id:
+          description: Reference ID for underlying Transaction processing
+          type:
+          - string
+          - 'null'
+          example: '12345'
+        processor_decline_code:
+          description: Code of processor decline
+          type:
+          - string
+          - 'null'
+          example: '64'
+        processor_fee_amount:
+          description: Flat amount associated with the processor fee (normalized value)
+          type:
+          - number
+          - 'null'
+          format: float
+          minimum: 0
+          example: 42
+        promo_code_code:
+          description: The code of the promo code applied to the Transaction
+          type:
+          - string
+          - 'null'
+          example: PROMO
+        purchased_at:
+          description: Date and time of Transaction
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: 2016-01-01T12:00:00+0000
+        raw_adjustment_amount:
+          description: Total fee amount assessed
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 0.25
+        raw_application_fee_amount:
+          description: Raw Flat amount associated with the application fee
+          type:
+          - number
+          - 'null'
+          format: float
+          minimum: 0
+          example: 42
+        raw_currency_code:
+          description: Currency Code of the Transaction before normalization
+          type:
+          - string
+          - 'null'
+          example: JPY
+        raw_donation_gross_amount:
+          description: Gross total applied to purchaser in the raw currency
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 1.25
+        raw_flex_rate_amount:
+          description: Raw Flat amount associated with the flex rate percent
+          type:
+          - number
+          - 'null'
+          format: float
+          minimum: 0
+          example: 1.25
+        raw_initial_gross_amount:
+          description: Amount before any fee adjustments where added
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 1.25
+        raw_overhead_net_amount:
+          description: Net Amount of event/host fees in the raw currency
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 0.25
+        raw_processor_fee_amount:
+          description: Raw Flat amount associated with the processor fee
+          type:
+          - number
+          - 'null'
+          format: float
+          minimum: 0
+          example: 42
+        raw_total_gross_amount:
+          description: Gross amount charged to purchaser if raw currency code is set
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 1
+        recurring_donation_plan_id:
+          description: ID of recurring Donation plan the Transaction belongs to. If there is no recurring Donation plan then this is null
+          type:
+          - integer
+          - 'null'
+          example: 23847
+        refunded_at:
+          description: Date and time of Refund, if applies
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: 2016-01-01T12:00:00+0000
+        reprocess_attempts:
+          description: Number of reprocess attempts for the transaction
+          type: integer
+          example: 2
+        status:
+          description: The status of the Transaction
+          type: string
+          enum:
+          - test
+          - canceled
+          - incomplete
+          - success
+          - refunded
+          - cb_lost
+          - cb_initiated
+          - voided
+          - pending
+          - failed
+          example: canceled
+        supporter_id:
+          description: Supporter ID associated with the Member
+          type:
+          - integer
+          - 'null'
+          example: 5827
+        tax_entity_id:
+          description: Tax entity that satisfies tax compliance for the Transaction
+          type:
+          - integer
+          - 'null'
+          example: 331
+        total_gross_amount:
+          description: Total value of Transaction
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 1.25
+        updated_at:
+          description: Date and time of last update
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: 2016-01-01T12:00:00+0000
+        utm:
+          description: UTM tracking parameters captured for this transaction, from the most recent associated source tracking code. Included only when the source_tracking_codes association is requested via the 'with' query parameter. When included, all keys are always present; values are null when not captured.
+          properties:
+            campaign:
+              description: Specific campaign the donor responded to
+              type:
+              - string
+              - 'null'
+              example: year_end_2025
+            content:
+              description: Creative variant within the campaign
+              type:
+              - string
+              - 'null'
+              example: top_banner
+            medium:
+              description: Marketing channel type
+              type:
+              - string
+              - 'null'
+              example: email
+            source:
+              description: Traffic source the donor came from
+              type:
+              - string
+              - 'null'
+              example: mailchimp
+            term:
+              description: Paid-search keyword that triggered the click
+              type:
+              - string
+              - 'null'
+              example: donate now
+          type: object
+        opted_into_payment_sync:
+          description: Registrant has opted into storing their payment info for future Live Events purchases.
+          type: boolean
+          example: false
+      type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
+      type: object
+  parameters:
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
+    page:
+      name: page
+      in: query
+      description: Indicator of which page of results to return
+      required: false
+      schema:
+        type: integer
+        example: 1
+  securitySchemes:
+    OAuth2Application:
+      type: oauth2
+      description: OAuth bearer token for client application
+      flows:
+        clientCredentials:
+          tokenUrl: /oauth2/auth
+          refreshUrl: /oauth2/auth
+          scopes:
+            read: Read access
+            write: Write access
+    OAuth2Member:
+      type: oauth2
+      description: OAuth bearer token for client application with additional member context
+      flows:
+        password:
+          tokenUrl: /oauth2/auth
+          refreshUrl: /oauth2/auth
+          scopes:
+            read: Read access
+            write: Write access

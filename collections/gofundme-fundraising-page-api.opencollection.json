@@ -1,0 +1,413 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "GoFundMe Pro Fundraising Page API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "/oauth2/auth",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Fundraising Page",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "listCampaignFundraisingPages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/campaigns/:campaign/fundraising-pages",
+            "params": [
+              {
+                "name": "campaign",
+                "value": "",
+                "type": "path",
+                "description": "ID of desired Campaign"
+              },
+              {
+                "name": "with",
+                "value": "",
+                "type": "query",
+                "description": "Request specific relationships to be returned with the Fundraising Page"
+              },
+              {
+                "name": "aggregates2",
+                "value": "",
+                "type": "query",
+                "description": "Request aggregate information to be returned with the Fundraising Page, including total donations, donors, amount raised and fundraisers."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "List all Fundraising Pages for specified Campaign"
+        },
+        {
+          "info": {
+            "name": "createCampaignFundraisingPage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/campaigns/:campaign/fundraising-pages",
+            "params": [
+              {
+                "name": "campaign",
+                "value": "",
+                "type": "path",
+                "description": "The specified Campaign ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create new Campaign Fundraising Page"
+        },
+        {
+          "info": {
+            "name": "fetchFundraisingPageFitnessMetrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-pages/:fundraising_page/fitness-metrics",
+            "params": [
+              {
+                "name": "fundraising_page",
+                "value": "",
+                "type": "path",
+                "description": "The specified Fundraising Page ID"
+              }
+            ]
+          },
+          "docs": "Retrieves fitness activity tracking data for a fundraising page. Returns tracking settings and progress metrics for P2P Challenge campaign fundraisers. Returns 204 if the fundraiser has no GFM consumer mapping or no fitness data."
+        },
+        {
+          "info": {
+            "name": "fetchFundraisingPage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-pages/:fundraising_page",
+            "params": [
+              {
+                "name": "fundraising_page",
+                "value": "",
+                "type": "path",
+                "description": "The specified Fundraising Page ID"
+              },
+              {
+                "name": "aggregates",
+                "value": "",
+                "type": "query",
+                "description": "Request Fundraising Page Aggregates to be returned"
+              },
+              {
+                "name": "with",
+                "value": "",
+                "type": "query",
+                "description": "Request specific relationships to be returned with the Fundraising Page"
+              },
+              {
+                "name": "aggregates2",
+                "value": "",
+                "type": "query",
+                "description": "Request aggregate information to be returned with the Fundraising Page, including total donations, donors, amount raised and fundraisers."
+              }
+            ]
+          },
+          "docs": "Show the Fundraising Page specified by the fundraising_page_id"
+        },
+        {
+          "info": {
+            "name": "updateFundraisingPage",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-pages/:fundraising_page",
+            "params": [
+              {
+                "name": "fundraising_page",
+                "value": "",
+                "type": "path",
+                "description": "The specified Fundraising Page ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update Fundraising Page"
+        },
+        {
+          "info": {
+            "name": "deleteFundraisingPage",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-pages/:fundraising_page",
+            "params": [
+              {
+                "name": "fundraising_page",
+                "value": "",
+                "type": "path",
+                "description": "The specified Fundraising Page ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete a Fundraising Page"
+        },
+        {
+          "info": {
+            "name": "fetchFundraisingPageMoments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-pages/:fundraising_page/moments",
+            "params": [
+              {
+                "name": "fundraising_page",
+                "value": "",
+                "type": "path",
+                "description": "The specified Fundraising Page ID"
+              }
+            ]
+          },
+          "docs": "Retrieves the P2P moment a fundraiser selected at create time and their submitted answers to the moment's questions. Returns 204 if the fundraiser has no GFM consumer mapping or no moment data."
+        },
+        {
+          "info": {
+            "name": "fetchFundraisingPageOverview",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-pages/:fundraising_page/overview",
+            "params": [
+              {
+                "name": "fundraising_page",
+                "value": "",
+                "type": "path",
+                "description": "The specified Fundraising Page ID"
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "Interval period of Fundraising Page overview"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "The date from which aggregation results will start. This is translated into a start_time, which is the beginning of the date presented in the timezone of the page's Campaign. If the Fundraising Page's Campaign has no associated timezone, this timezone will default to UTC."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "The date at which aggregation results will end. This is translated into a end_time, which is the end of the date presented in the timezone of the page's Campaign. If the Fundraising Page's Campaign has no associated timezone, this timezone will default to UTC."
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query",
+                "description": "Timezone for start_date and end_date."
+              }
+            ]
+          },
+          "docs": "Retrieves aggregate records for the Fundraising Page's transactions."
+        },
+        {
+          "info": {
+            "name": "listFundraisingTeamFundraisingPages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-teams/:fundraising_team/fundraising-pages",
+            "params": [
+              {
+                "name": "fundraising_team",
+                "value": "",
+                "type": "path",
+                "description": "ID of desired Fundraising Team"
+              },
+              {
+                "name": "with",
+                "value": "",
+                "type": "query",
+                "description": "Request specific relationships to be returned with the Fundraising Page"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "List all Fundraising Pages for specified Fundraising Team"
+        },
+        {
+          "info": {
+            "name": "createFundraisingTeamFundraisingPage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-teams/:fundraising_team/fundraising-pages",
+            "params": [
+              {
+                "name": "fundraising_team",
+                "value": "",
+                "type": "path",
+                "description": "The specified Fundraising Team ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create new Fundraising Team Fundraising Page"
+        },
+        {
+          "info": {
+            "name": "listMemberFundraisingPages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/members/:member/fundraising-pages",
+            "params": [
+              {
+                "name": "member",
+                "value": "",
+                "type": "path",
+                "description": "ID of desired Member"
+              },
+              {
+                "name": "with",
+                "value": "",
+                "type": "query",
+                "description": "Request specific relationships to be returned with the Fundraising Page"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "List all Fundraising Pages for specified Member"
+        },
+        {
+          "info": {
+            "name": "listOrganizationFundraisingPages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/organizations/:organization/fundraising-pages",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "ID of desired Organization"
+              },
+              {
+                "name": "with",
+                "value": "",
+                "type": "query",
+                "description": "Request specific relationships to be returned with the Fundraising Page"
+              },
+              {
+                "name": "aggregates2",
+                "value": "",
+                "type": "query",
+                "description": "Request aggregate information to be returned with the Fundraising Page, including total donations, donors, amount raised and fundraisers."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "List all Fundraising Pages for specified Organization"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

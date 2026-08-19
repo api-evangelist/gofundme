@@ -1,0 +1,375 @@
+{
+  "item": [
+    {
+      "id": "ed2c721b-add3-4594-a7bf-6d4729d44e63",
+      "name": "Fundraising Team Transfer",
+      "description": {
+        "content": "Transfer a Fundraising Team within its Campaign/subteam infrastructure. This is done by specifying the team's direct parent, making it either a direct team for its Campaign or a subteam for another team for its Campaign.\n\nThe endpoint requires two parameters within its post body: `new_parent_id` and `new_parent_type`. These parameters are used to specify the new direct parent of the Fundraising Team. At the moment, this can either be the Fundraising Team's Campaign itself (making it a direct team for the Campaign) or another Fundraising Team associated with the Fundraising Team's Campaign (making it a subteam of the specified team).\n\n<b>NOTE</b>: An error will be returned if the new parent for a Fundraising Team is currently a subteam of the Fundraising Team.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bad80b72-192a-4b4a-91e5-b818a946deff",
+          "name": "transferFundraisingTeam",
+          "request": {
+            "name": "transferFundraisingTeam",
+            "description": {
+              "content": "Transfer a Fundraising Team to fundraising_team or campaign.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fundraising-teams",
+                ":fundraising_team",
+                "transfers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "fundraising_team",
+                  "description": "(Required) The specified Fundraising Team ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "read write"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "/oauth2/auth"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "/oauth2/auth"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"new_parent_id\": \"<integer>\",\n  \"new_parent_type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1232f87e-f436-4668-ae75-f3bedc99760c",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-teams",
+                    ":fundraising_team",
+                    "transfers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "fundraising_team",
+                      "description": "(Required) The specified Fundraising Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"new_parent_id\": 227362,\n  \"new_parent_type\": \"campaign\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address1\": \"533 F Street\",\n  \"campaign_template_id\": 413,\n  \"studio_template_id\": 7,\n  \"is_linked\": false,\n  \"linked_at\": \"2021-04-23T08:23:21Z\",\n  \"unlinked_at\": \"2021-04-23T08:23:21Z\",\n  \"canonical_url\": \"/campaign/c0\",\n  \"category_id\": 1,\n  \"channel_id\": 2,\n  \"channel_keywords\": \"some_keyword\",\n  \"city\": \"San Diego\",\n  \"contact_email\": \"test@gofundme.com\",\n  \"contact_phone\": \"619-555-1212\",\n  \"country\": \"US\",\n  \"created_at\": \"2021-04-23T08:23:21Z\",\n  \"created_with\": \"classyapp\",\n  \"currency_code\": \"USD\",\n  \"default_page_appeal_email\": \"Please donate to my fundraising page\",\n  \"default_page_goal\": 500,\n  \"default_page_thank_you_email\": \"Thank you\",\n  \"default_team_appeal_email\": \"Please donate to my fundraising team\",\n  \"default_team_goal\": 500,\n  \"default_team_thank_you_email\": \"Thank you\",\n  \"designation_id\": 10,\n  \"display_group_name\": false,\n  \"ended_at\": \"2021-04-23T08:23:21Z\",\n  \"effective_fixed_fot_percent\": \"4.00\",\n  \"effective_flex_rate_percent\": 4.2,\n  \"effective_recaptcha_settings\": \"ENABLED\",\n  \"external_id\": \"37e4d11a-ec0c-4358-94ed-f26cb1753512\",\n  \"external_url\": \"https://pro.gofundme.com\",\n  \"goal\": 108.23,\n  \"hide_from_profile\": false,\n  \"id\": 227362,\n  \"internal_name\": \"Event #F230DD\",\n  \"is_fees_free\": false,\n  \"is_general\": 1,\n  \"location_details\": \"Heading north on I-5...\",\n  \"minimum_donation_amount\": 5,\n  \"name\": \"My Campaign\",\n  \"organization_id\": 82364,\n  \"postal_code\": \"92101\",\n  \"raw_currency_code\": \"EUR\",\n  \"raw_goal\": \"100.000\",\n  \"redirect_url\": \"https://pro.gofundme.com/\",\n  \"sort_designation_by\": \"A-Z\",\n  \"started_at\": \"2021-04-23T08:23:21Z\",\n  \"state\": \"CA\",\n  \"status\": \"active\",\n  \"timezone_identifier\": \"America/Los_Angeles\",\n  \"type\": \"ticketed\",\n  \"updated_at\": \"2021-04-23T08:23:21Z\",\n  \"venue\": \"City Townhall\",\n  \"add_registration_fee\": false,\n  \"allow_duplicate_fundraisers\": false,\n  \"allow_fundraising_pages\": false,\n  \"allow_team_fundraising\": false,\n  \"default_page_appeal\": \"Please donate to my fundraising page\",\n  \"default_page_post_asset_id\": 1,\n  \"default_page_post_body\": \"Lorem ipsum\",\n  \"default_page_post_title\": \"Welcome to our team page!\",\n  \"default_team_appeal\": \"Please donate to my fundraising team\",\n  \"default_team_post_asset_id\": 1,\n  \"default_team_post_body\": \"Lorem ipsum\",\n  \"default_team_post_title\": \"Welcome to our team page!\",\n  \"default_thank_you_text\": \"Thank you so much!\",\n  \"fixed_fot_percent\": \"4.00\",\n  \"flex_rate_percent\": 4,\n  \"is_billing_address_required\": false,\n  \"is_ended_at_hidden\": false,\n  \"is_started_at_hidden\": false,\n  \"pages_can_set_appeal\": false,\n  \"pages_can_set_goal\": false,\n  \"team_membership_policy\": \"optional\",\n  \"teams_can_set_appeal\": false,\n  \"teams_can_set_goal\": false,\n  \"ticket_pass_on_fees\": false,\n  \"allow_ecards\": false,\n  \"classy_mode_appeal\": \"Example appeal text\",\n  \"classy_mode_checked_by_default\": false,\n  \"classy_mode_enabled\": false,\n  \"checkout_corporate_donation_enabled\": true,\n  \"corporate_donation_enabled\": false,\n  \"custom_url\": \"https://test.org/custom\",\n  \"daf_enabled\": false,\n  \"dcf_enabled\": false,\n  \"dcf_allowed\": false,\n  \"disable_donation_attribution\": false,\n  \"hide_anonymous_donations\": false,\n  \"hide_recurring_end_date\": false,\n  \"hide_contact_opt_in\": false,\n  \"hide_donation_amounts\": false,\n  \"hide_dedications\": false,\n  \"hide_donation_comments\": false,\n  \"offer_dedication_postal_notifications\": false,\n  \"opt_in_checked_by_default\": false,\n  \"return_url\": \"https://test.org/return\",\n  \"send_dedication_emails\": false,\n  \"logo_id\": 1002,\n  \"logo_url\": \"https://gofundme-cdn-url.com/your-logo.png\",\n  \"team_cover_photo_id\": 2345,\n  \"team_cover_photo_url\": \"https://gofundme-cdn-url.com/your-team-cover-photo.png\",\n  \"crypto_giving\": \"enabled\",\n  \"embedded_giving\": \"disabled\",\n  \"exit_modal\": false,\n  \"use_intelligent_ask_onetime\": false,\n  \"use_intelligent_ask_recurring\": false,\n  \"whitelist_url\": \"https://www.myawesomecharity.org\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "708bfa4e-7ce6-49c0-b4f2-2822552ceadc",
+              "name": "validation errors",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-teams",
+                    ":fundraising_team",
+                    "transfers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "fundraising_team",
+                      "description": "(Required) The specified Fundraising Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"new_parent_id\": 227362,\n  \"new_parent_type\": \"campaign\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"Unable to transfer fundraising team\",\n    \"Unable to transfer fundraising team\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4413371d-0762-4258-93a8-dd59bf4626e4",
+              "name": "Requester is not authorized to perform action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-teams",
+                    ":fundraising_team",
+                    "transfers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "fundraising_team",
+                      "description": "(Required) The specified Fundraising Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"new_parent_id\": 227362,\n  \"new_parent_type\": \"campaign\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d3e4cd58-a337-4aff-b39f-54e897e5787d",
+              "name": "Fundraising Team not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-teams",
+                    ":fundraising_team",
+                    "transfers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "fundraising_team",
+                      "description": "(Required) The specified Fundraising Team ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"new_parent_id\": 227362,\n  \"new_parent_type\": \"campaign\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://pro.gofundme.com/api/2.0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "/oauth2/auth"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "/oauth2/auth"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c86a688b-c791-4e32-afc4-2e9cff09f70d",
+    "name": "GoFundMe Pro Fundraising Team Transfer API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<h1>GoFundMe Pro API</h1>\n<p>Welcome to the GoFundMe Pro API (2.0.0), a powerful toolset that empowers innovative and creative minds to engineer the world for good. This documentation walks through the API’s latest endpoints.</p>\n<p>GoFundMe Pro APIs are crafted around REST and the REST architectural style to provide developers with a stateless and language-­agnostic interface. The GoFundMe Pro API leverages HTTP verbs and response codes, OAuth2 authentication, and resource-­oriented URLs.</p>\n<p>Currently, the GoFundMe Pro API only supports JSON. All POST/PUT requests required a valid JSON object for the request body.</p>\n<h2>Errors</h2>\n<p>The GoFundMe Pro API leverages standard HTTP response status codes for it’s error responses. Error codes are:</p>\n<p><br /></p>\n<table border='1'>\n<tr>\n<th width='100px'>Error Code</th>\n<th>Meaning</th>\n</tr>\n<tr>\n<td>400</td>\n<td>Bad Request: The request was malformed or provided incorrect/incomplete/conflicting parameters. Check the response for more detailed messaging about why the request was incorrect. Do not repeat request.</td>\n</tr>\n<tr>\n<td>401</td>\n<td>Unauthorized: The API does not recognize the request as authorized. API access token may be missing or invalid.</td>\n</tr>\n<tr>\n<td>403</td>\n<td>Forbidden: The API recognizes the authorized API user, but the API user does not have correct permissions to satisfy the request.</td>\n</tr>\n<tr>\n<td>404</td>\n<td>Not Found: The resource requested does not exist or was not found.</td>\n</tr>\n<tr>\n<td>405</td>\n<td>Method Not Allowed: Some REST endpoints only accept a subset of valid REST HTTP verbs. This error is sent when an unsupported verb is requested.</td>\n</tr>\n<tr>\n<td>429</td>\n<td>Too Many Requests: The rate limit has been exceeded. See the <a href=\"#rate-limiting\">Rate Limiting</a> section for details on rate limits and response headers.</td>\n</tr>\n<tr>\n<td>500</td>\n<td>Error: The request was valid, but something failed on the server. Additional messages may be available.</td>\n</tr>\n<tr>\n<td>503</td>\n<td>Service Unavailable: The service is temporarily unavailable.</td>\n</tr>\n</table>\n<h2>Requests</h2>\n<h3>Authenticating Requests</h3>\n<p>Most API requests will need to be signed with an Access Token.</p>\n<p>Refer to the <a href=\"https://developers.gofundme.com/pro/overview/authentication\" target=\"_blank\" rel=\"noopener noreferrer\">Resource Documentation</a> for the specific call you are making to see if an access token is required for your request. See <a href=\"https://developers.gofundme.com/pro/tutorials/samples\" target=\"_blank\" rel=\"noopener noreferrer\">this page</a> for a demonstration of usage through a sample app. \n<h3>Filters</h3>\n<p>We can filter a collection based on a set of input parameters. To do so, we can modify the query string using the parameters listed below.</p>\n\n<table border='1'>\n<tr>\n<th>Parameter</th>\n<th>Type</th>\n<th>Default</th>\n<th>Description</th>\n</tr>\n\n<tr>\n<td>with</td>\n<td>string</td>\n<td>N/A</td>\n<td>This allows you to include nested related resource. For example, you could request a campaign along with the organization it belongs to and the designation it was allocated to. In this case, <code>with=organization,designation.</code></td>\n</tr>\n\n<tr>\n<td>per_page</td>\n<td>integer</td>\n<td>20</td>\n<td>Set the total number of resources returned per page (Maximum: 100).</td>\n</tr>\n\n<tr>\n<td>page</td>\n<td>integer</td>\n<td>1</td>\n<td>Page to return.</td>\n</tr>\n\n<tr>\n<td>sort</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>\nOrder the resources depending upon their attributes. Examples:\n<ul>\n<li><strong>created_at</strong>: oldest resource will come first</li>\n<li><strong>created_at:desc</strong>: newest resource will come first</li>\n<li><strong>last_name:asc,first_name:asc</strong>: order resources by last_name in alphabetical order. If same last_name, order by first_name in alphabetical order.</li>\n</ul>\n</td>\n</tr>\n\n<tr>\n<td>fields</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>List of resources attributes separated with comma. Narrow the list of attributes returned for each resource.</td>\n</tr>\n\n<tr>\n<td>filter</td>\n<td>string</td>\n<td>NULL</td>\n<td>\nAllow to filter the list of resources returned. Format is: <code>{association}.{attribute1}{operand}{value}</code> where: <ul>\n<li>association is the association if this is a nested filter (optional)</li>\n<li>operand is one of the following: <code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, false can be expressed with <code>false</code> or <code>0</code>).</li>\n<li>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. with | string | NULL | This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</li>\n</ul>\n</td>\n</tr>\n</table>\n\n<p>When filtering, the operand should be one of the following:</p>\n<p><code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, <code>false</code> can be expressed with <code>false</code> or <code>0</code>).</p>\n<p>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</p>\n<p>Refer to the sample documentation for the specific call you are making to see which related resource can be fetched.</p>\n\n<h3>Date and Time Filtering</h3>\n<p>Unless otherwise noted, all Datetime attributes in API responses will be returned in an ISO8601 compliant format:</p>\n<><code>YYYY-MM-DDTHH:mm:ss.sssZ</code> (e.g. <code>2024-10-05T14:48:00.000Z</code>).</p>\n<h2 id=\"rate-limiting\">Rate Limiting</h2>\n<p>The GoFundMe Pro API implements rate limiting to ensure fair usage and maintain service quality for all users. Rate limits are applied on a per-application and per-user basis.</p>\n<h3>When Rate Limiting Applies</h3>\n<p>Rate limiting is applied to requests that meet the following conditions:</p>\n<ul>\n<li>The API application is <strong>not internal</strong> (external/third-party applications)</li>\n<li>The API application is associated to an Organization</li>\n</ul>\n<p>Internal applications are not subject to rate limiting.</p>\n<h3>Rate Limit Details</h3>\n<p>By default, the rate limit is:</p>\n<ul>\n<li><strong>1800 requests per minute</strong> per application</li>\n</ul>\n<p>Rate limits may be adjusted dynamically via flags for specific applications or users.</p>\n<h3>Rate Limit Headers</h3>\n<p>All API responses include the following headers to help you track your rate limit status:</p>\n<table border='1'>\n<tr>\n<th width='200px'>Header</th>\n<th>Description</th>\n</tr>\n<tr>\n<td><code>X-RateLimit-Limit</code></td>\n<td>The maximum number of requests allowed in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Remaining</code></td>\n<td>The number of requests remaining in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Reset</code></td>\n<td>Unix timestamp indicating when the rate limit window resets (only included when limit is exceeded)</td>\n</tr>\n<tr>\n<td><code>Retry-After</code></td>\n<td>Number of seconds to wait before retrying (only included in 429 responses)</td>\n</tr>\n</table>\n<h3>Handling Rate Limit Errors</h3>\n<p>When you exceed the rate limit, the API will return a <code>429 Too Many Requests</code> response with the following structure:</p>\n<pre><code>{\n  \"message\": \"Too Many Attempts.\",\n  \"retry_after\": 42\n}</code></pre>\n<p>The response will include the <code>Retry-After</code> header indicating how many seconds you should wait before making another request.</p>\n<h3>Best Practices</h3>\n<ul>\n<li>Monitor the <code>X-RateLimit-Remaining</code> header to track your usage</li>\n<li>Implement exponential backoff when you receive a 429 response</li>\n<li>Respect the <code>Retry-After</code> header value before retrying</li>\n<li>Cache responses when possible to reduce API calls</li>\n<li>Batch operations when the API supports it</li>\n</ul>",
+      "type": "text/plain"
+    }
+  }
+}

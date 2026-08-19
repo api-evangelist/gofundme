@@ -1,0 +1,216 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "GoFundMe Pro Annual Summary API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "/oauth2/auth",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Annual Summary",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Organization ASR Batch for Year",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/organizations/:organization_id/annual-summary-reports/:year",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "path",
+                "description": "The specified Organization ID"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "path",
+                "description": "The report year"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by batch status"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ]
+          },
+          "docs": "Get the ASR batch for an organization for a specific year. Returns the single batch or 404 if none exists."
+        },
+        {
+          "info": {
+            "name": "Generate Annual Summary Reports for Organization (Batch)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/organizations/:organization_id/annual-summary-reports/:year",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "path",
+                "description": "The specified Organization ID"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "path",
+                "description": "The report year"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate ASR PDFs for all supporters in an organization who made transactions in the specified year. This is an asynchronous operation."
+        },
+        {
+          "info": {
+            "name": "Download PDF from Batch ASR Generation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/organizations/:organization_id/annual-summary-reports/:year/supporters/:supporter_id/download",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "path",
+                "description": "The specified Organization ID"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "path",
+                "description": "The report year"
+              },
+              {
+                "name": "supporter_id",
+                "value": "",
+                "type": "path",
+                "description": "The specified Supporter ID"
+              }
+            ]
+          },
+          "docs": "Get a presigned download URL for a supporter's PDF from a completed batch"
+        },
+        {
+          "info": {
+            "name": "Update ASR Batch Schedule and/or Audience",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://pro.gofundme.com/api/2.0/organizations/:organization_id/annual-summary-reports/:year/schedule",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "path",
+                "description": "The specified Organization ID"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "path",
+                "description": "The report year"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the scheduled delivery time and/or audience filters for an ASR batch. Both parameters are optional - you can update schedule only, audience only, or both together. The batch must be in 'scheduled' or 'pending' status. Changes are synced to the legacy MongoDB Message for compatibility."
+        },
+        {
+          "info": {
+            "name": "Send Annual Summary Email to Supporter (Admin)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/organizations/:organization_id/supporters/:supporter_id/annual-summary",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "path",
+                "description": "The specified Organization ID"
+              },
+              {
+                "name": "supporter_id",
+                "value": "",
+                "type": "path",
+                "description": "The specified Supporter ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "/oauth2/auth",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Send an annual summary email to a specific supporter. This is an admin-initiated action that does not require a bulk batch send."
+        },
+        {
+          "info": {
+            "name": "Generate Annual Summary Report for Supporter",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://pro.gofundme.com/api/2.0/supporters/:supporter_id/annual-summary",
+            "params": [
+              {
+                "name": "supporter_id",
+                "value": "",
+                "type": "path",
+                "description": "The specified Supporter ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate an annual summary report PDF for the specified supporter and return a presigned S3 URL for download"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

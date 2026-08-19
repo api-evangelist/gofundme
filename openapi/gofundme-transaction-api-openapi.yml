@@ -1,0 +1,2128 @@
+openapi: 3.2.0
+info:
+  title: GoFundMe Pro Transaction API
+  description: "<h1>GoFundMe Pro API</h1>\n<p>Welcome to the GoFundMe Pro API (2.0.0), a powerful toolset that empowers innovative and creative minds to engineer the world for good. This documentation walks through the API’s latest endpoints.</p>\n<p>GoFundMe Pro APIs are crafted around REST and the REST architectural style to provide developers with a stateless and language-­agnostic interface. The GoFundMe Pro API leverages HTTP verbs and response codes, OAuth2 authentication, and resource-­oriented URLs.</p>\n<p>Currently, the GoFundMe Pro API only supports JSON. All POST/PUT requests required a valid JSON object for the request body.</p>\n<h2>Errors</h2>\n<p>The GoFundMe Pro API leverages standard HTTP response status codes for it’s error responses. Error codes are:</p>\n<p><br /></p>\n<table border='1'>\n<tr>\n<th width='100px'>Error Code</th>\n<th>Meaning</th>\n</tr>\n<tr>\n<td>400</td>\n<td>Bad Request: The request was malformed or provided incorrect/incomplete/conflicting parameters. Check the response for more detailed messaging about why the request was incorrect. Do not repeat request.</td>\n</tr>\n<tr>\n<td>401</td>\n<td>Unauthorized: The API does not recognize the request as authorized. API access token may be missing or invalid.</td>\n</tr>\n<tr>\n<td>403</td>\n<td>Forbidden: The API recognizes the authorized API user, but the API user does not have correct permissions to satisfy the request.</td>\n</tr>\n<tr>\n<td>404</td>\n<td>Not Found: The resource requested does not exist or was not found.</td>\n</tr>\n<tr>\n<td>405</td>\n<td>Method Not Allowed: Some REST endpoints only accept a subset of valid REST HTTP verbs. This error is sent when an unsupported verb is requested.</td>\n</tr>\n<tr>\n<td>429</td>\n<td>Too Many Requests: The rate limit has been exceeded. See the <a href=\"#rate-limiting\">Rate Limiting</a> section for details on rate limits and response headers.</td>\n</tr>\n<tr>\n<td>500</td>\n<td>Error: The request was valid, but something failed on the server. Additional messages may be available.</td>\n</tr>\n<tr>\n<td>503</td>\n<td>Service Unavailable: The service is temporarily unavailable.</td>\n</tr>\n</table>\n<h2>Requests</h2>\n<h3>Authenticating Requests</h3>\n<p>Most API requests will need to be signed with an Access Token.</p>\n<p>Refer to the <a href=\"https://developers.gofundme.com/pro/overview/authentication\" target=\"_blank\" rel=\"noopener noreferrer\">Resource Documentation</a> for the specific call you are making to see if an access token is required for your request. See <a href=\"https://developers.gofundme.com/pro/tutorials/samples\" target=\"_blank\" rel=\"noopener noreferrer\">this page</a> for a demonstration of usage through a sample app. \n<h3>Filters</h3>\n<p>We can filter a collection based on a set of input parameters. To do so, we can modify the query string using the parameters listed below.</p>\n\n<table border='1'>\n<tr>\n<th>Parameter</th>\n<th>Type</th>\n<th>Default</th>\n<th>Description</th>\n</tr>\n\n<tr>\n<td>with</td>\n<td>string</td>\n<td>N/A</td>\n<td>This allows you to include nested related resource. For example, you could request a campaign along with the organization it belongs to and the designation it was allocated to. In this case, <code>with=organization,designation.</code></td>\n</tr>\n\n<tr>\n<td>per_page</td>\n<td>integer</td>\n<td>20</td>\n<td>Set the total number of resources returned per page (Maximum: 100).</td>\n</tr>\n\n<tr>\n<td>page</td>\n<td>integer</td>\n<td>1</td>\n<td>Page to return.</td>\n</tr>\n\n<tr>\n<td>sort</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>\nOrder the resources depending upon their attributes. Examples:\n<ul>\n<li><strong>created_at</strong>: oldest resource will come first</li>\n<li><strong>created_at:desc</strong>: newest resource will come first</li>\n<li><strong>last_name:asc,first_name:asc</strong>: order resources by last_name in alphabetical order. If same last_name, order by first_name in alphabetical order.</li>\n</ul>\n</td>\n</tr>\n\n<tr>\n<td>fields</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>List of resources attributes separated with comma. Narrow the list of attributes returned for each resource.</td>\n</tr>\n\n<tr>\n<td>filter</td>\n<td>string</td>\n<td>NULL</td>\n<td>\nAllow to filter the list of resources returned. Format is: <code>{association}.{attribute1}{operand}{value}</code> where: <ul>\n<li>association is the association if this is a nested filter (optional)</li>\n<li>operand is one of the following: <code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, false can be expressed with <code>false</code> or <code>0</code>).</li>\n<li>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. with | string | NULL | This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</li>\n</ul>\n</td>\n</tr>\n</table>\n\n<p>When filtering, the operand should be one of the following:</p>\n<p><code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, <code>false</code> can be expressed with <code>false</code> or <code>0</code>).</p>\n<p>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</p>\n<p>Refer to the sample documentation for the specific call you are making to see which related resource can be fetched.</p>\n\n<h3>Date and Time Filtering</h3>\n<p>Unless otherwise noted, all Datetime attributes in API responses will be returned in an ISO8601 compliant format:</p>\n<><code>YYYY-MM-DDTHH:mm:ss.sssZ</code> (e.g. <code>2024-10-05T14:48:00.000Z</code>).</p>\n<h2 id=\"rate-limiting\">Rate Limiting</h2>\n<p>The GoFundMe Pro API implements rate limiting to ensure fair usage and maintain service quality for all users. Rate limits are applied on a per-application and per-user basis.</p>\n<h3>When Rate Limiting Applies</h3>\n<p>Rate limiting is applied to requests that meet the following conditions:</p>\n<ul>\n<li>The API application is <strong>not internal</strong> (external/third-party applications)</li>\n<li>The API application is associated to an Organization</li>\n</ul>\n<p>Internal applications are not subject to rate limiting.</p>\n<h3>Rate Limit Details</h3>\n<p>By default, the rate limit is:</p>\n<ul>\n<li><strong>1800 requests per minute</strong> per application</li>\n</ul>\n<p>Rate limits may be adjusted dynamically via flags for specific applications or users.</p>\n<h3>Rate Limit Headers</h3>\n<p>All API responses include the following headers to help you track your rate limit status:</p>\n<table border='1'>\n<tr>\n<th width='200px'>Header</th>\n<th>Description</th>\n</tr>\n<tr>\n<td><code>X-RateLimit-Limit</code></td>\n<td>The maximum number of requests allowed in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Remaining</code></td>\n<td>The number of requests remaining in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Reset</code></td>\n<td>Unix timestamp indicating when the rate limit window resets (only included when limit is exceeded)</td>\n</tr>\n<tr>\n<td><code>Retry-After</code></td>\n<td>Number of seconds to wait before retrying (only included in 429 responses)</td>\n</tr>\n</table>\n<h3>Handling Rate Limit Errors</h3>\n<p>When you exceed the rate limit, the API will return a <code>429 Too Many Requests</code> response with the following structure:</p>\n<pre><code>{\n  \"message\": \"Too Many Attempts.\",\n  \"retry_after\": 42\n}</code></pre>\n<p>The response will include the <code>Retry-After</code> header indicating how many seconds you should wait before making another request.</p>\n<h3>Best Practices</h3>\n<ul>\n<li>Monitor the <code>X-RateLimit-Remaining</code> header to track your usage</li>\n<li>Implement exponential backoff when you receive a 429 response</li>\n<li>Respect the <code>Retry-After</code> header value before retrying</li>\n<li>Cache responses when possible to reduce API calls</li>\n<li>Batch operations when the API supports it</li>\n</ul>"
+  version: 2.0.0
+servers:
+- url: https://pro.gofundme.com/api/2.0
+security:
+- OAuth2Application: []
+- OAuth2Member: []
+tags:
+- name: Transaction
+  description: 'Transactions have three types of attributes relating to Passport: raw, charged, and normalized.
+
+
+    Raw attributes reflect the donor/purchaser''s intent when creating the Transaction. The only attribute directly specified on the Transaction is `raw_currency_code` - the other visible attributes (`raw_total_gross_amount`, `raw_donation_gross_amount`, and  `raw_overhead_net_amount`) are all derived from the raw values set on the transaction''s items.
+
+
+    Charged attributes reflect the values that are actually charged when the payment is processed. Since the potential values for a Transaction''s `charged_currency_code` should be limited to those available to an Organization for processing, this value can differ from the Transaction''s `raw_currency_code`. The amount that is charged is reflected in `charged_total_gross_amount`, while the fees are expressed in `charged_classy_fees_amount` and `charged_pp_fees_amount` (`charged_fees_amount` attribute is the sum of these two attributes). There is additionally a `charged_at` timestamp that is used for normalization.
+
+
+    Normalized attributes reflect a conversion from raw and/or charged attributes into the Transaction''s `currency_code`, which is the same for all Passport-enabled entities associated with the Transaction''s Organization. This normalization occurs to allow for a constant basis of comparison across each of these entities. These normalized values are all converted from the associated raw or charged attributes, preferring the charged attribute over the raw attribute if available. For example, `charged_total_gross_amount` will be used instead of `raw_total_gross_amount` if both `charged_total_gross_amount` and `charged_currency_code` are present. If `charged_at` is also present, the exchange rate between `charged_currency_code` and `currency_code` at that time will be used if/when the Transaction is renormalized.
+
+
+    It should be noted that there is no notion of raw fees, as these are calculated at the time that a Transaction is charged and therefore only reflected as charged attributes. If a transaction is flagged as ''fee-on-top'', this will be reflected by an increase in the `charged_total_gross_amount` that will not be visible in `raw_total_gross_amount`.
+
+
+    Transactions may be in a number of different states: success, incomplete, canceled, refunded, cb_initiated, cb_lost, test, pending, failed
+
+
+    An additional transaction attribute relating to Passport is the `tax_entity_id`. Tax entities indicate that an Organization is tax compliant within a certain country. A single organization may have more than one tax entity. The `tax_entity_id` listed on the Transaction indicates which of the Organization''s tax entities indicates the tax compliance of the Transaction.
+
+
+    Transactions may have an associated ''context'' attribute which provides data about the Transaction''s original Campaign (this does not change between hard credit transfers) and whether or not the transaction is considered to incorporate Passport functionality. This attribute can be used for filtering and/or sorting when using index endpoints.
+
+    '
+paths:
+  /transactions/{transaction}:
+    get:
+      tags:
+      - Transaction
+      summary: fetchTransaction
+      description: Retrieves a Transaction from the ID
+      operationId: fetchTransaction
+      parameters:
+      - name: transaction
+        in: path
+        description: The specified Transaction ID
+        required: true
+        schema:
+          type: integer
+          example: 8734
+      - name: with
+        in: query
+        description: Request specific relationships to be returned with the Transaction
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - answers
+            - campaign
+            - channel_transaction
+            - dedication
+            - decline_reason
+            - fundraising_page
+            - fundraising_team
+            - items
+            - member
+            - offline_payment_info
+            - organization
+            - receipt_serial
+            - recurring_donation_plan
+            - reprocess_attempt_info
+            - reprocess_history
+            - source_tracking_codes
+            - supporter
+            - order_donation_match
+            example: campaign
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Transaction not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+    put:
+      tags:
+      - Transaction
+      summary: updateTransaction
+      description: Update an existing Transaction
+      operationId: updateTransaction
+      parameters:
+      - name: transaction
+        in: path
+        description: The specified Transaction ID
+        required: true
+        schema:
+          type: integer
+          example: 8734
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/TransactionFillable'
+              - properties:
+                  answers:
+                    description: Collection of Answers
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Answer'
+                type: object
+              - properties:
+                  items:
+                    description: Collection of Transaction Items
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TransactionItemFillable'
+                type: object
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Transaction not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+      security:
+      - OAuth2Member: []
+  /campaigns/{campaign}/transactions:
+    get:
+      tags:
+      - Transaction
+      summary: listCampaignTransactions
+      description: List Campaign Transactions
+      operationId: listCampaignTransactions
+      parameters:
+      - name: campaign
+        in: path
+        description: ID of Campaign
+        required: true
+        schema:
+          type: integer
+          example: 227362
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      - name: with
+        in: query
+        description: Request specific relationships to be returned with the Transaction
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - items
+            - member
+            - offline_payment_info
+            - channel_transaction
+            - dedication
+            - reprocess_status
+            - recurring_donation_plan
+            - receipt_serial
+            - supporter
+            - order_donation_match
+            - source_tracking_codes
+            example: items
+      - name: fields
+        in: query
+        description: Comma-separated list of fields to be returned
+        schema:
+          type: string
+          enum:
+          - acknowledgements_count
+          - adjustment_amount
+          - applied_application_fee_percent
+          - applied_processor_fee_percent
+          - applied_raw_processor_fee_flat
+          - applied_flex_rate_percent
+          - applied_fot_percent
+          - billing_address1
+          - billing_address2
+          - billing_city
+          - billing_country
+          - billing_first_name
+          - billing_last_name
+          - billing_postal_code
+          - billing_state
+          - browser_info
+          - campaign_id
+          - card_expiration
+          - card_last_four
+          - card_type
+          - charged_at
+          - charged_classy_fees_amount
+          - charged_currency_code
+          - charged_fees_amount
+          - charged_pp_fees_amount
+          - charged_total_gross_amount
+          - classy_fees_amount
+          - comment
+          - company_name
+          - context
+          - created_at
+          - currency_code
+          - designation_id
+          - donation_gross_amount
+          - donation_matching_plan_id
+          - donation_net_amount
+          - fee_on_top
+          - fees_amount
+          - frequency
+          - fundraising_page_id
+          - fundraising_team_id
+          - hide_amount
+          - id
+          - in_honor_of
+          - is_anonymous
+          - is_donor_covered_fee
+          - is_gift_aid
+          - is_reprocess
+          - member_country
+          - member_email_address
+          - member_id
+          - member_name
+          - member_phone
+          - member_cell_phone
+          - metadata
+          - organization_id
+          - overhead_net_amount
+          - parent_transaction_id
+          - payment_gateway
+          - payment_method
+          - payment_source
+          - payment_type
+          - pp_fees_amount
+          - pp_reference_id
+          - pp_response
+          - pp_transaction_id
+          - processor_decline_code
+          - promo_code_code
+          - purchased_at
+          - raw_currency_code
+          - raw_donation_gross_amount
+          - raw_initial_gross_amount
+          - opted_into_payment_sync
+          - initial_gross_amount
+          - raw_adjustment_amount
+          - raw_overhead_net_amount
+          - raw_total_gross_amount
+          - raw_flex_rate_amount
+          - flex_rate_amount
+          - raw_application_fee_amount
+          - application_fee_amount
+          - raw_processor_fee_amount
+          - processor_fee_amount
+          - receipt_serial
+          - recurring_donation_plan_id
+          - refunded_at
+          - reprocess_attempts
+          - reprocess_attempt_info
+          - status
+          - supporter_id
+          - tax_entity_id
+          - total_gross_amount
+          - updated_at
+          - account_number
+          - account_type
+          - institution
+          example: id
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginatedResponse'
+                - properties:
+                    data:
+                      description: Collection of Transactions
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Transaction'
+                    first_page_url:
+                      example: '{host}/campaigns/227362/transactions?page=1'
+                    last_page_url:
+                      example: '{host}/campaigns/227362/transactions?page=1'
+                    path:
+                      example: '{host}/campaigns/227362/transactions'
+                  type: object
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Campaign not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+    post:
+      tags:
+      - Transaction
+      summary: createCampaignTransaction
+      description: "For external requests this creates an “offline” transaction record for the specified campaign. An offline transaction represents funds collected outside of the GoFundMe Pro platform, but accounted for in GoFundMe Pro reporting, activity feeds, etc. Adding an offline transaction record does not charge any credit cards, nor credit any GoFundMe Pro accounts.\n\n   An array of TransactionItems must be included along with the basic Transaction information via the items attribute. Please view the Transaction Item documentation for formatting pertaining to this attribute.\n\n   NOTE: requests must include one of the following:\n   billing_first_name AND billing_last_name\n   OR member_email_address\n   OR company_name\n\n   Requests may contain all three. Please note that if an offline transaction only contains a company_name and is therefore a transaction by a company and not a person then answers will not be created for that transaction."
+      operationId: createCampaignTransaction
+      parameters:
+      - name: campaign
+        in: path
+        description: The specified Campaign ID
+        required: true
+        schema:
+          type: integer
+          example: 227362
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CampaignTransactionFillable'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Campaign not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+      security:
+      - OAuth2Member: []
+  /organizations/{organization}/transactions:
+    get:
+      tags:
+      - Transaction
+      summary: listOrganizationTransactions
+      description: List Organization Transactions
+      operationId: listOrganizationTransactions
+      parameters:
+      - name: organization
+        in: path
+        description: ID of Organization
+        required: true
+        schema:
+          type: integer
+          example: 82364
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      - name: with
+        in: query
+        description: Request specific relationships to be returned with the Transaction
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - items
+            - member
+            - offline_payment_info
+            - channel_transaction
+            - dedication
+            - reprocess_status
+            - recurring_donation_plan
+            - receipt_serial
+            - supporter
+            - order_donation_match
+            - source_tracking_codes
+            example: items
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginatedResponse'
+                - properties:
+                    data:
+                      description: Collection of Transactions
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Transaction'
+                    first_page_url:
+                      example: '{host}/organizations/82364/transactions?page=1'
+                    last_page_url:
+                      example: '{host}/organizations/82364/transactions?page=1'
+                    path:
+                      example: '{host}/organizations/82364/transactions'
+                  type: object
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Organization not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+  /recurring-donation-plans/{recurring_donation_plan}/transactions:
+    get:
+      tags:
+      - Transaction
+      summary: listRecurringDonationPlanTransactions
+      description: List Recurring Donation Plan Transactions
+      operationId: listRecurringDonationPlanTransactions
+      parameters:
+      - name: recurring_donation_plan
+        in: path
+        description: ID of Recurring Donation Plan
+        required: true
+        schema:
+          type: integer
+          example: 85456
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/PaginatedResponse'
+                - properties:
+                    data:
+                      description: Collection of Transactions
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Transaction'
+                    first_page_url:
+                      example: '{host}/recurring-donation-plans/{recurring_donation_plan_id/transactions?page=1'
+                    last_page_url:
+                      example: '{host}/recurring-donation-plans/{recurring_donation_plan_id/transactions?page=1'
+                    path:
+                      example: '{host}/recurring-donation-plans/{recurring_donation_plan_id/transactions'
+                  type: object
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Recurring Donation Plan not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+  /recurring-donation-plans/{id}/transactions/{transaction_id}/reprocess:
+    post:
+      tags:
+      - Transaction
+      summary: reprocessRecurringDonationPlanTransaction
+      description: Reprocess a Transactions for a Recurring Donation Plan
+      operationId: reprocessRecurringDonationPlanTransaction
+      parameters:
+      - name: id
+        in: path
+        description: The specified Recurring Donation Plan ID
+        required: true
+        schema:
+          type: integer
+          example: 85456
+      - name: transaction_id
+        in: path
+        description: The specified Transaction ID
+        required: true
+        schema:
+          type: integer
+          example: 8734
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionFillable'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReprocessAttemptInfo'
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Recurring Donation Plan or Transaction not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+      security:
+      - OAuth2Member: []
+  /reprocess-attempt-info/{reprocess_attempt_info}:
+    put:
+      tags:
+      - Transaction
+      summary: updateReprocessAttemptInfo
+      description: Update a Reprocess Attempt Info Record
+      operationId: updateReprocessAttemptInfo
+      parameters:
+      - name: reprocess_attempt_info
+        in: path
+        description: The specified Reprocess Transaction ID
+        required: true
+        schema:
+          type: integer
+          example: 34672
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ReprocessAttemptInfoFillable'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReprocessAttemptInfo'
+        '403':
+          description: Requester is not authorized to perform action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+        '404':
+          description: Reprocess Attempt Info record not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceNotFoundResponse'
+components:
+  schemas:
+    CampaignTransactionFillable:
+      title: Campaign Transaction Fillable
+      properties:
+        answers:
+          description: Answers for transaction questions
+          type:
+          - array
+          - 'null'
+          items:
+            allOf:
+            - $ref: '#/components/schemas/AnswerFillable'
+            - properties:
+                question_id:
+                  description: Primary identifier of associated Question
+                  type: integer
+                  example: 45678
+              type: object
+        billing_address1:
+          description: Line one of Billing address
+          type:
+          - string
+          - 'null'
+          example: 533 F Street
+        billing_address2:
+          description: Line two of Billing address
+          type:
+          - string
+          - 'null'
+          example: 533 F Street
+        billing_city:
+          description: Billing city
+          type:
+          - string
+          - 'null'
+          example: San Diego
+        billing_country:
+          description: Billing country. Must be a valid ISO 3166-1 alpha-2 country code
+          type:
+          - string
+          - 'null'
+          example: US
+        billing_first_name:
+          description: Billing first name
+          type:
+          - string
+          - 'null'
+          example: GoFundMe Pro
+        billing_last_name:
+          description: Billing last name
+          type:
+          - string
+          - 'null'
+          example: Member
+        billing_postal_code:
+          description: Billing zip/postal code
+          type:
+          - string
+          - 'null'
+          example: '92101'
+        billing_state:
+          description: Billing state/province
+          type:
+          - string
+          - 'null'
+          example: CA
+        browser_info:
+          description: Browser information
+          type:
+          - string
+          - 'null'
+          example: information
+        comment:
+          description: Organization comment
+          type:
+          - string
+          - 'null'
+          example: This is a comment
+        company_name:
+          description: Name of company this Transaction has ties to
+          type:
+          - string
+          - 'null'
+          example: GoFundMe Pro
+        designation_id:
+          description: ID of the Designation this Transaction is allocated to
+          type:
+          - integer
+          - 'null'
+          example: 564856
+        fundraising_page_id:
+          description: ID of the fundraising page to associate the transaction with
+          type:
+          - integer
+          - 'null'
+          example: 865125
+        fundraising_team_id:
+          description: ID of the fundraising team to associate the transaction with
+          type:
+          - integer
+          - 'null'
+          example: 256489
+        hide_amount:
+          description: Whether purchaser indicated if Transaction amount should be hidden
+          type:
+          - boolean
+          - 'null'
+          example: false
+        is_anonymous:
+          description: Whether purchaser indicated if transaction should be anonymous
+          type:
+          - boolean
+          - 'null'
+          example: false
+        is_gift_aid:
+          description: Flag whether the donor opted into gift aid used by the UK or not. Can only be set if the organization allows it
+          type:
+          - boolean
+          - 'null'
+          example: false
+        is_reprocess:
+          description: If it is a reprocessed transaction or not
+          type:
+          - boolean
+          - 'null'
+          example: true
+        items:
+          description: Collection of Transaction Items. Required for a successful transaction
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/TransactionItemFillable'
+        member_country:
+          description: Country of the Member
+          type:
+          - string
+          - 'null'
+          example: US
+        member_email_address:
+          description: Email address of purchaser GoFundMe Pro Member
+          type:
+          - string
+          - 'null'
+          example: member@gofundme.com
+        member_name:
+          description: ' Name of purchaser GoFundMe Pro Member'
+          type:
+          - string
+          - 'null'
+          example: GoFundMe Pro Member
+        member_phone:
+          description: Phone number of purchaser GoFundMe Pro Member
+          type:
+          - string
+          - 'null'
+          example: 555-555-5555
+        member_cell_phone:
+          description: Cell phone number of purchaser GoFundMe Pro Member. Also forwarded to the supporter record (cell_phone) on supporter creation — the SMS consent target when collected.
+          type:
+          - string
+          - 'null'
+          example: 555-555-5555
+        metadata:
+          description: An optional set of unstructured metadata to be stored with a Transaction
+          type:
+          - string
+          - 'null'
+          example: '{foo: ''bar''}'
+        offline_payment_info:
+          oneOf:
+          - $ref: '#/components/schemas/OfflinePaymentInfo'
+          description: Offline payment info associated to offline transaction
+          type:
+          - object
+          - 'null'
+        parent_transaction_id:
+          description: ID of parent transaction
+          type:
+          - integer
+          - 'null'
+          example: 7133489
+        purchased_at:
+          description: Date and time of purchase
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: 2016-01-01T12:00:00+0000
+        raw_currency_code:
+          description: Currency Code of the Transaction before normalization
+          type:
+          - string
+          - 'null'
+          example: JPY
+        refunded_at:
+          description: Date and time of refund
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: 2016-01-01T12:00:00+0000
+        status:
+          description: The status of the Transaction
+          type:
+          - string
+          - 'null'
+          enum:
+          - test
+          - canceled
+          - incomplete
+          - success
+          - refunded
+          - cb_lost
+          - cb_initiated
+          - voided
+          - pending
+          - failed
+          example: canceled
+      type: object
+    ReprocessAttemptInfo:
+      title: ReprocessAttemptInfo
+      properties:
+        created_at:
+          description: Date/Time ReprocessAttemptInfo was created
+          type: string
+          format: date-time
+          example: 2021-01-01T12:00:00+0000
+        initiated_by_id:
+          description: The ID of the member initiating the reprocess
+          type: integer
+          example: 2012
+        original_transaction_id:
+          description: ID of the original Transaction
+          type: integer
+          example: 8734
+        reprocess_transaction_id:
+          description: ID of Reprocess Transaction
+          type: integer
+          example: 7623371
+        state:
+          description: Reprocess status
+          type: string
+          enum:
+          - completed
+          - pending
+          - failed
+          example: completed
+        updated_at:
+          description: Date/Time ReprocessAttemptInfo was updated
+          type: string
+          format: date-time
+          example: 2021-01-01T12:00:00+0000
+      type: object
+    TransactionContext:
+      title: Transaction Context
+      properties:
+        application_fee_campaign_category:
+          description: Campaign Category the Transaction belongs to
+          type:
+          - string
+          - 'null'
+          enum:
+          - main_donate_button
+          - recurring_migration
+          - high_value
+          - virtual
+          example: main_donate_button
+        application_fee_platform_fee_type:
+          description: type of VRP Platform Fee the Transaction has, if applicable
+          type:
+          - string
+          - 'null'
+          enum:
+          - non_migrated_recurring
+          - migrated_recurring
+          - major_gift
+          example: non_migrated_recurring
+        commerce_order_id:
+          description: Commerce Order ID
+          type:
+          - string
+          - 'null'
+          example: or_01HFSN0GJZ6656RM8602Z37DY1
+        customizations_metadata:
+          description: Arbitrary JSON metadata set by a custom embedded Studio block
+          type:
+          - object
+          - 'null'
+          example:
+            theme: dark
+            custom_fields:
+              field1: value1
+        created_by:
+          description: Name of associated App
+          type:
+          - string
+          - 'null'
+          example: My App
+        commerce_confirmation_id:
+          description: Commerce Confirmation ID
+          type:
+          - string
+          - 'null'
+          example: C9UE75VB2
+        is_passport:
+          description: Passport Transaction
+          type: boolean
+          example: true
+        source_campaign_id:
+          description: Source Campaign identifier
+          type: integer
+          example: 227362
+        source_campaign_type:
+          description: Source Campaign type
+          type: string
+          enum:
+          - crowdfunding
+          - donation
+          - fund_for_entry
+          - peer_to_peer
+          - reg_w_fund
+          - registration
+          - ticketed
+          - dynamic
+          example: peer_to_peer
+        vendor_name:
+          description: Vendor name
+          type:
+          - string
+          - 'null'
+          example: Vendor XYZ
+        vendor_batch_number:
+          description: Vendor batch number
+          type:
+          - string
+          - 'null'
+          example: BATCH123456
+        vendor_batch_sequence:
+          description: Vendor batch sequence
+          type:
+          - string
+          - 'null'
+          example: '001'
+        vendor_batch_date:
+          description: Vendor batch date
+          type:
+          - string
+          - 'null'
+          example: '2024-01-15'
+      type: object
+    PaginatedResponse:
+      title: Paginated Response
+      properties:
+        current_page:
+          description: Index of current page
+          type: integer
+          example: 1
+        data:
+          description: Collection of results
+          type: array
+          items:
+            type: object
+        first_page_url:
+          description: URL of first page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        from:
+          description: Index of first displayed result within total result set
+          type:
+          - integer
+          - 'null'
+          example: 1
+        last_page:
+          description: Index of last page in result set
+          type: integer
+          example: 1
+        last_page_url:
+          description: URL of last page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        next_page_url:
+          description: URL of next page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=2
+        path:
+          description: URL of current page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource
+        per_page:
+          description: Maximum number of records returned per page of results
+          type: integer
+          example: 20
+        prev_page_url:
+          description: URL of previous page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        links:
+          description: Collection of objects representing pages {label, URL, active} that can be used to request the associated page of records.
+          type: array
+          items:
+            $ref: '#/components/schemas/PaginationLink'
+        to:
+          description: Index of last displayed result within total result set
+          type:
+          - integer
+          - 'null'
+          example: 1
+        total:
+          description: Total count of records in result set
+          type: integer
+          example: 1
+      type: object
+    OfflinePaymentInfo:
+      title: Offline Payment Info
+      properties:
+        check_number:
+          description: Check number for a check payment type
+          type:
+          - string
+          - 'null'
+          maxLength: 32
+          example: '456'
+        description:
+          description: Additional offline donation details
+          type:
+          - string
+          - 'null'
+          maxLength: 255
+          example: Lorem ipsum whatever
+        payment_type:
+          description: Payment type for the offline donation
+          type:
+          - string
+          - 'null'
+          enum:
+          - cash
+          - check
+          - cc
+          - pledge
+          - other
+          - sponsor
+          - stock_donations
+          - corporate_match
+          - donation_match
+          - eft
+          - crypto
+          - dafpay
+          example: cash
+        sync_third_party:
+          description: Sync this offline transaction into third party products such as salesforce
+          type:
+          - boolean
+          - 'null'
+          example: false
+      type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    TransactionItemFillable:
+      title: Transaction Item Fillable
+      properties:
+        product_name:
+          description: Name of product
+          type: string
+          maxLength: 64
+          example: Tickets
+        quantity:
+          description: Quantity purchased
+          type: integer
+          minimum: 1
+          example: 1
+        raw_final_price:
+          description: Represents the total raw value of a Transaction item - it is either set directly (as with a direct donation) or derived from the Product of `raw_price` (the price of the Transaction item's associated Product) and the specified quantity. All raw amounts are presented in terms of `raw_currency_code`, which is inherited from the Transaction item's Transaction and cannot be set on a per-item basis
+          type:
+          - number
+          - 'null'
+          format: double
+          minimum: 0
+          example: 15
+        raw_overhead_amount:
+          description: Which indicates the amount of the `raw_final_price` that is attributed to Campaign overhead.
+          type:
+          - number
+          - 'null'
+          format: double
+          minimum: 0
+          example: 15
+        type:
+          description: Type of Transaction Item ledger
+          type: string
+          enum:
+          - donation
+          - registration
+          - offline_donation
+          - chargeback_reversal
+          - custom_product
+          - auction
+          - good
+          example: donation
+      type: object
+    Transaction:
+      title: Transaction
+      properties:
+        account_number:
+          description: For ACH, the last digits of the account funds were drawn from
+          type:
+          - string
+          - 'null'
+          example: '1234'
+        account_type:
+          description: For ACH, what type of account funds were drawn from (savings, checking)
+          type:
+          - string
+          - 'null'
+          enum:
+          - savings
+          - checking
+          example: savings
+        acknowledgements_count:
+          description: Number of times Transaction was acknowledged by staff
+          type: integer
+          example: 3
+        adjustment_amount:
+          description: The total value the transaction's total_gross_amount has been adjusted
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 0.5
+        application_fee_amount:
+          description: Flat amount associated with the application fee (normalized value)
+          type:
+          - number
+          - 'null'
+          format: float
+          minimum: 0
+          example: 42
+        applied_application_fee_percent:
+          description: Percent taken by GoFundMe Pro
+          type:
+          - number
+          - 'null'
+          format: float
+          maximum: 100
+          minimum: 0.01
+          example: 3
+        applied_flex_rate_percent:
+          description: Add on rate set by organization
+          type:
+          - number
+          - 'null'
+          format: float
+          maximum: 100
+          minimum: 0.01
+          example: 50
+        applied_fot_percent:
+          description: Percentage added to Fee on Top (aka Classy Mode) Transactions to cover fees. Null if the Transaction is not fee on top
+          type:
+          - number
+          - 'null'
+          format: float
+          maximum: 100
+          minimum: 0.01
+          example: 50
+        applied_processor_fee_percent:
+          description: Percent taken by card processor
+          type:
+          - number
+          - 'null'
+          format: float
+          maximum: 100
+          minimum: 0.01
+          example: 2.2
+        applied_raw_processor_fee_flat:
+          description: Flat rate taken by card processor
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 0.2
+        billing_address1:
+          description: Billing address
+          type:
+          - string
+          - 'null'
+          maxLength: 512
+          example: 533 F Street
+        billing_address2:
+          description: Billing address 2
+          type:
+          - string
+          - 'null'
+          maxLength: 255
+          example: 533 F Street
+        billing_city:
+          description: Billing city
+          type:
+          - string
+          - 'null'
+          maxLength: 50
+          example: San Diego
+        billing_country:
+          description: Billing country. Must be a valid ISO 3166-1 alpha-2 country code
+          type:
+          - string
+          - 'null'
+          maxLength: 2
+          minLength: 2
+          example: US
+        billing_first_name:
+          description: ' Billing first name'
+          type:
+          - string
+          - 'null'
+          maxLength: 50
+          example: GoFundMe Pro
+        billing_last_name:
+          description: Billing last name
+          type:
+          - string
+          - 'null'
+          maxLength: 50
+          example: Member
+        billing_postal_code:
+          description: Billing zip/postal code
+          type:
+          - string
+          - 'null'
+          maxLength: 50
+          minLength: 1
+          example: '92101'
+        billing_state:
+          description: Billing state/province
+          type:
+          - string
+          - 'null'
+          maxLength: 32
+          example: CA
+        browser_info:
+          description: Browser information
+          type:
+          - string
+          - 'null'
+          example: information
+        campaign_id:
+          description: ID of Campaign Transaction is associated with
+          type: integer
+          example: 227362
+        card_expiration:
+          description: The expiration of credit card used (when applicable) in MMYY format
+          type:
+          - string
+          - 'null'
+          example: '1017'
+        card_last_four:
+          description: The last four digits of the credit card (when applicable)
+          type:
+          - integer
+          - 'null'
+          example: 1234
+        card_type:
+          description: Type of credit card used (when applicable)
+          type:
+          - string
+          - 'null'
+          example: Visa
+        charged_at:
+          description: Date and time Transaction was charged
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: 2017-01-01T12:02:01+0000
+        charged_classy_fees_amount:
+          description: Total fees applied by GoFundMe Pro
+          type:
+          - number
+          - 'null'
+          format: float
+          minimum: 0
+          example: 0.15
+        charged_currency_code:
+          description: Currency code of final charge. Required if charged_pp_fees_amount, charged_total_gross_amount or charged_classy_fees_amount are present.
+          type:
+          - string
+          - 'null'
+          example: USD
+        charged_fees_amount:
+          description: Total fees applied to Transaction (GoFundMe Pro and payment processor)
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 0.35
+        charged_pp_fees_amount:
+          description: Total fees applied to by payment processor
+          type:
+          - number
+          - 'null'
+          format: float
+          minimum: 0
+          example: 0.15
+        charged_total_gross_amount:
+          description: Gross total charged to purchaser
+          type:
+          - number
+          - 'null'
+          format: float
+          minimum: 0
+          example: 1
+        classy_fees_amount:
+          description: Amount of fees applied by GoFundMe Pro
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 0.34
+        comment:
+          description: Organization comment
+          type:
+          - string
+          - 'null'
+          example: This is a comment
+        company_name:
+          description: Name of company this Transaction has ties to
+          type:
+          - string
+          - 'null'
+          example: GoFundMe Pro
+        context:
+          oneOf:
+          - $ref: '#/components/schemas/TransactionContext'
+          description: Contextual data about the transaction that can be used for filtering/sorting
+        created_at:
+          description: Date Transaction record was created
+          type: string
+          format: date-time
+          example: 2016-01-01T12:00:00+0000
+        currency_code:
+          description: Currency code
+          type:
+          - string
+          - 'null'
+          example: USD
+        designation_id:
+          description: ID of the Designation this Transaction is allocated to
+          type:
+          - integer
+          - 'null'
+          example: 34672
+        donation_gross_amount:
+          description: Gross total applied to purchaser in the raw currency
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 1.25
+        donation_matching_plan_id:
+          description: ID of the Donation Matching Plan this Transaction is associated with
+          type:
+          - integer
+          - 'null'
+          example: 4237
+        donation_net_amount:
+          description: Total gross amount - Overhead net amount - Fees amount
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 1.25
+        fees_amount:
+          description: Payment for professional service
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 1.25
+        fee_on_top:
+          description: Flag if the transaction is a fee on top (classymode) or not
+          type: boolean
+          example: true
+        flex_rate_amount:
+          description: Flat amount associated with the flex rate percent (normalized value)
+          type:
+          - number
+          - 'null'
+          format: float
+          minimum: 0
+          example: 42
+        frequency:
+          description: 'Frequency of transaction: one-time or recurring'
+          type:
+          - string
+          - 'null'
+          enum:
+          - bi-weekly
+          - bi-monthly
+          - daily
+          - monthly
+          - one-time
+          - quarterly
+          - semi-annual
+          - weekly
+          - yearly
+          example: one-time
+        fundraising_page_id:
+          description: ID of the Fundraising Page Transaction is associated with
+          type:
+          - integer
+          - 'null'
+          example: 2173528
+        fundraising_team_id:
+          description: ID of Fundraising Team Transaction is associated with
+          type:
+          - integer
+          - 'null'
+          example: 209745
+        hide_amount:
+          description: Whether purchaser indicated if Transaction amount should be hidden
+          type: boolean
+          example: false
+        id:
+          description: Unique ID of the Transaction
+          type: integer
+          example: 8734
+        initial_gross_amount:
+          description: Amount before any fee adjustments where added (Normalization value)
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 1.25
+        institution:
+          description: For ACH, the name of the banking institution funds were drawn from
+          type:
+          - string
+          - 'null'
+          maxLength: 255
+          example: ABC Bank
+        in_honor_of:
+          description: A person this donation is in honor or memory of. Deprecated, this field was replaced for the dedication object. When fetching the transaction, use the with query parameter with the dedication value to include it in the response.
+          type:
+          - string
+          - 'null'
+          example: GoFundMe Pro Relation
+        is_anonymous:
+          description: Whether purchaser indicated if transaction should be anonymous
+          type: boolean
+          example: false
+        is_donor_covered_fee:
+          description: Flag if the transaction is a donor covered fee or not
+          type: boolean
+          example: true
+        is_gift_aid:
+          description: Flag whether the donor opted into gift aid used by the UK or not. Can only be set if the organization allows it
+          type: boolean
+          example: false
+        is_reprocess:
+          description: If it is a reprocessed transaction or not
+          type: boolean
+          example: true
+        member_country:
+          description: Country of the Member. Must be a valid ISO 3166-1 alpha-2 country code
+          type:
+          - string
+          - 'null'
+          example: US
+        member_email_address:
+          description: Email address of purchaser GoFundMe Pro Member
+          type:
+          - string
+          - 'null'
+          example: member@gofundme.com
+        member_id:
+          description: Primary ID of the purchaser GoFundMe Pro Member
+          type:
+          - integer
+          - 'null'
+          example: 2012
+        member_name:
+          description: ' Name of purchaser GoFundMe Pro Member'
+          type:
+          - string
+          - 'null'
+          example: GoFundMe Pro Member
+        member_phone:
+          description: Phone number of purchaser GoFundMe Pro Member
+          type:
+          - string
+          - 'null'
+          example: 555-555-5555
+        member_cell_phone:
+          description: Cell phone number of purchaser GoFundMe Pro Member — the SMS consent target when collected
+          type:
+          - string
+          - 'null'
+          example: 555-555-5555
+        consent:
+          description: Consent details captured for this transaction
+          properties:
+            sms_opt_in:
+              description: Whether supporter opted in to SMS communication
+              type:
+              - boolean
+              - 'null'
+              example: false
+            sms_consent_decision_date:
+              description: Date/time of SMS consent decision
+              type:
+              - string
+              - 'null'
+              format: date-time
+              example: 2016-01-01T12:05:42+0000
+            email_opt_in:
+              description: Whether supporter opted in to email communication
+              type:
+              - boolean
+              - 'null'
+              example: false
+            email_consent_decision_date:
+              description: Date/time of email consent decision
+              type:
+              - string
+              - 'null'
+              format: date-time
+              example: 2016-01-01T12:05:42+0000
+          type: object
+        metadata:
+          description: An optional set of unstructured metadata to be stored with a Transaction
+          type:
+          - string
+          - 'null'
+          example: '{foo: ''bar''}'
+        organization_id:
+          description: ' ID of Organization Transaction is associated with'
+          type: integer
+          example: 82364
+        overhead_net_amount:
+          description: Amount of event/host fees
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 25
+        parent_transaction_id:
+          description: Parent Transaction identifier
+          type:
+          - integer
+          - 'null'
+          example: 8734
+        payment_gateway:
+          description: Payment processor
+          type:
+          - string
+          - 'null'
+          enum:
+          - ''
+          - StayClassy PayPal
+          - Authorize.net
+          - PayPal
+          - NetworkForGood
+          - WePay
+          - PayPalExternal
+          - BrainTree
+          - Classy Pay
+          - Dwolla
+          - Stripe
+          - PayPalCommerce
+          - Coinbase
+          - Double the Donation Pay
+          - Facebook Pay
+          example: BrainTree
+        payment_method:
+          description: Service for processing payment
+          type:
+          - string
+          - 'null'
+          example: WPP
+        payment_source:
+          description: How payment information was captured
+          type:
+          - string
+          - 'null'
+          enum:
+          - APPLE_PAY
+          - GOOGLE_PAY
+          - STRIPE_LINK
+          - MANUAL
+          - PAYPAL
+          - PLAID
+          - WALLET
+          - VENMO
+          - COINBASE
+          example: WALLET
+        payment_type:
+          description: How payment was made
+          type:
+          - string
+          - 'null'
+          enum:
+          - Credit Card
+          - ACH
+          - PayPal
+          - Venmo
+          - Crypto
+          example: Credit Card
+        pp_fees_amount:
+          description: Total fees applied by payment processor
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 0.15
+        pp_reference_id:
+          description: Reference ID for underlying transaction processing.
+          type:
+          - string
+          - 'null'
+          example: '12345'
+        pp_response:
+          description: Paypal response
+          type:
+          - string
+          - 'null'
+          example: '1023'
+        pp_transaction_id:
+          description: Reference ID for underlying Transaction processing
+          type:
+          - string
+          - 'null'
+          example: '12345'
+        processor_decline_code:
+          description: Code of processor decline
+          type:
+          - string
+          - 'null'
+          example: '64'
+        processor_fee_amount:
+          description: Flat amount associated with the processor fee (normalized value)
+          type:
+          - number
+          - 'null'
+          format: float
+          minimum: 0
+          example: 42
+        promo_code_code:
+          description: The code of the promo code applied to the Transaction
+          type:
+          - string
+          - 'null'
+          example: PROMO
+        purchased_at:
+          description: Date and time of Transaction
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: 2016-01-01T12:00:00+0000
+        raw_adjustment_amount:
+          description: Total fee amount assessed
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 0.25
+        raw_application_fee_amount:
+          description: Raw Flat amount associated with the application fee
+          type:
+          - number
+          - 'null'
+          format: float
+          minimum: 0
+          example: 42
+        raw_currency_code:
+          description: Currency Code of the Transaction before normalization
+          type:
+          - string
+          - 'null'
+          example: JPY
+        raw_donation_gross_amount:
+          description: Gross total applied to purchaser in the raw currency
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 1.25
+        raw_flex_rate_amount:
+          description: Raw Flat amount associated with the flex rate percent
+          type:
+          - number
+          - 'null'
+          format: float
+          minimum: 0
+          example: 1.25
+        raw_initial_gross_amount:
+          description: Amount before any fee adjustments where added
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 1.25
+        raw_overhead_net_amount:
+          description: Net Amount of event/host fees in the raw currency
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 0.25
+        raw_processor_fee_amount:
+          description: Raw Flat amount associated with the processor fee
+          type:
+          - number
+          - 'null'
+          format: float
+          minimum: 0
+          example: 42
+        raw_total_gross_amount:
+          description: Gross amount charged to purchaser if raw currency code is set
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 1
+        recurring_donation_plan_id:
+          description: ID of recurring Donation plan the Transaction belongs to. If there is no recurring Donation plan then this is null
+          type:
+          - integer
+          - 'null'
+          example: 23847
+        refunded_at:
+          description: Date and time of Refund, if applies
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: 2016-01-01T12:00:00+0000
+        reprocess_attempts:
+          description: Number of reprocess attempts for the transaction
+          type: integer
+          example: 2
+        status:
+          description: The status of the Transaction
+          type: string
+          enum:
+          - test
+          - canceled
+          - incomplete
+          - success
+          - refunded
+          - cb_lost
+          - cb_initiated
+          - voided
+          - pending
+          - failed
+          example: canceled
+        supporter_id:
+          description: Supporter ID associated with the Member
+          type:
+          - integer
+          - 'null'
+          example: 5827
+        tax_entity_id:
+          description: Tax entity that satisfies tax compliance for the Transaction
+          type:
+          - integer
+          - 'null'
+          example: 331
+        total_gross_amount:
+          description: Total value of Transaction
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 1.25
+        updated_at:
+          description: Date and time of last update
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: 2016-01-01T12:00:00+0000
+        utm:
+          description: UTM tracking parameters captured for this transaction, from the most recent associated source tracking code. Included only when the source_tracking_codes association is requested via the 'with' query parameter. When included, all keys are always present; values are null when not captured.
+          properties:
+            campaign:
+              description: Specific campaign the donor responded to
+              type:
+              - string
+              - 'null'
+              example: year_end_2025
+            content:
+              description: Creative variant within the campaign
+              type:
+              - string
+              - 'null'
+              example: top_banner
+            medium:
+              description: Marketing channel type
+              type:
+              - string
+              - 'null'
+              example: email
+            source:
+              description: Traffic source the donor came from
+              type:
+              - string
+              - 'null'
+              example: mailchimp
+            term:
+              description: Paid-search keyword that triggered the click
+              type:
+              - string
+              - 'null'
+              example: donate now
+          type: object
+        opted_into_payment_sync:
+          description: Registrant has opted into storing their payment info for future Live Events purchases.
+          type: boolean
+          example: false
+      type: object
+    ReprocessAttemptInfoFillable:
+      title: ReprocessAttemptInfoFillable
+      properties:
+        original_transaction_id:
+          description: ID of the original Transaction
+          type: integer
+          example: 8734
+        reprocess_transaction_id:
+          description: ID of Reprocess Transaction
+          type: integer
+          example: 7623371
+        initiated_by_id:
+          description: The ID of the member initiating the reprocess
+          type: integer
+          example: 2012
+        pp_transaction_id:
+          description: Transaction ID for the payment provider (e.g. Classy Pay)
+          type: string
+          example: '922337203687624342'
+        state:
+          description: Reprocess status
+          type: string
+          enum:
+          - completed
+          - pending
+          - failed
+          example: completed
+      type: object
+    AnswerFillable:
+      title: Answer Fillable
+      properties:
+        answer:
+          description: Answer content
+          type: string
+          example: Example answer test
+      type: object
+    Answer:
+      title: Answer
+      properties:
+        answer:
+          description: Answer content
+          type: string
+          maxLength: 255
+          example: Example answer test
+        answerable_id:
+          description: Primary identifier of associated Fundraising Entity object. Required with answerable_type
+          type:
+          - integer
+          - 'null'
+          example: 3245
+        answerable_type:
+          description: Type of associated Fundraising Entity. Required with answerable_id
+          type:
+          - string
+          - 'null'
+          enum:
+          - fundraising_team
+          - fundraising_page
+          - transaction
+          - campaign_registration
+          example: fundraising_team
+        campaign_id:
+          description: Primary identifier of associated Campaign
+          type: integer
+          example: 227362
+        created_at:
+          description: Date/time of initial record creation
+          type: string
+          format: date-time
+          example: '2021-04-23T08:23:21Z'
+        id:
+          description: Primary identifier of record
+          type: integer
+          example: 32459
+        member_id:
+          description: Primary identifier of associated Member
+          type: integer
+          example: 2012
+        question_id:
+          description: Primary identifier of associated Question
+          type: integer
+          example: 45678
+        updated_at:
+          description: Date/time of last record update
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2021-04-23T10:25:03Z'
+      type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
+      type: object
+    TransactionFillable:
+      title: Transaction Fillable
+      properties:
+        billing_address1:
+          description: Line one of Billing address
+          type:
+          - string
+          - 'null'
+          example: 533 F Street
+        billing_address2:
+          description: Line two of Billing address
+          type:
+          - string
+          - 'null'
+          example: 533 F Street
+        billing_city:
+          description: Billing city
+          type:
+          - string
+          - 'null'
+          example: San Diego
+        billing_country:
+          description: Billing country. Must be a valid ISO 3166-1 alpha-2 country code
+          type:
+          - string
+          - 'null'
+          example: US
+        billing_first_name:
+          description: Billing first name
+          type:
+          - string
+          - 'null'
+          example: GoFundMe Pro
+        billing_last_name:
+          description: Billing last name
+          type:
+          - string
+          - 'null'
+          example: Member
+        billing_postal_code:
+          description: Billing zip/postal code
+          type:
+          - string
+          - 'null'
+          example: '92101'
+        billing_state:
+          description: Billing state/province
+          type:
+          - string
+          - 'null'
+          maxLength: 32
+          example: CA
+        browser_info:
+          description: Browser information
+          type:
+          - string
+          - 'null'
+          example: information
+        comment:
+          description: Organization comment
+          type:
+          - string
+          - 'null'
+          example: This is a comment
+        company_name:
+          description: Name of company this Transaction has ties to
+          type:
+          - string
+          - 'null'
+          example: GoFundMe Pro
+        hide_amount:
+          description: Whether purchaser indicated if Transaction amount should be hidden
+          type:
+          - boolean
+          - 'null'
+          example: false
+        is_anonymous:
+          description: Whether purchaser indicated if transaction should be anonymous
+          type:
+          - boolean
+          - 'null'
+          example: false
+        is_gift_aid:
+          description: Flag whether the donor opted into gift aid used by the UK or not. Can only be set if the organization allows it
+          type:
+          - boolean
+          - 'null'
+          example: false
+        is_reprocess:
+          description: If it is a reprocessed transaction or not
+          type:
+          - boolean
+          - 'null'
+          example: true
+        member_country:
+          description: Country of the Member
+          type:
+          - string
+          - 'null'
+          example: US
+        member_email_address:
+          description: Email address of purchaser GoFundMe Pro Member
+          type:
+          - string
+          - 'null'
+          example: member@gofundme.com
+        member_name:
+          description: ' Name of purchaser GoFundMe Pro Member'
+          type:
+          - string
+          - 'null'
+          example: GoFundMe Pro Member
+        member_phone:
+          description: Phone number of purchaser GoFundMe Pro Member
+          type:
+          - string
+          - 'null'
+          example: 555-555-5555
+        member_cell_phone:
+          description: Cell phone number of purchaser GoFundMe Pro Member. Also forwarded to the supporter record (cell_phone) on supporter creation — the SMS consent target when collected.
+          type:
+          - string
+          - 'null'
+          example: 555-555-5555
+        metadata:
+          description: An optional set of unstructured metadata to be stored with a Transaction
+          type:
+          - string
+          - 'null'
+          example: '{foo: ''bar''}'
+        raw_currency_code:
+          description: Currency Code of the Transaction before normalization
+          type:
+          - string
+          - 'null'
+          example: JPY
+        status:
+          description: The status of the Transaction
+          type:
+          - string
+          - 'null'
+          enum:
+          - test
+          - canceled
+          - incomplete
+          - success
+          - refunded
+          - cb_lost
+          - cb_initiated
+          - voided
+          - pending
+          - failed
+          example: canceled
+        reprocess_attempt_info:
+          $ref: '#/components/schemas/ReprocessAttemptInfoFillable'
+        fundraising_tracking_code:
+          description: Fundraising Tracking Code to improve accuracy and efficiency in fundraising reporting
+          type: string
+          example: JD0146
+      type: object
+  parameters:
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
+    page:
+      name: page
+      in: query
+      description: Indicator of which page of results to return
+      required: false
+      schema:
+        type: integer
+        example: 1
+  securitySchemes:
+    OAuth2Application:
+      type: oauth2
+      description: OAuth bearer token for client application
+      flows:
+        clientCredentials:
+          tokenUrl: /oauth2/auth
+          refreshUrl: /oauth2/auth
+          scopes:
+            read: Read access
+            write: Write access
+    OAuth2Member:
+      type: oauth2
+      description: OAuth bearer token for client application with additional member context
+      flows:
+        password:
+          tokenUrl: /oauth2/auth
+          refreshUrl: /oauth2/auth
+          scopes:
+            read: Read access
+            write: Write access

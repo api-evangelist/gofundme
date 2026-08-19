@@ -1,0 +1,1381 @@
+{
+  "item": [
+    {
+      "id": "4cf09840-11c3-4193-9c50-4d5862843109",
+      "name": "Supporters",
+      "description": {
+        "content": "Supporters",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "98c377ba-190e-40dc-8591-e6dcbd3065f3",
+          "name": "List fundraising page donations",
+          "request": {
+            "name": "List fundraising page donations",
+            "description": {
+              "content": "Returns all successful donations to the fundraising page. Each donation/order is a separate entry, so supporters who made multiple donations appear multiple times. Includes anonymous donations and offline donations without email addresses. Only accessible to admins.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fundraising-pages",
+                ":id",
+                "donors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Indicator of which page of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Number of entries to return in each page of results"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of Fundraising Page"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "05dee6b2-e6cd-4523-aa66-9089f4573785",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-pages",
+                    ":id",
+                    "donors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of Fundraising Page"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"current_page\": 1,\n  \"data\": [\n    {\n      \"donation_id\": 42486777,\n      \"amount\": 100,\n      \"purchased_at\": \"2016-01-01T12:00:00+0000\",\n      \"account_number\": \"1234\",\n      \"account_type\": \"savings\",\n      \"acknowledgements_count\": 3,\n      \"adjustment_amount\": 0.5,\n      \"application_fee_amount\": 42,\n      \"applied_application_fee_percent\": 3,\n      \"applied_flex_rate_percent\": 50,\n      \"applied_fot_percent\": 50,\n      \"applied_processor_fee_percent\": 2.2,\n      \"applied_raw_processor_fee_flat\": 0.2,\n      \"billing_address1\": \"533 F Street\",\n      \"billing_address2\": \"533 F Street\",\n      \"billing_city\": \"San Diego\",\n      \"billing_country\": \"US\",\n      \"billing_first_name\": \"GoFundMe Pro\",\n      \"billing_last_name\": \"Member\",\n      \"billing_postal_code\": \"92101\",\n      \"billing_state\": \"CA\",\n      \"browser_info\": \"information\",\n      \"campaign_id\": 227362,\n      \"card_expiration\": \"1017\",\n      \"card_last_four\": 1234,\n      \"card_type\": \"Visa\",\n      \"charged_at\": \"2017-01-01T12:02:01+0000\",\n      \"charged_classy_fees_amount\": 0.15,\n      \"charged_currency_code\": \"USD\",\n      \"charged_fees_amount\": 0.35,\n      \"charged_pp_fees_amount\": 0.15,\n      \"charged_total_gross_amount\": 1,\n      \"classy_fees_amount\": 0.34,\n      \"comment\": \"This is a comment\",\n      \"company_name\": \"GoFundMe Pro\",\n      \"context\": {\n        \"application_fee_campaign_category\": \"main_donate_button\",\n        \"application_fee_platform_fee_type\": \"non_migrated_recurring\",\n        \"commerce_order_id\": \"or_01HFSN0GJZ6656RM8602Z37DY1\",\n        \"customizations_metadata\": {\n          \"theme\": \"dark\",\n          \"custom_fields\": {\n            \"field1\": \"value1\"\n          }\n        },\n        \"created_by\": \"My App\",\n        \"commerce_confirmation_id\": \"C9UE75VB2\",\n        \"is_passport\": true,\n        \"source_campaign_id\": 227362,\n        \"source_campaign_type\": \"peer_to_peer\",\n        \"vendor_name\": \"Vendor XYZ\",\n        \"vendor_batch_number\": \"BATCH123456\",\n        \"vendor_batch_sequence\": \"001\",\n        \"vendor_batch_date\": \"2024-01-15\"\n      },\n      \"created_at\": \"2016-01-01T12:00:00+0000\",\n      \"currency_code\": \"USD\",\n      \"designation_id\": 34672,\n      \"donation_gross_amount\": 1.25,\n      \"donation_matching_plan_id\": 4237,\n      \"donation_net_amount\": 1.25,\n      \"fees_amount\": 1.25,\n      \"fee_on_top\": true,\n      \"flex_rate_amount\": 42,\n      \"frequency\": \"one-time\",\n      \"fundraising_page_id\": 2173528,\n      \"fundraising_team_id\": 209745,\n      \"hide_amount\": false,\n      \"id\": 8734,\n      \"initial_gross_amount\": 1.25,\n      \"institution\": \"ABC Bank\",\n      \"in_honor_of\": \"GoFundMe Pro Relation\",\n      \"is_anonymous\": false,\n      \"is_donor_covered_fee\": true,\n      \"is_gift_aid\": false,\n      \"is_reprocess\": true,\n      \"member_country\": \"US\",\n      \"member_email_address\": \"member@gofundme.com\",\n      \"member_id\": 2012,\n      \"member_name\": \"GoFundMe Pro Member\",\n      \"member_phone\": \"555-555-5555\",\n      \"member_cell_phone\": \"555-555-5555\",\n      \"consent\": {\n        \"sms_opt_in\": false,\n        \"sms_consent_decision_date\": \"2016-01-01T12:05:42+0000\",\n        \"email_opt_in\": false,\n        \"email_consent_decision_date\": \"2016-01-01T12:05:42+0000\"\n      },\n      \"metadata\": \"{foo: 'bar'}\",\n      \"organization_id\": 82364,\n      \"overhead_net_amount\": 25,\n      \"parent_transaction_id\": 8734,\n      \"payment_gateway\": \"BrainTree\",\n      \"payment_method\": \"WPP\",\n      \"payment_source\": \"WALLET\",\n      \"payment_type\": \"Credit Card\",\n      \"pp_fees_amount\": 0.15,\n      \"pp_reference_id\": \"12345\",\n      \"pp_response\": \"1023\",\n      \"pp_transaction_id\": \"12345\",\n      \"processor_decline_code\": \"64\",\n      \"processor_fee_amount\": 42,\n      \"promo_code_code\": \"PROMO\",\n      \"raw_adjustment_amount\": 0.25,\n      \"raw_application_fee_amount\": 42,\n      \"raw_currency_code\": \"JPY\",\n      \"raw_donation_gross_amount\": 1.25,\n      \"raw_flex_rate_amount\": 1.25,\n      \"raw_initial_gross_amount\": 1.25,\n      \"raw_overhead_net_amount\": 0.25,\n      \"raw_processor_fee_amount\": 42,\n      \"raw_total_gross_amount\": 1,\n      \"recurring_donation_plan_id\": 23847,\n      \"refunded_at\": \"2016-01-01T12:00:00+0000\",\n      \"reprocess_attempts\": 2,\n      \"status\": \"canceled\",\n      \"supporter_id\": 5827,\n      \"tax_entity_id\": 331,\n      \"total_gross_amount\": 1.25,\n      \"updated_at\": \"2016-01-01T12:00:00+0000\",\n      \"utm\": {\n        \"campaign\": \"year_end_2025\",\n        \"content\": \"top_banner\",\n        \"medium\": \"email\",\n        \"source\": \"mailchimp\",\n        \"term\": \"donate now\"\n      },\n      \"opted_into_payment_sync\": false,\n      \"first_name\": \"John\",\n      \"last_name\": \"Doe\",\n      \"email_address\": \"donor@example.com\",\n      \"feed_item_id\": 160736679\n    },\n    {\n      \"donation_id\": 42486777,\n      \"amount\": 100,\n      \"purchased_at\": \"2016-01-01T12:00:00+0000\",\n      \"account_number\": \"1234\",\n      \"account_type\": \"savings\",\n      \"acknowledgements_count\": 3,\n      \"adjustment_amount\": 0.5,\n      \"application_fee_amount\": 42,\n      \"applied_application_fee_percent\": 3,\n      \"applied_flex_rate_percent\": 50,\n      \"applied_fot_percent\": 50,\n      \"applied_processor_fee_percent\": 2.2,\n      \"applied_raw_processor_fee_flat\": 0.2,\n      \"billing_address1\": \"533 F Street\",\n      \"billing_address2\": \"533 F Street\",\n      \"billing_city\": \"San Diego\",\n      \"billing_country\": \"US\",\n      \"billing_first_name\": \"GoFundMe Pro\",\n      \"billing_last_name\": \"Member\",\n      \"billing_postal_code\": \"92101\",\n      \"billing_state\": \"CA\",\n      \"browser_info\": \"information\",\n      \"campaign_id\": 227362,\n      \"card_expiration\": \"1017\",\n      \"card_last_four\": 1234,\n      \"card_type\": \"Visa\",\n      \"charged_at\": \"2017-01-01T12:02:01+0000\",\n      \"charged_classy_fees_amount\": 0.15,\n      \"charged_currency_code\": \"USD\",\n      \"charged_fees_amount\": 0.35,\n      \"charged_pp_fees_amount\": 0.15,\n      \"charged_total_gross_amount\": 1,\n      \"classy_fees_amount\": 0.34,\n      \"comment\": \"This is a comment\",\n      \"company_name\": \"GoFundMe Pro\",\n      \"context\": {\n        \"application_fee_campaign_category\": \"main_donate_button\",\n        \"application_fee_platform_fee_type\": \"non_migrated_recurring\",\n        \"commerce_order_id\": \"or_01HFSN0GJZ6656RM8602Z37DY1\",\n        \"customizations_metadata\": {\n          \"theme\": \"dark\",\n          \"custom_fields\": {\n            \"field1\": \"value1\"\n          }\n        },\n        \"created_by\": \"My App\",\n        \"commerce_confirmation_id\": \"C9UE75VB2\",\n        \"is_passport\": true,\n        \"source_campaign_id\": 227362,\n        \"source_campaign_type\": \"peer_to_peer\",\n        \"vendor_name\": \"Vendor XYZ\",\n        \"vendor_batch_number\": \"BATCH123456\",\n        \"vendor_batch_sequence\": \"001\",\n        \"vendor_batch_date\": \"2024-01-15\"\n      },\n      \"created_at\": \"2016-01-01T12:00:00+0000\",\n      \"currency_code\": \"USD\",\n      \"designation_id\": 34672,\n      \"donation_gross_amount\": 1.25,\n      \"donation_matching_plan_id\": 4237,\n      \"donation_net_amount\": 1.25,\n      \"fees_amount\": 1.25,\n      \"fee_on_top\": true,\n      \"flex_rate_amount\": 42,\n      \"frequency\": \"one-time\",\n      \"fundraising_page_id\": 2173528,\n      \"fundraising_team_id\": 209745,\n      \"hide_amount\": false,\n      \"id\": 8734,\n      \"initial_gross_amount\": 1.25,\n      \"institution\": \"ABC Bank\",\n      \"in_honor_of\": \"GoFundMe Pro Relation\",\n      \"is_anonymous\": false,\n      \"is_donor_covered_fee\": true,\n      \"is_gift_aid\": false,\n      \"is_reprocess\": true,\n      \"member_country\": \"US\",\n      \"member_email_address\": \"member@gofundme.com\",\n      \"member_id\": 2012,\n      \"member_name\": \"GoFundMe Pro Member\",\n      \"member_phone\": \"555-555-5555\",\n      \"member_cell_phone\": \"555-555-5555\",\n      \"consent\": {\n        \"sms_opt_in\": false,\n        \"sms_consent_decision_date\": \"2016-01-01T12:05:42+0000\",\n        \"email_opt_in\": false,\n        \"email_consent_decision_date\": \"2016-01-01T12:05:42+0000\"\n      },\n      \"metadata\": \"{foo: 'bar'}\",\n      \"organization_id\": 82364,\n      \"overhead_net_amount\": 25,\n      \"parent_transaction_id\": 8734,\n      \"payment_gateway\": \"BrainTree\",\n      \"payment_method\": \"WPP\",\n      \"payment_source\": \"WALLET\",\n      \"payment_type\": \"Credit Card\",\n      \"pp_fees_amount\": 0.15,\n      \"pp_reference_id\": \"12345\",\n      \"pp_response\": \"1023\",\n      \"pp_transaction_id\": \"12345\",\n      \"processor_decline_code\": \"64\",\n      \"processor_fee_amount\": 42,\n      \"promo_code_code\": \"PROMO\",\n      \"raw_adjustment_amount\": 0.25,\n      \"raw_application_fee_amount\": 42,\n      \"raw_currency_code\": \"JPY\",\n      \"raw_donation_gross_amount\": 1.25,\n      \"raw_flex_rate_amount\": 1.25,\n      \"raw_initial_gross_amount\": 1.25,\n      \"raw_overhead_net_amount\": 0.25,\n      \"raw_processor_fee_amount\": 42,\n      \"raw_total_gross_amount\": 1,\n      \"recurring_donation_plan_id\": 23847,\n      \"refunded_at\": \"2016-01-01T12:00:00+0000\",\n      \"reprocess_attempts\": 2,\n      \"status\": \"canceled\",\n      \"supporter_id\": 5827,\n      \"tax_entity_id\": 331,\n      \"total_gross_amount\": 1.25,\n      \"updated_at\": \"2016-01-01T12:00:00+0000\",\n      \"utm\": {\n        \"campaign\": \"year_end_2025\",\n        \"content\": \"top_banner\",\n        \"medium\": \"email\",\n        \"source\": \"mailchimp\",\n        \"term\": \"donate now\"\n      },\n      \"opted_into_payment_sync\": false,\n      \"first_name\": \"John\",\n      \"last_name\": \"Doe\",\n      \"email_address\": \"donor@example.com\",\n      \"feed_item_id\": 160736679\n    }\n  ],\n  \"first_page_url\": \"https://pro.gofundme.com/api/2.0/resource?page=1\",\n  \"from\": 1,\n  \"last_page\": 1,\n  \"last_page_url\": \"https://pro.gofundme.com/api/2.0/resource?page=1\",\n  \"next_page_url\": \"https://pro.gofundme.com/api/2.0/resource?page=2\",\n  \"path\": \"https://pro.gofundme.com/api/2.0/resource\",\n  \"per_page\": 20,\n  \"prev_page_url\": \"https://pro.gofundme.com/api/2.0/resource?page=1\",\n  \"links\": [\n    {\n      \"label\": \"1\",\n      \"url\": \"{host}/{resource}?page=1\",\n      \"active\": true\n    },\n    {\n      \"label\": \"1\",\n      \"url\": \"{host}/{resource}?page=1\",\n      \"active\": true\n    }\n  ],\n  \"to\": 1,\n  \"total\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fef3f27b-9d7a-4a9e-80c7-0f850e0c2e3c",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-pages",
+                    ":id",
+                    "donors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of Fundraising Page"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "62392fa9-8402-457f-8aa2-bab3fb2ad109",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-pages",
+                    ":id",
+                    "donors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of Fundraising Page"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9d194d06-05ce-4a3b-aef2-3342e0c82ccc",
+          "name": "List unique donor email addresses",
+          "request": {
+            "name": "List unique donor email addresses",
+            "description": {
+              "content": "Returns unique non-empty email addresses from donations to this fundraising page. Each email appears only once, even if the donor made multiple donations. Donations without email are intentionally excluded. Pagination counts reflect unique emails, not total donations. Optimized for bulk operations like 'copy all emails'.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fundraising-pages",
+                ":id",
+                "donor-emails"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Indicator of which page of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Number of entries to return in each page of results"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of Fundraising Page"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6c79b93f-8321-4c73-b853-a1fef2e03150",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-pages",
+                    ":id",
+                    "donor-emails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of Fundraising Page"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"current_page\": 1,\n  \"data\": [\n    {\n      \"email_address\": \"donor@example.com\"\n    },\n    {\n      \"email_address\": \"donor@example.com\"\n    }\n  ],\n  \"first_page_url\": \"https://pro.gofundme.com/api/2.0/resource?page=1\",\n  \"from\": 1,\n  \"last_page\": 1,\n  \"last_page_url\": \"https://pro.gofundme.com/api/2.0/resource?page=1\",\n  \"next_page_url\": \"https://pro.gofundme.com/api/2.0/resource?page=2\",\n  \"path\": \"https://pro.gofundme.com/api/2.0/resource\",\n  \"per_page\": 20,\n  \"prev_page_url\": \"https://pro.gofundme.com/api/2.0/resource?page=1\",\n  \"links\": [\n    {\n      \"label\": \"1\",\n      \"url\": \"{host}/{resource}?page=1\",\n      \"active\": true\n    },\n    {\n      \"label\": \"1\",\n      \"url\": \"{host}/{resource}?page=1\",\n      \"active\": true\n    }\n  ],\n  \"to\": 1,\n  \"total\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "be18bda4-9515-4bf0-8b54-c421cc0d7831",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-pages",
+                    ":id",
+                    "donor-emails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of Fundraising Page"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "30f175c1-8239-4f1e-8767-85cba5ca049e",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-pages",
+                    ":id",
+                    "donor-emails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of Fundraising Page"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dbeaa082-f8d4-4f13-a609-c4cd17656a20",
+          "name": "List fundraiser past donors",
+          "request": {
+            "name": "List fundraiser past donors",
+            "description": {
+              "content": "Returns one row per supporter (deduplicated by customers_id + charity_id) who made at least one successful donation to another page owned by the current fundraiser in this organization. Offline donations and donations with no email address are included. For each supporter the response exposes billing name/email (with fallback to contact record), the fundraising page ID and title of their most recent qualifying order, the timestamp of that latest order, the aggregate SUM of every qualifying donation amount, and a flag indicating whether they have also donated to the current page. Default order is alphabetical by donor name ascending; pass sortReverse=true to invert.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fundraising-pages",
+                ":id",
+                "past-donors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Indicator of which page of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Number of entries to return in each page of results"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortReverse",
+                  "value": "false",
+                  "description": "Reverse the default alphabetical sort (Z→A when true)."
+                },
+                {
+                  "disabled": false,
+                  "key": "hideAlreadyDonated",
+                  "value": "false",
+                  "description": "When true, supporters who have already donated to the current page are omitted."
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Case-insensitive substring match applied to donor first name, last name, full name, and email address."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of Fundraising Page"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "64f2332b-267d-424f-8570-59f7f240fe21",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-pages",
+                    ":id",
+                    "past-donors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sortReverse",
+                      "value": "false"
+                    },
+                    {
+                      "key": "hideAlreadyDonated",
+                      "value": "false"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of Fundraising Page"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"current_page\": 1,\n  \"data\": [\n    {\n      \"id\": 42486777,\n      \"fundraising_page_id\": 2173528,\n      \"title\": \"Help Build a School\",\n      \"purchased_at\": \"2024-01-15T10:45:00Z\",\n      \"amount\": 150,\n      \"donated_to_current\": true,\n      \"member_id\": 918273,\n      \"first_name\": \"Jane\",\n      \"last_name\": \"Doe\",\n      \"email_address\": \"jane.doe@example.org\"\n    },\n    {\n      \"id\": 42486777,\n      \"fundraising_page_id\": 2173528,\n      \"title\": \"Help Build a School\",\n      \"purchased_at\": \"2024-01-15T10:45:00Z\",\n      \"amount\": 150,\n      \"donated_to_current\": true,\n      \"member_id\": 918273,\n      \"first_name\": \"Jane\",\n      \"last_name\": \"Doe\",\n      \"email_address\": \"jane.doe@example.org\"\n    }\n  ],\n  \"first_page_url\": \"https://pro.gofundme.com/api/2.0/resource?page=1\",\n  \"from\": 1,\n  \"last_page\": 1,\n  \"last_page_url\": \"https://pro.gofundme.com/api/2.0/resource?page=1\",\n  \"next_page_url\": \"https://pro.gofundme.com/api/2.0/resource?page=2\",\n  \"path\": \"https://pro.gofundme.com/api/2.0/resource\",\n  \"per_page\": 20,\n  \"prev_page_url\": \"https://pro.gofundme.com/api/2.0/resource?page=1\",\n  \"links\": [\n    {\n      \"label\": \"1\",\n      \"url\": \"{host}/{resource}?page=1\",\n      \"active\": true\n    },\n    {\n      \"label\": \"1\",\n      \"url\": \"{host}/{resource}?page=1\",\n      \"active\": true\n    }\n  ],\n  \"to\": 1,\n  \"total\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eaa9f742-3a0c-44e5-b78f-5e34f8ee5b17",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-pages",
+                    ":id",
+                    "past-donors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sortReverse",
+                      "value": "false"
+                    },
+                    {
+                      "key": "hideAlreadyDonated",
+                      "value": "false"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of Fundraising Page"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "12b98135-f112-4f9a-b13b-d29e92d11687",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-pages",
+                    ":id",
+                    "past-donors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sortReverse",
+                      "value": "false"
+                    },
+                    {
+                      "key": "hideAlreadyDonated",
+                      "value": "false"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of Fundraising Page"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "55e71d46-7528-47a9-86c8-90944959fa35",
+          "name": "List fundraising team donations",
+          "request": {
+            "name": "List fundraising team donations",
+            "description": {
+              "content": "Returns all successful donations to the fundraising team. Each donation/order is a separate entry, so supporters who made multiple donations appear multiple times. Includes anonymous donations and offline donations without email addresses. Only accessible to admins.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fundraising-teams",
+                ":id",
+                "donors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Indicator of which page of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Number of entries to return in each page of results"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of Fundraising Team"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8ceeae39-a2a6-44cb-8f79-031ea2c24686",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-teams",
+                    ":id",
+                    "donors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of Fundraising Team"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"current_page\": 1,\n  \"data\": [\n    {\n      \"donation_id\": 42486777,\n      \"amount\": 100,\n      \"purchased_at\": \"2016-01-01T12:00:00+0000\",\n      \"account_number\": \"1234\",\n      \"account_type\": \"savings\",\n      \"acknowledgements_count\": 3,\n      \"adjustment_amount\": 0.5,\n      \"application_fee_amount\": 42,\n      \"applied_application_fee_percent\": 3,\n      \"applied_flex_rate_percent\": 50,\n      \"applied_fot_percent\": 50,\n      \"applied_processor_fee_percent\": 2.2,\n      \"applied_raw_processor_fee_flat\": 0.2,\n      \"billing_address1\": \"533 F Street\",\n      \"billing_address2\": \"533 F Street\",\n      \"billing_city\": \"San Diego\",\n      \"billing_country\": \"US\",\n      \"billing_first_name\": \"GoFundMe Pro\",\n      \"billing_last_name\": \"Member\",\n      \"billing_postal_code\": \"92101\",\n      \"billing_state\": \"CA\",\n      \"browser_info\": \"information\",\n      \"campaign_id\": 227362,\n      \"card_expiration\": \"1017\",\n      \"card_last_four\": 1234,\n      \"card_type\": \"Visa\",\n      \"charged_at\": \"2017-01-01T12:02:01+0000\",\n      \"charged_classy_fees_amount\": 0.15,\n      \"charged_currency_code\": \"USD\",\n      \"charged_fees_amount\": 0.35,\n      \"charged_pp_fees_amount\": 0.15,\n      \"charged_total_gross_amount\": 1,\n      \"classy_fees_amount\": 0.34,\n      \"comment\": \"This is a comment\",\n      \"company_name\": \"GoFundMe Pro\",\n      \"context\": {\n        \"application_fee_campaign_category\": \"main_donate_button\",\n        \"application_fee_platform_fee_type\": \"non_migrated_recurring\",\n        \"commerce_order_id\": \"or_01HFSN0GJZ6656RM8602Z37DY1\",\n        \"customizations_metadata\": {\n          \"theme\": \"dark\",\n          \"custom_fields\": {\n            \"field1\": \"value1\"\n          }\n        },\n        \"created_by\": \"My App\",\n        \"commerce_confirmation_id\": \"C9UE75VB2\",\n        \"is_passport\": true,\n        \"source_campaign_id\": 227362,\n        \"source_campaign_type\": \"peer_to_peer\",\n        \"vendor_name\": \"Vendor XYZ\",\n        \"vendor_batch_number\": \"BATCH123456\",\n        \"vendor_batch_sequence\": \"001\",\n        \"vendor_batch_date\": \"2024-01-15\"\n      },\n      \"created_at\": \"2016-01-01T12:00:00+0000\",\n      \"currency_code\": \"USD\",\n      \"designation_id\": 34672,\n      \"donation_gross_amount\": 1.25,\n      \"donation_matching_plan_id\": 4237,\n      \"donation_net_amount\": 1.25,\n      \"fees_amount\": 1.25,\n      \"fee_on_top\": true,\n      \"flex_rate_amount\": 42,\n      \"frequency\": \"one-time\",\n      \"fundraising_page_id\": 2173528,\n      \"fundraising_team_id\": 209745,\n      \"hide_amount\": false,\n      \"id\": 8734,\n      \"initial_gross_amount\": 1.25,\n      \"institution\": \"ABC Bank\",\n      \"in_honor_of\": \"GoFundMe Pro Relation\",\n      \"is_anonymous\": false,\n      \"is_donor_covered_fee\": true,\n      \"is_gift_aid\": false,\n      \"is_reprocess\": true,\n      \"member_country\": \"US\",\n      \"member_email_address\": \"member@gofundme.com\",\n      \"member_id\": 2012,\n      \"member_name\": \"GoFundMe Pro Member\",\n      \"member_phone\": \"555-555-5555\",\n      \"member_cell_phone\": \"555-555-5555\",\n      \"consent\": {\n        \"sms_opt_in\": false,\n        \"sms_consent_decision_date\": \"2016-01-01T12:05:42+0000\",\n        \"email_opt_in\": false,\n        \"email_consent_decision_date\": \"2016-01-01T12:05:42+0000\"\n      },\n      \"metadata\": \"{foo: 'bar'}\",\n      \"organization_id\": 82364,\n      \"overhead_net_amount\": 25,\n      \"parent_transaction_id\": 8734,\n      \"payment_gateway\": \"BrainTree\",\n      \"payment_method\": \"WPP\",\n      \"payment_source\": \"WALLET\",\n      \"payment_type\": \"Credit Card\",\n      \"pp_fees_amount\": 0.15,\n      \"pp_reference_id\": \"12345\",\n      \"pp_response\": \"1023\",\n      \"pp_transaction_id\": \"12345\",\n      \"processor_decline_code\": \"64\",\n      \"processor_fee_amount\": 42,\n      \"promo_code_code\": \"PROMO\",\n      \"raw_adjustment_amount\": 0.25,\n      \"raw_application_fee_amount\": 42,\n      \"raw_currency_code\": \"JPY\",\n      \"raw_donation_gross_amount\": 1.25,\n      \"raw_flex_rate_amount\": 1.25,\n      \"raw_initial_gross_amount\": 1.25,\n      \"raw_overhead_net_amount\": 0.25,\n      \"raw_processor_fee_amount\": 42,\n      \"raw_total_gross_amount\": 1,\n      \"recurring_donation_plan_id\": 23847,\n      \"refunded_at\": \"2016-01-01T12:00:00+0000\",\n      \"reprocess_attempts\": 2,\n      \"status\": \"canceled\",\n      \"supporter_id\": 5827,\n      \"tax_entity_id\": 331,\n      \"total_gross_amount\": 1.25,\n      \"updated_at\": \"2016-01-01T12:00:00+0000\",\n      \"utm\": {\n        \"campaign\": \"year_end_2025\",\n        \"content\": \"top_banner\",\n        \"medium\": \"email\",\n        \"source\": \"mailchimp\",\n        \"term\": \"donate now\"\n      },\n      \"opted_into_payment_sync\": false,\n      \"first_name\": \"John\",\n      \"last_name\": \"Doe\",\n      \"email_address\": \"donor@example.com\",\n      \"feed_item_id\": 160736679\n    },\n    {\n      \"donation_id\": 42486777,\n      \"amount\": 100,\n      \"purchased_at\": \"2016-01-01T12:00:00+0000\",\n      \"account_number\": \"1234\",\n      \"account_type\": \"savings\",\n      \"acknowledgements_count\": 3,\n      \"adjustment_amount\": 0.5,\n      \"application_fee_amount\": 42,\n      \"applied_application_fee_percent\": 3,\n      \"applied_flex_rate_percent\": 50,\n      \"applied_fot_percent\": 50,\n      \"applied_processor_fee_percent\": 2.2,\n      \"applied_raw_processor_fee_flat\": 0.2,\n      \"billing_address1\": \"533 F Street\",\n      \"billing_address2\": \"533 F Street\",\n      \"billing_city\": \"San Diego\",\n      \"billing_country\": \"US\",\n      \"billing_first_name\": \"GoFundMe Pro\",\n      \"billing_last_name\": \"Member\",\n      \"billing_postal_code\": \"92101\",\n      \"billing_state\": \"CA\",\n      \"browser_info\": \"information\",\n      \"campaign_id\": 227362,\n      \"card_expiration\": \"1017\",\n      \"card_last_four\": 1234,\n      \"card_type\": \"Visa\",\n      \"charged_at\": \"2017-01-01T12:02:01+0000\",\n      \"charged_classy_fees_amount\": 0.15,\n      \"charged_currency_code\": \"USD\",\n      \"charged_fees_amount\": 0.35,\n      \"charged_pp_fees_amount\": 0.15,\n      \"charged_total_gross_amount\": 1,\n      \"classy_fees_amount\": 0.34,\n      \"comment\": \"This is a comment\",\n      \"company_name\": \"GoFundMe Pro\",\n      \"context\": {\n        \"application_fee_campaign_category\": \"main_donate_button\",\n        \"application_fee_platform_fee_type\": \"non_migrated_recurring\",\n        \"commerce_order_id\": \"or_01HFSN0GJZ6656RM8602Z37DY1\",\n        \"customizations_metadata\": {\n          \"theme\": \"dark\",\n          \"custom_fields\": {\n            \"field1\": \"value1\"\n          }\n        },\n        \"created_by\": \"My App\",\n        \"commerce_confirmation_id\": \"C9UE75VB2\",\n        \"is_passport\": true,\n        \"source_campaign_id\": 227362,\n        \"source_campaign_type\": \"peer_to_peer\",\n        \"vendor_name\": \"Vendor XYZ\",\n        \"vendor_batch_number\": \"BATCH123456\",\n        \"vendor_batch_sequence\": \"001\",\n        \"vendor_batch_date\": \"2024-01-15\"\n      },\n      \"created_at\": \"2016-01-01T12:00:00+0000\",\n      \"currency_code\": \"USD\",\n      \"designation_id\": 34672,\n      \"donation_gross_amount\": 1.25,\n      \"donation_matching_plan_id\": 4237,\n      \"donation_net_amount\": 1.25,\n      \"fees_amount\": 1.25,\n      \"fee_on_top\": true,\n      \"flex_rate_amount\": 42,\n      \"frequency\": \"one-time\",\n      \"fundraising_page_id\": 2173528,\n      \"fundraising_team_id\": 209745,\n      \"hide_amount\": false,\n      \"id\": 8734,\n      \"initial_gross_amount\": 1.25,\n      \"institution\": \"ABC Bank\",\n      \"in_honor_of\": \"GoFundMe Pro Relation\",\n      \"is_anonymous\": false,\n      \"is_donor_covered_fee\": true,\n      \"is_gift_aid\": false,\n      \"is_reprocess\": true,\n      \"member_country\": \"US\",\n      \"member_email_address\": \"member@gofundme.com\",\n      \"member_id\": 2012,\n      \"member_name\": \"GoFundMe Pro Member\",\n      \"member_phone\": \"555-555-5555\",\n      \"member_cell_phone\": \"555-555-5555\",\n      \"consent\": {\n        \"sms_opt_in\": false,\n        \"sms_consent_decision_date\": \"2016-01-01T12:05:42+0000\",\n        \"email_opt_in\": false,\n        \"email_consent_decision_date\": \"2016-01-01T12:05:42+0000\"\n      },\n      \"metadata\": \"{foo: 'bar'}\",\n      \"organization_id\": 82364,\n      \"overhead_net_amount\": 25,\n      \"parent_transaction_id\": 8734,\n      \"payment_gateway\": \"BrainTree\",\n      \"payment_method\": \"WPP\",\n      \"payment_source\": \"WALLET\",\n      \"payment_type\": \"Credit Card\",\n      \"pp_fees_amount\": 0.15,\n      \"pp_reference_id\": \"12345\",\n      \"pp_response\": \"1023\",\n      \"pp_transaction_id\": \"12345\",\n      \"processor_decline_code\": \"64\",\n      \"processor_fee_amount\": 42,\n      \"promo_code_code\": \"PROMO\",\n      \"raw_adjustment_amount\": 0.25,\n      \"raw_application_fee_amount\": 42,\n      \"raw_currency_code\": \"JPY\",\n      \"raw_donation_gross_amount\": 1.25,\n      \"raw_flex_rate_amount\": 1.25,\n      \"raw_initial_gross_amount\": 1.25,\n      \"raw_overhead_net_amount\": 0.25,\n      \"raw_processor_fee_amount\": 42,\n      \"raw_total_gross_amount\": 1,\n      \"recurring_donation_plan_id\": 23847,\n      \"refunded_at\": \"2016-01-01T12:00:00+0000\",\n      \"reprocess_attempts\": 2,\n      \"status\": \"canceled\",\n      \"supporter_id\": 5827,\n      \"tax_entity_id\": 331,\n      \"total_gross_amount\": 1.25,\n      \"updated_at\": \"2016-01-01T12:00:00+0000\",\n      \"utm\": {\n        \"campaign\": \"year_end_2025\",\n        \"content\": \"top_banner\",\n        \"medium\": \"email\",\n        \"source\": \"mailchimp\",\n        \"term\": \"donate now\"\n      },\n      \"opted_into_payment_sync\": false,\n      \"first_name\": \"John\",\n      \"last_name\": \"Doe\",\n      \"email_address\": \"donor@example.com\",\n      \"feed_item_id\": 160736679\n    }\n  ],\n  \"first_page_url\": \"https://pro.gofundme.com/api/2.0/resource?page=1\",\n  \"from\": 1,\n  \"last_page\": 1,\n  \"last_page_url\": \"https://pro.gofundme.com/api/2.0/resource?page=1\",\n  \"next_page_url\": \"https://pro.gofundme.com/api/2.0/resource?page=2\",\n  \"path\": \"https://pro.gofundme.com/api/2.0/resource\",\n  \"per_page\": 20,\n  \"prev_page_url\": \"https://pro.gofundme.com/api/2.0/resource?page=1\",\n  \"links\": [\n    {\n      \"label\": \"1\",\n      \"url\": \"{host}/{resource}?page=1\",\n      \"active\": true\n    },\n    {\n      \"label\": \"1\",\n      \"url\": \"{host}/{resource}?page=1\",\n      \"active\": true\n    }\n  ],\n  \"to\": 1,\n  \"total\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "db453ae8-91b4-48ca-ae3d-ddb748d93c96",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-teams",
+                    ":id",
+                    "donors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of Fundraising Team"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "958112a0-f715-4000-a3a8-c5e05f66f8e4",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-teams",
+                    ":id",
+                    "donors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of Fundraising Team"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "28c72c70-c647-4404-b7c5-30976784f676",
+          "name": "List fundraising team past donors",
+          "request": {
+            "name": "List fundraising team past donors",
+            "description": {
+              "content": "Returns one row per supporter (deduplicated by customers_id + charity_id) who made at least one successful donation to another team owned by the current team lead in this organization (the current team is excluded). Offline donations and donations with no email address are included. For each supporter the response exposes billing name/email (with fallback to contact record), the fundraising page ID the latest qualifying donation was made to, the team name (title) of the team that owns that page, the timestamp of the latest order, the aggregate SUM of every qualifying donation amount, and a flag indicating whether they have also donated to the current team. Default order is alphabetical by donor name ascending; pass sortReverse=true to invert.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fundraising-teams",
+                ":id",
+                "past-donors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Indicator of which page of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Number of entries to return in each page of results"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortReverse",
+                  "value": "false",
+                  "description": "Reverse the default alphabetical sort (Z→A when true)."
+                },
+                {
+                  "disabled": false,
+                  "key": "hideAlreadyDonated",
+                  "value": "false",
+                  "description": "When true, supporters who have already donated to the current team are omitted."
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Case-insensitive substring match applied to donor first name, last name, full name, and email address."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of Fundraising Team"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "70db6efa-d7e2-4f87-a6ab-9561f35715f4",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-teams",
+                    ":id",
+                    "past-donors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sortReverse",
+                      "value": "false"
+                    },
+                    {
+                      "key": "hideAlreadyDonated",
+                      "value": "false"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of Fundraising Team"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"current_page\": 1,\n  \"data\": [\n    {\n      \"id\": 42486777,\n      \"fundraising_page_id\": 2173528,\n      \"title\": \"Team Alpha\",\n      \"purchased_at\": \"2024-01-15T10:00:00Z\",\n      \"amount\": 150,\n      \"donated_to_current\": true,\n      \"member_id\": 918273,\n      \"first_name\": \"Jane\",\n      \"last_name\": \"Doe\",\n      \"email_address\": \"jane.doe@example.org\"\n    },\n    {\n      \"id\": 42486777,\n      \"fundraising_page_id\": 2173528,\n      \"title\": \"Team Alpha\",\n      \"purchased_at\": \"2024-01-15T10:00:00Z\",\n      \"amount\": 150,\n      \"donated_to_current\": true,\n      \"member_id\": 918273,\n      \"first_name\": \"Jane\",\n      \"last_name\": \"Doe\",\n      \"email_address\": \"jane.doe@example.org\"\n    }\n  ],\n  \"first_page_url\": \"https://pro.gofundme.com/api/2.0/resource?page=1\",\n  \"from\": 1,\n  \"last_page\": 1,\n  \"last_page_url\": \"https://pro.gofundme.com/api/2.0/resource?page=1\",\n  \"next_page_url\": \"https://pro.gofundme.com/api/2.0/resource?page=2\",\n  \"path\": \"https://pro.gofundme.com/api/2.0/resource\",\n  \"per_page\": 20,\n  \"prev_page_url\": \"https://pro.gofundme.com/api/2.0/resource?page=1\",\n  \"links\": [\n    {\n      \"label\": \"1\",\n      \"url\": \"{host}/{resource}?page=1\",\n      \"active\": true\n    },\n    {\n      \"label\": \"1\",\n      \"url\": \"{host}/{resource}?page=1\",\n      \"active\": true\n    }\n  ],\n  \"to\": 1,\n  \"total\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a130282a-1495-43a4-8b49-b6faf55df470",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-teams",
+                    ":id",
+                    "past-donors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sortReverse",
+                      "value": "false"
+                    },
+                    {
+                      "key": "hideAlreadyDonated",
+                      "value": "false"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of Fundraising Team"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"This action is unauthorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "63421c67-f01b-44bb-b1a9-4c284a19f875",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fundraising-teams",
+                    ":id",
+                    "past-donors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sortReverse",
+                      "value": "false"
+                    },
+                    {
+                      "key": "hideAlreadyDonated",
+                      "value": "false"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of Fundraising Team"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://pro.gofundme.com/api/2.0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "redirect_uri",
+        "value": "/oauth2/auth"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "/oauth2/auth"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e86455b3-5f9b-48b9-91fc-fb0d6b73e89c",
+    "name": "GoFundMe Pro Supporters API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<h1>GoFundMe Pro API</h1>\n<p>Welcome to the GoFundMe Pro API (2.0.0), a powerful toolset that empowers innovative and creative minds to engineer the world for good. This documentation walks through the API’s latest endpoints.</p>\n<p>GoFundMe Pro APIs are crafted around REST and the REST architectural style to provide developers with a stateless and language-­agnostic interface. The GoFundMe Pro API leverages HTTP verbs and response codes, OAuth2 authentication, and resource-­oriented URLs.</p>\n<p>Currently, the GoFundMe Pro API only supports JSON. All POST/PUT requests required a valid JSON object for the request body.</p>\n<h2>Errors</h2>\n<p>The GoFundMe Pro API leverages standard HTTP response status codes for it’s error responses. Error codes are:</p>\n<p><br /></p>\n<table border='1'>\n<tr>\n<th width='100px'>Error Code</th>\n<th>Meaning</th>\n</tr>\n<tr>\n<td>400</td>\n<td>Bad Request: The request was malformed or provided incorrect/incomplete/conflicting parameters. Check the response for more detailed messaging about why the request was incorrect. Do not repeat request.</td>\n</tr>\n<tr>\n<td>401</td>\n<td>Unauthorized: The API does not recognize the request as authorized. API access token may be missing or invalid.</td>\n</tr>\n<tr>\n<td>403</td>\n<td>Forbidden: The API recognizes the authorized API user, but the API user does not have correct permissions to satisfy the request.</td>\n</tr>\n<tr>\n<td>404</td>\n<td>Not Found: The resource requested does not exist or was not found.</td>\n</tr>\n<tr>\n<td>405</td>\n<td>Method Not Allowed: Some REST endpoints only accept a subset of valid REST HTTP verbs. This error is sent when an unsupported verb is requested.</td>\n</tr>\n<tr>\n<td>429</td>\n<td>Too Many Requests: The rate limit has been exceeded. See the <a href=\"#rate-limiting\">Rate Limiting</a> section for details on rate limits and response headers.</td>\n</tr>\n<tr>\n<td>500</td>\n<td>Error: The request was valid, but something failed on the server. Additional messages may be available.</td>\n</tr>\n<tr>\n<td>503</td>\n<td>Service Unavailable: The service is temporarily unavailable.</td>\n</tr>\n</table>\n<h2>Requests</h2>\n<h3>Authenticating Requests</h3>\n<p>Most API requests will need to be signed with an Access Token.</p>\n<p>Refer to the <a href=\"https://developers.gofundme.com/pro/overview/authentication\" target=\"_blank\" rel=\"noopener noreferrer\">Resource Documentation</a> for the specific call you are making to see if an access token is required for your request. See <a href=\"https://developers.gofundme.com/pro/tutorials/samples\" target=\"_blank\" rel=\"noopener noreferrer\">this page</a> for a demonstration of usage through a sample app. \n<h3>Filters</h3>\n<p>We can filter a collection based on a set of input parameters. To do so, we can modify the query string using the parameters listed below.</p>\n\n<table border='1'>\n<tr>\n<th>Parameter</th>\n<th>Type</th>\n<th>Default</th>\n<th>Description</th>\n</tr>\n\n<tr>\n<td>with</td>\n<td>string</td>\n<td>N/A</td>\n<td>This allows you to include nested related resource. For example, you could request a campaign along with the organization it belongs to and the designation it was allocated to. In this case, <code>with=organization,designation.</code></td>\n</tr>\n\n<tr>\n<td>per_page</td>\n<td>integer</td>\n<td>20</td>\n<td>Set the total number of resources returned per page (Maximum: 100).</td>\n</tr>\n\n<tr>\n<td>page</td>\n<td>integer</td>\n<td>1</td>\n<td>Page to return.</td>\n</tr>\n\n<tr>\n<td>sort</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>\nOrder the resources depending upon their attributes. Examples:\n<ul>\n<li><strong>created_at</strong>: oldest resource will come first</li>\n<li><strong>created_at:desc</strong>: newest resource will come first</li>\n<li><strong>last_name:asc,first_name:asc</strong>: order resources by last_name in alphabetical order. If same last_name, order by first_name in alphabetical order.</li>\n</ul>\n</td>\n</tr>\n\n<tr>\n<td>fields</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>List of resources attributes separated with comma. Narrow the list of attributes returned for each resource.</td>\n</tr>\n\n<tr>\n<td>filter</td>\n<td>string</td>\n<td>NULL</td>\n<td>\nAllow to filter the list of resources returned. Format is: <code>{association}.{attribute1}{operand}{value}</code> where: <ul>\n<li>association is the association if this is a nested filter (optional)</li>\n<li>operand is one of the following: <code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, false can be expressed with <code>false</code> or <code>0</code>).</li>\n<li>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. with | string | NULL | This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</li>\n</ul>\n</td>\n</tr>\n</table>\n\n<p>When filtering, the operand should be one of the following:</p>\n<p><code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, <code>false</code> can be expressed with <code>false</code> or <code>0</code>).</p>\n<p>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</p>\n<p>Refer to the sample documentation for the specific call you are making to see which related resource can be fetched.</p>\n\n<h3>Date and Time Filtering</h3>\n<p>Unless otherwise noted, all Datetime attributes in API responses will be returned in an ISO8601 compliant format:</p>\n<><code>YYYY-MM-DDTHH:mm:ss.sssZ</code> (e.g. <code>2024-10-05T14:48:00.000Z</code>).</p>\n<h2 id=\"rate-limiting\">Rate Limiting</h2>\n<p>The GoFundMe Pro API implements rate limiting to ensure fair usage and maintain service quality for all users. Rate limits are applied on a per-application and per-user basis.</p>\n<h3>When Rate Limiting Applies</h3>\n<p>Rate limiting is applied to requests that meet the following conditions:</p>\n<ul>\n<li>The API application is <strong>not internal</strong> (external/third-party applications)</li>\n<li>The API application is associated to an Organization</li>\n</ul>\n<p>Internal applications are not subject to rate limiting.</p>\n<h3>Rate Limit Details</h3>\n<p>By default, the rate limit is:</p>\n<ul>\n<li><strong>1800 requests per minute</strong> per application</li>\n</ul>\n<p>Rate limits may be adjusted dynamically via flags for specific applications or users.</p>\n<h3>Rate Limit Headers</h3>\n<p>All API responses include the following headers to help you track your rate limit status:</p>\n<table border='1'>\n<tr>\n<th width='200px'>Header</th>\n<th>Description</th>\n</tr>\n<tr>\n<td><code>X-RateLimit-Limit</code></td>\n<td>The maximum number of requests allowed in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Remaining</code></td>\n<td>The number of requests remaining in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Reset</code></td>\n<td>Unix timestamp indicating when the rate limit window resets (only included when limit is exceeded)</td>\n</tr>\n<tr>\n<td><code>Retry-After</code></td>\n<td>Number of seconds to wait before retrying (only included in 429 responses)</td>\n</tr>\n</table>\n<h3>Handling Rate Limit Errors</h3>\n<p>When you exceed the rate limit, the API will return a <code>429 Too Many Requests</code> response with the following structure:</p>\n<pre><code>{\n  \"message\": \"Too Many Attempts.\",\n  \"retry_after\": 42\n}</code></pre>\n<p>The response will include the <code>Retry-After</code> header indicating how many seconds you should wait before making another request.</p>\n<h3>Best Practices</h3>\n<ul>\n<li>Monitor the <code>X-RateLimit-Remaining</code> header to track your usage</li>\n<li>Implement exponential backoff when you receive a 429 response</li>\n<li>Respect the <code>Retry-After</code> header value before retrying</li>\n<li>Cache responses when possible to reduce API calls</li>\n<li>Batch operations when the API supports it</li>\n</ul>",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,220 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "GoFundMe Pro Supporters API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "/oauth2/auth",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Supporters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List fundraising page donations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-pages/:id/donors",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of Fundraising Page"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Returns all successful donations to the fundraising page. Each donation/order is a separate entry, so supporters who made multiple donations appear multiple times. Includes anonymous donations and offline donations without email addresses. Only accessible to admins."
+        },
+        {
+          "info": {
+            "name": "List unique donor email addresses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-pages/:id/donor-emails",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of Fundraising Page"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Returns unique non-empty email addresses from donations to this fundraising page. Each email appears only once, even if the donor made multiple donations. Donations without email are intentionally excluded. Pagination counts reflect unique emails, not total donations. Optimized for bulk operations like 'copy all emails'."
+        },
+        {
+          "info": {
+            "name": "List fundraiser past donors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-pages/:id/past-donors",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of Fundraising Page"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              },
+              {
+                "name": "sortReverse",
+                "value": "",
+                "type": "query",
+                "description": "Reverse the default alphabetical sort (Z→A when true)."
+              },
+              {
+                "name": "hideAlreadyDonated",
+                "value": "",
+                "type": "query",
+                "description": "When true, supporters who have already donated to the current page are omitted."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Case-insensitive substring match applied to donor first name, last name, full name, and email address."
+              }
+            ]
+          },
+          "docs": "Returns one row per supporter (deduplicated by customers_id + charity_id) who made at least one successful donation to another page owned by the current fundraiser in this organization. Offline donations and donations with no email address are included. For each supporter the response exposes billing name/email (with fallback to contact record), the fundraising page ID and title of their most recent qualifying order, the timestamp of that latest order, the aggregate SUM of every qualifying donat"
+        },
+        {
+          "info": {
+            "name": "List fundraising team donations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-teams/:id/donors",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of Fundraising Team"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              }
+            ]
+          },
+          "docs": "Returns all successful donations to the fundraising team. Each donation/order is a separate entry, so supporters who made multiple donations appear multiple times. Includes anonymous donations and offline donations without email addresses. Only accessible to admins."
+        },
+        {
+          "info": {
+            "name": "List fundraising team past donors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://pro.gofundme.com/api/2.0/fundraising-teams/:id/past-donors",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of Fundraising Team"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Indicator of which page of results to return"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to return in each page of results"
+              },
+              {
+                "name": "sortReverse",
+                "value": "",
+                "type": "query",
+                "description": "Reverse the default alphabetical sort (Z→A when true)."
+              },
+              {
+                "name": "hideAlreadyDonated",
+                "value": "",
+                "type": "query",
+                "description": "When true, supporters who have already donated to the current team are omitted."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Case-insensitive substring match applied to donor first name, last name, full name, and email address."
+              }
+            ]
+          },
+          "docs": "Returns one row per supporter (deduplicated by customers_id + charity_id) who made at least one successful donation to another team owned by the current team lead in this organization (the current team is excluded). Offline donations and donations with no email address are included. For each supporter the response exposes billing name/email (with fallback to contact record), the fundraising page ID the latest qualifying donation was made to, the team name (title) of the team that owns that page,"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
