@@ -19,6 +19,19 @@ created: '2026-08-04'
 modified: '2026-08-04'
 tags:
 - Fundraising
+- Non-Profit
+- Crowdfunding
+- Donations
+- Payments
+- Peer-to-Peer Fundraising
+- Recurring Giving
+- Event
+- Philanthropy
+- Social Impact
+- CRM
+- Webhook
+tags_raw:
+- Fundraising
 - Nonprofit
 - Crowdfunding
 - Donations
@@ -45,6 +58,12 @@ apis:
   humanURL: https://developers.gofundme.com/pro/api-docs/login
   baseURL: https://login.classy.org
   tags:
+  - Authentication
+  - Single Sign-On
+  - OpenID Connect
+  - Identity
+  - Non-Profit
+  tags_raw:
   - Authentication
   - Single Sign-On
   - OpenID Connect
@@ -225,6 +244,8 @@ apis:
   humanURL: https://developers.gofundme.com/pro/docs
   baseURL: https://pro.gofundme.com/api/2.0
   tags:
+  - Answers
+  tags_raw:
   - Answer
   properties:
   - type: OpenAPI
@@ -396,6 +417,8 @@ apis:
   humanURL: https://developers.gofundme.com/pro/docs
   baseURL: https://pro.gofundme.com/api/2.0
   tags:
+  - Brand Kit
+  tags_raw:
   - Brandkit
   properties:
   - type: OpenAPI
@@ -1645,6 +1668,8 @@ apis:
   humanURL: https://developers.gofundme.com/pro/docs
   baseURL: https://pro.gofundme.com/api/2.0
   tags:
+  - Magic Link
+  tags_raw:
   - MagicLink
   properties:
   - type: OpenAPI
@@ -2003,6 +2028,8 @@ apis:
   humanURL: https://developers.gofundme.com/pro/docs
   baseURL: https://pro.gofundme.com/api/2.0
   tags:
+  - Organization
+  tags_raw:
   - Organizations
   properties:
   - type: OpenAPI
@@ -3101,7 +3128,8 @@ apis:
     fundraising entity.
   humanURL: https://developers.gofundme.com/pro/docs
   baseURL: https://pro.gofundme.com/api/2.0
-  tags:
+  tags: []
+  tags_raw:
   - Update
   properties:
   - type: OpenAPI
