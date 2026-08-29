@@ -10,6 +10,18 @@ description: >-
   and member tokens; Svix-powered webhooks for supporter, transaction and recurring-plan events; a
   Classy Login OpenID Connect single-sign-on service; and Classy Pay embedded checkout. The consumer
   gofundme.com product publishes no public API.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://pro.gofundme.com/wp-content/uploads/2025/04/social-share-gfm-pro.png
 url: https://raw.githubusercontent.com/api-evangelist/gofundme/refs/heads/main/apis.yml
 x-type: company
@@ -3211,6 +3223,9 @@ apis:
   - type: SignUp
     url: https://developers.gofundme.com/pro/overview/request-access
 common:
+- type: CapabilityMap
+  url: capabilities/gofundme-capability-edges.yml
+  name: GoFundMe Business Capability Map
 - type: Overlay
   url: overlays/gofundme-pro-api-overlay.yaml
 - type: DomainSecurity
