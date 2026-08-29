@@ -131,47 +131,6 @@ paths:
       deprecated: true
 components:
   schemas:
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
-    MalformedPayloadResponse:
-      title: Malformed Payload Response
-      properties:
-        errors:
-          description: Description of detected errors in request
-          type: array
-          items:
-            type: string
-            example: Malformed JSON payload.
-      type: object
-    EmptyResponse:
-      title: Empty Response
-      type: object
-      additionalProperties: false
-    DoubleTheDonationAccountFillable:
-      title: DoubleTheDonation Account Fillable
-      properties:
-        public_key:
-          description: Public key for DoubleTheDonation
-          type: string
-          example: 2j9VhYMySDkLAEeB
-        private_key:
-          description: Private key for DoubleTheDonation
-          type: string
-          example: 2j9VhYMySDkLAEeB
-      type: object
     DoubleTheDonationAccount:
       title: DoubleTheDonation Account
       properties:
@@ -188,6 +147,47 @@ components:
           type: string
           example: 2j9VhYMySDkLAEeB
       type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    MalformedPayloadResponse:
+      title: Malformed Payload Response
+      properties:
+        errors:
+          description: Description of detected errors in request
+          type: array
+          items:
+            type: string
+            example: Malformed JSON payload.
+      type: object
+    DoubleTheDonationAccountFillable:
+      title: DoubleTheDonation Account Fillable
+      properties:
+        public_key:
+          description: Public key for DoubleTheDonation
+          type: string
+          example: 2j9VhYMySDkLAEeB
+        private_key:
+          description: Private key for DoubleTheDonation
+          type: string
+          example: 2j9VhYMySDkLAEeB
+      type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    EmptyResponse:
+      title: Empty Response
+      type: object
+      additionalProperties: false
   securitySchemes:
     OAuth2Application:
       type: oauth2

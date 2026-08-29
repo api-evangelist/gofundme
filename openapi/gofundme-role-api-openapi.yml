@@ -169,6 +169,45 @@ paths:
       - OAuth2Member: []
 components:
   schemas:
+    Roles:
+      title: Roles
+      properties:
+        id:
+          description: Primary identifier of Role
+          type: integer
+          example: 508
+        custom_id:
+          description: Internal name for Role
+          type: string
+          example: campaign_refund_manager
+        description:
+          description: Description of the Role
+          type: string
+          example: View transaction details and issue refunds for specific Campaigns. Refunds can be issued from the Transaction History page in your Organization's account.
+        name:
+          description: Name of the Role
+          type: string
+          example: Campaign Administrator
+        is_assignable:
+          description: Indicates if the Role is assignable or not.
+          type: boolean
+          default: true
+          example: true
+        created_at:
+          description: Date/time of initial record creation
+          type: string
+          format: date-time
+          example: '2021-04-23T08:23:21Z'
+        updated_at:
+          description: Date/time of record last updated
+          type: string
+          format: date-time
+          example: '2021-04-23T08:23:21Z'
+        classy_live_event_id:
+          description: ID of associated Live Events event id
+          type: integer
+          example: 10
+      type: object
     OrganizationRoles:
       title: Organization Roles
       type: object
@@ -255,71 +294,6 @@ components:
           type: integer
           example: 1
       type: object
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
-    CampaignRoles:
-      title: Campaign Roles
-      type: object
-      allOf:
-      - properties:
-          scope_type:
-            description: Type of Scope
-            type: string
-            example: campaign
-        type: object
-      - $ref: '#/components/schemas/Roles'
-    Roles:
-      title: Roles
-      properties:
-        id:
-          description: Primary identifier of Role
-          type: integer
-          example: 508
-        custom_id:
-          description: Internal name for Role
-          type: string
-          example: campaign_refund_manager
-        description:
-          description: Description of the Role
-          type: string
-          example: View transaction details and issue refunds for specific Campaigns. Refunds can be issued from the Transaction History page in your Organization's account.
-        name:
-          description: Name of the Role
-          type: string
-          example: Campaign Administrator
-        is_assignable:
-          description: Indicates if the Role is assignable or not.
-          type: boolean
-          default: true
-          example: true
-        created_at:
-          description: Date/time of initial record creation
-          type: string
-          format: date-time
-          example: '2021-04-23T08:23:21Z'
-        updated_at:
-          description: Date/time of record last updated
-          type: string
-          format: date-time
-          example: '2021-04-23T08:23:21Z'
-        classy_live_event_id:
-          description: ID of associated Live Events event id
-          type: integer
-          example: 10
-      type: object
     PaginationLink:
       description: Object referencing a page for the resource queried that can be used to fetch that page.
       properties:
@@ -338,15 +312,33 @@ components:
           type: boolean
           example: true
       type: object
+    CampaignRoles:
+      title: Campaign Roles
+      type: object
+      allOf:
+      - properties:
+          scope_type:
+            description: Type of Scope
+            type: string
+            example: campaign
+        type: object
+      - $ref: '#/components/schemas/Roles'
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
   parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: Number of entries to return in each page of results
-      required: false
-      schema:
-        type: integer
-        example: 20
     page:
       name: page
       in: query
@@ -355,6 +347,14 @@ components:
       schema:
         type: integer
         example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
   securitySchemes:
     OAuth2Application:
       type: oauth2

@@ -215,6 +215,84 @@ components:
           type: integer
           example: 1
       type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
+      type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    FundraisingTeamPolicyFillable:
+      title: Fundraising Team Policy Fillable
+      properties:
+        allow_subteams:
+          description: Indicates whether SubTeams are allowed under this Team
+          type: boolean
+          example: false
+        allow_fundraising_pages:
+          description: Indicates whether Fundraising Pages are allowed under this Team
+          type: boolean
+          example: true
+        allow_transactions:
+          description: Indicates whether Transactions are allowed under this Team
+          type: boolean
+          example: true
+        allow_cross_campaign_fundraisers:
+          description: Indicates whether Fundraisers from other Campaigns are allowed to join this Team
+          type: boolean
+          example: true
+        allocation_method:
+          description: Allocation method for this Team
+          type: string
+          enum:
+          - manual
+          - automatic-even-split
+          example: manual
+        min_members:
+          description: Minimum Members required before the Team is considered active
+          type: integer
+          example: 1
+        max_members:
+          description: Maximum Members allowed for this Team
+          type: integer
+          example: 10
+        fundraiser_registration_policy:
+          description: Fundraiser and Sub-team Registration Policy for this Team
+          type: string
+          enum:
+          - public
+          - private-confirmation-required
+          - private-invite-only
+          - private-password
+          - admin-only
+          example: public
+      type: object
     FundraisingTeamPolicy:
       title: Fundraising Team Policy
       properties:
@@ -282,93 +360,7 @@ components:
           format: date-time
           example: '2021-04-23T10:25:03Z'
       type: object
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
-    FundraisingTeamPolicyFillable:
-      title: Fundraising Team Policy Fillable
-      properties:
-        allow_subteams:
-          description: Indicates whether SubTeams are allowed under this Team
-          type: boolean
-          example: false
-        allow_fundraising_pages:
-          description: Indicates whether Fundraising Pages are allowed under this Team
-          type: boolean
-          example: true
-        allow_transactions:
-          description: Indicates whether Transactions are allowed under this Team
-          type: boolean
-          example: true
-        allow_cross_campaign_fundraisers:
-          description: Indicates whether Fundraisers from other Campaigns are allowed to join this Team
-          type: boolean
-          example: true
-        allocation_method:
-          description: Allocation method for this Team
-          type: string
-          enum:
-          - manual
-          - automatic-even-split
-          example: manual
-        min_members:
-          description: Minimum Members required before the Team is considered active
-          type: integer
-          example: 1
-        max_members:
-          description: Maximum Members allowed for this Team
-          type: integer
-          example: 10
-        fundraiser_registration_policy:
-          description: Fundraiser and Sub-team Registration Policy for this Team
-          type: string
-          enum:
-          - public
-          - private-confirmation-required
-          - private-invite-only
-          - private-password
-          - admin-only
-          example: public
-      type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
-      properties:
-        label:
-          description: Identifier of the page.
-          type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
-      type: object
   parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: Number of entries to return in each page of results
-      required: false
-      schema:
-        type: integer
-        example: 20
     page:
       name: page
       in: query
@@ -377,6 +369,14 @@ components:
       schema:
         type: integer
         example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
   securitySchemes:
     OAuth2Application:
       type: oauth2

@@ -407,57 +407,13 @@ paths:
       - OAuth2Member: []
 components:
   schemas:
-    Comment:
-      title: Comment
+    CommentFillable:
+      title: Comment Fillable
       properties:
         body:
           description: The content of the Comment
           type: string
           example: Example Comment
-        commentable_id:
-          description: Primary identifier of associated Commentable Entity
-          type: integer
-          example: 876
-        commentable_type:
-          description: Type of associated Commentable Entity
-          type: string
-          enum:
-          - feed_item
-          - update
-          - story
-          example: feed_item
-        commenter_name:
-          description: The full name of the creator of the Comment. CFA semantics apply only to comments embedded in a parent FeedItem's `latest_comments` (the FeedItem-level `getLatestCommentsAttribute` override drives the privacy pass). For comments returned by the standalone Post / Story / Update comment endpoints, the legacy shape is preserved regardless of the org's Contact-First Architecture flag — those surfaces are tracked for migration under PRO-4055. When CFA applies (FeedItem-embedded path) and the flag is on (npo_apiv2_ff_contact_first_architecture), this returns the supporter-derived display name (or empty string when no Supporter is found) instead of the member's name. Prefer the new `author_display_name` field for new consumers — `commenter_name` is preserved for back-compat with existing apps and will be cleaned up per-app under PRO-2280.
-          type: string
-          example: GoFundMe Pro Commenter
-        author_display_name:
-          description: 'Supporter-derived display name for the comment author. Populated only on FeedItem-embedded comments (`latest_comments`) — the standalone Post / Story / Update comment endpoints do not include this property; that gap is tracked for migration under PRO-4055. On the FeedItem-embedded path: populated when the owning Organization has Contact-First Architecture enabled (npo_apiv2_ff_contact_first_architecture); also populated (often null) on the fail-closed path when the owning Organization cannot be resolved for the parent FeedItem on a supporter-bearing feedable type. Null when no Supporter record matches the commenter for that org. New consumers should prefer this field over `commenter_name`.'
-          type:
-          - string
-          - 'null'
-          example: Pat Supporter
-        created_at:
-          description: Date/time of initial record creation
-          type: string
-          format: date-time
-          example: '2021-04-23T08:23:21Z'
-        id:
-          description: Primary identifier of record
-          type: integer
-          example: 47281
-        likes_count:
-          description: Amount of likes a Comment has received
-          type: integer
-          example: 5
-        member_id:
-          description: The ID of the Member that created of the Comment
-          type: integer
-          example: 2012
-        updated_at:
-          description: Date/time of last record update
-          type: string
-          format: date-time
-          example: '2021-04-23T08:23:21Z'
       type: object
     PaginatedResponse:
       title: Paginated Response
@@ -531,59 +487,6 @@ components:
           type: integer
           example: 1
       type: object
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
-    EmptyResponse:
-      title: Empty Response
-      type: object
-      additionalProperties: false
-    UpdateComment:
-      title: Comment (Update)
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/Comment'
-      - properties:
-          commentable_id:
-            type: integer
-            example: 736
-          commentable_type:
-            type: string
-            example: update
-        type: object
-    StoryComment:
-      title: Comment (Story)
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/Comment'
-      - properties:
-          commentable_id:
-            type: integer
-            example: 72552
-          commentable_type:
-            type: string
-            example: story
-        type: object
-    CommentFillable:
-      title: Comment Fillable
-      properties:
-        body:
-          description: The content of the Comment
-          type: string
-          example: Example Comment
-      type: object
     PaginationLink:
       description: Object referencing a page for the resource queried that can be used to fetch that page.
       properties:
@@ -602,15 +505,104 @@ components:
           type: boolean
           example: true
       type: object
+    UpdateComment:
+      title: Comment (Update)
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Comment'
+      - properties:
+          commentable_id:
+            type: integer
+            example: 736
+          commentable_type:
+            type: string
+            example: update
+        type: object
+    Comment:
+      title: Comment
+      properties:
+        body:
+          description: The content of the Comment
+          type: string
+          example: Example Comment
+        commentable_id:
+          description: Primary identifier of associated Commentable Entity
+          type: integer
+          example: 876
+        commentable_type:
+          description: Type of associated Commentable Entity
+          type: string
+          enum:
+          - feed_item
+          - update
+          - story
+          example: feed_item
+        commenter_name:
+          description: The full name of the creator of the Comment. CFA semantics apply only to comments embedded in a parent FeedItem's `latest_comments` (the FeedItem-level `getLatestCommentsAttribute` override drives the privacy pass). For comments returned by the standalone Post / Story / Update comment endpoints, the legacy shape is preserved regardless of the org's Contact-First Architecture flag — those surfaces are tracked for migration under PRO-4055. When CFA applies (FeedItem-embedded path) and the flag is on (npo_apiv2_ff_contact_first_architecture), this returns the supporter-derived display name (or empty string when no Supporter is found) instead of the member's name. Prefer the new `author_display_name` field for new consumers — `commenter_name` is preserved for back-compat with existing apps and will be cleaned up per-app under PRO-2280.
+          type: string
+          example: GoFundMe Pro Commenter
+        author_display_name:
+          description: 'Supporter-derived display name for the comment author. Populated only on FeedItem-embedded comments (`latest_comments`) — the standalone Post / Story / Update comment endpoints do not include this property; that gap is tracked for migration under PRO-4055. On the FeedItem-embedded path: populated when the owning Organization has Contact-First Architecture enabled (npo_apiv2_ff_contact_first_architecture); also populated (often null) on the fail-closed path when the owning Organization cannot be resolved for the parent FeedItem on a supporter-bearing feedable type. Null when no Supporter record matches the commenter for that org. New consumers should prefer this field over `commenter_name`.'
+          type:
+          - string
+          - 'null'
+          example: Pat Supporter
+        created_at:
+          description: Date/time of initial record creation
+          type: string
+          format: date-time
+          example: '2021-04-23T08:23:21Z'
+        id:
+          description: Primary identifier of record
+          type: integer
+          example: 47281
+        likes_count:
+          description: Amount of likes a Comment has received
+          type: integer
+          example: 5
+        member_id:
+          description: The ID of the Member that created of the Comment
+          type: integer
+          example: 2012
+        updated_at:
+          description: Date/time of last record update
+          type: string
+          format: date-time
+          example: '2021-04-23T08:23:21Z'
+      type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    StoryComment:
+      title: Comment (Story)
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Comment'
+      - properties:
+          commentable_id:
+            type: integer
+            example: 72552
+          commentable_type:
+            type: string
+            example: story
+        type: object
+    EmptyResponse:
+      title: Empty Response
+      type: object
+      additionalProperties: false
   parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: Number of entries to return in each page of results
-      required: false
-      schema:
-        type: integer
-        example: 20
     page:
       name: page
       in: query
@@ -619,6 +611,14 @@ components:
       schema:
         type: integer
         example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
   securitySchemes:
     OAuth2Application:
       type: oauth2

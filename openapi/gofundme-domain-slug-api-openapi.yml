@@ -594,57 +594,6 @@ components:
             type: string
             example: subdomain.domain.tld
         type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    DomainSlugPage:
-      title: Domain Slug Page
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/DomainSlug'
-      - properties:
-          fundraising_entity_id:
-            type: integer
-            example: 2173528
-          fundraising_entity_type:
-            type: string
-            example: fundraising_page
-          domain_masking_url:
-            type: string
-            example: subdomain.domain.tld
-        type: object
-    EmptyResponse:
-      title: Empty Response
-      type: object
-      additionalProperties: false
-    DomainSlugOrganization:
-      title: Domain Slug Organization
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/DomainSlug'
-      - properties:
-          fundraising_entity_id:
-            type: integer
-            example: 82364
-          fundraising_entity_type:
-            type: string
-            example: organization
-          domain_masking_url:
-            type: string
-            example: subdomain.domain.tld
-        type: object
     PaginationLink:
       description: Object referencing a page for the resource queried that can be used to fetch that page.
       properties:
@@ -663,6 +612,53 @@ components:
           type: boolean
           example: true
       type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    DomainSlugOrganization:
+      title: Domain Slug Organization
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/DomainSlug'
+      - properties:
+          fundraising_entity_id:
+            type: integer
+            example: 82364
+          fundraising_entity_type:
+            type: string
+            example: organization
+          domain_masking_url:
+            type: string
+            example: subdomain.domain.tld
+        type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    DomainSlugPage:
+      title: Domain Slug Page
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/DomainSlug'
+      - properties:
+          fundraising_entity_id:
+            type: integer
+            example: 2173528
+          fundraising_entity_type:
+            type: string
+            example: fundraising_page
+          domain_masking_url:
+            type: string
+            example: subdomain.domain.tld
+        type: object
     DomainSlug:
       title: Domain Slug
       properties:
@@ -718,15 +714,11 @@ components:
           maxLength: 255
           example: 15thbowlathon
       type: object
+    EmptyResponse:
+      title: Empty Response
+      type: object
+      additionalProperties: false
   parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: Number of entries to return in each page of results
-      required: false
-      schema:
-        type: integer
-        example: 20
     page:
       name: page
       in: query
@@ -735,6 +727,14 @@ components:
       schema:
         type: integer
         example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
   securitySchemes:
     OAuth2Application:
       type: oauth2

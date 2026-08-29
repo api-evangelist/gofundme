@@ -212,6 +212,64 @@ paths:
                 $ref: '#/components/schemas/ResourceNotFoundResponse'
 components:
   schemas:
+    StaffNotificationSettingFillable:
+      title: Staff Notification Setting Fillable
+      properties:
+        member_id:
+          description: Member who created Staff Notification Setting
+          type: integer
+          example: 2012
+        chargebacks_category:
+          description: Receive an email if a Supporter files a chargeback and if it’s won or lost.
+          type: boolean
+          default: false
+          example: true
+        classy_pay_category:
+          description: Sent when your Organization's payout report is available
+          type: boolean
+          default: false
+          example: false
+        fundraising_page_category:
+          description: Receive an email when a Supporter creates a Fundraising Page or Team.
+          type: boolean
+          default: false
+          example: true
+        recurring_canceled_category:
+          description: Receive an email when a Recurring Plan is canceled.
+          type: boolean
+          default: false
+          example: false
+        recurring_ended_category:
+          description: Receive an email when a Recurring Plan has ended.
+          type: boolean
+          default: false
+          example: false
+        recurring_failed_category:
+          description: Receive an email when a Recurring Donation fails.
+          type: boolean
+          default: false
+          example: false
+        recurring_modified_category:
+          description: Receive an email when a Recurring Plan has been updated.
+          type: boolean
+          default: false
+          example: false
+        recurring_new_category:
+          description: Receive an email when a new Recurring Plan has been created.
+          type: boolean
+          default: false
+          example: false
+        recurring_successful_category:
+          description: Receive an email when a Recurring Donation has been made.
+          type: boolean
+          default: false
+          example: false
+        transactions_category:
+          description: Receive an email for every donation, ticket/registration purchase.
+          type: boolean
+          default: false
+          example: true
+      type: object
     PaginatedResponse:
       title: Paginated Response
       properties:
@@ -284,51 +342,30 @@ components:
           type: integer
           example: 1
       type: object
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
     CampaignStaffNotificationSetting:
       title: Campaign Staff Notification Setting
       type: object
       allOf:
       - $ref: '#/components/schemas/StaffNotificationSetting'
       - $ref: '#/components/schemas/CampaignStaffNotificationSettingFillable'
-    OrganizationStaffNotificationSetting:
-      title: Organization Staff Notification Setting
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
       type: object
-      allOf:
-      - $ref: '#/components/schemas/StaffNotificationSetting'
-      - $ref: '#/components/schemas/OrganizationStaffNotificationSettingFillable'
-    CampaignStaffNotificationSettingFillable:
-      title: Campaign Staff Notification Setting Fillable
-      type: object
-      allOf:
-      - properties:
-          scope_type:
-            description: Scope for email notifications
-            type: string
-            enum:
-            - Campaign_Manager
-            - Organization_Manager_Campaign_Subscriber
-            example: Campaign_Manager
-          scope_id:
-            description: Scope ID will be Campaign ID af scope type is either Campaign_Manager or Organization_Manager_Campaign_Subscriber
-            type: integer
-            example: 227362
-        type: object
-      - $ref: '#/components/schemas/StaffNotificationSettingFillable'
     OrganizationStaffNotificationSettingFillable:
       title: Organization Staff Notification Setting Fillable
       type: object
@@ -346,63 +383,26 @@ components:
             example: 82364
         type: object
       - $ref: '#/components/schemas/StaffNotificationSettingFillable'
-    StaffNotificationSettingFillable:
-      title: Staff Notification Setting Fillable
+    ForbiddenResponse:
+      title: Forbidden Response
       properties:
-        member_id:
-          description: Member who created Staff Notification Setting
-          type: integer
-          example: 2012
-        chargebacks_category:
-          description: Receive an email if a Supporter files a chargeback and if it’s won or lost.
-          type: boolean
-          default: false
-          example: true
-        classy_pay_category:
-          description: Sent when your Organization's payout report is available
-          type: boolean
-          default: false
-          example: false
-        fundraising_page_category:
-          description: Receive an email when a Supporter creates a Fundraising Page or Team.
-          type: boolean
-          default: false
-          example: true
-        recurring_canceled_category:
-          description: Receive an email when a Recurring Plan is canceled.
-          type: boolean
-          default: false
-          example: false
-        recurring_ended_category:
-          description: Receive an email when a Recurring Plan has ended.
-          type: boolean
-          default: false
-          example: false
-        recurring_failed_category:
-          description: Receive an email when a Recurring Donation fails.
-          type: boolean
-          default: false
-          example: false
-        recurring_modified_category:
-          description: Receive an email when a Recurring Plan has been updated.
-          type: boolean
-          default: false
-          example: false
-        recurring_new_category:
-          description: Receive an email when a new Recurring Plan has been created.
-          type: boolean
-          default: false
-          example: false
-        recurring_successful_category:
-          description: Receive an email when a Recurring Donation has been made.
-          type: boolean
-          default: false
-          example: false
-        transactions_category:
-          description: Receive an email for every donation, ticket/registration purchase.
-          type: boolean
-          default: false
-          example: true
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    OrganizationStaffNotificationSetting:
+      title: Organization Staff Notification Setting
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/StaffNotificationSetting'
+      - $ref: '#/components/schemas/OrganizationStaffNotificationSettingFillable'
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
       type: object
     StaffNotificationSetting:
       title: Staff Notification Setting
@@ -425,33 +425,25 @@ components:
             format: date-time
             example: '2019-04-23T10:25:03Z'
         type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
-      properties:
-        label:
-          description: Identifier of the page.
-          type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
+    CampaignStaffNotificationSettingFillable:
+      title: Campaign Staff Notification Setting Fillable
       type: object
+      allOf:
+      - properties:
+          scope_type:
+            description: Scope for email notifications
+            type: string
+            enum:
+            - Campaign_Manager
+            - Organization_Manager_Campaign_Subscriber
+            example: Campaign_Manager
+          scope_id:
+            description: Scope ID will be Campaign ID af scope type is either Campaign_Manager or Organization_Manager_Campaign_Subscriber
+            type: integer
+            example: 227362
+        type: object
+      - $ref: '#/components/schemas/StaffNotificationSettingFillable'
   parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: Number of entries to return in each page of results
-      required: false
-      schema:
-        type: integer
-        example: 20
     page:
       name: page
       in: query
@@ -460,6 +452,14 @@ components:
       schema:
         type: integer
         example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
   securitySchemes:
     OAuth2Application:
       type: oauth2

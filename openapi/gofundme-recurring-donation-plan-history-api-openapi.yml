@@ -114,50 +114,6 @@ paths:
                 $ref: '#/components/schemas/ResourceNotFoundResponse'
 components:
   schemas:
-    RecurringDonationPlanHistoryFillable:
-      title: Recurring Donation Plan History Fillable
-      properties:
-        error_msg:
-          description: Error message for the Recurring Donation Plan History
-          type:
-          - string
-          - 'null'
-          maxLength: 100
-          example: There was an error
-        raw_currency_code:
-          description: The currency code of the plan's transactions.
-          type:
-          - string
-          - 'null'
-          example: CAD
-        raw_donation_amount:
-          description: The value donated, in the raw currency
-          type:
-          - number
-          - 'null'
-          format: float
-          minimum: 0
-          example: 50
-        type:
-          description: Type of Recurring Donation Plan
-          type: string
-          enum:
-          - created
-          - payment_failed
-          - updated_profile
-          - payment
-          - admin_canceled
-          - member_canceled
-          - reprocess_payment_failed
-          - reprocess_payment
-          - member_paused
-          - admin_paused
-          - member_resumed
-          - admin_resumed
-          - reactivated
-          - system_reconciled
-          example: created
-      type: object
     PaginatedResponse:
       title: Paginated Response
       properties:
@@ -230,21 +186,6 @@ components:
           type: integer
           example: 1
       type: object
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
     RecurringDonationPlanHistory:
       title: Recurring Donation Plan History
       type: object
@@ -297,15 +238,66 @@ components:
           type: boolean
           example: true
       type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    RecurringDonationPlanHistoryFillable:
+      title: Recurring Donation Plan History Fillable
+      properties:
+        error_msg:
+          description: Error message for the Recurring Donation Plan History
+          type:
+          - string
+          - 'null'
+          maxLength: 100
+          example: There was an error
+        raw_currency_code:
+          description: The currency code of the plan's transactions.
+          type:
+          - string
+          - 'null'
+          example: CAD
+        raw_donation_amount:
+          description: The value donated, in the raw currency
+          type:
+          - number
+          - 'null'
+          format: float
+          minimum: 0
+          example: 50
+        type:
+          description: Type of Recurring Donation Plan
+          type: string
+          enum:
+          - created
+          - payment_failed
+          - updated_profile
+          - payment
+          - admin_canceled
+          - member_canceled
+          - reprocess_payment_failed
+          - reprocess_payment
+          - member_paused
+          - admin_paused
+          - member_resumed
+          - admin_resumed
+          - reactivated
+          - system_reconciled
+          example: created
+      type: object
   parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: Number of entries to return in each page of results
-      required: false
-      schema:
-        type: integer
-        example: 20
     page:
       name: page
       in: query
@@ -314,6 +306,14 @@ components:
       schema:
         type: integer
         example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
   securitySchemes:
     OAuth2Application:
       type: oauth2

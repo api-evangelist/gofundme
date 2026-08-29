@@ -717,60 +717,8 @@ paths:
                 $ref: '#/components/schemas/ResourceNotFoundResponse'
 components:
   schemas:
-    Comment:
-      title: Comment
-      properties:
-        body:
-          description: The content of the Comment
-          type: string
-          example: Example Comment
-        commentable_id:
-          description: Primary identifier of associated Commentable Entity
-          type: integer
-          example: 876
-        commentable_type:
-          description: Type of associated Commentable Entity
-          type: string
-          enum:
-          - feed_item
-          - update
-          - story
-          example: feed_item
-        commenter_name:
-          description: The full name of the creator of the Comment. CFA semantics apply only to comments embedded in a parent FeedItem's `latest_comments` (the FeedItem-level `getLatestCommentsAttribute` override drives the privacy pass). For comments returned by the standalone Post / Story / Update comment endpoints, the legacy shape is preserved regardless of the org's Contact-First Architecture flag — those surfaces are tracked for migration under PRO-4055. When CFA applies (FeedItem-embedded path) and the flag is on (npo_apiv2_ff_contact_first_architecture), this returns the supporter-derived display name (or empty string when no Supporter is found) instead of the member's name. Prefer the new `author_display_name` field for new consumers — `commenter_name` is preserved for back-compat with existing apps and will be cleaned up per-app under PRO-2280.
-          type: string
-          example: GoFundMe Pro Commenter
-        author_display_name:
-          description: 'Supporter-derived display name for the comment author. Populated only on FeedItem-embedded comments (`latest_comments`) — the standalone Post / Story / Update comment endpoints do not include this property; that gap is tracked for migration under PRO-4055. On the FeedItem-embedded path: populated when the owning Organization has Contact-First Architecture enabled (npo_apiv2_ff_contact_first_architecture); also populated (often null) on the fail-closed path when the owning Organization cannot be resolved for the parent FeedItem on a supporter-bearing feedable type. Null when no Supporter record matches the commenter for that org. New consumers should prefer this field over `commenter_name`.'
-          type:
-          - string
-          - 'null'
-          example: Pat Supporter
-        created_at:
-          description: Date/time of initial record creation
-          type: string
-          format: date-time
-          example: '2021-04-23T08:23:21Z'
-        id:
-          description: Primary identifier of record
-          type: integer
-          example: 47281
-        likes_count:
-          description: Amount of likes a Comment has received
-          type: integer
-          example: 5
-        member_id:
-          description: The ID of the Member that created of the Comment
-          type: integer
-          example: 2012
-        updated_at:
-          description: Date/time of last record update
-          type: string
-          format: date-time
-          example: '2021-04-23T08:23:21Z'
-      type: object
-    FeedItemOnboarding:
-      title: Feed Item (Onboarding)
+    FeedItemComment:
+      title: Feed Item (Comment)
       type: object
       allOf:
       - $ref: '#/components/schemas/FeedItem'
@@ -778,23 +726,16 @@ components:
           feedable_type:
             description: Type of the Fundraising Entity associated with Feed Item’s described interaction
             type: string
-            enum:
-            - organization
-            example: organization
+            example: campaign
           linkable_type:
             description: Type of the Entity whose creation, update, or association is described by Feed Item
             type:
             - string
             - 'null'
-            enum:
-            - 'null'
-            example: 'null'
           comment:
             description: Comment
-            type:
-            - string
-            - 'null'
-            example: Welcome to GoFundMe Pro!
+            type: string
+            example: I just want to say that I think you all are doing a great job. Keep up the good work!
         type: object
     PaginatedResponse:
       title: Paginated Response
@@ -868,6 +809,76 @@ components:
           type: integer
           example: 1
       type: object
+    FeedItemUpdate:
+      title: Feed Item (Update)
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/FeedItem'
+      - properties:
+          feedable_type:
+            description: Type of the Fundraising Entity associated with Feed Item’s described interaction, same as linkable_type
+            type: string
+            example: fundraising_page
+          linkable_type:
+            description: Type of the Entity whose creation, update, or association is described by Feed Item same as feedable_type
+            type:
+            - string
+            - 'null'
+            example: fundraising_page
+          comment:
+            description: Comment
+            type:
+            - string
+            - 'null'
+            enum:
+            - 'null'
+            example: 'null'
+        type: object
+    FeedItemAssociation:
+      title: Feed Item (Association)
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/FeedItem'
+      - properties:
+          feedable_type:
+            description: Type of the Fundraising Entity associated with Feed Item’s described interaction
+            type: string
+            enum:
+            - fundraising_team
+            example: fundraising_team
+          linkable_type:
+            description: Type of the Entity whose creation, update, or association is described by Feed Item
+            type:
+            - string
+            - 'null'
+            enum:
+            - fundraising_page
+            example: fundraising_page
+          comment:
+            description: Comment
+            type:
+            - string
+            - 'null'
+            example: Thanks for the great cause, happy to support!
+        type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
+      type: object
     ForbiddenResponse:
       title: Forbidden Response
       properties:
@@ -875,6 +886,58 @@ components:
           description: Description of detected error in request
           type: string
           example: This action is unauthorized.
+      type: object
+    Comment:
+      title: Comment
+      properties:
+        body:
+          description: The content of the Comment
+          type: string
+          example: Example Comment
+        commentable_id:
+          description: Primary identifier of associated Commentable Entity
+          type: integer
+          example: 876
+        commentable_type:
+          description: Type of associated Commentable Entity
+          type: string
+          enum:
+          - feed_item
+          - update
+          - story
+          example: feed_item
+        commenter_name:
+          description: The full name of the creator of the Comment. CFA semantics apply only to comments embedded in a parent FeedItem's `latest_comments` (the FeedItem-level `getLatestCommentsAttribute` override drives the privacy pass). For comments returned by the standalone Post / Story / Update comment endpoints, the legacy shape is preserved regardless of the org's Contact-First Architecture flag — those surfaces are tracked for migration under PRO-4055. When CFA applies (FeedItem-embedded path) and the flag is on (npo_apiv2_ff_contact_first_architecture), this returns the supporter-derived display name (or empty string when no Supporter is found) instead of the member's name. Prefer the new `author_display_name` field for new consumers — `commenter_name` is preserved for back-compat with existing apps and will be cleaned up per-app under PRO-2280.
+          type: string
+          example: GoFundMe Pro Commenter
+        author_display_name:
+          description: 'Supporter-derived display name for the comment author. Populated only on FeedItem-embedded comments (`latest_comments`) — the standalone Post / Story / Update comment endpoints do not include this property; that gap is tracked for migration under PRO-4055. On the FeedItem-embedded path: populated when the owning Organization has Contact-First Architecture enabled (npo_apiv2_ff_contact_first_architecture); also populated (often null) on the fail-closed path when the owning Organization cannot be resolved for the parent FeedItem on a supporter-bearing feedable type. Null when no Supporter record matches the commenter for that org. New consumers should prefer this field over `commenter_name`.'
+          type:
+          - string
+          - 'null'
+          example: Pat Supporter
+        created_at:
+          description: Date/time of initial record creation
+          type: string
+          format: date-time
+          example: '2021-04-23T08:23:21Z'
+        id:
+          description: Primary identifier of record
+          type: integer
+          example: 47281
+        likes_count:
+          description: Amount of likes a Comment has received
+          type: integer
+          example: 5
+        member_id:
+          description: The ID of the Member that created of the Comment
+          type: integer
+          example: 2012
+        updated_at:
+          description: Date/time of last record update
+          type: string
+          format: date-time
+          example: '2021-04-23T08:23:21Z'
       type: object
     MalformedPayloadResponse:
       title: Malformed Payload Response
@@ -893,8 +956,8 @@ components:
           description: Description of detected errors in request
           type: string
       type: object
-    FeedItemComment:
-      title: Feed Item (Comment)
+    FeedItemOnboarding:
+      title: Feed Item (Onboarding)
       type: object
       allOf:
       - $ref: '#/components/schemas/FeedItem'
@@ -902,23 +965,26 @@ components:
           feedable_type:
             description: Type of the Fundraising Entity associated with Feed Item’s described interaction
             type: string
-            example: campaign
+            enum:
+            - organization
+            example: organization
           linkable_type:
             description: Type of the Entity whose creation, update, or association is described by Feed Item
             type:
             - string
             - 'null'
+            enum:
+            - 'null'
+            example: 'null'
           comment:
             description: Comment
-            type: string
-            example: I just want to say that I think you all are doing a great job. Keep up the good work!
+            type:
+            - string
+            - 'null'
+            example: Welcome to GoFundMe Pro!
         type: object
-    EmptyResponse:
-      title: Empty Response
-      type: object
-      additionalProperties: false
-    FeedItemUpdate:
-      title: Feed Item (Update)
+    FeedItemCreation:
+      title: Feed Item (Creation)
       type: object
       allOf:
       - $ref: '#/components/schemas/FeedItem'
@@ -1070,85 +1136,11 @@ components:
           - 'null'
           example: Pat Supporter
       type: object
-    FeedItemCreation:
-      title: Feed Item (Creation)
+    EmptyResponse:
+      title: Empty Response
       type: object
-      allOf:
-      - $ref: '#/components/schemas/FeedItem'
-      - properties:
-          feedable_type:
-            description: Type of the Fundraising Entity associated with Feed Item’s described interaction, same as linkable_type
-            type: string
-            example: fundraising_page
-          linkable_type:
-            description: Type of the Entity whose creation, update, or association is described by Feed Item same as feedable_type
-            type:
-            - string
-            - 'null'
-            example: fundraising_page
-          comment:
-            description: Comment
-            type:
-            - string
-            - 'null'
-            enum:
-            - 'null'
-            example: 'null'
-        type: object
-    FeedItemAssociation:
-      title: Feed Item (Association)
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/FeedItem'
-      - properties:
-          feedable_type:
-            description: Type of the Fundraising Entity associated with Feed Item’s described interaction
-            type: string
-            enum:
-            - fundraising_team
-            example: fundraising_team
-          linkable_type:
-            description: Type of the Entity whose creation, update, or association is described by Feed Item
-            type:
-            - string
-            - 'null'
-            enum:
-            - fundraising_page
-            example: fundraising_page
-          comment:
-            description: Comment
-            type:
-            - string
-            - 'null'
-            example: Thanks for the great cause, happy to support!
-        type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
-      properties:
-        label:
-          description: Identifier of the page.
-          type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
-      type: object
+      additionalProperties: false
   parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: Number of entries to return in each page of results
-      required: false
-      schema:
-        type: integer
-        example: 20
     page:
       name: page
       in: query
@@ -1157,6 +1149,14 @@ components:
       schema:
         type: integer
         example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
   securitySchemes:
     OAuth2Application:
       type: oauth2

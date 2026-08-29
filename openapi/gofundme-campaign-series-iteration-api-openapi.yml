@@ -147,6 +147,50 @@ paths:
       - OAuth2Member: []
 components:
   schemas:
+    CampaignCollectionFillable:
+      title: Campaign Collection Fillable
+      properties:
+        name:
+          description: Public name for the campaign series
+          type: string
+          example: Test Campaign Series
+        description:
+          description: Description of the campaign series
+          type: string
+          example: Annual 5k to raise funds for our mission
+      type: object
+    CampaignSeriesIteration:
+      title: Campaign Series Iteration
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/CampaignSeriesIterationFillable'
+      - $ref: '#/components/schemas/CampaignCollectionFillable'
+      - properties:
+          created_by:
+            description: Created By Member Id
+            type:
+            - integer
+            - 'null'
+            example: 2012
+          id:
+            description: Campaign Series Iteration Entity Id
+            type:
+            - integer
+            - 'null'
+            example: 45621
+          created_at:
+            description: Date/time of initial record creation
+            type: string
+            format: date-time
+            readOnly: true
+            example: '2021-04-23T08:23:21Z'
+          updated_at:
+            description: Date/time of record last updated
+            type: string
+            format: date-time
+            readOnly: true
+            example: '2021-04-23T08:23:21Z'
+        type: object
     ForbiddenResponse:
       title: Forbidden Response
       properties:
@@ -162,10 +206,6 @@ components:
           description: Description of detected errors in request
           type: string
       type: object
-    EmptyResponse:
-      title: Empty Response
-      type: object
-      additionalProperties: false
     CampaignSeriesIterationFillable:
       title: Fillable Campaign Series Iteration
       properties:
@@ -240,50 +280,10 @@ components:
           format: integer
           example: 245798
       type: object
-    CampaignSeriesIteration:
-      title: Campaign Series Iteration
+    EmptyResponse:
+      title: Empty Response
       type: object
-      allOf:
-      - $ref: '#/components/schemas/CampaignSeriesIterationFillable'
-      - $ref: '#/components/schemas/CampaignCollectionFillable'
-      - properties:
-          created_by:
-            description: Created By Member Id
-            type:
-            - integer
-            - 'null'
-            example: 2012
-          id:
-            description: Campaign Series Iteration Entity Id
-            type:
-            - integer
-            - 'null'
-            example: 45621
-          created_at:
-            description: Date/time of initial record creation
-            type: string
-            format: date-time
-            readOnly: true
-            example: '2021-04-23T08:23:21Z'
-          updated_at:
-            description: Date/time of record last updated
-            type: string
-            format: date-time
-            readOnly: true
-            example: '2021-04-23T08:23:21Z'
-        type: object
-    CampaignCollectionFillable:
-      title: Campaign Collection Fillable
-      properties:
-        name:
-          description: Public name for the campaign series
-          type: string
-          example: Test Campaign Series
-        description:
-          description: Description of the campaign series
-          type: string
-          example: Annual 5k to raise funds for our mission
-      type: object
+      additionalProperties: false
   securitySchemes:
     OAuth2Application:
       type: oauth2

@@ -191,32 +191,6 @@ paths:
       - OAuth2Member: []
 components:
   schemas:
-    WhitelistedCurrency:
-      title: Whitelisted Currency
-      properties:
-        created_at:
-          description: Date/time of initial record creation
-          type: string
-          format: date-time
-          example: '2021-04-23T08:23:21Z'
-        currency_code:
-          description: ISO 4217-compliant alpha currency code
-          type: string
-          example: USD
-        id:
-          description: Primary identifier of record
-          type: integer
-          example: 427
-        organization_id:
-          description: Primary identifier of associated Organization
-          type: integer
-          example: 82364
-        updated_at:
-          description: Date/time of last record update
-          type: string
-          format: date-time
-          example: '2021-04-23T10:25:03Z'
-      type: object
     PaginatedResponse:
       title: Paginated Response
       properties:
@@ -289,35 +263,6 @@ components:
           type: integer
           example: 1
       type: object
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
-    MalformedPayloadResponse:
-      title: Malformed Payload Response
-      properties:
-        errors:
-          description: Description of detected errors in request
-          type: array
-          items:
-            type: string
-            example: Malformed JSON payload.
-      type: object
-    EmptyResponse:
-      title: Empty Response
-      type: object
-      additionalProperties: false
     PaginationLink:
       description: Object referencing a page for the resource queried that can be used to fetch that page.
       properties:
@@ -336,15 +281,62 @@ components:
           type: boolean
           example: true
       type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    MalformedPayloadResponse:
+      title: Malformed Payload Response
+      properties:
+        errors:
+          description: Description of detected errors in request
+          type: array
+          items:
+            type: string
+            example: Malformed JSON payload.
+      type: object
+    WhitelistedCurrency:
+      title: Whitelisted Currency
+      properties:
+        created_at:
+          description: Date/time of initial record creation
+          type: string
+          format: date-time
+          example: '2021-04-23T08:23:21Z'
+        currency_code:
+          description: ISO 4217-compliant alpha currency code
+          type: string
+          example: USD
+        id:
+          description: Primary identifier of record
+          type: integer
+          example: 427
+        organization_id:
+          description: Primary identifier of associated Organization
+          type: integer
+          example: 82364
+        updated_at:
+          description: Date/time of last record update
+          type: string
+          format: date-time
+          example: '2021-04-23T10:25:03Z'
+      type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    EmptyResponse:
+      title: Empty Response
+      type: object
+      additionalProperties: false
   parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: Number of entries to return in each page of results
-      required: false
-      schema:
-        type: integer
-        example: 20
     page:
       name: page
       in: query
@@ -353,6 +345,14 @@ components:
       schema:
         type: integer
         example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
   securitySchemes:
     OAuth2Application:
       type: oauth2

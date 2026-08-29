@@ -532,16 +532,6 @@ paths:
                 $ref: '#/components/schemas/ResourceNotFoundResponse'
 components:
   schemas:
-    CampaignFundraisingTrackingCode:
-      title: CampaignFundraisingTrackingCode
-      properties:
-        fundraising_tracking_code:
-          description: Only in PUT call, to be added if org has tag early-access:fundraising-tracking-code
-          type:
-          - string
-          - 'null'
-          example: JD0146
-      type: object
     PaginatedResponse:
       title: Paginated Response
       properties:
@@ -614,6 +604,24 @@ components:
           type: integer
           example: 1
       type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
+      type: object
     ForbiddenResponse:
       title: Forbidden Response
       properties:
@@ -622,12 +630,15 @@ components:
           type: string
           example: This action is unauthorized.
       type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
+    CampaignFundraisingTrackingCode:
+      title: CampaignFundraisingTrackingCode
       properties:
-        error:
-          description: Description of detected errors in request
-          type: string
+        fundraising_tracking_code:
+          description: Only in PUT call, to be added if org has tag early-access:fundraising-tracking-code
+          type:
+          - string
+          - 'null'
+          example: JD0146
       type: object
     MalformedPayloadResponse:
       title: Malformed Payload Response
@@ -639,10 +650,13 @@ components:
             type: string
             example: Malformed JSON payload.
       type: object
-    EmptyResponse:
-      title: Empty Response
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
       type: object
-      additionalProperties: false
     Campaign:
       title: Campaign
       properties:
@@ -1277,33 +1291,11 @@ components:
           - 'null'
           example: https://www.myawesomecharity.org
       type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
-      properties:
-        label:
-          description: Identifier of the page.
-          type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
+    EmptyResponse:
+      title: Empty Response
       type: object
+      additionalProperties: false
   parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: Number of entries to return in each page of results
-      required: false
-      schema:
-        type: integer
-        example: 20
     page:
       name: page
       in: query
@@ -1312,6 +1304,14 @@ components:
       schema:
         type: integer
         example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
   securitySchemes:
     OAuth2Application:
       type: oauth2

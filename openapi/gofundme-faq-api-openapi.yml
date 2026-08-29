@@ -220,23 +220,36 @@ paths:
                 $ref: '#/components/schemas/ResourceNotFoundResponse'
 components:
   schemas:
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
+    FAQFillable:
+      title: Fillable Frequently Asked Questions
       properties:
-        label:
-          description: Identifier of the page.
+        answer:
+          description: FAQ Answer Body
           type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
+          format: string
+          maxLength: 500
+          example: The answer to this question is 42
+        question:
+          description: FAQ Body
+          type: string
+          format: string
+          maxLength: 100
+          example: What is a question?
+        tag:
+          description: Tags assigned to the FAQ
           type:
           - string
           - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
+          enum:
+          - tax
+          - other
+          example: other
+        weight:
+          description: Identify the importance of this Question when sorting
+          type: integer
+          maximum: 255
+          minimum: 0
+          example: 10
       type: object
     PaginatedResponse:
       title: Paginated Response
@@ -310,6 +323,24 @@ components:
           type: integer
           example: 1
       type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
+      type: object
     ForbiddenResponse:
       title: Forbidden Response
       properties:
@@ -327,44 +358,6 @@ components:
           items:
             type: string
             example: Malformed JSON payload.
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
-    FAQFillable:
-      title: Fillable Frequently Asked Questions
-      properties:
-        answer:
-          description: FAQ Answer Body
-          type: string
-          format: string
-          maxLength: 500
-          example: The answer to this question is 42
-        question:
-          description: FAQ Body
-          type: string
-          format: string
-          maxLength: 100
-          example: What is a question?
-        tag:
-          description: Tags assigned to the FAQ
-          type:
-          - string
-          - 'null'
-          enum:
-          - tax
-          - other
-          example: other
-        weight:
-          description: Identify the importance of this Question when sorting
-          type: integer
-          maximum: 255
-          minimum: 0
-          example: 10
       type: object
     FAQ:
       title: Frequently Asked Questions
@@ -419,15 +412,14 @@ components:
           minimum: 0
           example: 10
       type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
   parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: Number of entries to return in each page of results
-      required: false
-      schema:
-        type: integer
-        example: 20
     page:
       name: page
       in: query
@@ -436,6 +428,14 @@ components:
       schema:
         type: integer
         example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
   securitySchemes:
     OAuth2Application:
       type: oauth2

@@ -578,6 +578,507 @@ paths:
                 $ref: '#/components/schemas/ResourceNotFoundResponse'
 components:
   schemas:
+    TransactionFillable:
+      title: Transaction Fillable
+      properties:
+        billing_address1:
+          description: Line one of Billing address
+          type:
+          - string
+          - 'null'
+          example: 533 F Street
+        billing_address2:
+          description: Line two of Billing address
+          type:
+          - string
+          - 'null'
+          example: 533 F Street
+        billing_city:
+          description: Billing city
+          type:
+          - string
+          - 'null'
+          example: San Diego
+        billing_country:
+          description: Billing country. Must be a valid ISO 3166-1 alpha-2 country code
+          type:
+          - string
+          - 'null'
+          example: US
+        billing_first_name:
+          description: Billing first name
+          type:
+          - string
+          - 'null'
+          example: GoFundMe Pro
+        billing_last_name:
+          description: Billing last name
+          type:
+          - string
+          - 'null'
+          example: Member
+        billing_postal_code:
+          description: Billing zip/postal code
+          type:
+          - string
+          - 'null'
+          example: '92101'
+        billing_state:
+          description: Billing state/province
+          type:
+          - string
+          - 'null'
+          maxLength: 32
+          example: CA
+        browser_info:
+          description: Browser information
+          type:
+          - string
+          - 'null'
+          example: information
+        comment:
+          description: Organization comment
+          type:
+          - string
+          - 'null'
+          example: This is a comment
+        company_name:
+          description: Name of company this Transaction has ties to
+          type:
+          - string
+          - 'null'
+          example: GoFundMe Pro
+        hide_amount:
+          description: Whether purchaser indicated if Transaction amount should be hidden
+          type:
+          - boolean
+          - 'null'
+          example: false
+        is_anonymous:
+          description: Whether purchaser indicated if transaction should be anonymous
+          type:
+          - boolean
+          - 'null'
+          example: false
+        is_gift_aid:
+          description: Flag whether the donor opted into gift aid used by the UK or not. Can only be set if the organization allows it
+          type:
+          - boolean
+          - 'null'
+          example: false
+        is_reprocess:
+          description: If it is a reprocessed transaction or not
+          type:
+          - boolean
+          - 'null'
+          example: true
+        member_country:
+          description: Country of the Member
+          type:
+          - string
+          - 'null'
+          example: US
+        member_email_address:
+          description: Email address of purchaser GoFundMe Pro Member
+          type:
+          - string
+          - 'null'
+          example: member@gofundme.com
+        member_name:
+          description: ' Name of purchaser GoFundMe Pro Member'
+          type:
+          - string
+          - 'null'
+          example: GoFundMe Pro Member
+        member_phone:
+          description: Phone number of purchaser GoFundMe Pro Member
+          type:
+          - string
+          - 'null'
+          example: 555-555-5555
+        member_cell_phone:
+          description: Cell phone number of purchaser GoFundMe Pro Member. Also forwarded to the supporter record (cell_phone) on supporter creation — the SMS consent target when collected.
+          type:
+          - string
+          - 'null'
+          example: 555-555-5555
+        metadata:
+          description: An optional set of unstructured metadata to be stored with a Transaction
+          type:
+          - string
+          - 'null'
+          example: '{foo: ''bar''}'
+        raw_currency_code:
+          description: Currency Code of the Transaction before normalization
+          type:
+          - string
+          - 'null'
+          example: JPY
+        status:
+          description: The status of the Transaction
+          type:
+          - string
+          - 'null'
+          enum:
+          - test
+          - canceled
+          - incomplete
+          - success
+          - refunded
+          - cb_lost
+          - cb_initiated
+          - voided
+          - pending
+          - failed
+          example: canceled
+        reprocess_attempt_info:
+          $ref: '#/components/schemas/ReprocessAttemptInfoFillable'
+        fundraising_tracking_code:
+          description: Fundraising Tracking Code to improve accuracy and efficiency in fundraising reporting
+          type: string
+          example: JD0146
+      type: object
+    OfflinePaymentInfo:
+      title: Offline Payment Info
+      properties:
+        check_number:
+          description: Check number for a check payment type
+          type:
+          - string
+          - 'null'
+          maxLength: 32
+          example: '456'
+        description:
+          description: Additional offline donation details
+          type:
+          - string
+          - 'null'
+          maxLength: 255
+          example: Lorem ipsum whatever
+        payment_type:
+          description: Payment type for the offline donation
+          type:
+          - string
+          - 'null'
+          enum:
+          - cash
+          - check
+          - cc
+          - pledge
+          - other
+          - sponsor
+          - stock_donations
+          - corporate_match
+          - donation_match
+          - eft
+          - crypto
+          - dafpay
+          example: cash
+        sync_third_party:
+          description: Sync this offline transaction into third party products such as salesforce
+          type:
+          - boolean
+          - 'null'
+          example: false
+      type: object
+    PaginatedResponse:
+      title: Paginated Response
+      properties:
+        current_page:
+          description: Index of current page
+          type: integer
+          example: 1
+        data:
+          description: Collection of results
+          type: array
+          items:
+            type: object
+        first_page_url:
+          description: URL of first page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        from:
+          description: Index of first displayed result within total result set
+          type:
+          - integer
+          - 'null'
+          example: 1
+        last_page:
+          description: Index of last page in result set
+          type: integer
+          example: 1
+        last_page_url:
+          description: URL of last page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        next_page_url:
+          description: URL of next page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=2
+        path:
+          description: URL of current page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource
+        per_page:
+          description: Maximum number of records returned per page of results
+          type: integer
+          example: 20
+        prev_page_url:
+          description: URL of previous page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        links:
+          description: Collection of objects representing pages {label, URL, active} that can be used to request the associated page of records.
+          type: array
+          items:
+            $ref: '#/components/schemas/PaginationLink'
+        to:
+          description: Index of last displayed result within total result set
+          type:
+          - integer
+          - 'null'
+          example: 1
+        total:
+          description: Total count of records in result set
+          type: integer
+          example: 1
+      type: object
+    TransactionContext:
+      title: Transaction Context
+      properties:
+        application_fee_campaign_category:
+          description: Campaign Category the Transaction belongs to
+          type:
+          - string
+          - 'null'
+          enum:
+          - main_donate_button
+          - recurring_migration
+          - high_value
+          - virtual
+          example: main_donate_button
+        application_fee_platform_fee_type:
+          description: type of VRP Platform Fee the Transaction has, if applicable
+          type:
+          - string
+          - 'null'
+          enum:
+          - non_migrated_recurring
+          - migrated_recurring
+          - major_gift
+          example: non_migrated_recurring
+        commerce_order_id:
+          description: Commerce Order ID
+          type:
+          - string
+          - 'null'
+          example: or_01HFSN0GJZ6656RM8602Z37DY1
+        customizations_metadata:
+          description: Arbitrary JSON metadata set by a custom embedded Studio block
+          type:
+          - object
+          - 'null'
+          example:
+            theme: dark
+            custom_fields:
+              field1: value1
+        created_by:
+          description: Name of associated App
+          type:
+          - string
+          - 'null'
+          example: My App
+        commerce_confirmation_id:
+          description: Commerce Confirmation ID
+          type:
+          - string
+          - 'null'
+          example: C9UE75VB2
+        is_passport:
+          description: Passport Transaction
+          type: boolean
+          example: true
+        source_campaign_id:
+          description: Source Campaign identifier
+          type: integer
+          example: 227362
+        source_campaign_type:
+          description: Source Campaign type
+          type: string
+          enum:
+          - crowdfunding
+          - donation
+          - fund_for_entry
+          - peer_to_peer
+          - reg_w_fund
+          - registration
+          - ticketed
+          - dynamic
+          example: peer_to_peer
+        vendor_name:
+          description: Vendor name
+          type:
+          - string
+          - 'null'
+          example: Vendor XYZ
+        vendor_batch_number:
+          description: Vendor batch number
+          type:
+          - string
+          - 'null'
+          example: BATCH123456
+        vendor_batch_sequence:
+          description: Vendor batch sequence
+          type:
+          - string
+          - 'null'
+          example: '001'
+        vendor_batch_date:
+          description: Vendor batch date
+          type:
+          - string
+          - 'null'
+          example: '2024-01-15'
+      type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
+      type: object
+    AnswerFillable:
+      title: Answer Fillable
+      properties:
+        answer:
+          description: Answer content
+          type: string
+          example: Example answer test
+      type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    ReprocessAttemptInfo:
+      title: ReprocessAttemptInfo
+      properties:
+        created_at:
+          description: Date/Time ReprocessAttemptInfo was created
+          type: string
+          format: date-time
+          example: 2021-01-01T12:00:00+0000
+        initiated_by_id:
+          description: The ID of the member initiating the reprocess
+          type: integer
+          example: 2012
+        original_transaction_id:
+          description: ID of the original Transaction
+          type: integer
+          example: 8734
+        reprocess_transaction_id:
+          description: ID of Reprocess Transaction
+          type: integer
+          example: 7623371
+        state:
+          description: Reprocess status
+          type: string
+          enum:
+          - completed
+          - pending
+          - failed
+          example: completed
+        updated_at:
+          description: Date/Time ReprocessAttemptInfo was updated
+          type: string
+          format: date-time
+          example: 2021-01-01T12:00:00+0000
+      type: object
+    Answer:
+      title: Answer
+      properties:
+        answer:
+          description: Answer content
+          type: string
+          maxLength: 255
+          example: Example answer test
+        answerable_id:
+          description: Primary identifier of associated Fundraising Entity object. Required with answerable_type
+          type:
+          - integer
+          - 'null'
+          example: 3245
+        answerable_type:
+          description: Type of associated Fundraising Entity. Required with answerable_id
+          type:
+          - string
+          - 'null'
+          enum:
+          - fundraising_team
+          - fundraising_page
+          - transaction
+          - campaign_registration
+          example: fundraising_team
+        campaign_id:
+          description: Primary identifier of associated Campaign
+          type: integer
+          example: 227362
+        created_at:
+          description: Date/time of initial record creation
+          type: string
+          format: date-time
+          example: '2021-04-23T08:23:21Z'
+        id:
+          description: Primary identifier of record
+          type: integer
+          example: 32459
+        member_id:
+          description: Primary identifier of associated Member
+          type: integer
+          example: 2012
+        question_id:
+          description: Primary identifier of associated Question
+          type: integer
+          example: 45678
+        updated_at:
+          description: Date/time of last record update
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2021-04-23T10:25:03Z'
+      type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
     CampaignTransactionFillable:
       title: Campaign Transaction Fillable
       properties:
@@ -797,267 +1298,6 @@ components:
           - failed
           example: canceled
       type: object
-    ReprocessAttemptInfo:
-      title: ReprocessAttemptInfo
-      properties:
-        created_at:
-          description: Date/Time ReprocessAttemptInfo was created
-          type: string
-          format: date-time
-          example: 2021-01-01T12:00:00+0000
-        initiated_by_id:
-          description: The ID of the member initiating the reprocess
-          type: integer
-          example: 2012
-        original_transaction_id:
-          description: ID of the original Transaction
-          type: integer
-          example: 8734
-        reprocess_transaction_id:
-          description: ID of Reprocess Transaction
-          type: integer
-          example: 7623371
-        state:
-          description: Reprocess status
-          type: string
-          enum:
-          - completed
-          - pending
-          - failed
-          example: completed
-        updated_at:
-          description: Date/Time ReprocessAttemptInfo was updated
-          type: string
-          format: date-time
-          example: 2021-01-01T12:00:00+0000
-      type: object
-    TransactionContext:
-      title: Transaction Context
-      properties:
-        application_fee_campaign_category:
-          description: Campaign Category the Transaction belongs to
-          type:
-          - string
-          - 'null'
-          enum:
-          - main_donate_button
-          - recurring_migration
-          - high_value
-          - virtual
-          example: main_donate_button
-        application_fee_platform_fee_type:
-          description: type of VRP Platform Fee the Transaction has, if applicable
-          type:
-          - string
-          - 'null'
-          enum:
-          - non_migrated_recurring
-          - migrated_recurring
-          - major_gift
-          example: non_migrated_recurring
-        commerce_order_id:
-          description: Commerce Order ID
-          type:
-          - string
-          - 'null'
-          example: or_01HFSN0GJZ6656RM8602Z37DY1
-        customizations_metadata:
-          description: Arbitrary JSON metadata set by a custom embedded Studio block
-          type:
-          - object
-          - 'null'
-          example:
-            theme: dark
-            custom_fields:
-              field1: value1
-        created_by:
-          description: Name of associated App
-          type:
-          - string
-          - 'null'
-          example: My App
-        commerce_confirmation_id:
-          description: Commerce Confirmation ID
-          type:
-          - string
-          - 'null'
-          example: C9UE75VB2
-        is_passport:
-          description: Passport Transaction
-          type: boolean
-          example: true
-        source_campaign_id:
-          description: Source Campaign identifier
-          type: integer
-          example: 227362
-        source_campaign_type:
-          description: Source Campaign type
-          type: string
-          enum:
-          - crowdfunding
-          - donation
-          - fund_for_entry
-          - peer_to_peer
-          - reg_w_fund
-          - registration
-          - ticketed
-          - dynamic
-          example: peer_to_peer
-        vendor_name:
-          description: Vendor name
-          type:
-          - string
-          - 'null'
-          example: Vendor XYZ
-        vendor_batch_number:
-          description: Vendor batch number
-          type:
-          - string
-          - 'null'
-          example: BATCH123456
-        vendor_batch_sequence:
-          description: Vendor batch sequence
-          type:
-          - string
-          - 'null'
-          example: '001'
-        vendor_batch_date:
-          description: Vendor batch date
-          type:
-          - string
-          - 'null'
-          example: '2024-01-15'
-      type: object
-    PaginatedResponse:
-      title: Paginated Response
-      properties:
-        current_page:
-          description: Index of current page
-          type: integer
-          example: 1
-        data:
-          description: Collection of results
-          type: array
-          items:
-            type: object
-        first_page_url:
-          description: URL of first page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=1
-        from:
-          description: Index of first displayed result within total result set
-          type:
-          - integer
-          - 'null'
-          example: 1
-        last_page:
-          description: Index of last page in result set
-          type: integer
-          example: 1
-        last_page_url:
-          description: URL of last page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=1
-        next_page_url:
-          description: URL of next page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=2
-        path:
-          description: URL of current page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource
-        per_page:
-          description: Maximum number of records returned per page of results
-          type: integer
-          example: 20
-        prev_page_url:
-          description: URL of previous page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=1
-        links:
-          description: Collection of objects representing pages {label, URL, active} that can be used to request the associated page of records.
-          type: array
-          items:
-            $ref: '#/components/schemas/PaginationLink'
-        to:
-          description: Index of last displayed result within total result set
-          type:
-          - integer
-          - 'null'
-          example: 1
-        total:
-          description: Total count of records in result set
-          type: integer
-          example: 1
-      type: object
-    OfflinePaymentInfo:
-      title: Offline Payment Info
-      properties:
-        check_number:
-          description: Check number for a check payment type
-          type:
-          - string
-          - 'null'
-          maxLength: 32
-          example: '456'
-        description:
-          description: Additional offline donation details
-          type:
-          - string
-          - 'null'
-          maxLength: 255
-          example: Lorem ipsum whatever
-        payment_type:
-          description: Payment type for the offline donation
-          type:
-          - string
-          - 'null'
-          enum:
-          - cash
-          - check
-          - cc
-          - pledge
-          - other
-          - sponsor
-          - stock_donations
-          - corporate_match
-          - donation_match
-          - eft
-          - crypto
-          - dafpay
-          example: cash
-        sync_third_party:
-          description: Sync this offline transaction into third party products such as salesforce
-          type:
-          - boolean
-          - 'null'
-          example: false
-      type: object
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
     TransactionItemFillable:
       title: Transaction Item Fillable
       properties:
@@ -1099,6 +1339,34 @@ components:
           - auction
           - good
           example: donation
+      type: object
+    ReprocessAttemptInfoFillable:
+      title: ReprocessAttemptInfoFillable
+      properties:
+        original_transaction_id:
+          description: ID of the original Transaction
+          type: integer
+          example: 8734
+        reprocess_transaction_id:
+          description: ID of Reprocess Transaction
+          type: integer
+          example: 7623371
+        initiated_by_id:
+          description: The ID of the member initiating the reprocess
+          type: integer
+          example: 2012
+        pp_transaction_id:
+          description: Transaction ID for the payment provider (e.g. Classy Pay)
+          type: string
+          example: '922337203687624342'
+        state:
+          description: Reprocess status
+          type: string
+          enum:
+          - completed
+          - pending
+          - failed
+          example: completed
       type: object
     Transaction:
       title: Transaction
@@ -1820,283 +2088,7 @@ components:
           type: boolean
           example: false
       type: object
-    ReprocessAttemptInfoFillable:
-      title: ReprocessAttemptInfoFillable
-      properties:
-        original_transaction_id:
-          description: ID of the original Transaction
-          type: integer
-          example: 8734
-        reprocess_transaction_id:
-          description: ID of Reprocess Transaction
-          type: integer
-          example: 7623371
-        initiated_by_id:
-          description: The ID of the member initiating the reprocess
-          type: integer
-          example: 2012
-        pp_transaction_id:
-          description: Transaction ID for the payment provider (e.g. Classy Pay)
-          type: string
-          example: '922337203687624342'
-        state:
-          description: Reprocess status
-          type: string
-          enum:
-          - completed
-          - pending
-          - failed
-          example: completed
-      type: object
-    AnswerFillable:
-      title: Answer Fillable
-      properties:
-        answer:
-          description: Answer content
-          type: string
-          example: Example answer test
-      type: object
-    Answer:
-      title: Answer
-      properties:
-        answer:
-          description: Answer content
-          type: string
-          maxLength: 255
-          example: Example answer test
-        answerable_id:
-          description: Primary identifier of associated Fundraising Entity object. Required with answerable_type
-          type:
-          - integer
-          - 'null'
-          example: 3245
-        answerable_type:
-          description: Type of associated Fundraising Entity. Required with answerable_id
-          type:
-          - string
-          - 'null'
-          enum:
-          - fundraising_team
-          - fundraising_page
-          - transaction
-          - campaign_registration
-          example: fundraising_team
-        campaign_id:
-          description: Primary identifier of associated Campaign
-          type: integer
-          example: 227362
-        created_at:
-          description: Date/time of initial record creation
-          type: string
-          format: date-time
-          example: '2021-04-23T08:23:21Z'
-        id:
-          description: Primary identifier of record
-          type: integer
-          example: 32459
-        member_id:
-          description: Primary identifier of associated Member
-          type: integer
-          example: 2012
-        question_id:
-          description: Primary identifier of associated Question
-          type: integer
-          example: 45678
-        updated_at:
-          description: Date/time of last record update
-          type:
-          - string
-          - 'null'
-          format: date-time
-          example: '2021-04-23T10:25:03Z'
-      type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
-      properties:
-        label:
-          description: Identifier of the page.
-          type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
-      type: object
-    TransactionFillable:
-      title: Transaction Fillable
-      properties:
-        billing_address1:
-          description: Line one of Billing address
-          type:
-          - string
-          - 'null'
-          example: 533 F Street
-        billing_address2:
-          description: Line two of Billing address
-          type:
-          - string
-          - 'null'
-          example: 533 F Street
-        billing_city:
-          description: Billing city
-          type:
-          - string
-          - 'null'
-          example: San Diego
-        billing_country:
-          description: Billing country. Must be a valid ISO 3166-1 alpha-2 country code
-          type:
-          - string
-          - 'null'
-          example: US
-        billing_first_name:
-          description: Billing first name
-          type:
-          - string
-          - 'null'
-          example: GoFundMe Pro
-        billing_last_name:
-          description: Billing last name
-          type:
-          - string
-          - 'null'
-          example: Member
-        billing_postal_code:
-          description: Billing zip/postal code
-          type:
-          - string
-          - 'null'
-          example: '92101'
-        billing_state:
-          description: Billing state/province
-          type:
-          - string
-          - 'null'
-          maxLength: 32
-          example: CA
-        browser_info:
-          description: Browser information
-          type:
-          - string
-          - 'null'
-          example: information
-        comment:
-          description: Organization comment
-          type:
-          - string
-          - 'null'
-          example: This is a comment
-        company_name:
-          description: Name of company this Transaction has ties to
-          type:
-          - string
-          - 'null'
-          example: GoFundMe Pro
-        hide_amount:
-          description: Whether purchaser indicated if Transaction amount should be hidden
-          type:
-          - boolean
-          - 'null'
-          example: false
-        is_anonymous:
-          description: Whether purchaser indicated if transaction should be anonymous
-          type:
-          - boolean
-          - 'null'
-          example: false
-        is_gift_aid:
-          description: Flag whether the donor opted into gift aid used by the UK or not. Can only be set if the organization allows it
-          type:
-          - boolean
-          - 'null'
-          example: false
-        is_reprocess:
-          description: If it is a reprocessed transaction or not
-          type:
-          - boolean
-          - 'null'
-          example: true
-        member_country:
-          description: Country of the Member
-          type:
-          - string
-          - 'null'
-          example: US
-        member_email_address:
-          description: Email address of purchaser GoFundMe Pro Member
-          type:
-          - string
-          - 'null'
-          example: member@gofundme.com
-        member_name:
-          description: ' Name of purchaser GoFundMe Pro Member'
-          type:
-          - string
-          - 'null'
-          example: GoFundMe Pro Member
-        member_phone:
-          description: Phone number of purchaser GoFundMe Pro Member
-          type:
-          - string
-          - 'null'
-          example: 555-555-5555
-        member_cell_phone:
-          description: Cell phone number of purchaser GoFundMe Pro Member. Also forwarded to the supporter record (cell_phone) on supporter creation — the SMS consent target when collected.
-          type:
-          - string
-          - 'null'
-          example: 555-555-5555
-        metadata:
-          description: An optional set of unstructured metadata to be stored with a Transaction
-          type:
-          - string
-          - 'null'
-          example: '{foo: ''bar''}'
-        raw_currency_code:
-          description: Currency Code of the Transaction before normalization
-          type:
-          - string
-          - 'null'
-          example: JPY
-        status:
-          description: The status of the Transaction
-          type:
-          - string
-          - 'null'
-          enum:
-          - test
-          - canceled
-          - incomplete
-          - success
-          - refunded
-          - cb_lost
-          - cb_initiated
-          - voided
-          - pending
-          - failed
-          example: canceled
-        reprocess_attempt_info:
-          $ref: '#/components/schemas/ReprocessAttemptInfoFillable'
-        fundraising_tracking_code:
-          description: Fundraising Tracking Code to improve accuracy and efficiency in fundraising reporting
-          type: string
-          example: JD0146
-      type: object
   parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: Number of entries to return in each page of results
-      required: false
-      schema:
-        type: integer
-        example: 20
     page:
       name: page
       in: query
@@ -2105,6 +2097,14 @@ components:
       schema:
         type: integer
         example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
   securitySchemes:
     OAuth2Application:
       type: oauth2

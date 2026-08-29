@@ -678,35 +678,13 @@ components:
           type: integer
           example: 1
       type: object
-    ForbiddenResponse:
-      title: Forbidden Response
+    Metadata:
+      title: Metadata
       properties:
-        error:
-          description: Description of detected error in request
+        foo:
           type: string
-          example: This action is unauthorized.
+          example: bar
       type: object
-    MalformedPayloadResponse:
-      title: Malformed Payload Response
-      properties:
-        errors:
-          description: Description of detected errors in request
-          type: array
-          items:
-            type: string
-            example: Malformed JSON payload.
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
-    EmptyResponse:
-      title: Empty Response
-      type: object
-      additionalProperties: false
     Supporter:
       title: Supporter
       properties:
@@ -866,13 +844,6 @@ components:
           format: date-time
           example: '2021-04-23T08:23:21Z'
       type: object
-    Metadata:
-      title: Metadata
-      properties:
-        foo:
-          type: string
-          example: bar
-      type: object
     PaginationLink:
       description: Object referencing a page for the resource queried that can be used to fetch that page.
       properties:
@@ -890,6 +861,31 @@ components:
           description: Identifies whether the previously requested page matches the page this link object references.
           type: boolean
           example: true
+      type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    MalformedPayloadResponse:
+      title: Malformed Payload Response
+      properties:
+        errors:
+          description: Description of detected errors in request
+          type: array
+          items:
+            type: string
+            example: Malformed JSON payload.
+      type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
       type: object
     SupporterFillable:
       title: Supporter Fillable
@@ -1000,15 +996,11 @@ components:
           maxLength: 100
           example: NE
       type: object
+    EmptyResponse:
+      title: Empty Response
+      type: object
+      additionalProperties: false
   parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: Number of entries to return in each page of results
-      required: false
-      schema:
-        type: integer
-        example: 20
     page:
       name: page
       in: query
@@ -1017,6 +1009,14 @@ components:
       schema:
         type: integer
         example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
   securitySchemes:
     OAuth2Application:
       type: oauth2

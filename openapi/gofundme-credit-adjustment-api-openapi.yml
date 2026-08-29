@@ -216,21 +216,6 @@ paths:
       - OAuth2Member: []
 components:
   schemas:
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
     CreditAdjustmentFillable:
       title: Credit Adjustment Fillable
       properties:
@@ -305,6 +290,21 @@ components:
           description: Primary identifier of associated Campaign
           type: integer
           example: 227362
+      type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
       type: object
   securitySchemes:
     OAuth2Application:

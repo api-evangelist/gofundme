@@ -276,25 +276,6 @@ components:
           type: integer
           example: 1
       type: object
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
-    EmptyResponse:
-      title: Empty Response
-      type: object
-      additionalProperties: false
     PromoCodeConfiguration:
       title: Promo Code Configuration
       properties:
@@ -321,18 +302,6 @@ components:
           format: date-time
           example: '2021-04-23T10:25:03Z'
       type: object
-    PromoCodeConfigurationFillable:
-      title: Promo Code Configuration Fillable
-      properties:
-        promo_code_id:
-          description: Primary identifier of associated Promo Code
-          type: integer
-          example: 8273
-        ticket_type_id:
-          description: Primary identifier of associated Ticket Type
-          type: integer
-          example: 9978
-      type: object
     PaginationLink:
       description: Object referencing a page for the resource queried that can be used to fetch that page.
       properties:
@@ -351,15 +320,38 @@ components:
           type: boolean
           example: true
       type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    PromoCodeConfigurationFillable:
+      title: Promo Code Configuration Fillable
+      properties:
+        promo_code_id:
+          description: Primary identifier of associated Promo Code
+          type: integer
+          example: 8273
+        ticket_type_id:
+          description: Primary identifier of associated Ticket Type
+          type: integer
+          example: 9978
+      type: object
+    EmptyResponse:
+      title: Empty Response
+      type: object
+      additionalProperties: false
   parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: Number of entries to return in each page of results
-      required: false
-      schema:
-        type: integer
-        example: 20
     page:
       name: page
       in: query
@@ -368,6 +360,14 @@ components:
       schema:
         type: integer
         example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
   securitySchemes:
     OAuth2Application:
       type: oauth2

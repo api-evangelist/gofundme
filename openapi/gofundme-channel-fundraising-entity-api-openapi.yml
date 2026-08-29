@@ -97,40 +97,6 @@ paths:
       - OAuth2Member: []
 components:
   schemas:
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
-    ChannelFundraisingEntityFillable:
-      title: Channel Fundraising Entity Fillable
-      properties:
-        channel_name:
-          description: The name of Integration Channel
-          type: string
-          maxLength: 30
-          enum:
-          - Facebook
-          - Instagram
-          - DoubletheDonation
-          - GoFundMe
-          example: Facebook
-        external_fundraising_page_id:
-          description: Channel provided Fundraising Page ID
-          type: string
-          maxLength: 35
-          example: '186503750172710'
-      type: object
     ChannelFundraisingEntity:
       title: Channel Fundraising Entity
       properties:
@@ -217,6 +183,40 @@ components:
           type: string
           format: date-time
           example: '2021-04-23T10:25:03Z'
+      type: object
+    ChannelFundraisingEntityFillable:
+      title: Channel Fundraising Entity Fillable
+      properties:
+        channel_name:
+          description: The name of Integration Channel
+          type: string
+          maxLength: 30
+          enum:
+          - Facebook
+          - Instagram
+          - DoubletheDonation
+          - GoFundMe
+          example: Facebook
+        external_fundraising_page_id:
+          description: Channel provided Fundraising Page ID
+          type: string
+          maxLength: 35
+          example: '186503750172710'
+      type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
       type: object
   securitySchemes:
     OAuth2Application:

@@ -238,23 +238,96 @@ paths:
                 $ref: '#/components/schemas/ResourceNotFoundResponse'
 components:
   schemas:
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
+    RegistrationFillable:
+      title: RegistrationFillable
       properties:
-        label:
-          description: Identifier of the page.
+        first_name:
+          description: First name of who is registering
           type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
+          example: Kevin
+        last_name:
+          description: Last name of who is registering
+          type: string
+          example: Cheek
+        email:
+          description: Email address of who is registering
+          type: string
+          example: test@gofundme.com
+        phone:
+          description: Phone of who is registering
+          type: string
+          example: 619-322-5056
+        cell:
+          description: Phone Cell number
           type:
           - string
           - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
+          example: 619-322-5056
+        address1:
+          description: First address of Registration
+          type:
+          - string
+          - 'null'
+          example: 8554 Capricorn Way
+        address2:
+          description: Second address of Registration
+          type:
+          - string
+          - 'null'
+          example: N/A
+        city:
+          description: City field of Registration
+          type: string
+          example: San Diego
+        state:
+          description: State field of Registration
+          type: string
+          example: LA
+        status:
+          description: Attending status
+          type: string
+          enum:
+          - attending
+          - not_attending
+          - archived
+          example: attending
+        postal_code:
+          description: Postal code of who is registering
+          type: string
+          example: '92126'
+        country:
+          description: Country field of Registration
+          type: string
+          example: US
+        company:
+          description: Name of the company
+          type:
+          - string
+          - 'null'
+          example: PayPal
+        website:
+          description: Website of registrant
+          type: string
+          example: https://pro.gofundme.com
+        blog:
+          description: Blog of registrant
+          type: string
+          example: https://pro.gofundme.com
+        gender:
+          description: First letter of the gender
+          type: string
+          example: m
+        date_of_birth:
+          description: Date/time of birth of who is registering
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2021-04-23T10:25:03Z'
+        tshirt_size:
+          description: Size of tshirt
+          type: string
+          example: ML
       type: object
     PaginatedResponse:
       title: Paginated Response
@@ -328,6 +401,24 @@ components:
           type: integer
           example: 1
       type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
+      type: object
     ForbiddenResponse:
       title: Forbidden Response
       properties:
@@ -335,13 +426,6 @@ components:
           description: Description of detected error in request
           type: string
           example: This action is unauthorized.
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
       type: object
     Registration:
       title: Registration
@@ -530,106 +614,14 @@ components:
           - 'null'
           example: https://pro.gofundme.com
       type: object
-    RegistrationFillable:
-      title: RegistrationFillable
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
       properties:
-        first_name:
-          description: First name of who is registering
+        error:
+          description: Description of detected errors in request
           type: string
-          example: Kevin
-        last_name:
-          description: Last name of who is registering
-          type: string
-          example: Cheek
-        email:
-          description: Email address of who is registering
-          type: string
-          example: test@gofundme.com
-        phone:
-          description: Phone of who is registering
-          type: string
-          example: 619-322-5056
-        cell:
-          description: Phone Cell number
-          type:
-          - string
-          - 'null'
-          example: 619-322-5056
-        address1:
-          description: First address of Registration
-          type:
-          - string
-          - 'null'
-          example: 8554 Capricorn Way
-        address2:
-          description: Second address of Registration
-          type:
-          - string
-          - 'null'
-          example: N/A
-        city:
-          description: City field of Registration
-          type: string
-          example: San Diego
-        state:
-          description: State field of Registration
-          type: string
-          example: LA
-        status:
-          description: Attending status
-          type: string
-          enum:
-          - attending
-          - not_attending
-          - archived
-          example: attending
-        postal_code:
-          description: Postal code of who is registering
-          type: string
-          example: '92126'
-        country:
-          description: Country field of Registration
-          type: string
-          example: US
-        company:
-          description: Name of the company
-          type:
-          - string
-          - 'null'
-          example: PayPal
-        website:
-          description: Website of registrant
-          type: string
-          example: https://pro.gofundme.com
-        blog:
-          description: Blog of registrant
-          type: string
-          example: https://pro.gofundme.com
-        gender:
-          description: First letter of the gender
-          type: string
-          example: m
-        date_of_birth:
-          description: Date/time of birth of who is registering
-          type:
-          - string
-          - 'null'
-          format: date-time
-          example: '2021-04-23T10:25:03Z'
-        tshirt_size:
-          description: Size of tshirt
-          type: string
-          example: ML
       type: object
   parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: Number of entries to return in each page of results
-      required: false
-      schema:
-        type: integer
-        example: 20
     page:
       name: page
       in: query
@@ -638,6 +630,14 @@ components:
       schema:
         type: integer
         example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
   securitySchemes:
     OAuth2Application:
       type: oauth2

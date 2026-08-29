@@ -192,6 +192,49 @@ paths:
       - OAuth2Member: []
 components:
   schemas:
+    AppealSetFillable:
+      title: Appeal Set Fillable
+      properties:
+        facebook_video_url:
+          description: Facebook video URL
+          type:
+          - string
+          - 'null'
+          example: https://www.youtube.com/watch?v=LpInp3kEzdk
+        facebook_text:
+          description: Facebook body text
+          type:
+          - string
+          - 'null'
+          example: Share this campaign
+        twitter_text:
+          description: Twitter body text
+          type:
+          - string
+          - 'null'
+          maxLength: 280
+          example: Tweet this campaign to your friends!
+        sms_text:
+          description: SMS body text
+          type:
+          - string
+          - 'null'
+          maxLength: 255
+          example: Example SMS text
+        email_subject:
+          description: Email subject
+          type:
+          - string
+          - 'null'
+          maxLength: 255
+          example: Check out this campaign!
+        email_body:
+          description: Email body
+          type:
+          - string
+          - 'null'
+          example: Please donate to our campaign.
+      type: object
     AppealSet:
       title: Appeal Set
       properties:
@@ -272,49 +315,6 @@ components:
           items:
             type: string
             example: Malformed JSON payload.
-      type: object
-    AppealSetFillable:
-      title: Appeal Set Fillable
-      properties:
-        facebook_video_url:
-          description: Facebook video URL
-          type:
-          - string
-          - 'null'
-          example: https://www.youtube.com/watch?v=LpInp3kEzdk
-        facebook_text:
-          description: Facebook body text
-          type:
-          - string
-          - 'null'
-          example: Share this campaign
-        twitter_text:
-          description: Twitter body text
-          type:
-          - string
-          - 'null'
-          maxLength: 280
-          example: Tweet this campaign to your friends!
-        sms_text:
-          description: SMS body text
-          type:
-          - string
-          - 'null'
-          maxLength: 255
-          example: Example SMS text
-        email_subject:
-          description: Email subject
-          type:
-          - string
-          - 'null'
-          maxLength: 255
-          example: Check out this campaign!
-        email_body:
-          description: Email body
-          type:
-          - string
-          - 'null'
-          example: Please donate to our campaign.
       type: object
     ResourceNotFoundResponse:
       title: Resource Not Found Response

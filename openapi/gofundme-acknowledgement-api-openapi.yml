@@ -176,6 +176,24 @@ components:
           type: integer
           example: 1
       type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
+      type: object
     ForbiddenResponse:
       title: Forbidden Response
       properties:
@@ -190,6 +208,27 @@ components:
         error:
           description: Description of detected errors in request
           type: string
+      type: object
+    AcknowledgementFillable:
+      title: AcknowledgementFillable
+      properties:
+        fundraising_entity_id:
+          description: Primary identifier of associated Fundraising Entity
+          type:
+          - integer
+          - 'null'
+          example: 444
+        fundraising_entity_type:
+          description: Type of associated Fundraising Entity
+          type:
+          - string
+          - 'null'
+          enum:
+          - organization
+          - campaign
+          - fundraisingPage
+          - fundraisingTeam
+          example: organization
       type: object
     Acknowledgement:
       title: Acknowledgement
@@ -234,54 +273,7 @@ components:
           format: date-time
           example: '2021-04-23T10:25:03Z'
       type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
-      properties:
-        label:
-          description: Identifier of the page.
-          type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
-      type: object
-    AcknowledgementFillable:
-      title: AcknowledgementFillable
-      properties:
-        fundraising_entity_id:
-          description: Primary identifier of associated Fundraising Entity
-          type:
-          - integer
-          - 'null'
-          example: 444
-        fundraising_entity_type:
-          description: Type of associated Fundraising Entity
-          type:
-          - string
-          - 'null'
-          enum:
-          - organization
-          - campaign
-          - fundraisingPage
-          - fundraisingTeam
-          example: organization
-      type: object
   parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: Number of entries to return in each page of results
-      required: false
-      schema:
-        type: integer
-        example: 20
     page:
       name: page
       in: query
@@ -290,6 +282,14 @@ components:
       schema:
         type: integer
         example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
   securitySchemes:
     OAuth2Application:
       type: oauth2

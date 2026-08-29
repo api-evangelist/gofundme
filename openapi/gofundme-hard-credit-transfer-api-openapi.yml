@@ -68,13 +68,29 @@ paths:
       - OAuth2Member: []
 components:
   schemas:
-    ForbiddenResponse:
-      title: Forbidden Response
+    HardCreditTransferFillable:
+      title: Hard Credit Transfer Fillable
       properties:
-        error:
-          description: Description of detected error in request
+        note:
+          description: Memo describing details of / reason for Transfer
           type: string
-          example: This action is unauthorized.
+          maxLength: 255
+          example: Fixed an error
+        to:
+          properties:
+            type:
+              description: Type of page
+              type: string
+              enum:
+              - campaign
+              - fundraising_page
+              - fundraising_team
+              example: campaign
+            id:
+              description: ID of the page
+              type: integer
+              example: 227362
+          type: object
       type: object
     ResourceNotFoundResponse:
       title: Resource Not Found Response
@@ -138,29 +154,13 @@ components:
           format: date-time
           example: '2021-04-23T10:25:03Z'
       type: object
-    HardCreditTransferFillable:
-      title: Hard Credit Transfer Fillable
+    ForbiddenResponse:
+      title: Forbidden Response
       properties:
-        note:
-          description: Memo describing details of / reason for Transfer
+        error:
+          description: Description of detected error in request
           type: string
-          maxLength: 255
-          example: Fixed an error
-        to:
-          properties:
-            type:
-              description: Type of page
-              type: string
-              enum:
-              - campaign
-              - fundraising_page
-              - fundraising_team
-              example: campaign
-            id:
-              description: ID of the page
-              type: integer
-              example: 227362
-          type: object
+          example: This action is unauthorized.
       type: object
   securitySchemes:
     OAuth2Application:

@@ -88,6 +88,193 @@ paths:
       - OAuth2Member: []
 components:
   schemas:
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    FundraisingTeam:
+      title: Fundraising Team
+      properties:
+        campaign_id:
+          description: Primary identifier of associated Campaign
+          type: integer
+          example: 227362
+        city:
+          description: City
+          type:
+          - string
+          - 'null'
+          maxLength: 50
+          example: San Diego
+        country:
+          description: Country. Must be a valid ISO 3166-1 alpha-2 country code
+          type:
+          - string
+          - 'null'
+          maxLength: 2
+          example: US
+        cover_photo_id:
+          description: Primary identifier of asset used as the Fundraising Team cover photo
+          type:
+          - integer
+          - 'null'
+          example: 1145
+        cover_photo_url:
+          description: URL for cover photo image. Interpreted from cover_photo asset specified by cover_photo_id
+          type:
+          - string
+          - 'null'
+          example: https://gofundme-cdn-url.com/your-cover-photo.png
+        created_at:
+          description: Date/time of initial record creation
+          type: string
+          format: date-time
+          example: '2021-04-23T08:23:21Z'
+        currency_code:
+          description: ISO code of the currency against which this Fundraising Team is normalized. Defaults to USD
+          type: string
+          maxLength: 3
+          example: USD
+        description:
+          description: Team description
+          type:
+          - string
+          - 'null'
+          example: My team description
+        goal:
+          description: Fundraising Goal for this Team normalized against 'currency_code'. Defaults to the campaign's default team goal
+          type: number
+          format: float
+          example: 108.23
+        id:
+          description: Primary identifier of record
+          type: integer
+          example: 209745
+        logo_id:
+          description: Primary identifier of associated Asset
+          type:
+          - integer
+          - 'null'
+          example: 1145
+        logo_url:
+          description: URL for logo image. Either hardcoded URL for legacy Fundraising Teams or interpreted from logo Asset specified by logo_id
+          type:
+          - string
+          - 'null'
+          maxLength: 255
+          example: https://gofundme-cdn-url.com/your-cover-photo.png
+        name:
+          description: Team name
+          type: string
+          maxLength: 127
+          example: My Team
+        organization_id:
+          description: Primary identifier of associated Organization
+          type:
+          - integer
+          - 'null'
+          example: 82364
+        parent_id:
+          description: Parent Team ID. Used for creating a team hierarchy. Fundraising Team Policy must support SubTeam creation if a Parent Team ID is supplied
+          type:
+          - integer
+          - 'null'
+          example: 209750
+        postal_code:
+          description: Postal Code
+          type:
+          - string
+          - 'null'
+          maxLength: 50
+          example: '90210'
+        raw_currency_code:
+          description: ISO code of the default currency in which this Fundraising Team should be presented. Defaults to 'currency_code' if not specified
+          type: string
+          example: EUR
+        raw_goal:
+          description: Raw fundraising goal for this Team
+          type: string
+          example: '100'
+        root_id:
+          description: Team ID at the highest level of the hierarchy. Fundraising Team Policy must support SubTeam creation if a Root ID is supplied
+          type:
+          - integer
+          - 'null'
+          example: 3345
+        state:
+          description: State/province code. Must be a valid USPS state code
+          type:
+          - string
+          - 'null'
+          maxLength: 100
+          example: CA
+        status:
+          description: Team status
+          type:
+          - string
+          - 'null'
+          enum:
+          - active
+          - deleted
+          - pending_approval
+          - pending_cart_questions
+          - pending_cart_completion
+          example: active
+        team_lead_id:
+          description: Primary identifier of associated Team Lead
+          type:
+          - integer
+          - 'null'
+          example: 2012
+        team_lead_supporter_id:
+          description: Primary identifier of associated Team Lead Supporter
+          type:
+          - integer
+          - 'null'
+          example: 7845
+        thank_you_text:
+          description: Default thank you text on the thank you page
+          type:
+          - string
+          - 'null'
+          example: Thank you!
+        updated_at:
+          description: Date/time of last record update
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2021-04-23T10:25:03Z'
+        canonical_url:
+          description: The canonical url of the Fundraising Team
+          type:
+          - string
+          - 'null'
+          example: /team/10
+        designation_id:
+          description: Primary identifier of associated Designation
+          type:
+          - integer
+          - 'null'
+          example: 34672
+        team_policy_id:
+          description: Primary identifier of associated Team Policy
+          type:
+          - integer
+          - 'null'
+          example: 2354
+      type: object
     Campaign:
       title: Campaign
       properties:
@@ -721,193 +908,6 @@ components:
           - string
           - 'null'
           example: https://www.myawesomecharity.org
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    FundraisingTeam:
-      title: Fundraising Team
-      properties:
-        campaign_id:
-          description: Primary identifier of associated Campaign
-          type: integer
-          example: 227362
-        city:
-          description: City
-          type:
-          - string
-          - 'null'
-          maxLength: 50
-          example: San Diego
-        country:
-          description: Country. Must be a valid ISO 3166-1 alpha-2 country code
-          type:
-          - string
-          - 'null'
-          maxLength: 2
-          example: US
-        cover_photo_id:
-          description: Primary identifier of asset used as the Fundraising Team cover photo
-          type:
-          - integer
-          - 'null'
-          example: 1145
-        cover_photo_url:
-          description: URL for cover photo image. Interpreted from cover_photo asset specified by cover_photo_id
-          type:
-          - string
-          - 'null'
-          example: https://gofundme-cdn-url.com/your-cover-photo.png
-        created_at:
-          description: Date/time of initial record creation
-          type: string
-          format: date-time
-          example: '2021-04-23T08:23:21Z'
-        currency_code:
-          description: ISO code of the currency against which this Fundraising Team is normalized. Defaults to USD
-          type: string
-          maxLength: 3
-          example: USD
-        description:
-          description: Team description
-          type:
-          - string
-          - 'null'
-          example: My team description
-        goal:
-          description: Fundraising Goal for this Team normalized against 'currency_code'. Defaults to the campaign's default team goal
-          type: number
-          format: float
-          example: 108.23
-        id:
-          description: Primary identifier of record
-          type: integer
-          example: 209745
-        logo_id:
-          description: Primary identifier of associated Asset
-          type:
-          - integer
-          - 'null'
-          example: 1145
-        logo_url:
-          description: URL for logo image. Either hardcoded URL for legacy Fundraising Teams or interpreted from logo Asset specified by logo_id
-          type:
-          - string
-          - 'null'
-          maxLength: 255
-          example: https://gofundme-cdn-url.com/your-cover-photo.png
-        name:
-          description: Team name
-          type: string
-          maxLength: 127
-          example: My Team
-        organization_id:
-          description: Primary identifier of associated Organization
-          type:
-          - integer
-          - 'null'
-          example: 82364
-        parent_id:
-          description: Parent Team ID. Used for creating a team hierarchy. Fundraising Team Policy must support SubTeam creation if a Parent Team ID is supplied
-          type:
-          - integer
-          - 'null'
-          example: 209750
-        postal_code:
-          description: Postal Code
-          type:
-          - string
-          - 'null'
-          maxLength: 50
-          example: '90210'
-        raw_currency_code:
-          description: ISO code of the default currency in which this Fundraising Team should be presented. Defaults to 'currency_code' if not specified
-          type: string
-          example: EUR
-        raw_goal:
-          description: Raw fundraising goal for this Team
-          type: string
-          example: '100'
-        root_id:
-          description: Team ID at the highest level of the hierarchy. Fundraising Team Policy must support SubTeam creation if a Root ID is supplied
-          type:
-          - integer
-          - 'null'
-          example: 3345
-        state:
-          description: State/province code. Must be a valid USPS state code
-          type:
-          - string
-          - 'null'
-          maxLength: 100
-          example: CA
-        status:
-          description: Team status
-          type:
-          - string
-          - 'null'
-          enum:
-          - active
-          - deleted
-          - pending_approval
-          - pending_cart_questions
-          - pending_cart_completion
-          example: active
-        team_lead_id:
-          description: Primary identifier of associated Team Lead
-          type:
-          - integer
-          - 'null'
-          example: 2012
-        team_lead_supporter_id:
-          description: Primary identifier of associated Team Lead Supporter
-          type:
-          - integer
-          - 'null'
-          example: 7845
-        thank_you_text:
-          description: Default thank you text on the thank you page
-          type:
-          - string
-          - 'null'
-          example: Thank you!
-        updated_at:
-          description: Date/time of last record update
-          type:
-          - string
-          - 'null'
-          format: date-time
-          example: '2021-04-23T10:25:03Z'
-        canonical_url:
-          description: The canonical url of the Fundraising Team
-          type:
-          - string
-          - 'null'
-          example: /team/10
-        designation_id:
-          description: Primary identifier of associated Designation
-          type:
-          - integer
-          - 'null'
-          example: 34672
-        team_policy_id:
-          description: Primary identifier of associated Team Policy
-          type:
-          - integer
-          - 'null'
-          example: 2354
       type: object
   securitySchemes:
     OAuth2Application:

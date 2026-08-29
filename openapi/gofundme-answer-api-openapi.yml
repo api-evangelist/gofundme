@@ -589,20 +589,23 @@ components:
           type: integer
           example: 1
       type: object
-    ForbiddenResponse:
-      title: Forbidden Response
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
       properties:
-        error:
-          description: Description of detected error in request
+        label:
+          description: Identifier of the page.
           type: string
-          example: This action is unauthorized.
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
       type: object
     AnswerFillable:
       title: Answer Fillable
@@ -611,6 +614,14 @@ components:
           description: Answer content
           type: string
           example: Example answer test
+      type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
       type: object
     Answer:
       title: Answer
@@ -666,33 +677,14 @@ components:
           format: date-time
           example: '2021-04-23T10:25:03Z'
       type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
       properties:
-        label:
-          description: Identifier of the page.
+        error:
+          description: Description of detected errors in request
           type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
       type: object
   parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: Number of entries to return in each page of results
-      required: false
-      schema:
-        type: integer
-        example: 20
     page:
       name: page
       in: query
@@ -701,6 +693,14 @@ components:
       schema:
         type: integer
         example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
   securitySchemes:
     OAuth2Application:
       type: oauth2

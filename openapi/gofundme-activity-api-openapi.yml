@@ -223,6 +223,175 @@ paths:
                 $ref: '#/components/schemas/ResourceNotFoundResponse'
 components:
   schemas:
+    Designation:
+      title: Designation
+      properties:
+        city:
+          description: The name of the city associated with the Designation
+          type:
+          - string
+          - 'null'
+          maxLength: 100
+          example: San Diego
+        created_at:
+          description: Date/time of initial record creation
+          type: string
+          format: date-time
+          example: '2021-04-23T08:23:21Z'
+        description:
+          description: A brief description of the Designation
+          type:
+          - string
+          - 'null'
+          maxLength: 4095
+          example: My Designation Description
+        end_time:
+          description: Date/time that record ends
+          type:
+          - string
+          - 'null'
+          example: '2021-04-23 08:23:21'
+        external_reference_id:
+          description: Primary identifier of associated Member
+          type:
+          - string
+          - 'null'
+          maxLength: 100
+          example: my_unique_identifier
+        goal:
+          description: The fundraising goal for the Designation
+          type:
+          - string
+          - 'null'
+          format: float
+          minimum: 0
+          example: '1000.0'
+        id:
+          description: Primary identifier of record
+          type: integer
+          example: 34672
+        is_active:
+          description: Indicates whether Designation is active
+          type: boolean
+          example: true
+        is_complete:
+          description: Indicates whether Designation is complete
+          type: boolean
+          example: false
+        is_default:
+          description: Indicates whether this is the default Designation for the organization. Only one Designation per Organization can have this be true
+          type: boolean
+          example: false
+        name:
+          description: Name of the Designation, unique to this Organization
+          type:
+          - string
+          - 'null'
+          maxLength: 127
+          example: My Designation Name
+        organization_id:
+          description: Primary identifier of associated Organization
+          type: integer
+          example: 82364
+        postal_code:
+          description: Postal code associated with the Designation
+          type:
+          - string
+          - 'null'
+          maxLength: 10
+          example: '90210'
+        start_time:
+          description: Date/time that record starts
+          type:
+          - string
+          - 'null'
+          example: '2021-04-23 08:23:21'
+        state:
+          description: Two-letter abbreviation of the state associated with the Designation
+          type:
+          - string
+          - 'null'
+          maxLength: 2
+          minLength: 2
+          example: CA
+        updated_at:
+          description: Date/time of last record update
+          type: string
+          format: date-time
+          example: '2021-04-23T10:25:03Z'
+      type: object
+    PaginatedResponse:
+      title: Paginated Response
+      properties:
+        current_page:
+          description: Index of current page
+          type: integer
+          example: 1
+        data:
+          description: Collection of results
+          type: array
+          items:
+            type: object
+        first_page_url:
+          description: URL of first page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        from:
+          description: Index of first displayed result within total result set
+          type:
+          - integer
+          - 'null'
+          example: 1
+        last_page:
+          description: Index of last page in result set
+          type: integer
+          example: 1
+        last_page_url:
+          description: URL of last page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        next_page_url:
+          description: URL of next page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=2
+        path:
+          description: URL of current page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource
+        per_page:
+          description: Maximum number of records returned per page of results
+          type: integer
+          example: 20
+        prev_page_url:
+          description: URL of previous page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        links:
+          description: Collection of objects representing pages {label, URL, active} that can be used to request the associated page of records.
+          type: array
+          items:
+            $ref: '#/components/schemas/PaginationLink'
+        to:
+          description: Index of last displayed result within total result set
+          type:
+          - integer
+          - 'null'
+          example: 1
+        total:
+          description: Total count of records in result set
+          type: integer
+          example: 1
+      type: object
     Member:
       title: Member
       properties:
@@ -392,23 +561,6 @@ components:
           - 'null'
           format: date-time
           example: '2019-04-23T10:25:03Z'
-      type: object
-    Business:
-      title: Business
-      properties:
-        id:
-          description: ID of Business
-          type: integer
-          example: 423
-        name:
-          description: Name of Business
-          type: string
-          example: Donation Match Org
-        created_at:
-          description: Date/time of creation
-          type: string
-          format: date-time
-          example: '2021-04-18T12:24:21Z'
       type: object
     Organization:
       title: Organization
@@ -710,92 +862,40 @@ components:
           type: boolean
           example: false
       type: object
-    PaginatedResponse:
-      title: Paginated Response
+    Business:
+      title: Business
       properties:
-        current_page:
-          description: Index of current page
+        id:
+          description: ID of Business
           type: integer
-          example: 1
-        data:
-          description: Collection of results
-          type: array
-          items:
-            type: object
-        first_page_url:
-          description: URL of first page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=1
-        from:
-          description: Index of first displayed result within total result set
-          type:
-          - integer
-          - 'null'
-          example: 1
-        last_page:
-          description: Index of last page in result set
-          type: integer
-          example: 1
-        last_page_url:
-          description: URL of last page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=1
-        next_page_url:
-          description: URL of next page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=2
-        path:
-          description: URL of current page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource
-        per_page:
-          description: Maximum number of records returned per page of results
-          type: integer
-          example: 20
-        prev_page_url:
-          description: URL of previous page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=1
-        links:
-          description: Collection of objects representing pages {label, URL, active} that can be used to request the associated page of records.
-          type: array
-          items:
-            $ref: '#/components/schemas/PaginationLink'
-        to:
-          description: Index of last displayed result within total result set
-          type:
-          - integer
-          - 'null'
-          example: 1
-        total:
-          description: Total count of records in result set
-          type: integer
-          example: 1
-      type: object
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
+          example: 423
+        name:
+          description: Name of Business
           type: string
-          example: This action is unauthorized.
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
+          example: Donation Match Org
+        created_at:
+          description: Date/time of creation
           type: string
+          format: date-time
+          example: '2021-04-18T12:24:21Z'
+      type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
       type: object
     Activity:
       title: Activity
@@ -875,102 +975,20 @@ components:
           - classy_onboarding
           example: supporter_added
       type: object
-    Designation:
-      title: Designation
+    ForbiddenResponse:
+      title: Forbidden Response
       properties:
-        city:
-          description: The name of the city associated with the Designation
-          type:
-          - string
-          - 'null'
-          maxLength: 100
-          example: San Diego
-        created_at:
-          description: Date/time of initial record creation
+        error:
+          description: Description of detected error in request
           type: string
-          format: date-time
-          example: '2021-04-23T08:23:21Z'
-        description:
-          description: A brief description of the Designation
-          type:
-          - string
-          - 'null'
-          maxLength: 4095
-          example: My Designation Description
-        end_time:
-          description: Date/time that record ends
-          type:
-          - string
-          - 'null'
-          example: '2021-04-23 08:23:21'
-        external_reference_id:
-          description: Primary identifier of associated Member
-          type:
-          - string
-          - 'null'
-          maxLength: 100
-          example: my_unique_identifier
-        goal:
-          description: The fundraising goal for the Designation
-          type:
-          - string
-          - 'null'
-          format: float
-          minimum: 0
-          example: '1000.0'
-        id:
-          description: Primary identifier of record
-          type: integer
-          example: 34672
-        is_active:
-          description: Indicates whether Designation is active
-          type: boolean
-          example: true
-        is_complete:
-          description: Indicates whether Designation is complete
-          type: boolean
-          example: false
-        is_default:
-          description: Indicates whether this is the default Designation for the organization. Only one Designation per Organization can have this be true
-          type: boolean
-          example: false
-        name:
-          description: Name of the Designation, unique to this Organization
-          type:
-          - string
-          - 'null'
-          maxLength: 127
-          example: My Designation Name
-        organization_id:
-          description: Primary identifier of associated Organization
-          type: integer
-          example: 82364
-        postal_code:
-          description: Postal code associated with the Designation
-          type:
-          - string
-          - 'null'
-          maxLength: 10
-          example: '90210'
-        start_time:
-          description: Date/time that record starts
-          type:
-          - string
-          - 'null'
-          example: '2021-04-23 08:23:21'
-        state:
-          description: Two-letter abbreviation of the state associated with the Designation
-          type:
-          - string
-          - 'null'
-          maxLength: 2
-          minLength: 2
-          example: CA
-        updated_at:
-          description: Date/time of last record update
+          example: This action is unauthorized.
+      type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
           type: string
-          format: date-time
-          example: '2021-04-23T10:25:03Z'
       type: object
     Campaign:
       title: Campaign
@@ -1606,33 +1624,7 @@ components:
           - 'null'
           example: https://www.myawesomecharity.org
       type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
-      properties:
-        label:
-          description: Identifier of the page.
-          type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
-      type: object
   parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: Number of entries to return in each page of results
-      required: false
-      schema:
-        type: integer
-        example: 20
     page:
       name: page
       in: query
@@ -1641,6 +1633,14 @@ components:
       schema:
         type: integer
         example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
   securitySchemes:
     OAuth2Application:
       type: oauth2

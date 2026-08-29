@@ -68,21 +68,6 @@ paths:
       - OAuth2Member: []
 components:
   schemas:
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
     FundraisingPageTransfer:
       title: Fundraising Page Transfer
       properties:
@@ -145,6 +130,13 @@ components:
           type: integer
           example: 2012
       type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
     FundraisingPageTransferFillable:
       title: FundraisingPageTransfer Fillable
       properties:
@@ -166,6 +158,14 @@ components:
           - integer
           - 'null'
           example: 2012
+      type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
       type: object
   securitySchemes:
     OAuth2Application:

@@ -245,55 +245,6 @@ paths:
       deprecated: true
 components:
   schemas:
-    PromoCodeFillable:
-      title: Promo Code Fillable
-      properties:
-        adjustment_amount:
-          description: Value to configure price adjustment when applied against an item. Can reflect either a percentage or flat amount based on associated adjustment_type
-          type: number
-          format: double
-          example: 10
-        adjustment_type:
-          description: Specification of how adjustment_amount is applied
-          type: string
-          enum:
-          - percentage
-          - amount
-          example: percentage
-        code:
-          description: Value of the Promo Code to entered on checkout
-          type: string
-          maxLength: 25
-          example: TENPERCENTOFF
-        ends_at:
-          description: Date/time when the Promo Code can no longer be applied to purchases
-          type:
-          - string
-          - 'null'
-          format: date-time
-          example: '2021-04-23T08:23:21Z'
-        is_active:
-          description: Indicates whether Promo Code is active or not regardless of availability or date range
-          type: boolean
-          example: true
-        is_general:
-          description: Indicates whether Promo Code has a general designation, meaning it applies to all TicketTypes for its Campaign
-          type: boolean
-          example: false
-        quantity:
-          description: Total number of items against which the Promo Code can be applied (null implies unlimited applications)
-          type:
-          - integer
-          - 'null'
-          example: 100
-        starts_at:
-          description: Date/time when record can start being applied to purchase
-          type:
-          - string
-          - 'null'
-          format: date-time
-          example: '2021-04-23T08:23:21Z'
-      type: object
     PaginatedResponse:
       title: Paginated Response
       properties:
@@ -365,6 +316,24 @@ components:
           description: Total count of records in result set
           type: integer
           example: 1
+      type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
       type: object
     ForbiddenResponse:
       title: Forbidden Response
@@ -443,33 +412,56 @@ components:
           format: date-time
           example: '2021-04-23T10:25:03Z'
       type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
+    PromoCodeFillable:
+      title: Promo Code Fillable
       properties:
-        label:
-          description: Identifier of the page.
+        adjustment_amount:
+          description: Value to configure price adjustment when applied against an item. Can reflect either a percentage or flat amount based on associated adjustment_type
+          type: number
+          format: double
+          example: 10
+        adjustment_type:
+          description: Specification of how adjustment_amount is applied
           type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
+          enum:
+          - percentage
+          - amount
+          example: percentage
+        code:
+          description: Value of the Promo Code to entered on checkout
+          type: string
+          maxLength: 25
+          example: TENPERCENTOFF
+        ends_at:
+          description: Date/time when the Promo Code can no longer be applied to purchases
           type:
           - string
           - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
+          format: date-time
+          example: '2021-04-23T08:23:21Z'
+        is_active:
+          description: Indicates whether Promo Code is active or not regardless of availability or date range
           type: boolean
           example: true
+        is_general:
+          description: Indicates whether Promo Code has a general designation, meaning it applies to all TicketTypes for its Campaign
+          type: boolean
+          example: false
+        quantity:
+          description: Total number of items against which the Promo Code can be applied (null implies unlimited applications)
+          type:
+          - integer
+          - 'null'
+          example: 100
+        starts_at:
+          description: Date/time when record can start being applied to purchase
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2021-04-23T08:23:21Z'
       type: object
   parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: Number of entries to return in each page of results
-      required: false
-      schema:
-        type: integer
-        example: 20
     page:
       name: page
       in: query
@@ -478,6 +470,14 @@ components:
       schema:
         type: integer
         example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
   securitySchemes:
     OAuth2Application:
       type: oauth2

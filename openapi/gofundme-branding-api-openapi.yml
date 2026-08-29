@@ -59,21 +59,6 @@ paths:
       - OAuth2Member: []
 components:
   schemas:
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
     OrganizationBranding:
       title: Organization Branding
       type: object
@@ -103,69 +88,13 @@ components:
             type: integer
             example: 82364
         type: object
-    BrandingFillable:
-      title: Branding Fillable
+    ForbiddenResponse:
+      title: Forbidden Response
       properties:
-        background_color:
-          description: Color of main background
-          type:
-          - string
-          - 'null'
-          example: '#FFFFFF'
-        background_image_style:
-          description: CSS for rendering background image
-          type:
-          - string
-          - 'null'
-          example: repeat
-        header_color:
-          description: Color of header
-          type:
-          - string
-          - 'null'
-          example: '#ABABAB'
-        header_footer_color:
-          description: Color of footer portion of header
-          type:
-          - string
-          - 'null'
-          example: '#CCCCCC'
-        header_image_height:
-          description: Height of header image in pixels
-          type:
-          - integer
-          - 'null'
-          example: 200
-        header_image_style:
-          description: CSS for rendering header image
-          type:
-          - string
-          - 'null'
-          example: repeat
-        header_url:
-          description: URL of location to which header image links
-          type:
-          - string
-          - 'null'
-          example: https://www.my-url.com/donate
-        primary_color:
-          description: Primary color
-          type:
-          - string
-          - 'null'
-          example: '#F0F0F0'
-        secondary_color:
-          description: Secondary color
-          type:
-          - string
-          - 'null'
-          example: '#000000'
-        font_family:
-          description: Font family
-          type:
-          - string
-          - 'null'
-          example: var(--classy-font__font-family--verdana)
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
       type: object
     Branding:
       title: Branding
@@ -290,6 +219,77 @@ components:
           - boolean
           - 'null'
           example: false
+        primary_color:
+          description: Primary color
+          type:
+          - string
+          - 'null'
+          example: '#F0F0F0'
+        secondary_color:
+          description: Secondary color
+          type:
+          - string
+          - 'null'
+          example: '#000000'
+        font_family:
+          description: Font family
+          type:
+          - string
+          - 'null'
+          example: var(--classy-font__font-family--verdana)
+      type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    BrandingFillable:
+      title: Branding Fillable
+      properties:
+        background_color:
+          description: Color of main background
+          type:
+          - string
+          - 'null'
+          example: '#FFFFFF'
+        background_image_style:
+          description: CSS for rendering background image
+          type:
+          - string
+          - 'null'
+          example: repeat
+        header_color:
+          description: Color of header
+          type:
+          - string
+          - 'null'
+          example: '#ABABAB'
+        header_footer_color:
+          description: Color of footer portion of header
+          type:
+          - string
+          - 'null'
+          example: '#CCCCCC'
+        header_image_height:
+          description: Height of header image in pixels
+          type:
+          - integer
+          - 'null'
+          example: 200
+        header_image_style:
+          description: CSS for rendering header image
+          type:
+          - string
+          - 'null'
+          example: repeat
+        header_url:
+          description: URL of location to which header image links
+          type:
+          - string
+          - 'null'
+          example: https://www.my-url.com/donate
         primary_color:
           description: Primary color
           type:

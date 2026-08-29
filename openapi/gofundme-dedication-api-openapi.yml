@@ -188,23 +188,38 @@ paths:
       - OAuth2Member: []
 components:
   schemas:
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
+    Ecard:
+      title: Ecard
       properties:
-        label:
-          description: Identifier of the page.
-          type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
+        asset_id:
+          description: Primary identifier of associated image file Asset
           type:
-          - string
+          - integer
           - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
+          example: 1145
+        campaign_id:
+          description: Primary identifier of associated Campaign
+          type: integer
+          readOnly: true
+          example: 227362
+        id:
+          description: Primary identifier of record
+          type: integer
+          readOnly: true
+          example: 4377
+        image_url:
+          description: Public URL for the Ecard image
+          type: string
+          example: https://gofundme-cdn-url.com/your-ecard-image.png
+        is_deleted:
+          description: Indicates whether Ecard has been deleted
           type: boolean
+          readOnly: true
           example: true
+        order:
+          description: Display order for listings. Impacts display in Classy.org
+          type: integer
+          example: 1
       type: object
     PaginatedResponse:
       title: Paginated Response
@@ -277,127 +292,6 @@ components:
           description: Total count of records in result set
           type: integer
           example: 1
-      type: object
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
-    Ecard:
-      title: Ecard
-      properties:
-        asset_id:
-          description: Primary identifier of associated image file Asset
-          type:
-          - integer
-          - 'null'
-          example: 1145
-        campaign_id:
-          description: Primary identifier of associated Campaign
-          type: integer
-          readOnly: true
-          example: 227362
-        id:
-          description: Primary identifier of record
-          type: integer
-          readOnly: true
-          example: 4377
-        image_url:
-          description: Public URL for the Ecard image
-          type: string
-          example: https://gofundme-cdn-url.com/your-ecard-image.png
-        is_deleted:
-          description: Indicates whether Ecard has been deleted
-          type: boolean
-          readOnly: true
-          example: true
-        order:
-          description: Display order for listings. Impacts display in Classy.org
-          type: integer
-          example: 1
-      type: object
-    DedicationFillable:
-      title: DedicationFillable
-      properties:
-        type:
-          description: Description of Dedication's purpose
-          type: string
-          enum:
-          - honor
-          - memory
-          example: honor
-        honoree_name:
-          description: Honoree's full name
-          type:
-          - string
-          - 'null'
-          example: Honoree Name
-        name:
-          description: Dedication contact full name
-          type: string
-          example: John Doe
-        email_address:
-          description: Email Address
-          type: string
-          example: example@gofundme.com
-        address:
-          description: Dedication contact address
-          type: string
-          example: 533 F St
-        city:
-          description: Dedication contact city
-          type: string
-          example: San Diego
-        state:
-          description: Dedication contact state
-          type: string
-          maxLength: 50
-          example: CA
-        postal_code:
-          description: Dedication contact postal code
-          type: string
-          example: '90210'
-        country:
-          description: Dedication contact country
-          type: string
-          maxLength: 2
-          example: US
-        is_gift_amount_msg_included:
-          description: Indicates whether the gift amount is to be displayed in communication
-          type: boolean
-          example: true
-        ecard_message:
-          description: Message added to Ecard
-          type:
-          - string
-          - 'null'
-          example: eCard message
-        first_name:
-          description: Dedication contact first name
-          type: string
-          example: John
-        last_name:
-          description: Dedication contact last name
-          type: string
-          example: Doe
-        honoree_first_name:
-          description: Honoree's first name
-          type: string
-          example: Honoree
-        honoree_last_name:
-          description: Honoree's last name
-          type: string
-          example: Name
       type: object
     Dedication:
       title: Dedication
@@ -490,6 +384,112 @@ components:
           type: string
           format: date-time
           example: '2021-04-23T10:25:03Z'
+      type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
+      type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    DedicationFillable:
+      title: DedicationFillable
+      properties:
+        type:
+          description: Description of Dedication's purpose
+          type: string
+          enum:
+          - honor
+          - memory
+          example: honor
+        honoree_name:
+          description: Honoree's full name
+          type:
+          - string
+          - 'null'
+          example: Honoree Name
+        name:
+          description: Dedication contact full name
+          type: string
+          example: John Doe
+        email_address:
+          description: Email Address
+          type: string
+          example: example@gofundme.com
+        address:
+          description: Dedication contact address
+          type: string
+          example: 533 F St
+        city:
+          description: Dedication contact city
+          type: string
+          example: San Diego
+        state:
+          description: Dedication contact state
+          type: string
+          maxLength: 50
+          example: CA
+        postal_code:
+          description: Dedication contact postal code
+          type: string
+          example: '90210'
+        country:
+          description: Dedication contact country
+          type: string
+          maxLength: 2
+          example: US
+        is_gift_amount_msg_included:
+          description: Indicates whether the gift amount is to be displayed in communication
+          type: boolean
+          example: true
+        ecard_message:
+          description: Message added to Ecard
+          type:
+          - string
+          - 'null'
+          example: eCard message
+        first_name:
+          description: Dedication contact first name
+          type: string
+          example: John
+        last_name:
+          description: Dedication contact last name
+          type: string
+          example: Doe
+        honoree_first_name:
+          description: Honoree's first name
+          type: string
+          example: Honoree
+        honoree_last_name:
+          description: Honoree's last name
+          type: string
+          example: Name
+      type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
       type: object
   securitySchemes:
     OAuth2Application:
