@@ -256,7 +256,7 @@ apis:
   humanURL: https://developers.gofundme.com/pro/docs
   baseURL: https://pro.gofundme.com/api/2.0
   tags:
-  - Answers
+  - Answer
   tags_raw:
   - Answer
   properties:
@@ -429,7 +429,7 @@ apis:
   humanURL: https://developers.gofundme.com/pro/docs
   baseURL: https://pro.gofundme.com/api/2.0
   tags:
-  - Brand Kit
+  - Brandkit
   tags_raw:
   - Brandkit
   properties:
@@ -1680,7 +1680,7 @@ apis:
   humanURL: https://developers.gofundme.com/pro/docs
   baseURL: https://pro.gofundme.com/api/2.0
   tags:
-  - Magic Link
+  - MagicLink
   tags_raw:
   - MagicLink
   properties:
