@@ -87,7 +87,7 @@ apis:
   baseURL: https://login.classy.org
   tags:
   - Authentication
-  - Single Sign-On
+  - SSO
   - OpenID Connect
   - Identity
   - Non-Profit
