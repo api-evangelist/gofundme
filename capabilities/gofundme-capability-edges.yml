@@ -1,0 +1,43 @@
+slug: gofundme
+provider: GoFundMe
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: Promo Code
+  spec_file: gofundme-promo-code-api-openapi.yml
+  capability_id: BC-440.30
+  capability_id_l1: BC-440
+  capability_name: Discount & Promotion Management
+  confidence: 0.75
+  evidence: POST /campaigns/{campaign}/promo-codes createCampaignPromoCode; GET /ticket-types/{ticket_type}/promo-codes
+  reason: Operations create, fetch and update promo codes attached to campaigns and ticket types — i.e.
+    lifecycle of promotional discount codes, which is Discount & Promotion Management. Not payment or
+    subscription billing; the resource is a promo/discount artefact.
+- tag: Role
+  spec_file: gofundme-role-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.72
+  evidence: GET /members/{member}/roles listMemberRoles; schemas Roles, OrganizationRoles, CampaignRoles
+  reason: Roles held by members at organization and campaign scope — role-based access control metadata,
+    which is Identity & Access Management. Read-only, so confidence moderate rather than high.
+- tag: Promo Code Configuration
+  spec_file: gofundme-promo-code-configuration-api-openapi.yml
+  capability_id: BC-440.30
+  capability_id_l1: BC-440
+  capability_name: Discount & Promotion Management
+  confidence: 0.7
+  evidence: POST /promo-code-configurations createPromoCodeConfiguration; GET /ticket-types/{ticket_type}/promo-code-configurations
+  reason: Configuration records that bind promo codes to ticket types — the rules governing promotional
+    discounts. Same capability as Promo Code, slightly thinner evidence hence lower confidence.
