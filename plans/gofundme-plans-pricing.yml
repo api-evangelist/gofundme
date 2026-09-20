@@ -1,0 +1,22 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://pro.gofundme.com/c/pricing/
+sources:
+- https://pro.gofundme.com/c/pricing/
+provenance:
+  tool: planning/api-economics/harvest_pricing.py
+  run: 20260920T120546
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: negotiated
+published: false
+note: No numeric price is published on the pricing page; Page states custom pricing only; requires form
+  submission and sales contact. No numeric prices shown (percentages cited are case-study results, not
+  pricing).
+plan_count: 1
+plans:
+- name: GoFundMe Pro custom pricing
+  price_text: We offer custom pricing, combining an annual upfront subscription with a transaction fee
+    per donation.
+  period: none
