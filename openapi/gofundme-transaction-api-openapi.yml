@@ -1,7 +1,10 @@
 openapi: 3.2.0
 info:
   title: GoFundMe Pro Transaction API
-  description: "<h1>GoFundMe Pro API</h1>\n<p>Welcome to the GoFundMe Pro API (2.0.0), a powerful toolset that empowers innovative and creative minds to engineer the world for good. This documentation walks through the API’s latest endpoints.</p>\n<p>GoFundMe Pro APIs are crafted around REST and the REST architectural style to provide developers with a stateless and language-­agnostic interface. The GoFundMe Pro API leverages HTTP verbs and response codes, OAuth2 authentication, and resource-­oriented URLs.</p>\n<p>Currently, the GoFundMe Pro API only supports JSON. All POST/PUT requests required a valid JSON object for the request body.</p>\n<h2>Errors</h2>\n<p>The GoFundMe Pro API leverages standard HTTP response status codes for it’s error responses. Error codes are:</p>\n<p><br /></p>\n<table border='1'>\n<tr>\n<th width='100px'>Error Code</th>\n<th>Meaning</th>\n</tr>\n<tr>\n<td>400</td>\n<td>Bad Request: The request was malformed or provided incorrect/incomplete/conflicting parameters. Check the response for more detailed messaging about why the request was incorrect. Do not repeat request.</td>\n</tr>\n<tr>\n<td>401</td>\n<td>Unauthorized: The API does not recognize the request as authorized. API access token may be missing or invalid.</td>\n</tr>\n<tr>\n<td>403</td>\n<td>Forbidden: The API recognizes the authorized API user, but the API user does not have correct permissions to satisfy the request.</td>\n</tr>\n<tr>\n<td>404</td>\n<td>Not Found: The resource requested does not exist or was not found.</td>\n</tr>\n<tr>\n<td>405</td>\n<td>Method Not Allowed: Some REST endpoints only accept a subset of valid REST HTTP verbs. This error is sent when an unsupported verb is requested.</td>\n</tr>\n<tr>\n<td>429</td>\n<td>Too Many Requests: The rate limit has been exceeded. See the <a href=\"#rate-limiting\">Rate Limiting</a> section for details on rate limits and response headers.</td>\n</tr>\n<tr>\n<td>500</td>\n<td>Error: The request was valid, but something failed on the server. Additional messages may be available.</td>\n</tr>\n<tr>\n<td>503</td>\n<td>Service Unavailable: The service is temporarily unavailable.</td>\n</tr>\n</table>\n<h2>Requests</h2>\n<h3>Authenticating Requests</h3>\n<p>Most API requests will need to be signed with an Access Token.</p>\n<p>Refer to the <a href=\"https://developers.gofundme.com/pro/overview/authentication\" target=\"_blank\" rel=\"noopener noreferrer\">Resource Documentation</a> for the specific call you are making to see if an access token is required for your request. See <a href=\"https://developers.gofundme.com/pro/tutorials/samples\" target=\"_blank\" rel=\"noopener noreferrer\">this page</a> for a demonstration of usage through a sample app. \n<h3>Filters</h3>\n<p>We can filter a collection based on a set of input parameters. To do so, we can modify the query string using the parameters listed below.</p>\n\n<table border='1'>\n<tr>\n<th>Parameter</th>\n<th>Type</th>\n<th>Default</th>\n<th>Description</th>\n</tr>\n\n<tr>\n<td>with</td>\n<td>string</td>\n<td>N/A</td>\n<td>This allows you to include nested related resource. For example, you could request a campaign along with the organization it belongs to and the designation it was allocated to. In this case, <code>with=organization,designation.</code></td>\n</tr>\n\n<tr>\n<td>per_page</td>\n<td>integer</td>\n<td>20</td>\n<td>Set the total number of resources returned per page (Maximum: 100).</td>\n</tr>\n\n<tr>\n<td>page</td>\n<td>integer</td>\n<td>1</td>\n<td>Page to return.</td>\n</tr>\n\n<tr>\n<td>sort</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>\nOrder the resources depending upon their attributes. Examples:\n<ul>\n<li><strong>created_at</strong>: oldest resource will come first</li>\n<li><strong>created_at:desc</strong>: newest resource will come first</li>\n<li><strong>last_name:asc,first_name:asc</strong>: order resources by last_name in alphabetical order. If same last_name, order by first_name in alphabetical order.</li>\n</ul>\n</td>\n</tr>\n\n<tr>\n<td>fields</td>\n<td>string</td>\n<td>Depends on endpoint</td>\n<td>List of resources attributes separated with comma. Narrow the list of attributes returned for each resource.</td>\n</tr>\n\n<tr>\n<td>filter</td>\n<td>string</td>\n<td>NULL</td>\n<td>\nAllow to filter the list of resources returned. Format is: <code>{association}.{attribute1}{operand}{value}</code> where: <ul>\n<li>association is the association if this is a nested filter (optional)</li>\n<li>operand is one of the following: <code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, false can be expressed with <code>false</code> or <code>0</code>).</li>\n<li>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. with | string | NULL | This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</li>\n</ul>\n</td>\n</tr>\n</table>\n\n<p>When filtering, the operand should be one of the following:</p>\n<p><code><=, >=, <>, !=, =, <, or ></code>. Operand must be url encoded. (Note: if you are filtering on a boolean value, <code>true</code> can be expressed with <code>true</code> or <code>1</code>. Additionally, <code>false</code> can be expressed with <code>false</code> or <code>0</code>).</p>\n<p>If filtering on an association, ensure you include the nested resource using the ‘with’ parameter. This allows you to include a nested related resource. For example, you could request a collection of campaigns along with the organization they belong to and the designation they were allocated to. In this case, <code>with=organization,designation</code>.</p>\n<p>Refer to the sample documentation for the specific call you are making to see which related resource can be fetched.</p>\n\n<h3>Date and Time Filtering</h3>\n<p>Unless otherwise noted, all Datetime attributes in API responses will be returned in an ISO8601 compliant format:</p>\n<><code>YYYY-MM-DDTHH:mm:ss.sssZ</code> (e.g. <code>2024-10-05T14:48:00.000Z</code>).</p>\n<h2 id=\"rate-limiting\">Rate Limiting</h2>\n<p>The GoFundMe Pro API implements rate limiting to ensure fair usage and maintain service quality for all users. Rate limits are applied on a per-application and per-user basis.</p>\n<h3>When Rate Limiting Applies</h3>\n<p>Rate limiting is applied to requests that meet the following conditions:</p>\n<ul>\n<li>The API application is <strong>not internal</strong> (external/third-party applications)</li>\n<li>The API application is associated to an Organization</li>\n</ul>\n<p>Internal applications are not subject to rate limiting.</p>\n<h3>Rate Limit Details</h3>\n<p>By default, the rate limit is:</p>\n<ul>\n<li><strong>1800 requests per minute</strong> per application</li>\n</ul>\n<p>Rate limits may be adjusted dynamically via flags for specific applications or users.</p>\n<h3>Rate Limit Headers</h3>\n<p>All API responses include the following headers to help you track your rate limit status:</p>\n<table border='1'>\n<tr>\n<th width='200px'>Header</th>\n<th>Description</th>\n</tr>\n<tr>\n<td><code>X-RateLimit-Limit</code></td>\n<td>The maximum number of requests allowed in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Remaining</code></td>\n<td>The number of requests remaining in the current time window</td>\n</tr>\n<tr>\n<td><code>X-RateLimit-Reset</code></td>\n<td>Unix timestamp indicating when the rate limit window resets (only included when limit is exceeded)</td>\n</tr>\n<tr>\n<td><code>Retry-After</code></td>\n<td>Number of seconds to wait before retrying (only included in 429 responses)</td>\n</tr>\n</table>\n<h3>Handling Rate Limit Errors</h3>\n<p>When you exceed the rate limit, the API will return a <code>429 Too Many Requests</code> response with the following structure:</p>\n<pre><code>{\n  \"message\": \"Too Many Attempts.\",\n  \"retry_after\": 42\n}</code></pre>\n<p>The response will include the <code>Retry-After</code> header indicating how many seconds you should wait before making another request.</p>\n<h3>Best Practices</h3>\n<ul>\n<li>Monitor the <code>X-RateLimit-Remaining</code> header to track your usage</li>\n<li>Implement exponential backoff when you receive a 429 response</li>\n<li>Respect the <code>Retry-After</code> header value before retrying</li>\n<li>Cache responses when possible to reduce API calls</li>\n<li>Batch operations when the API supports it</li>\n</ul>"
+  description: 'GoFundMe Pro API
+
+
+    Welcome to the GoFundMe Pro API (2.0.0), a powerful toolset that empowers innovative and creative minds to engineer the world for good.'
   version: 2.0.0
 servers:
 - url: https://pro.gofundme.com/api/2.0
@@ -10,30 +13,7 @@ security:
 - OAuth2Member: []
 tags:
 - name: Transaction
-  description: 'Transactions have three types of attributes relating to Passport: raw, charged, and normalized.
-
-
-    Raw attributes reflect the donor/purchaser''s intent when creating the Transaction. The only attribute directly specified on the Transaction is `raw_currency_code` - the other visible attributes (`raw_total_gross_amount`, `raw_donation_gross_amount`, and  `raw_overhead_net_amount`) are all derived from the raw values set on the transaction''s items.
-
-
-    Charged attributes reflect the values that are actually charged when the payment is processed. Since the potential values for a Transaction''s `charged_currency_code` should be limited to those available to an Organization for processing, this value can differ from the Transaction''s `raw_currency_code`. The amount that is charged is reflected in `charged_total_gross_amount`, while the fees are expressed in `charged_classy_fees_amount` and `charged_pp_fees_amount` (`charged_fees_amount` attribute is the sum of these two attributes). There is additionally a `charged_at` timestamp that is used for normalization.
-
-
-    Normalized attributes reflect a conversion from raw and/or charged attributes into the Transaction''s `currency_code`, which is the same for all Passport-enabled entities associated with the Transaction''s Organization. This normalization occurs to allow for a constant basis of comparison across each of these entities. These normalized values are all converted from the associated raw or charged attributes, preferring the charged attribute over the raw attribute if available. For example, `charged_total_gross_amount` will be used instead of `raw_total_gross_amount` if both `charged_total_gross_amount` and `charged_currency_code` are present. If `charged_at` is also present, the exchange rate between `charged_currency_code` and `currency_code` at that time will be used if/when the Transaction is renormalized.
-
-
-    It should be noted that there is no notion of raw fees, as these are calculated at the time that a Transaction is charged and therefore only reflected as charged attributes. If a transaction is flagged as ''fee-on-top'', this will be reflected by an increase in the `charged_total_gross_amount` that will not be visible in `raw_total_gross_amount`.
-
-
-    Transactions may be in a number of different states: success, incomplete, canceled, refunded, cb_initiated, cb_lost, test, pending, failed
-
-
-    An additional transaction attribute relating to Passport is the `tax_entity_id`. Tax entities indicate that an Organization is tax compliant within a certain country. A single organization may have more than one tax entity. The `tax_entity_id` listed on the Transaction indicates which of the Organization''s tax entities indicates the tax compliance of the Transaction.
-
-
-    Transactions may have an associated ''context'' attribute which provides data about the Transaction''s original Campaign (this does not change between hard credit transfers) and whether or not the transaction is considered to incorporate Passport functionality. This attribute can be used for filtering and/or sorting when using index endpoints.
-
-    '
+  description: 'Transactions have three types of attributes relating to Passport: raw, charged, and normalized.'
 paths:
   /transactions/{transaction}:
     get:
@@ -330,7 +310,22 @@ paths:
       tags:
       - Transaction
       summary: createCampaignTransaction
-      description: "For external requests this creates an “offline” transaction record for the specified campaign. An offline transaction represents funds collected outside of the GoFundMe Pro platform, but accounted for in GoFundMe Pro reporting, activity feeds, etc. Adding an offline transaction record does not charge any credit cards, nor credit any GoFundMe Pro accounts.\n\n   An array of TransactionItems must be included along with the basic Transaction information via the items attribute. Please view the Transaction Item documentation for formatting pertaining to this attribute.\n\n   NOTE: requests must include one of the following:\n   billing_first_name AND billing_last_name\n   OR member_email_address\n   OR company_name\n\n   Requests may contain all three. Please note that if an offline transaction only contains a company_name and is therefore a transaction by a company and not a person then answers will not be created for that transaction."
+      description: 'For external requests this creates an “offline” transaction record for the specified campaign. An offline transaction represents funds collected outside of the GoFundMe Pro platform, but accounted for in GoFundMe Pro reporting, activity feeds, etc. Adding an offline transaction record does not charge any credit cards, nor credit any GoFundMe Pro accounts.
+
+
+        An array of TransactionItems must be included along with the basic Transaction information via the items attribute. Please view the Transaction Item documentation for formatting pertaining to this attribute.
+
+
+        NOTE: requests must include one of the following:
+
+        billing_first_name AND billing_last_name
+
+        OR member_email_address
+
+        OR company_name
+
+
+        Requests may contain all three. Please note that if an offline transaction only contains a company_name and is therefore a transaction by a company and not a person then answers will not be created for that transaction.'
       operationId: createCampaignTransaction
       parameters:
       - name: campaign
@@ -578,208 +573,108 @@ paths:
                 $ref: '#/components/schemas/ResourceNotFoundResponse'
 components:
   schemas:
-    TransactionFillable:
-      title: Transaction Fillable
+    ReprocessAttemptInfo:
+      title: ReprocessAttemptInfo
       properties:
-        billing_address1:
-          description: Line one of Billing address
-          type:
-          - string
-          - 'null'
-          example: 533 F Street
-        billing_address2:
-          description: Line two of Billing address
-          type:
-          - string
-          - 'null'
-          example: 533 F Street
-        billing_city:
-          description: Billing city
-          type:
-          - string
-          - 'null'
-          example: San Diego
-        billing_country:
-          description: Billing country. Must be a valid ISO 3166-1 alpha-2 country code
-          type:
-          - string
-          - 'null'
-          example: US
-        billing_first_name:
-          description: Billing first name
-          type:
-          - string
-          - 'null'
-          example: GoFundMe Pro
-        billing_last_name:
-          description: Billing last name
-          type:
-          - string
-          - 'null'
-          example: Member
-        billing_postal_code:
-          description: Billing zip/postal code
-          type:
-          - string
-          - 'null'
-          example: '92101'
-        billing_state:
-          description: Billing state/province
-          type:
-          - string
-          - 'null'
-          maxLength: 32
-          example: CA
-        browser_info:
-          description: Browser information
-          type:
-          - string
-          - 'null'
-          example: information
-        comment:
-          description: Organization comment
-          type:
-          - string
-          - 'null'
-          example: This is a comment
-        company_name:
-          description: Name of company this Transaction has ties to
-          type:
-          - string
-          - 'null'
-          example: GoFundMe Pro
-        hide_amount:
-          description: Whether purchaser indicated if Transaction amount should be hidden
-          type:
-          - boolean
-          - 'null'
-          example: false
-        is_anonymous:
-          description: Whether purchaser indicated if transaction should be anonymous
-          type:
-          - boolean
-          - 'null'
-          example: false
-        is_gift_aid:
-          description: Flag whether the donor opted into gift aid used by the UK or not. Can only be set if the organization allows it
-          type:
-          - boolean
-          - 'null'
-          example: false
-        is_reprocess:
-          description: If it is a reprocessed transaction or not
-          type:
-          - boolean
-          - 'null'
-          example: true
-        member_country:
-          description: Country of the Member
-          type:
-          - string
-          - 'null'
-          example: US
-        member_email_address:
-          description: Email address of purchaser GoFundMe Pro Member
-          type:
-          - string
-          - 'null'
-          example: member@gofundme.com
-        member_name:
-          description: ' Name of purchaser GoFundMe Pro Member'
-          type:
-          - string
-          - 'null'
-          example: GoFundMe Pro Member
-        member_phone:
-          description: Phone number of purchaser GoFundMe Pro Member
-          type:
-          - string
-          - 'null'
-          example: 555-555-5555
-        member_cell_phone:
-          description: Cell phone number of purchaser GoFundMe Pro Member. Also forwarded to the supporter record (cell_phone) on supporter creation — the SMS consent target when collected.
-          type:
-          - string
-          - 'null'
-          example: 555-555-5555
-        metadata:
-          description: An optional set of unstructured metadata to be stored with a Transaction
-          type:
-          - string
-          - 'null'
-          example: '{foo: ''bar''}'
-        raw_currency_code:
-          description: Currency Code of the Transaction before normalization
-          type:
-          - string
-          - 'null'
-          example: JPY
-        status:
-          description: The status of the Transaction
-          type:
-          - string
-          - 'null'
+        created_at:
+          description: Date/Time ReprocessAttemptInfo was created
+          type: string
+          format: date-time
+          example: 2021-01-01T12:00:00+0000
+        initiated_by_id:
+          description: The ID of the member initiating the reprocess
+          type: integer
+          example: 2012
+        original_transaction_id:
+          description: ID of the original Transaction
+          type: integer
+          example: 8734
+        reprocess_transaction_id:
+          description: ID of Reprocess Transaction
+          type: integer
+          example: 7623371
+        state:
+          description: Reprocess status
+          type: string
           enum:
-          - test
-          - canceled
-          - incomplete
-          - success
-          - refunded
-          - cb_lost
-          - cb_initiated
-          - voided
+          - completed
           - pending
           - failed
-          example: canceled
-        reprocess_attempt_info:
-          $ref: '#/components/schemas/ReprocessAttemptInfoFillable'
-        fundraising_tracking_code:
-          description: Fundraising Tracking Code to improve accuracy and efficiency in fundraising reporting
+          example: completed
+        updated_at:
+          description: Date/Time ReprocessAttemptInfo was updated
           type: string
-          example: JD0146
+          format: date-time
+          example: 2021-01-01T12:00:00+0000
       type: object
-    OfflinePaymentInfo:
-      title: Offline Payment Info
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
       properties:
-        check_number:
-          description: Check number for a check payment type
-          type:
-          - string
-          - 'null'
-          maxLength: 32
-          example: '456'
-        description:
-          description: Additional offline donation details
-          type:
-          - string
-          - 'null'
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    AnswerFillable:
+      title: Answer Fillable
+      properties:
+        answer:
+          description: Answer content
+          type: string
+          example: Example answer test
+      type: object
+    Answer:
+      title: Answer
+      properties:
+        answer:
+          description: Answer content
+          type: string
           maxLength: 255
-          example: Lorem ipsum whatever
-        payment_type:
-          description: Payment type for the offline donation
+          example: Example answer test
+        answerable_id:
+          description: Primary identifier of associated Fundraising Entity object. Required with answerable_type
+          type:
+          - integer
+          - 'null'
+          example: 3245
+        answerable_type:
+          description: Type of associated Fundraising Entity. Required with answerable_id
           type:
           - string
           - 'null'
           enum:
-          - cash
-          - check
-          - cc
-          - pledge
-          - other
-          - sponsor
-          - stock_donations
-          - corporate_match
-          - donation_match
-          - eft
-          - crypto
-          - dafpay
-          example: cash
-        sync_third_party:
-          description: Sync this offline transaction into third party products such as salesforce
+          - fundraising_team
+          - fundraising_page
+          - transaction
+          - campaign_registration
+          example: fundraising_team
+        campaign_id:
+          description: Primary identifier of associated Campaign
+          type: integer
+          example: 227362
+        created_at:
+          description: Date/time of initial record creation
+          type: string
+          format: date-time
+          example: '2021-04-23T08:23:21Z'
+        id:
+          description: Primary identifier of record
+          type: integer
+          example: 32459
+        member_id:
+          description: Primary identifier of associated Member
+          type: integer
+          example: 2012
+        question_id:
+          description: Primary identifier of associated Question
+          type: integer
+          example: 45678
+        updated_at:
+          description: Date/time of last record update
           type:
-          - boolean
+          - string
           - 'null'
-          example: false
+          format: date-time
+          example: '2021-04-23T10:25:03Z'
       type: object
     PaginatedResponse:
       title: Paginated Response
@@ -949,135 +844,6 @@ components:
           - string
           - 'null'
           example: '2024-01-15'
-      type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
-      properties:
-        label:
-          description: Identifier of the page.
-          type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
-      type: object
-    AnswerFillable:
-      title: Answer Fillable
-      properties:
-        answer:
-          description: Answer content
-          type: string
-          example: Example answer test
-      type: object
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    ReprocessAttemptInfo:
-      title: ReprocessAttemptInfo
-      properties:
-        created_at:
-          description: Date/Time ReprocessAttemptInfo was created
-          type: string
-          format: date-time
-          example: 2021-01-01T12:00:00+0000
-        initiated_by_id:
-          description: The ID of the member initiating the reprocess
-          type: integer
-          example: 2012
-        original_transaction_id:
-          description: ID of the original Transaction
-          type: integer
-          example: 8734
-        reprocess_transaction_id:
-          description: ID of Reprocess Transaction
-          type: integer
-          example: 7623371
-        state:
-          description: Reprocess status
-          type: string
-          enum:
-          - completed
-          - pending
-          - failed
-          example: completed
-        updated_at:
-          description: Date/Time ReprocessAttemptInfo was updated
-          type: string
-          format: date-time
-          example: 2021-01-01T12:00:00+0000
-      type: object
-    Answer:
-      title: Answer
-      properties:
-        answer:
-          description: Answer content
-          type: string
-          maxLength: 255
-          example: Example answer test
-        answerable_id:
-          description: Primary identifier of associated Fundraising Entity object. Required with answerable_type
-          type:
-          - integer
-          - 'null'
-          example: 3245
-        answerable_type:
-          description: Type of associated Fundraising Entity. Required with answerable_id
-          type:
-          - string
-          - 'null'
-          enum:
-          - fundraising_team
-          - fundraising_page
-          - transaction
-          - campaign_registration
-          example: fundraising_team
-        campaign_id:
-          description: Primary identifier of associated Campaign
-          type: integer
-          example: 227362
-        created_at:
-          description: Date/time of initial record creation
-          type: string
-          format: date-time
-          example: '2021-04-23T08:23:21Z'
-        id:
-          description: Primary identifier of record
-          type: integer
-          example: 32459
-        member_id:
-          description: Primary identifier of associated Member
-          type: integer
-          example: 2012
-        question_id:
-          description: Primary identifier of associated Question
-          type: integer
-          example: 45678
-        updated_at:
-          description: Date/time of last record update
-          type:
-          - string
-          - 'null'
-          format: date-time
-          example: '2021-04-23T10:25:03Z'
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
       type: object
     CampaignTransactionFillable:
       title: Campaign Transaction Fillable
@@ -1297,76 +1063,6 @@ components:
           - pending
           - failed
           example: canceled
-      type: object
-    TransactionItemFillable:
-      title: Transaction Item Fillable
-      properties:
-        product_name:
-          description: Name of product
-          type: string
-          maxLength: 64
-          example: Tickets
-        quantity:
-          description: Quantity purchased
-          type: integer
-          minimum: 1
-          example: 1
-        raw_final_price:
-          description: Represents the total raw value of a Transaction item - it is either set directly (as with a direct donation) or derived from the Product of `raw_price` (the price of the Transaction item's associated Product) and the specified quantity. All raw amounts are presented in terms of `raw_currency_code`, which is inherited from the Transaction item's Transaction and cannot be set on a per-item basis
-          type:
-          - number
-          - 'null'
-          format: double
-          minimum: 0
-          example: 15
-        raw_overhead_amount:
-          description: Which indicates the amount of the `raw_final_price` that is attributed to Campaign overhead.
-          type:
-          - number
-          - 'null'
-          format: double
-          minimum: 0
-          example: 15
-        type:
-          description: Type of Transaction Item ledger
-          type: string
-          enum:
-          - donation
-          - registration
-          - offline_donation
-          - chargeback_reversal
-          - custom_product
-          - auction
-          - good
-          example: donation
-      type: object
-    ReprocessAttemptInfoFillable:
-      title: ReprocessAttemptInfoFillable
-      properties:
-        original_transaction_id:
-          description: ID of the original Transaction
-          type: integer
-          example: 8734
-        reprocess_transaction_id:
-          description: ID of Reprocess Transaction
-          type: integer
-          example: 7623371
-        initiated_by_id:
-          description: The ID of the member initiating the reprocess
-          type: integer
-          example: 2012
-        pp_transaction_id:
-          description: Transaction ID for the payment provider (e.g. Classy Pay)
-          type: string
-          example: '922337203687624342'
-        state:
-          description: Reprocess status
-          type: string
-          enum:
-          - completed
-          - pending
-          - failed
-          example: completed
       type: object
     Transaction:
       title: Transaction
@@ -2088,15 +1784,306 @@ components:
           type: boolean
           example: false
       type: object
+    OfflinePaymentInfo:
+      title: Offline Payment Info
+      properties:
+        check_number:
+          description: Check number for a check payment type
+          type:
+          - string
+          - 'null'
+          maxLength: 32
+          example: '456'
+        description:
+          description: Additional offline donation details
+          type:
+          - string
+          - 'null'
+          maxLength: 255
+          example: Lorem ipsum whatever
+        payment_type:
+          description: Payment type for the offline donation
+          type:
+          - string
+          - 'null'
+          enum:
+          - cash
+          - check
+          - cc
+          - pledge
+          - other
+          - sponsor
+          - stock_donations
+          - corporate_match
+          - donation_match
+          - eft
+          - crypto
+          - dafpay
+          example: cash
+        sync_third_party:
+          description: Sync this offline transaction into third party products such as salesforce
+          type:
+          - boolean
+          - 'null'
+          example: false
+      type: object
+    TransactionFillable:
+      title: Transaction Fillable
+      properties:
+        billing_address1:
+          description: Line one of Billing address
+          type:
+          - string
+          - 'null'
+          example: 533 F Street
+        billing_address2:
+          description: Line two of Billing address
+          type:
+          - string
+          - 'null'
+          example: 533 F Street
+        billing_city:
+          description: Billing city
+          type:
+          - string
+          - 'null'
+          example: San Diego
+        billing_country:
+          description: Billing country. Must be a valid ISO 3166-1 alpha-2 country code
+          type:
+          - string
+          - 'null'
+          example: US
+        billing_first_name:
+          description: Billing first name
+          type:
+          - string
+          - 'null'
+          example: GoFundMe Pro
+        billing_last_name:
+          description: Billing last name
+          type:
+          - string
+          - 'null'
+          example: Member
+        billing_postal_code:
+          description: Billing zip/postal code
+          type:
+          - string
+          - 'null'
+          example: '92101'
+        billing_state:
+          description: Billing state/province
+          type:
+          - string
+          - 'null'
+          maxLength: 32
+          example: CA
+        browser_info:
+          description: Browser information
+          type:
+          - string
+          - 'null'
+          example: information
+        comment:
+          description: Organization comment
+          type:
+          - string
+          - 'null'
+          example: This is a comment
+        company_name:
+          description: Name of company this Transaction has ties to
+          type:
+          - string
+          - 'null'
+          example: GoFundMe Pro
+        hide_amount:
+          description: Whether purchaser indicated if Transaction amount should be hidden
+          type:
+          - boolean
+          - 'null'
+          example: false
+        is_anonymous:
+          description: Whether purchaser indicated if transaction should be anonymous
+          type:
+          - boolean
+          - 'null'
+          example: false
+        is_gift_aid:
+          description: Flag whether the donor opted into gift aid used by the UK or not. Can only be set if the organization allows it
+          type:
+          - boolean
+          - 'null'
+          example: false
+        is_reprocess:
+          description: If it is a reprocessed transaction or not
+          type:
+          - boolean
+          - 'null'
+          example: true
+        member_country:
+          description: Country of the Member
+          type:
+          - string
+          - 'null'
+          example: US
+        member_email_address:
+          description: Email address of purchaser GoFundMe Pro Member
+          type:
+          - string
+          - 'null'
+          example: member@gofundme.com
+        member_name:
+          description: ' Name of purchaser GoFundMe Pro Member'
+          type:
+          - string
+          - 'null'
+          example: GoFundMe Pro Member
+        member_phone:
+          description: Phone number of purchaser GoFundMe Pro Member
+          type:
+          - string
+          - 'null'
+          example: 555-555-5555
+        member_cell_phone:
+          description: Cell phone number of purchaser GoFundMe Pro Member. Also forwarded to the supporter record (cell_phone) on supporter creation — the SMS consent target when collected.
+          type:
+          - string
+          - 'null'
+          example: 555-555-5555
+        metadata:
+          description: An optional set of unstructured metadata to be stored with a Transaction
+          type:
+          - string
+          - 'null'
+          example: '{foo: ''bar''}'
+        raw_currency_code:
+          description: Currency Code of the Transaction before normalization
+          type:
+          - string
+          - 'null'
+          example: JPY
+        status:
+          description: The status of the Transaction
+          type:
+          - string
+          - 'null'
+          enum:
+          - test
+          - canceled
+          - incomplete
+          - success
+          - refunded
+          - cb_lost
+          - cb_initiated
+          - voided
+          - pending
+          - failed
+          example: canceled
+        reprocess_attempt_info:
+          $ref: '#/components/schemas/ReprocessAttemptInfoFillable'
+        fundraising_tracking_code:
+          description: Fundraising Tracking Code to improve accuracy and efficiency in fundraising reporting
+          type: string
+          example: JD0146
+      type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
+      type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    ReprocessAttemptInfoFillable:
+      title: ReprocessAttemptInfoFillable
+      properties:
+        original_transaction_id:
+          description: ID of the original Transaction
+          type: integer
+          example: 8734
+        reprocess_transaction_id:
+          description: ID of Reprocess Transaction
+          type: integer
+          example: 7623371
+        initiated_by_id:
+          description: The ID of the member initiating the reprocess
+          type: integer
+          example: 2012
+        pp_transaction_id:
+          description: Transaction ID for the payment provider (e.g. Classy Pay)
+          type: string
+          example: '922337203687624342'
+        state:
+          description: Reprocess status
+          type: string
+          enum:
+          - completed
+          - pending
+          - failed
+          example: completed
+      type: object
+    TransactionItemFillable:
+      title: Transaction Item Fillable
+      properties:
+        product_name:
+          description: Name of product
+          type: string
+          maxLength: 64
+          example: Tickets
+        quantity:
+          description: Quantity purchased
+          type: integer
+          minimum: 1
+          example: 1
+        raw_final_price:
+          description: Represents the total raw value of a Transaction item - it is either set directly (as with a direct donation) or derived from the Product of `raw_price` (the price of the Transaction item's associated Product) and the specified quantity. All raw amounts are presented in terms of `raw_currency_code`, which is inherited from the Transaction item's Transaction and cannot be set on a per-item basis
+          type:
+          - number
+          - 'null'
+          format: double
+          minimum: 0
+          example: 15
+        raw_overhead_amount:
+          description: Which indicates the amount of the `raw_final_price` that is attributed to Campaign overhead.
+          type:
+          - number
+          - 'null'
+          format: double
+          minimum: 0
+          example: 15
+        type:
+          description: Type of Transaction Item ledger
+          type: string
+          enum:
+          - donation
+          - registration
+          - offline_donation
+          - chargeback_reversal
+          - custom_product
+          - auction
+          - good
+          example: donation
+      type: object
   parameters:
-    page:
-      name: page
-      in: query
-      description: Indicator of which page of results to return
-      required: false
-      schema:
-        type: integer
-        example: 1
     per_page:
       name: per_page
       in: query
@@ -2105,6 +2092,14 @@ components:
       schema:
         type: integer
         example: 20
+    page:
+      name: page
+      in: query
+      description: Indicator of which page of results to return
+      required: false
+      schema:
+        type: integer
+        example: 1
   securitySchemes:
     OAuth2Application:
       type: oauth2
