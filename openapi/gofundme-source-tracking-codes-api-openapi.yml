@@ -165,6 +165,141 @@ paths:
                 $ref: '#/components/schemas/ResourceNotFoundResponse'
 components:
   schemas:
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    SourceTrackingCodeFillable:
+      title: Source Tracking Code Fillable
+      properties:
+        c_src:
+          description: Primary Source Tracking Code. At least one of c_src, c_src2, or a supported utm property is required.
+          type: string
+          example: Code123
+        c_src2:
+          description: Secondary Source Tracking Code. At least one of c_src, c_src2, or a supported utm property is required.
+          type: string
+          example: Code123
+        referrer:
+          description: Name of referrer for Source Tracking Code
+          type:
+          - string
+          - 'null'
+          maxLength: 2047
+          example: www.gofundme.com
+        utm:
+          description: UTM tracking parameters for Source Tracking Code. Supported keys are utm_source, utm_medium, utm_campaign, utm_content, and utm_term. At least one of c_src, c_src2, or a supported utm property is required.
+          properties:
+            utm_source:
+              type:
+              - string
+              - 'null'
+              maxLength: 255
+              example: google
+            utm_medium:
+              type:
+              - string
+              - 'null'
+              maxLength: 255
+              example: cpc
+            utm_campaign:
+              type:
+              - string
+              - 'null'
+              maxLength: 255
+              example: spring
+            utm_content:
+              type:
+              - string
+              - 'null'
+              maxLength: 255
+              example: banner
+            utm_term:
+              type:
+              - string
+              - 'null'
+              maxLength: 255
+              example: donate
+          type:
+          - object
+          - 'null'
+          example:
+            utm_source: google
+            utm_medium: cpc
+            utm_campaign: spring
+          additionalProperties: false
+        event_type:
+          description: Event type for Source Tracking Code
+          type: string
+          maxLength: 255
+          example: landing_page.hit
+      type: object
+    SourceTrackingCode:
+      title: Source Tracking Code
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/SourceTrackingCodeFillable'
+      - properties:
+          id:
+            description: Primary identifier of Source Tracking Code
+            type: integer
+            example: 9597
+          trackable_id:
+            description: Primary identifier of associated trackable resource. This is required with trackable_type. Resource can be either Fundraising Page, Fundraising Team or Transaction.
+            type:
+            - integer
+            - 'null'
+            example: 8734
+          trackable_type:
+            description: The type of Resource. This is required with trackable_id
+            type:
+            - string
+            - 'null'
+            enum:
+            - fundraising_page
+            - fundraising_team
+            - transaction
+            example: transaction
+          created_at:
+            description: Date/time of initial Source Tracking Code creation
+            type: string
+            format: date-time
+            example: '2019-04-23T10:25:03Z'
+          updated_at:
+            description: Date/time of Source Tracking Code last updated
+            type: string
+            format: date-time
+            example: '2019-04-23T10:25:03Z'
+        type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
+      type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
     PaginatedResponse:
       title: Paginated Response
       properties:
@@ -237,150 +372,7 @@ components:
           type: integer
           example: 1
       type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
-    SourceTrackingCodeFillable:
-      title: Source Tracking Code Fillable
-      properties:
-        c_src:
-          description: Primary Source Tracking Code. At least one of c_src, c_src2, or a supported utm property is required.
-          type: string
-          example: Code123
-        c_src2:
-          description: Secondary Source Tracking Code. At least one of c_src, c_src2, or a supported utm property is required.
-          type: string
-          example: Code123
-        referrer:
-          description: Name of referrer for Source Tracking Code
-          type:
-          - string
-          - 'null'
-          maxLength: 2047
-          example: www.gofundme.com
-        utm:
-          description: UTM tracking parameters for Source Tracking Code. Supported keys are utm_source, utm_medium, utm_campaign, utm_content, and utm_term. At least one of c_src, c_src2, or a supported utm property is required.
-          properties:
-            utm_source:
-              type:
-              - string
-              - 'null'
-              maxLength: 255
-              example: google
-            utm_medium:
-              type:
-              - string
-              - 'null'
-              maxLength: 255
-              example: cpc
-            utm_campaign:
-              type:
-              - string
-              - 'null'
-              maxLength: 255
-              example: spring
-            utm_content:
-              type:
-              - string
-              - 'null'
-              maxLength: 255
-              example: banner
-            utm_term:
-              type:
-              - string
-              - 'null'
-              maxLength: 255
-              example: donate
-          type:
-          - object
-          - 'null'
-          example:
-            utm_source: google
-            utm_medium: cpc
-            utm_campaign: spring
-          additionalProperties: false
-        event_type:
-          description: Event type for Source Tracking Code
-          type: string
-          maxLength: 255
-          example: landing_page.hit
-      type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
-      properties:
-        label:
-          description: Identifier of the page.
-          type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
-      type: object
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    SourceTrackingCode:
-      title: Source Tracking Code
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/SourceTrackingCodeFillable'
-      - properties:
-          id:
-            description: Primary identifier of Source Tracking Code
-            type: integer
-            example: 9597
-          trackable_id:
-            description: Primary identifier of associated trackable resource. This is required with trackable_type. Resource can be either Fundraising Page, Fundraising Team or Transaction.
-            type:
-            - integer
-            - 'null'
-            example: 8734
-          trackable_type:
-            description: The type of Resource. This is required with trackable_id
-            type:
-            - string
-            - 'null'
-            enum:
-            - fundraising_page
-            - fundraising_team
-            - transaction
-            example: transaction
-          created_at:
-            description: Date/time of initial Source Tracking Code creation
-            type: string
-            format: date-time
-            example: '2019-04-23T10:25:03Z'
-          updated_at:
-            description: Date/time of Source Tracking Code last updated
-            type: string
-            format: date-time
-            example: '2019-04-23T10:25:03Z'
-        type: object
   parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: Number of entries to return in each page of results
-      required: false
-      schema:
-        type: integer
-        example: 20
     page:
       name: page
       in: query
@@ -389,6 +381,14 @@ components:
       schema:
         type: integer
         example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
   securitySchemes:
     OAuth2Application:
       type: oauth2

@@ -71,6 +71,28 @@ paths:
       - OAuth2Member: []
 components:
   schemas:
+    FundraisingPageTransferFillable:
+      title: FundraisingPageTransfer Fillable
+      properties:
+        destination_campaign_id:
+          description: Primary identifier of destination Campaign
+          type:
+          - integer
+          - 'null'
+          example: 227362
+        destination_fundraising_team_id:
+          description: Primary identifier of destination Fundraising Team
+          type:
+          - integer
+          - 'null'
+          example: 209745
+        destination_member_id:
+          description: Primary identifier of destination Member
+          type:
+          - integer
+          - 'null'
+          example: 2012
+      type: object
     FundraisingPageTransfer:
       title: Fundraising Page Transfer
       properties:
@@ -133,13 +155,6 @@ components:
           type: integer
           example: 2012
       type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
     ForbiddenResponse:
       title: Forbidden Response
       properties:
@@ -148,27 +163,12 @@ components:
           type: string
           example: This action is unauthorized.
       type: object
-    FundraisingPageTransferFillable:
-      title: FundraisingPageTransfer Fillable
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
       properties:
-        destination_campaign_id:
-          description: Primary identifier of destination Campaign
-          type:
-          - integer
-          - 'null'
-          example: 227362
-        destination_fundraising_team_id:
-          description: Primary identifier of destination Fundraising Team
-          type:
-          - integer
-          - 'null'
-          example: 209745
-        destination_member_id:
-          description: Primary identifier of destination Member
-          type:
-          - integer
-          - 'null'
-          example: 2012
+        error:
+          description: Description of detected errors in request
+          type: string
       type: object
   securitySchemes:
     OAuth2Application:

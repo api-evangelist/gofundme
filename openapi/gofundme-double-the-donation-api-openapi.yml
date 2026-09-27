@@ -134,13 +134,6 @@ paths:
       deprecated: true
 components:
   schemas:
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
     DoubleTheDonationAccount:
       title: DoubleTheDonation Account
       properties:
@@ -156,6 +149,14 @@ components:
           description: Public key for DoubleTheDonation
           type: string
           example: 2j9VhYMySDkLAEeB
+      type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
       type: object
     DoubleTheDonationAccountFillable:
       title: DoubleTheDonation Account Fillable
@@ -183,13 +184,12 @@ components:
       title: Empty Response
       type: object
       additionalProperties: false
-    ForbiddenResponse:
-      title: Forbidden Response
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
       properties:
         error:
-          description: Description of detected error in request
+          description: Description of detected errors in request
           type: string
-          example: This action is unauthorized.
       type: object
   securitySchemes:
     OAuth2Application:

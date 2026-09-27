@@ -150,24 +150,13 @@ paths:
       - OAuth2Member: []
 components:
   schemas:
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
+    ForbiddenResponse:
+      title: Forbidden Response
       properties:
         error:
-          description: Description of detected errors in request
+          description: Description of detected error in request
           type: string
-      type: object
-    CampaignCollectionFillable:
-      title: Campaign Collection Fillable
-      properties:
-        name:
-          description: Public name for the campaign series
-          type: string
-          example: Test Campaign Series
-        description:
-          description: Description of the campaign series
-          type: string
-          example: Annual 5k to raise funds for our mission
+          example: This action is unauthorized.
       type: object
     CampaignSeriesIterationFillable:
       title: Fillable Campaign Series Iteration
@@ -243,18 +232,29 @@ components:
           format: integer
           example: 245798
       type: object
+    CampaignCollectionFillable:
+      title: Campaign Collection Fillable
+      properties:
+        name:
+          description: Public name for the campaign series
+          type: string
+          example: Test Campaign Series
+        description:
+          description: Description of the campaign series
+          type: string
+          example: Annual 5k to raise funds for our mission
+      type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
     EmptyResponse:
       title: Empty Response
       type: object
       additionalProperties: false
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
     CampaignSeriesIteration:
       title: Campaign Series Iteration
       type: object

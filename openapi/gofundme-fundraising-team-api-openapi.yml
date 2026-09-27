@@ -700,85 +700,104 @@ paths:
                 $ref: '#/components/schemas/ResourceNotFoundResponse'
 components:
   schemas:
-    PaginatedResponse:
-      title: Paginated Response
-      properties:
-        current_page:
-          description: Index of current page
-          type: integer
-          example: 1
-        data:
-          description: Collection of results
-          type: array
-          items:
-            type: object
-        first_page_url:
-          description: URL of first page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=1
-        from:
-          description: Index of first displayed result within total result set
-          type:
-          - integer
-          - 'null'
-          example: 1
-        last_page:
-          description: Index of last page in result set
-          type: integer
-          example: 1
-        last_page_url:
-          description: URL of last page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=1
-        next_page_url:
-          description: URL of next page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=2
-        path:
-          description: URL of current page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource
-        per_page:
-          description: Maximum number of records returned per page of results
-          type: integer
-          example: 20
-        prev_page_url:
-          description: URL of previous page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=1
-        links:
-          description: Collection of objects representing pages {label, URL, active} that can be used to request the associated page of records.
-          type: array
-          items:
-            $ref: '#/components/schemas/PaginationLink'
-        to:
-          description: Index of last displayed result within total result set
-          type:
-          - integer
-          - 'null'
-          example: 1
-        total:
-          description: Total count of records in result set
-          type: integer
-          example: 1
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
+    ForbiddenResponse:
+      title: Forbidden Response
       properties:
         error:
-          description: Description of detected errors in request
+          description: Description of detected error in request
           type: string
+          example: This action is unauthorized.
       type: object
+    FundraisingTeamFillable:
+      title: Fundraising Team Fillable
+      properties:
+        city:
+          description: City
+          type:
+          - string
+          - 'null'
+          maxLength: 50
+          example: San Diego
+        country:
+          description: Country. Must be a valid ISO 3166-1 alpha-2 country code
+          type:
+          - string
+          - 'null'
+          maxLength: 2
+          example: US
+        description:
+          description: Team description
+          type:
+          - string
+          - 'null'
+          example: My team description
+        name:
+          description: Team name
+          type: string
+          maxLength: 127
+          example: My Team
+        postal_code:
+          description: Postal Code
+          type:
+          - string
+          - 'null'
+          maxLength: 50
+          example: '90210'
+        raw_currency_code:
+          description: ISO code of the default currency in which this Fundraising Team should be presented. Defaults to 'currency_code' if not specified
+          type:
+          - string
+          - 'null'
+          maxLength: 3
+          example: EUR
+        raw_goal:
+          description: Raw fundraising goal for this team. If unspecified, defaults to the team goal value set on the campaign
+          type:
+          - string
+          - 'null'
+          example: '100'
+        state:
+          description: State/province name. Must be a valid USPS state code
+          type:
+          - string
+          - 'null'
+          maxLength: 100
+          example: CA
+        supporter_first_name:
+          description: Optional. Recorded as the first name on the supporter created for the team lead when the campaign's organization has Contact-First Architecture enabled; ignored otherwise. Leading and trailing whitespace is trimmed before storage, and emoji characters are rejected with a 400 response. Honored only on team creation (POST /campaigns/{id}/fundraising-teams); silently ignored on update (PUT /fundraising-teams/{id}).
+          type:
+          - string
+          - 'null'
+          maxLength: 32
+          example: Alex
+        supporter_last_name:
+          description: Optional. Recorded as the last name on the supporter created for the team lead when the campaign's organization has Contact-First Architecture enabled; ignored otherwise. Leading and trailing whitespace is trimmed before storage, and emoji characters are rejected with a 400 response. Honored only on team creation (POST /campaigns/{id}/fundraising-teams); silently ignored on update (PUT /fundraising-teams/{id}).
+          type:
+          - string
+          - 'null'
+          maxLength: 32
+          example: Doe
+        thank_you_text:
+          description: Default thank you text on the thank you page
+          type:
+          - string
+          - 'null'
+          example: Thank you!
+        designation_id:
+          description: Primary identifier of associated Designation. Defaults to the campaign's designation
+          type:
+          - integer
+          - 'null'
+          example: 34672
+        is_p2p:
+          description: True when the team is owned by GFM Consumer and is read-only in GFM Pro
+          type: boolean
+          example: false
+      type: object
+    EmptyResponse:
+      title: Empty Response
+      type: object
+      additionalProperties: false
     FundraisingTeam:
       title: Fundraising Team
       properties:
@@ -969,113 +988,86 @@ components:
           type: boolean
           example: true
       type: object
-    FundraisingTeamFillable:
-      title: Fundraising Team Fillable
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
       properties:
-        city:
-          description: City
-          type:
-          - string
-          - 'null'
-          maxLength: 50
-          example: San Diego
-        country:
-          description: Country. Must be a valid ISO 3166-1 alpha-2 country code
-          type:
-          - string
-          - 'null'
-          maxLength: 2
-          example: US
-        description:
-          description: Team description
-          type:
-          - string
-          - 'null'
-          example: My team description
-        name:
-          description: Team name
+        error:
+          description: Description of detected errors in request
           type: string
-          maxLength: 127
-          example: My Team
-        postal_code:
-          description: Postal Code
+      type: object
+    PaginatedResponse:
+      title: Paginated Response
+      properties:
+        current_page:
+          description: Index of current page
+          type: integer
+          example: 1
+        data:
+          description: Collection of results
+          type: array
+          items:
+            type: object
+        first_page_url:
+          description: URL of first page of results
           type:
           - string
           - 'null'
-          maxLength: 50
-          example: '90210'
-        raw_currency_code:
-          description: ISO code of the default currency in which this Fundraising Team should be presented. Defaults to 'currency_code' if not specified
-          type:
-          - string
-          - 'null'
-          maxLength: 3
-          example: EUR
-        raw_goal:
-          description: Raw fundraising goal for this team. If unspecified, defaults to the team goal value set on the campaign
-          type:
-          - string
-          - 'null'
-          example: '100'
-        state:
-          description: State/province name. Must be a valid USPS state code
-          type:
-          - string
-          - 'null'
-          maxLength: 100
-          example: CA
-        supporter_first_name:
-          description: Optional. Recorded as the first name on the supporter created for the team lead when the campaign's organization has Contact-First Architecture enabled; ignored otherwise. Leading and trailing whitespace is trimmed before storage, and emoji characters are rejected with a 400 response. Honored only on team creation (POST /campaigns/{id}/fundraising-teams); silently ignored on update (PUT /fundraising-teams/{id}).
-          type:
-          - string
-          - 'null'
-          maxLength: 32
-          example: Alex
-        supporter_last_name:
-          description: Optional. Recorded as the last name on the supporter created for the team lead when the campaign's organization has Contact-First Architecture enabled; ignored otherwise. Leading and trailing whitespace is trimmed before storage, and emoji characters are rejected with a 400 response. Honored only on team creation (POST /campaigns/{id}/fundraising-teams); silently ignored on update (PUT /fundraising-teams/{id}).
-          type:
-          - string
-          - 'null'
-          maxLength: 32
-          example: Doe
-        thank_you_text:
-          description: Default thank you text on the thank you page
-          type:
-          - string
-          - 'null'
-          example: Thank you!
-        designation_id:
-          description: Primary identifier of associated Designation. Defaults to the campaign's designation
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        from:
+          description: Index of first displayed result within total result set
           type:
           - integer
           - 'null'
-          example: 34672
-        is_p2p:
-          description: True when the team is owned by GFM Consumer and is read-only in GFM Pro
-          type: boolean
-          example: false
-      type: object
-    EmptyResponse:
-      title: Empty Response
-      type: object
-      additionalProperties: false
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
+          example: 1
+        last_page:
+          description: Index of last page in result set
+          type: integer
+          example: 1
+        last_page_url:
+          description: URL of last page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        next_page_url:
+          description: URL of next page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=2
+        path:
+          description: URL of current page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource
+        per_page:
+          description: Maximum number of records returned per page of results
+          type: integer
+          example: 20
+        prev_page_url:
+          description: URL of previous page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        links:
+          description: Collection of objects representing pages {label, URL, active} that can be used to request the associated page of records.
+          type: array
+          items:
+            $ref: '#/components/schemas/PaginationLink'
+        to:
+          description: Index of last displayed result within total result set
+          type:
+          - integer
+          - 'null'
+          example: 1
+        total:
+          description: Total count of records in result set
+          type: integer
+          example: 1
       type: object
   parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: Number of entries to return in each page of results
-      required: false
-      schema:
-        type: integer
-        example: 20
     page:
       name: page
       in: query
@@ -1084,6 +1076,14 @@ components:
       schema:
         type: integer
         example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
   securitySchemes:
     OAuth2Application:
       type: oauth2

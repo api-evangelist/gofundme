@@ -195,13 +195,6 @@ paths:
       - OAuth2Member: []
 components:
   schemas:
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
     AppealSet:
       title: Appeal Set
       properties:
@@ -265,15 +258,13 @@ components:
           - 'null'
           example: Please donate to our campaign.
       type: object
-    MalformedPayloadResponse:
-      title: Malformed Payload Response
+    ForbiddenResponse:
+      title: Forbidden Response
       properties:
-        errors:
-          description: Description of detected errors in request
-          type: array
-          items:
-            type: string
-            example: Malformed JSON payload.
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
       type: object
     AppealSetFillable:
       title: Appeal Set Fillable
@@ -318,13 +309,22 @@ components:
           - 'null'
           example: Please donate to our campaign.
       type: object
-    ForbiddenResponse:
-      title: Forbidden Response
+    MalformedPayloadResponse:
+      title: Malformed Payload Response
+      properties:
+        errors:
+          description: Description of detected errors in request
+          type: array
+          items:
+            type: string
+            example: Malformed JSON payload.
+      type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
       properties:
         error:
-          description: Description of detected error in request
+          description: Description of detected errors in request
           type: string
-          example: This action is unauthorized.
       type: object
   securitySchemes:
     OAuth2Application:
