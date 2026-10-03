@@ -181,40 +181,6 @@ paths:
                 $ref: '#/components/schemas/ResourceNotFoundResponse'
 components:
   schemas:
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    JavaScriptCustomizationFillable:
-      title: JavaScript Customization Write
-      required:
-      - html_content
-      properties:
-        html_content:
-          description: Custom HTML/CSS/JS content as a string
-          type: string
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
-    MalformedPayloadResponse:
-      title: Malformed Payload Response
-      properties:
-        errors:
-          description: Description of detected errors in request
-          type: array
-          items:
-            type: string
-            example: Malformed JSON payload.
-      type: object
     JavaScriptCustomization:
       title: JavaScript Customization
       description: Versioned custom HTML/CSS/JS snippet attached to a Campaign.
@@ -260,6 +226,40 @@ components:
         updated_at:
           type: string
           format: date-time
+      type: object
+    MalformedPayloadResponse:
+      title: Malformed Payload Response
+      properties:
+        errors:
+          description: Description of detected errors in request
+          type: array
+          items:
+            type: string
+            example: Malformed JSON payload.
+      type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    JavaScriptCustomizationFillable:
+      title: JavaScript Customization Write
+      required:
+      - html_content
+      properties:
+        html_content:
+          description: Custom HTML/CSS/JS content as a string
+          type: string
       type: object
   securitySchemes:
     OAuth2Application:

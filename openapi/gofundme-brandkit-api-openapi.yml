@@ -480,62 +480,6 @@ components:
           type: string
           example: You do not have permission to access this resource
       type: object
-    BrandkitImage:
-      title: Brandkit Image
-      properties:
-        bk_id:
-          description: Brandkit ID (read-only)
-          type: integer
-        asset_id:
-          description: Asset ID
-          type: integer
-        name:
-          description: Image name or title
-          type: string
-        cdn_url:
-          type: string
-          format: uri
-        content_type:
-          type: string
-        type:
-          type: string
-        parent_id:
-          type:
-          - integer
-          - 'null'
-        size:
-          type: integer
-        state:
-          type: string
-        created_by:
-          type:
-          - integer
-          - 'null'
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-      type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
-      properties:
-        label:
-          description: Identifier of the page.
-          type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
-      type: object
     PaginatedResponse:
       title: Paginated Response
       properties:
@@ -607,6 +551,62 @@ components:
           description: Total count of records in result set
           type: integer
           example: 1
+      type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
+      type: object
+    BrandkitImage:
+      title: Brandkit Image
+      properties:
+        bk_id:
+          description: Brandkit ID (read-only)
+          type: integer
+        asset_id:
+          description: Asset ID
+          type: integer
+        name:
+          description: Image name or title
+          type: string
+        cdn_url:
+          type: string
+          format: uri
+        content_type:
+          type: string
+        type:
+          type: string
+        parent_id:
+          type:
+          - integer
+          - 'null'
+        size:
+          type: integer
+        state:
+          type: string
+        created_by:
+          type:
+          - integer
+          - 'null'
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
       type: object
   parameters:
     page:

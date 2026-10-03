@@ -91,31 +91,6 @@ paths:
       - OAuth2Member: []
 components:
   schemas:
-    EngagementSettings:
-      title: Engagement Settings
-      type: object
-      allOf:
-      - properties:
-          id:
-            description: Primary identifier of Engagement Settings
-            type: string
-            example: 5ceeb33d6e201a648239a387
-          organization_id:
-            description: ID of the Organization for which Engagement settings belongs
-            type: integer
-            example: 82374
-          created_at:
-            description: Date/time of initial Engagement Settings creation
-            type: string
-            format: date-time
-            example: '2019-04-23T10:25:03Z'
-          updated_at:
-            description: Date/time of Engagement Settings last updated
-            type: string
-            format: date-time
-            example: '2019-04-23T10:25:03Z'
-        type: object
-      - $ref: '#/components/schemas/EngagementSettingsFillable'
     ForbiddenResponse:
       title: Forbidden Response
       properties:
@@ -254,6 +229,31 @@ components:
               type: object
           type: object
       type: object
+    EngagementSettings:
+      title: Engagement Settings
+      type: object
+      allOf:
+      - properties:
+          id:
+            description: Primary identifier of Engagement Settings
+            type: string
+            example: 5ceeb33d6e201a648239a387
+          organization_id:
+            description: ID of the Organization for which Engagement settings belongs
+            type: integer
+            example: 82374
+          created_at:
+            description: Date/time of initial Engagement Settings creation
+            type: string
+            format: date-time
+            example: '2019-04-23T10:25:03Z'
+          updated_at:
+            description: Date/time of Engagement Settings last updated
+            type: string
+            format: date-time
+            example: '2019-04-23T10:25:03Z'
+        type: object
+      - $ref: '#/components/schemas/EngagementSettingsFillable'
     ResourceNotFoundResponse:
       title: Resource Not Found Response
       properties:

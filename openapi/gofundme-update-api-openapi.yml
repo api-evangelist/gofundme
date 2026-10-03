@@ -463,82 +463,6 @@ paths:
       - OAuth2Member: []
 components:
   schemas:
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    UpdateComment:
-      title: Comment (Update)
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/Comment'
-      - properties:
-          commentable_id:
-            type: integer
-            example: 736
-          commentable_type:
-            type: string
-            example: update
-        type: object
-    FundraisingTeamPost:
-      title: Post (Fundraising Team)
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/Post'
-      - properties:
-          postable_id:
-            description: Primary identifier of Fundraising Entity for which the Post was made
-            type: integer
-            example: 209745
-          postable_type:
-            description: String describing type of Fundraising Entity for which the Post was made
-            type: string
-            example: fundraising_team
-        type: object
-    Update:
-      title: Update
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/Post'
-      - properties:
-          asset_id:
-            description: ID of associated Asset
-            type:
-            - integer
-            - 'null'
-            example: 4521
-          asset_url:
-            description: CDN URL of associated Asset
-            type:
-            - string
-            - 'null'
-            example: https://cdn.example.com/assets/4521.jpg
-          body:
-            description: Main content of Update
-            type: string
-            example: Thank you everyone for the progress we've made so far! We have five days until...
-          id:
-            description: Primary identifier of record
-            type: integer
-            example: 72631
-          latest_comments:
-            description: Array of latest Comments made in response to Update (limit 2 items)
-            type: array
-            items:
-              $ref: '#/components/schemas/UpdateComment'
-          visibility:
-            description: Visibility of Update (private updates can only be seen by the Member associated with record)
-            type: string
-            enum:
-            - private
-            - public
-            example: public
-        type: object
-      - $ref: '#/components/schemas/FundraisingTeamPost'
     Comment:
       title: Comment
       properties:
@@ -590,159 +514,6 @@ components:
           type: string
           format: date-time
           example: '2021-04-23T08:23:21Z'
-      type: object
-    FundraisingPageUpdate:
-      title: Update (Fundraising Page)
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/Update'
-      - properties:
-          postable_id:
-            description: Primary identifier of Fundraising Entity for which the Post was made
-            type: integer
-            example: 2173528
-          postable_type:
-            description: String describing type of Fundraising Entity for which the Post was made
-            type: string
-            example: fundraising_page
-        type: object
-      - $ref: '#/components/schemas/FundraisingTeamPost'
-    CampaignUpdate:
-      title: Update (Campaign)
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/Update'
-      - properties:
-          postable_id:
-            description: Primary identifier of Fundraising Entity for which the Post was made
-            type: integer
-            example: 2012
-          postable_type:
-            description: String describing type of Fundraising Entity for which the Post was made
-            type: string
-            example: campaign
-        type: object
-      - $ref: '#/components/schemas/FundraisingTeamPost'
-    EmptyResponse:
-      title: Empty Response
-      type: object
-      additionalProperties: false
-    MalformedPayloadResponse:
-      title: Malformed Payload Response
-      properties:
-        errors:
-          description: Description of detected errors in request
-          type: array
-          items:
-            type: string
-            example: Malformed JSON payload.
-      type: object
-    FundraisingTeamUpdate:
-      title: Update (Fundraising Team)
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/Update'
-      - properties:
-          postable_id:
-            description: Primary identifier of Fundraising Entity for which the Post was made
-            type: integer
-            example: 209745
-          postable_type:
-            description: String describing type of Fundraising Entity for which the Post was made
-            type: string
-            example: fundraising_team
-        type: object
-      - $ref: '#/components/schemas/FundraisingTeamPost'
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
-      properties:
-        label:
-          description: Identifier of the page.
-          type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
-      type: object
-    Post:
-      title: Post
-      properties:
-        body:
-          description: Main content of Post
-          type: string
-        comments_count:
-          description: Cached count of the number of Comments made in response to Post
-          type: integer
-          example: 3
-        created_at:
-          description: Date/time of initial record creation
-          type: string
-          format: date-time
-          example: '2021-04-23T08:23:21Z'
-        latest_comments:
-          description: Array of latest Comments made in response to Post (limit 2 items)
-          type: array
-          items:
-            $ref: '#/components/schemas/Comment'
-        likes_count:
-          description: Cached count of the number of Likes that Post has received
-          type: integer
-          example: 14
-        member_id:
-          description: Primary identifier of Member who created Post (i.e. the poster)
-          type: integer
-          example: 2012
-        postable_id:
-          description: Primary identifier of Fundraising Entity for which the Post was made
-          type: integer
-        postable_type:
-          description: String describing type of Fundraising Entity for which the Post was made
-          type: string
-        poster_name:
-          description: Full name of Post's creator
-          type:
-          - string
-          - 'null'
-          example: Buster McTest
-        shares_count:
-          description: Cached count of the number of times Post has been shared
-          type: integer
-          example: 8
-        status:
-          description: Indication whether Post is a draft or has been published
-          type: string
-          enum:
-          - draft
-          - published
-          example: published
-        title:
-          description: Title of Post
-          type:
-          - string
-          - 'null'
-        updated_at:
-          description: Date/time of last record update
-          type: string
-          format: date-time
-          example: '2021-04-23T10:25:03Z'
-        views_count:
-          description: Cached count of the number of times Post has been viewed
-          type: integer
-          example: 46
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
       type: object
     PaginatedResponse:
       title: Paginated Response
@@ -815,6 +586,235 @@ components:
           description: Total count of records in result set
           type: integer
           example: 1
+      type: object
+    MalformedPayloadResponse:
+      title: Malformed Payload Response
+      properties:
+        errors:
+          description: Description of detected errors in request
+          type: array
+          items:
+            type: string
+            example: Malformed JSON payload.
+      type: object
+    Update:
+      title: Update
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Post'
+      - properties:
+          asset_id:
+            description: ID of associated Asset
+            type:
+            - integer
+            - 'null'
+            example: 4521
+          asset_url:
+            description: CDN URL of associated Asset
+            type:
+            - string
+            - 'null'
+            example: https://cdn.example.com/assets/4521.jpg
+          body:
+            description: Main content of Update
+            type: string
+            example: Thank you everyone for the progress we've made so far! We have five days until...
+          id:
+            description: Primary identifier of record
+            type: integer
+            example: 72631
+          latest_comments:
+            description: Array of latest Comments made in response to Update (limit 2 items)
+            type: array
+            items:
+              $ref: '#/components/schemas/UpdateComment'
+          visibility:
+            description: Visibility of Update (private updates can only be seen by the Member associated with record)
+            type: string
+            enum:
+            - private
+            - public
+            example: public
+        type: object
+      - $ref: '#/components/schemas/FundraisingTeamPost'
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    EmptyResponse:
+      title: Empty Response
+      type: object
+      additionalProperties: false
+    UpdateComment:
+      title: Comment (Update)
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Comment'
+      - properties:
+          commentable_id:
+            type: integer
+            example: 736
+          commentable_type:
+            type: string
+            example: update
+        type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    FundraisingPageUpdate:
+      title: Update (Fundraising Page)
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Update'
+      - properties:
+          postable_id:
+            description: Primary identifier of Fundraising Entity for which the Post was made
+            type: integer
+            example: 2173528
+          postable_type:
+            description: String describing type of Fundraising Entity for which the Post was made
+            type: string
+            example: fundraising_page
+        type: object
+      - $ref: '#/components/schemas/FundraisingTeamPost'
+    FundraisingTeamUpdate:
+      title: Update (Fundraising Team)
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Update'
+      - properties:
+          postable_id:
+            description: Primary identifier of Fundraising Entity for which the Post was made
+            type: integer
+            example: 209745
+          postable_type:
+            description: String describing type of Fundraising Entity for which the Post was made
+            type: string
+            example: fundraising_team
+        type: object
+      - $ref: '#/components/schemas/FundraisingTeamPost'
+    FundraisingTeamPost:
+      title: Post (Fundraising Team)
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Post'
+      - properties:
+          postable_id:
+            description: Primary identifier of Fundraising Entity for which the Post was made
+            type: integer
+            example: 209745
+          postable_type:
+            description: String describing type of Fundraising Entity for which the Post was made
+            type: string
+            example: fundraising_team
+        type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
+      type: object
+    CampaignUpdate:
+      title: Update (Campaign)
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Update'
+      - properties:
+          postable_id:
+            description: Primary identifier of Fundraising Entity for which the Post was made
+            type: integer
+            example: 2012
+          postable_type:
+            description: String describing type of Fundraising Entity for which the Post was made
+            type: string
+            example: campaign
+        type: object
+      - $ref: '#/components/schemas/FundraisingTeamPost'
+    Post:
+      title: Post
+      properties:
+        body:
+          description: Main content of Post
+          type: string
+        comments_count:
+          description: Cached count of the number of Comments made in response to Post
+          type: integer
+          example: 3
+        created_at:
+          description: Date/time of initial record creation
+          type: string
+          format: date-time
+          example: '2021-04-23T08:23:21Z'
+        latest_comments:
+          description: Array of latest Comments made in response to Post (limit 2 items)
+          type: array
+          items:
+            $ref: '#/components/schemas/Comment'
+        likes_count:
+          description: Cached count of the number of Likes that Post has received
+          type: integer
+          example: 14
+        member_id:
+          description: Primary identifier of Member who created Post (i.e. the poster)
+          type: integer
+          example: 2012
+        postable_id:
+          description: Primary identifier of Fundraising Entity for which the Post was made
+          type: integer
+        postable_type:
+          description: String describing type of Fundraising Entity for which the Post was made
+          type: string
+        poster_name:
+          description: Full name of Post's creator
+          type:
+          - string
+          - 'null'
+          example: Buster McTest
+        shares_count:
+          description: Cached count of the number of times Post has been shared
+          type: integer
+          example: 8
+        status:
+          description: Indication whether Post is a draft or has been published
+          type: string
+          enum:
+          - draft
+          - published
+          example: published
+        title:
+          description: Title of Post
+          type:
+          - string
+          - 'null'
+        updated_at:
+          description: Date/time of last record update
+          type: string
+          format: date-time
+          example: '2021-04-23T10:25:03Z'
+        views_count:
+          description: Cached count of the number of times Post has been viewed
+          type: integer
+          example: 46
       type: object
   parameters:
     page:

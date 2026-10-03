@@ -534,7 +534,106 @@ paths:
               schema:
                 $ref: '#/components/schemas/ResourceNotFoundResponse'
 components:
+  parameters:
+    page:
+      name: page
+      in: query
+      description: Indicator of which page of results to return
+      required: false
+      schema:
+        type: integer
+        example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
   schemas:
+    PaginatedResponse:
+      title: Paginated Response
+      properties:
+        current_page:
+          description: Index of current page
+          type: integer
+          example: 1
+        data:
+          description: Collection of results
+          type: array
+          items:
+            type: object
+        first_page_url:
+          description: URL of first page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        from:
+          description: Index of first displayed result within total result set
+          type:
+          - integer
+          - 'null'
+          example: 1
+        last_page:
+          description: Index of last page in result set
+          type: integer
+          example: 1
+        last_page_url:
+          description: URL of last page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        next_page_url:
+          description: URL of next page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=2
+        path:
+          description: URL of current page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource
+        per_page:
+          description: Maximum number of records returned per page of results
+          type: integer
+          example: 20
+        prev_page_url:
+          description: URL of previous page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        links:
+          description: Collection of objects representing pages {label, URL, active} that can be used to request the associated page of records.
+          type: array
+          items:
+            $ref: '#/components/schemas/PaginationLink'
+        to:
+          description: Index of last displayed result within total result set
+          type:
+          - integer
+          - 'null'
+          example: 1
+        total:
+          description: Total count of records in result set
+          type: integer
+          example: 1
+      type: object
+    MalformedPayloadResponse:
+      title: Malformed Payload Response
+      properties:
+        errors:
+          description: Description of detected errors in request
+          type: array
+          items:
+            type: string
+            example: Malformed JSON payload.
+      type: object
     ForbiddenResponse:
       title: Forbidden Response
       properties:
@@ -542,6 +641,45 @@ components:
           description: Description of detected error in request
           type: string
           example: This action is unauthorized.
+      type: object
+    EmptyResponse:
+      title: Empty Response
+      type: object
+      additionalProperties: false
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
+      type: object
+    CampaignFundraisingTrackingCode:
+      title: CampaignFundraisingTrackingCode
+      properties:
+        fundraising_tracking_code:
+          description: Only in PUT call, to be added if org has tag early-access:fundraising-tracking-code
+          type:
+          - string
+          - 'null'
+          example: JD0146
       type: object
     Campaign:
       title: Campaign
@@ -1177,144 +1315,6 @@ components:
           - 'null'
           example: https://www.myawesomecharity.org
       type: object
-    CampaignFundraisingTrackingCode:
-      title: CampaignFundraisingTrackingCode
-      properties:
-        fundraising_tracking_code:
-          description: Only in PUT call, to be added if org has tag early-access:fundraising-tracking-code
-          type:
-          - string
-          - 'null'
-          example: JD0146
-      type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
-      properties:
-        label:
-          description: Identifier of the page.
-          type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
-      type: object
-    MalformedPayloadResponse:
-      title: Malformed Payload Response
-      properties:
-        errors:
-          description: Description of detected errors in request
-          type: array
-          items:
-            type: string
-            example: Malformed JSON payload.
-      type: object
-    EmptyResponse:
-      title: Empty Response
-      type: object
-      additionalProperties: false
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
-    PaginatedResponse:
-      title: Paginated Response
-      properties:
-        current_page:
-          description: Index of current page
-          type: integer
-          example: 1
-        data:
-          description: Collection of results
-          type: array
-          items:
-            type: object
-        first_page_url:
-          description: URL of first page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=1
-        from:
-          description: Index of first displayed result within total result set
-          type:
-          - integer
-          - 'null'
-          example: 1
-        last_page:
-          description: Index of last page in result set
-          type: integer
-          example: 1
-        last_page_url:
-          description: URL of last page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=1
-        next_page_url:
-          description: URL of next page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=2
-        path:
-          description: URL of current page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource
-        per_page:
-          description: Maximum number of records returned per page of results
-          type: integer
-          example: 20
-        prev_page_url:
-          description: URL of previous page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=1
-        links:
-          description: Collection of objects representing pages {label, URL, active} that can be used to request the associated page of records.
-          type: array
-          items:
-            $ref: '#/components/schemas/PaginationLink'
-        to:
-          description: Index of last displayed result within total result set
-          type:
-          - integer
-          - 'null'
-          example: 1
-        total:
-          description: Total count of records in result set
-          type: integer
-          example: 1
-      type: object
-  parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: Number of entries to return in each page of results
-      required: false
-      schema:
-        type: integer
-        example: 20
-    page:
-      name: page
-      in: query
-      description: Indicator of which page of results to return
-      required: false
-      schema:
-        type: integer
-        example: 1
   securitySchemes:
     OAuth2Application:
       type: oauth2

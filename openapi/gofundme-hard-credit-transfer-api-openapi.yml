@@ -71,13 +71,6 @@ paths:
       - OAuth2Member: []
 components:
   schemas:
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
     ForbiddenResponse:
       title: Forbidden Response
       properties:
@@ -164,6 +157,13 @@ components:
               type: integer
               example: 227362
           type: object
+      type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
       type: object
   securitySchemes:
     OAuth2Application:

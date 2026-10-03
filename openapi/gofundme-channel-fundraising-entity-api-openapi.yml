@@ -119,6 +119,14 @@ components:
           maxLength: 35
           example: '186503750172710'
       type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
     ChannelFundraisingEntity:
       title: Channel Fundraising Entity
       properties:
@@ -205,14 +213,6 @@ components:
           type: string
           format: date-time
           example: '2021-04-23T10:25:03Z'
-      type: object
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
       type: object
     ResourceNotFoundResponse:
       title: Resource Not Found Response

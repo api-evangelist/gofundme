@@ -60,13 +60,6 @@ components:
           type: string
           example: This action is unauthorized.
       type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
     PlanFeatures:
       title: Plan Features
       properties:
@@ -469,6 +462,13 @@ components:
           description: Allow Organization to create a zero fee Campaign
           type: boolean
           example: false
+      type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
       type: object
   securitySchemes:
     OAuth2Application:

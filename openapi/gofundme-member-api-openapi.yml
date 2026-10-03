@@ -209,7 +209,106 @@ paths:
       security:
       - OAuth2Member: []
 components:
+  parameters:
+    page:
+      name: page
+      in: query
+      description: Indicator of which page of results to return
+      required: false
+      schema:
+        type: integer
+        example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
   schemas:
+    PaginatedResponse:
+      title: Paginated Response
+      properties:
+        current_page:
+          description: Index of current page
+          type: integer
+          example: 1
+        data:
+          description: Collection of results
+          type: array
+          items:
+            type: object
+        first_page_url:
+          description: URL of first page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        from:
+          description: Index of first displayed result within total result set
+          type:
+          - integer
+          - 'null'
+          example: 1
+        last_page:
+          description: Index of last page in result set
+          type: integer
+          example: 1
+        last_page_url:
+          description: URL of last page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        next_page_url:
+          description: URL of next page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=2
+        path:
+          description: URL of current page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource
+        per_page:
+          description: Maximum number of records returned per page of results
+          type: integer
+          example: 20
+        prev_page_url:
+          description: URL of previous page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        links:
+          description: Collection of objects representing pages {label, URL, active} that can be used to request the associated page of records.
+          type: array
+          items:
+            $ref: '#/components/schemas/PaginationLink'
+        to:
+          description: Index of last displayed result within total result set
+          type:
+          - integer
+          - 'null'
+          example: 1
+        total:
+          description: Total count of records in result set
+          type: integer
+          example: 1
+      type: object
+    MalformedPayloadResponse:
+      title: Malformed Payload Response
+      properties:
+        errors:
+          description: Description of detected errors in request
+          type: array
+          items:
+            type: string
+            example: Malformed JSON payload.
+      type: object
     ForbiddenResponse:
       title: Forbidden Response
       properties:
@@ -217,6 +316,501 @@ components:
           description: Description of detected error in request
           type: string
           example: This action is unauthorized.
+      type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    Member:
+      title: Member
+      properties:
+        id:
+          description: Primary identifier of record
+          type: integer
+          example: 2012
+        okta_id:
+          description: ID of Okta
+          type:
+          - string
+          - 'null'
+          example: 00aaqm2iupwbJrgDv0h7
+        okta_synchronized_at:
+          description: Date/time of last sync update to Okta
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2021-04-23T10:25:03Z'
+        descope_user_id:
+          description: ID of Descope
+          type:
+          - string
+          - 'null'
+          example: 00aaqm2iupwbJrgDv0h7
+        descope_last_sync_at:
+          description: Date/time of last sync update to Descope
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2021-04-23T10:25:03Z'
+        first_name:
+          description: First name
+          type: string
+          example: Buster
+        last_name:
+          description: Last name
+          type: string
+          example: McTest
+        address1:
+          description: Address1
+          type:
+          - string
+          - 'null'
+          example: 123 Baker St
+        address2:
+          description: Address2
+          type:
+          - string
+          - 'null'
+          example: ''
+        city:
+          description: City
+          type:
+          - string
+          - 'null'
+          example: San Diego
+        state:
+          description: State
+          type:
+          - string
+          - 'null'
+          example: CA
+        country:
+          description: Country
+          type:
+          - string
+          - 'null'
+          example: US
+        postal_code:
+          description: Postal Code
+          type:
+          - string
+          - 'null'
+          example: '91111'
+        email_address:
+          description: Email address
+          type: string
+          format: email
+          example: user@example.com
+        date_of_birth:
+          description: Date of birth
+          type:
+          - string
+          - 'null'
+          example: '1990-01-01'
+        phone:
+          description: Phone number
+          type:
+          - string
+          - 'null'
+          example: '8883219876'
+        fax:
+          description: Fax
+          type:
+          - string
+          - 'null'
+          example: '123'
+        gender:
+          description: Gender
+          type:
+          - string
+          - 'null'
+          enum:
+          - M
+          - F
+          - m
+          - f
+          example: M
+        title:
+          description: Title
+          type:
+          - string
+          - 'null'
+          example: Mr
+        profile_image_id:
+          description: ID of associated Asset representing current profile image
+          type:
+          - integer
+          - 'null'
+          example: 432
+        thumbnail_large:
+          description: Thumbnail, large. This is a deprecated field.
+          type:
+          - string
+          - 'null'
+          example: https://cdn.example.com/members/2012/thumbnail_large.jpg
+          deprecated: true
+        thumbnail_medium:
+          description: Thumbnail, medium. This is a deprecated field.
+          type:
+          - string
+          - 'null'
+          example: https://cdn.example.com/members/2012/thumbnail_medium.jpg
+          deprecated: true
+        thumbnail_small:
+          description: Thumbnail, small. This is a deprecated field.
+          type:
+          - string
+          - 'null'
+          example: https://cdn.example.com/members/2012/thumbnail_small.jpg
+          deprecated: true
+        is_password_reset_locked:
+          description: Checks if password reset option has been locked
+          type: boolean
+          example: false
+        status:
+          description: Status of Member
+          type: string
+          enum:
+          - active
+          - deleted
+          - unclaimed
+          - unconfirmed
+          - locked
+        created_at:
+          description: Date/time of created Member
+          type: string
+          format: date-time
+          example: '2019-04-23T10:25:03Z'
+        last_login_at:
+          description: Date/time of Member successful login
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2019-04-23T10:25:03Z'
+      type: object
+    Organization:
+      title: Organization
+      properties:
+        id:
+          description: Primary identifier of record
+          type: integer
+          example: 82364
+        address:
+          description: Organization address line
+          type: string
+          maxLength: 127
+          example: 123 GoFundMe Pro Dr
+        are_activity_feeds_disabled:
+          description: Whether activity feeds should be enabled for this Organization
+          type: boolean
+          example: false
+        allow_download_annual_receipts:
+          description: Control over whether I enable the ability for supporters to download annual donation receipts
+          type: boolean
+          example: false
+        city:
+          description: Organization city
+          type: string
+          maxLength: 50
+          example: San Diego
+        country:
+          description: Organization country
+          type: string
+          example: USA
+        currency:
+          description: The currency that the Organization collects transactions in. This is a legacy field.
+          type: string
+          example: USD
+        currency_code:
+          description: The currency that the Organization collects transactions in
+          type: string
+          example: USD
+        customer_tier:
+          description: Organization customer tier
+          type:
+          - integer
+          - 'null'
+          example: 2
+        description:
+          description: Organization Description
+          type: string
+          example: Helps saves all animals
+        facebook:
+          description: The name of the Organization's facebook page
+          type:
+          - string
+          - 'null'
+          maxLength: 150
+          example: save.animals
+        fixed_fot_percent:
+          description: Percentage to be added to fee on top (aka Classy Mode) transactions for the Organization to cover fees unless Campaign specifies differently
+          type: string
+          example: '5.00'
+        flex_rate_percent:
+          description: Percentage Organization elects to be added to donor covered fees calculation to cover any additional costs other than fees.
+          type: number
+          format: double
+          maximum: 5
+          minimum: 0
+          example: 5
+        gfm_charity_community_id:
+          description: GFM charity community ID
+          type:
+          - integer
+          - 'null'
+          example: 12345
+        gfm_npo_page_slug:
+          description: GFM NPO page slug
+          type:
+          - string
+          - 'null'
+          example: save-the-animals
+        gfm_connect_banner_count:
+          description: Number of times the GFM Connect banner was dismissed
+          type: integer
+          example: 2
+        gfm_connect_banner_dismissed_at:
+          description: Date/time of GFM Connect banner dismissal
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2025-04-24T10:25:03Z'
+        has_double_the_donation_enployer_match:
+          description: Enable employer matching through Double The Donation. Can only be enabled if the default currency is USD and other employer matching (e.g Donate Double) is not enabled.
+          type: boolean
+          example: false
+        has_employer_match:
+          description: Enabled employer matching through Donate Double. Can only be enabled if the default currency is USD.
+          type: boolean
+          example: false
+        is_gfm_npo_page_claimed:
+          description: Flag whether the organization has a gfm npo page claimed
+          type: boolean
+          example: false
+        is_gfm_npo_page_verified:
+          description: Flag whether the organization has a gfm npo page verified
+          type: boolean
+          example: false
+        is_gift_aid_available:
+          description: Flag whether the organization allows donors to opt into gift aid used by the UK
+          type: boolean
+          example: false
+        logo_id:
+          description: The asset ID of the organization's logo
+          type:
+          - string
+          - 'null'
+          example: '10'
+        marketplace_state:
+          description: 'Resolved Marketplace Self-Serve Sign Up (SSSU) capability state. One of: GFM_PRE_KYC (Consumer marketplace lifecycle, pre-verification; claim_source NULL or ''GFM''), GFM_POST_KYC (Consumer marketplace lifecycle, KYC done, GFM Pay active), GFM_PRO_PRE_KYC (SSSU Pro-website entry, awaiting KYC; claim_source ''GFM_PRO''), GFM_PRO_POST_KYC (SSSU Pro-website entry, KYC complete, active ClassyPay Stripe processor). LEGACY is a catch-all for orgs outside the SSSU scope: tier 3, null tier, orgs running on non-ClassyPay active processors (Authorize.net, WePay, etc.), and any inconsistent state; it does NOT mean ''any non-SSSU post-KYC org'' — a sales-provisioned paying tier-2 org with active Stripe buckets as GFM_POST_KYC, not LEGACY. Opt-in only: the field appears in the response when GET /organizations/{id} is called with ?include=marketplace_state. Resolving this field triggers a ClassyPay processor-latest call (60s Redis cache) for claim_source=''GFM_PRO'' orgs only; Consumer-lifecycle orgs classify by tier without a network hop.'
+          type: string
+          enum:
+          - GFM_PRE_KYC
+          - GFM_POST_KYC
+          - GFM_PRO_PRE_KYC
+          - GFM_PRO_POST_KYC
+          - LEGACY
+          example: GFM_PRO_POST_KYC
+        claim_source:
+          description: 'Origin of the Organization''s claim on the underlying charity record. `NULL` for pre-existing (legacy) orgs; `GFM` for SSSU via the Consumer website (gofundme.com); `GFM_PRO` for SSSU via the Pro website (pro.gofundme.com). Set once at POST /organizations/consumer-onboarding from the platform-services payload. **Read-only: ignored by PUT /organizations/{id}** (structurally immutable after creation). **Consumers should NOT branch on this field directly** — it is an internal routing signal that feeds `marketplace_state`. Branch on `marketplace_state` to stay decoupled from the underlying signal mix (which is subject to change without a wire-contract bump).'
+          type:
+          - string
+          - 'null'
+          enum:
+          - GFM
+          - GFM_PRO
+          readOnly: true
+          example: GFM_PRO
+        mission:
+          description: Organization's mission statement
+          type: string
+          example: Save all animals and find them a home
+        name:
+          description: Organization Name
+          type: string
+          maxLength: 127
+          example: Rescue All Animals
+        opt_in_wording:
+          description: Custom opt in language used to collect Supporters consent to receive communications
+          type:
+          - string
+          - 'null'
+          maxLength: 255
+          example: You have agreed to the terms and services.
+        plan_type:
+          description: Organization plan name
+          type: string
+          example: Enterprise
+        sms_opt_in_text:
+          description: SMS opt-in language for marketing consent. Returns default text with org name substituted if not customized. Set to empty string to disable SMS consent messaging.
+          type:
+          - string
+          - 'null'
+          example: It's OK to text me about ways I can continue to support Acme Charity and other important updates.
+        sms_opt_in_text_default:
+          description: The default SMS opt-in text with organization name substituted. Use this to display the default option in the UI.
+          type: string
+          example: It's OK to text me about ways I can continue to support Acme Charity and other important updates.
+        sms_opt_in_text_is_default:
+          description: Indicates whether sms_opt_in_text is using the default value (true) or a custom value (false)
+          type: boolean
+          example: true
+        sms_tos_url:
+          description: SMS Terms of Service URL for the organization
+          type:
+          - string
+          - 'null'
+          maxLength: 255
+          example: https://example.org/sms-terms
+        postal_code:
+          description: Organization postal code
+          type: string
+          example: '92000'
+        restricted_country_information:
+          description: Will be populated if the Organization has chosen to restrict transactions from certain countries. Otherwise null
+          type:
+          - string
+          - 'null'
+          example: UK
+        resend_receipt_flag:
+          description: If true, give the supporters the option to resend the receipts.
+          type: boolean
+          example: true
+        signature_id:
+          description: The asset ID of the signature
+          type:
+          - integer
+          - 'null'
+          example: 100
+        signature_name:
+          description: The name of the person signing
+          type:
+          - string
+          - 'null'
+          maxLength: 50
+          example: Bob Smith
+        signature_title:
+          description: The title of the person signing
+          type:
+          - string
+          - 'null'
+          maxLength: 50
+          example: CEO
+        signature_url:
+          description: The title of the person signing
+          type:
+          - string
+          - 'null'
+          example: https://example.org
+        state:
+          description: Organization state
+          type: string
+          example: CA
+        status:
+          description: Status of the organization
+          type: string
+          enum:
+          - trial
+          - active
+          - deleted
+          - cancelled
+          example: active
+        subscription_plan:
+          description: ID of the legacy base subscription plan
+          type: integer
+          enum:
+          - 0
+          - 3
+          - 4
+          - 5
+          - 8
+          deprecated: true
+        thumbnail:
+          description: Thumbnail
+          type:
+          - string
+          - 'null'
+          example: https://examplerta.org/thumbnail.png
+        timezone_identifier:
+          description: The timezone of the organization. This will be used for reporting.
+          type: string
+          example: UTC
+        twitter:
+          description: The twitter handle for the organization
+          type:
+          - string
+          - 'null'
+          maxLength: 50
+          example: '@animal.rescue'
+        privacy_policy_url:
+          description: The Privacy policy URL for the organization
+          type:
+          - string
+          - 'null'
+          maxLength: 150
+          example: https://examplerta.org
+        type:
+          description: Organization type
+          type:
+          - string
+          - 'null'
+          example: npo
+        url:
+          description: The website for the organization
+          type: string
+          example: https://examplerta.org
+        welcome_message:
+          description: This message appears at the top of the Supporter Hub.
+          type: string
+          maxLength: 100
+          example: Thank you for all you do to make our mission possible
+        created_at:
+          description: Date/time of created organization
+          type: string
+          format: date-time
+          example: '2019-04-23T10:25:03Z'
+        updated_at:
+          description: Date/time of updated organization
+          type: string
+          format: date-time
+          example: '2020-04-23T10:25:03Z'
+        has_gfm_npo_transactions:
+          description: Indicates whether the organization has GoFundMe NPO transactions
+          type: boolean
+          example: false
+        is_billing_address_required:
+          description: Indicates whether billing address is required for donations to this organization
+          type: boolean
+          example: false
+        is_intelligent_text_suggestion_opted_out:
+          description: Indicates whether Intelligent Text Suggestions (ITS) are opted out for this organization
+          type: boolean
+          example: false
+      type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
       type: object
     Campaign:
       title: Campaign
@@ -852,600 +1446,6 @@ components:
           - 'null'
           example: https://www.myawesomecharity.org
       type: object
-    Member:
-      title: Member
-      properties:
-        id:
-          description: Primary identifier of record
-          type: integer
-          example: 2012
-        okta_id:
-          description: ID of Okta
-          type:
-          - string
-          - 'null'
-          example: 00aaqm2iupwbJrgDv0h7
-        okta_synchronized_at:
-          description: Date/time of last sync update to Okta
-          type:
-          - string
-          - 'null'
-          format: date-time
-          example: '2021-04-23T10:25:03Z'
-        descope_user_id:
-          description: ID of Descope
-          type:
-          - string
-          - 'null'
-          example: 00aaqm2iupwbJrgDv0h7
-        descope_last_sync_at:
-          description: Date/time of last sync update to Descope
-          type:
-          - string
-          - 'null'
-          format: date-time
-          example: '2021-04-23T10:25:03Z'
-        first_name:
-          description: First name
-          type: string
-          example: Buster
-        last_name:
-          description: Last name
-          type: string
-          example: McTest
-        address1:
-          description: Address1
-          type:
-          - string
-          - 'null'
-          example: 123 Baker St
-        address2:
-          description: Address2
-          type:
-          - string
-          - 'null'
-          example: ''
-        city:
-          description: City
-          type:
-          - string
-          - 'null'
-          example: San Diego
-        state:
-          description: State
-          type:
-          - string
-          - 'null'
-          example: CA
-        country:
-          description: Country
-          type:
-          - string
-          - 'null'
-          example: US
-        postal_code:
-          description: Postal Code
-          type:
-          - string
-          - 'null'
-          example: '91111'
-        email_address:
-          description: Email address
-          type: string
-          format: email
-          example: user@example.com
-        date_of_birth:
-          description: Date of birth
-          type:
-          - string
-          - 'null'
-          example: '1990-01-01'
-        phone:
-          description: Phone number
-          type:
-          - string
-          - 'null'
-          example: '8883219876'
-        fax:
-          description: Fax
-          type:
-          - string
-          - 'null'
-          example: '123'
-        gender:
-          description: Gender
-          type:
-          - string
-          - 'null'
-          enum:
-          - M
-          - F
-          - m
-          - f
-          example: M
-        title:
-          description: Title
-          type:
-          - string
-          - 'null'
-          example: Mr
-        profile_image_id:
-          description: ID of associated Asset representing current profile image
-          type:
-          - integer
-          - 'null'
-          example: 432
-        thumbnail_large:
-          description: Thumbnail, large. This is a deprecated field.
-          type:
-          - string
-          - 'null'
-          example: https://cdn.example.com/members/2012/thumbnail_large.jpg
-          deprecated: true
-        thumbnail_medium:
-          description: Thumbnail, medium. This is a deprecated field.
-          type:
-          - string
-          - 'null'
-          example: https://cdn.example.com/members/2012/thumbnail_medium.jpg
-          deprecated: true
-        thumbnail_small:
-          description: Thumbnail, small. This is a deprecated field.
-          type:
-          - string
-          - 'null'
-          example: https://cdn.example.com/members/2012/thumbnail_small.jpg
-          deprecated: true
-        is_password_reset_locked:
-          description: Checks if password reset option has been locked
-          type: boolean
-          example: false
-        status:
-          description: Status of Member
-          type: string
-          enum:
-          - active
-          - deleted
-          - unclaimed
-          - unconfirmed
-          - locked
-        created_at:
-          description: Date/time of created Member
-          type: string
-          format: date-time
-          example: '2019-04-23T10:25:03Z'
-        last_login_at:
-          description: Date/time of Member successful login
-          type:
-          - string
-          - 'null'
-          format: date-time
-          example: '2019-04-23T10:25:03Z'
-      type: object
-    MalformedPayloadResponse:
-      title: Malformed Payload Response
-      properties:
-        errors:
-          description: Description of detected errors in request
-          type: array
-          items:
-            type: string
-            example: Malformed JSON payload.
-      type: object
-    Organization:
-      title: Organization
-      properties:
-        id:
-          description: Primary identifier of record
-          type: integer
-          example: 82364
-        address:
-          description: Organization address line
-          type: string
-          maxLength: 127
-          example: 123 GoFundMe Pro Dr
-        are_activity_feeds_disabled:
-          description: Whether activity feeds should be enabled for this Organization
-          type: boolean
-          example: false
-        allow_download_annual_receipts:
-          description: Control over whether I enable the ability for supporters to download annual donation receipts
-          type: boolean
-          example: false
-        city:
-          description: Organization city
-          type: string
-          maxLength: 50
-          example: San Diego
-        country:
-          description: Organization country
-          type: string
-          example: USA
-        currency:
-          description: The currency that the Organization collects transactions in. This is a legacy field.
-          type: string
-          example: USD
-        currency_code:
-          description: The currency that the Organization collects transactions in
-          type: string
-          example: USD
-        customer_tier:
-          description: Organization customer tier
-          type:
-          - integer
-          - 'null'
-          example: 2
-        description:
-          description: Organization Description
-          type: string
-          example: Helps saves all animals
-        facebook:
-          description: The name of the Organization's facebook page
-          type:
-          - string
-          - 'null'
-          maxLength: 150
-          example: save.animals
-        fixed_fot_percent:
-          description: Percentage to be added to fee on top (aka Classy Mode) transactions for the Organization to cover fees unless Campaign specifies differently
-          type: string
-          example: '5.00'
-        flex_rate_percent:
-          description: Percentage Organization elects to be added to donor covered fees calculation to cover any additional costs other than fees.
-          type: number
-          format: double
-          maximum: 5
-          minimum: 0
-          example: 5
-        gfm_charity_community_id:
-          description: GFM charity community ID
-          type:
-          - integer
-          - 'null'
-          example: 12345
-        gfm_npo_page_slug:
-          description: GFM NPO page slug
-          type:
-          - string
-          - 'null'
-          example: save-the-animals
-        gfm_connect_banner_count:
-          description: Number of times the GFM Connect banner was dismissed
-          type: integer
-          example: 2
-        gfm_connect_banner_dismissed_at:
-          description: Date/time of GFM Connect banner dismissal
-          type:
-          - string
-          - 'null'
-          format: date-time
-          example: '2025-04-24T10:25:03Z'
-        has_double_the_donation_enployer_match:
-          description: Enable employer matching through Double The Donation. Can only be enabled if the default currency is USD and other employer matching (e.g Donate Double) is not enabled.
-          type: boolean
-          example: false
-        has_employer_match:
-          description: Enabled employer matching through Donate Double. Can only be enabled if the default currency is USD.
-          type: boolean
-          example: false
-        is_gfm_npo_page_claimed:
-          description: Flag whether the organization has a gfm npo page claimed
-          type: boolean
-          example: false
-        is_gfm_npo_page_verified:
-          description: Flag whether the organization has a gfm npo page verified
-          type: boolean
-          example: false
-        is_gift_aid_available:
-          description: Flag whether the organization allows donors to opt into gift aid used by the UK
-          type: boolean
-          example: false
-        logo_id:
-          description: The asset ID of the organization's logo
-          type:
-          - string
-          - 'null'
-          example: '10'
-        marketplace_state:
-          description: 'Resolved Marketplace Self-Serve Sign Up (SSSU) capability state. One of: GFM_PRE_KYC (Consumer marketplace lifecycle, pre-verification; claim_source NULL or ''GFM''), GFM_POST_KYC (Consumer marketplace lifecycle, KYC done, GFM Pay active), GFM_PRO_PRE_KYC (SSSU Pro-website entry, awaiting KYC; claim_source ''GFM_PRO''), GFM_PRO_POST_KYC (SSSU Pro-website entry, KYC complete, active ClassyPay Stripe processor). LEGACY is a catch-all for orgs outside the SSSU scope: tier 3, null tier, orgs running on non-ClassyPay active processors (Authorize.net, WePay, etc.), and any inconsistent state; it does NOT mean ''any non-SSSU post-KYC org'' — a sales-provisioned paying tier-2 org with active Stripe buckets as GFM_POST_KYC, not LEGACY. Opt-in only: the field appears in the response when GET /organizations/{id} is called with ?include=marketplace_state. Resolving this field triggers a ClassyPay processor-latest call (60s Redis cache) for claim_source=''GFM_PRO'' orgs only; Consumer-lifecycle orgs classify by tier without a network hop.'
-          type: string
-          enum:
-          - GFM_PRE_KYC
-          - GFM_POST_KYC
-          - GFM_PRO_PRE_KYC
-          - GFM_PRO_POST_KYC
-          - LEGACY
-          example: GFM_PRO_POST_KYC
-        claim_source:
-          description: 'Origin of the Organization''s claim on the underlying charity record. `NULL` for pre-existing (legacy) orgs; `GFM` for SSSU via the Consumer website (gofundme.com); `GFM_PRO` for SSSU via the Pro website (pro.gofundme.com). Set once at POST /organizations/consumer-onboarding from the platform-services payload. **Read-only: ignored by PUT /organizations/{id}** (structurally immutable after creation). **Consumers should NOT branch on this field directly** — it is an internal routing signal that feeds `marketplace_state`. Branch on `marketplace_state` to stay decoupled from the underlying signal mix (which is subject to change without a wire-contract bump).'
-          type:
-          - string
-          - 'null'
-          enum:
-          - GFM
-          - GFM_PRO
-          readOnly: true
-          example: GFM_PRO
-        mission:
-          description: Organization's mission statement
-          type: string
-          example: Save all animals and find them a home
-        name:
-          description: Organization Name
-          type: string
-          maxLength: 127
-          example: Rescue All Animals
-        opt_in_wording:
-          description: Custom opt in language used to collect Supporters consent to receive communications
-          type:
-          - string
-          - 'null'
-          maxLength: 255
-          example: You have agreed to the terms and services.
-        plan_type:
-          description: Organization plan name
-          type: string
-          example: Enterprise
-        sms_opt_in_text:
-          description: SMS opt-in language for marketing consent. Returns default text with org name substituted if not customized. Set to empty string to disable SMS consent messaging.
-          type:
-          - string
-          - 'null'
-          example: It's OK to text me about ways I can continue to support Acme Charity and other important updates.
-        sms_opt_in_text_default:
-          description: The default SMS opt-in text with organization name substituted. Use this to display the default option in the UI.
-          type: string
-          example: It's OK to text me about ways I can continue to support Acme Charity and other important updates.
-        sms_opt_in_text_is_default:
-          description: Indicates whether sms_opt_in_text is using the default value (true) or a custom value (false)
-          type: boolean
-          example: true
-        sms_tos_url:
-          description: SMS Terms of Service URL for the organization
-          type:
-          - string
-          - 'null'
-          maxLength: 255
-          example: https://example.org/sms-terms
-        postal_code:
-          description: Organization postal code
-          type: string
-          example: '92000'
-        restricted_country_information:
-          description: Will be populated if the Organization has chosen to restrict transactions from certain countries. Otherwise null
-          type:
-          - string
-          - 'null'
-          example: UK
-        resend_receipt_flag:
-          description: If true, give the supporters the option to resend the receipts.
-          type: boolean
-          example: true
-        signature_id:
-          description: The asset ID of the signature
-          type:
-          - integer
-          - 'null'
-          example: 100
-        signature_name:
-          description: The name of the person signing
-          type:
-          - string
-          - 'null'
-          maxLength: 50
-          example: Bob Smith
-        signature_title:
-          description: The title of the person signing
-          type:
-          - string
-          - 'null'
-          maxLength: 50
-          example: CEO
-        signature_url:
-          description: The title of the person signing
-          type:
-          - string
-          - 'null'
-          example: https://example.org
-        state:
-          description: Organization state
-          type: string
-          example: CA
-        status:
-          description: Status of the organization
-          type: string
-          enum:
-          - trial
-          - active
-          - deleted
-          - cancelled
-          example: active
-        subscription_plan:
-          description: ID of the legacy base subscription plan
-          type: integer
-          enum:
-          - 0
-          - 3
-          - 4
-          - 5
-          - 8
-          deprecated: true
-        thumbnail:
-          description: Thumbnail
-          type:
-          - string
-          - 'null'
-          example: https://examplerta.org/thumbnail.png
-        timezone_identifier:
-          description: The timezone of the organization. This will be used for reporting.
-          type: string
-          example: UTC
-        twitter:
-          description: The twitter handle for the organization
-          type:
-          - string
-          - 'null'
-          maxLength: 50
-          example: '@animal.rescue'
-        privacy_policy_url:
-          description: The Privacy policy URL for the organization
-          type:
-          - string
-          - 'null'
-          maxLength: 150
-          example: https://examplerta.org
-        type:
-          description: Organization type
-          type:
-          - string
-          - 'null'
-          example: npo
-        url:
-          description: The website for the organization
-          type: string
-          example: https://examplerta.org
-        welcome_message:
-          description: This message appears at the top of the Supporter Hub.
-          type: string
-          maxLength: 100
-          example: Thank you for all you do to make our mission possible
-        created_at:
-          description: Date/time of created organization
-          type: string
-          format: date-time
-          example: '2019-04-23T10:25:03Z'
-        updated_at:
-          description: Date/time of updated organization
-          type: string
-          format: date-time
-          example: '2020-04-23T10:25:03Z'
-        has_gfm_npo_transactions:
-          description: Indicates whether the organization has GoFundMe NPO transactions
-          type: boolean
-          example: false
-        is_billing_address_required:
-          description: Indicates whether billing address is required for donations to this organization
-          type: boolean
-          example: false
-        is_intelligent_text_suggestion_opted_out:
-          description: Indicates whether Intelligent Text Suggestions (ITS) are opted out for this organization
-          type: boolean
-          example: false
-      type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
-      properties:
-        label:
-          description: Identifier of the page.
-          type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
-    PaginatedResponse:
-      title: Paginated Response
-      properties:
-        current_page:
-          description: Index of current page
-          type: integer
-          example: 1
-        data:
-          description: Collection of results
-          type: array
-          items:
-            type: object
-        first_page_url:
-          description: URL of first page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=1
-        from:
-          description: Index of first displayed result within total result set
-          type:
-          - integer
-          - 'null'
-          example: 1
-        last_page:
-          description: Index of last page in result set
-          type: integer
-          example: 1
-        last_page_url:
-          description: URL of last page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=1
-        next_page_url:
-          description: URL of next page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=2
-        path:
-          description: URL of current page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource
-        per_page:
-          description: Maximum number of records returned per page of results
-          type: integer
-          example: 20
-        prev_page_url:
-          description: URL of previous page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=1
-        links:
-          description: Collection of objects representing pages {label, URL, active} that can be used to request the associated page of records.
-          type: array
-          items:
-            $ref: '#/components/schemas/PaginationLink'
-        to:
-          description: Index of last displayed result within total result set
-          type:
-          - integer
-          - 'null'
-          example: 1
-        total:
-          description: Total count of records in result set
-          type: integer
-          example: 1
-      type: object
-  parameters:
-    page:
-      name: page
-      in: query
-      description: Indicator of which page of results to return
-      required: false
-      schema:
-        type: integer
-        example: 1
-    per_page:
-      name: per_page
-      in: query
-      description: Number of entries to return in each page of results
-      required: false
-      schema:
-        type: integer
-        example: 20
   securitySchemes:
     OAuth2Application:
       type: oauth2

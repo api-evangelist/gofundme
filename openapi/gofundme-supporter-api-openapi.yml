@@ -608,115 +608,105 @@ paths:
       security:
       - OAuth2Member: []
 components:
+  parameters:
+    page:
+      name: page
+      in: query
+      description: Indicator of which page of results to return
+      required: false
+      schema:
+        type: integer
+        example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
   schemas:
-    SupporterFillable:
-      title: Supporter Fillable
+    PaginatedResponse:
+      title: Paginated Response
       properties:
-        address1:
-          description: Supporter main address
+        current_page:
+          description: Index of current page
+          type: integer
+          example: 1
+        data:
+          description: Collection of results
+          type: array
+          items:
+            type: object
+        first_page_url:
+          description: URL of first page of results
           type:
           - string
           - 'null'
-          maxLength: 512
-          example: 300 N Washington St
-        address2:
-          description: Secondary Supporter address
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        from:
+          description: Index of first displayed result within total result set
+          type:
+          - integer
+          - 'null'
+          example: 1
+        last_page:
+          description: Index of last page in result set
+          type: integer
+          example: 1
+        last_page_url:
+          description: URL of last page of results
           type:
           - string
           - 'null'
-          maxLength: 45
-          example: 300 N Washington St
-        cell_phone:
-          description: Supporter cell phone number (SMS consent target when collected)
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        next_page_url:
+          description: URL of next page of results
           type:
           - string
           - 'null'
-          maxLength: 32
-          example: 619-555-1212
-        city:
-          description: Supporter City
+          example: https://pro.gofundme.com/api/2.0/resource?page=2
+        path:
+          description: URL of current page of results
           type:
           - string
           - 'null'
-          maxLength: 45
-          example: Gettysburg
-        country:
-          description: Supporter Country
+          example: https://pro.gofundme.com/api/2.0/resource
+        per_page:
+          description: Maximum number of records returned per page of results
+          type: integer
+          example: 20
+        prev_page_url:
+          description: URL of previous page of results
           type:
           - string
           - 'null'
-          maxLength: 2
-          minLength: 2
-          example: US
-        email_address:
-          description: Supporter email address
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        links:
+          description: Collection of objects representing pages {label, URL, active} that can be used to request the associated page of records.
+          type: array
+          items:
+            $ref: '#/components/schemas/PaginationLink'
+        to:
+          description: Index of last displayed result within total result set
           type:
-          - string
+          - integer
           - 'null'
-          format: email
-          example: test@gofundme.com
-        first_name:
-          description: First name of the supporter
-          type:
-          - string
-          - 'null'
-          maxLength: 32
-          example: Hannah
-        gender:
-          description: Supporter gender
-          type:
-          - string
-          - 'null'
-          maxLength: 1
-          minLength: 1
-          pattern: ^[MFmf]$
-          example: M
-        last_name:
-          description: Supporter last name
-          type:
-          - string
-          - 'null'
-          maxLength: 32
-          example: Rosendo
-        location:
-          description: Free text representing a location
-          type:
-          - string
-          - 'null'
-          maxLength: 45
-          example: City Townhall
-        metadata:
-          oneOf:
-          - $ref: '#/components/schemas/Metadata'
-          description: Arbitrary JSON metadata
-        nickname:
-          description: Supporter nickname
-          type:
-          - string
-          - 'null'
-          maxLength: 32
-          example: GoFundMePro
-        phone:
-          description: Supporter phone number
-          type:
-          - string
-          - 'null'
-          maxLength: 16
-          example: 619-555-1212
-        postal_code:
-          description: Zip Code
-          type:
-          - string
-          - 'null'
-          maxLength: 50
-          example: '92101'
-        state:
-          description: State/province name
-          type:
-          - string
-          - 'null'
-          maxLength: 100
-          example: NE
+          example: 1
+        total:
+          description: Total count of records in result set
+          type: integer
+          example: 1
+      type: object
+    MalformedPayloadResponse:
+      title: Malformed Payload Response
+      properties:
+        errors:
+          description: Description of detected errors in request
+          type: array
+          items:
+            type: string
+            example: Malformed JSON payload.
       type: object
     ForbiddenResponse:
       title: Forbidden Response
@@ -732,6 +722,17 @@ components:
         foo:
           type: string
           example: bar
+      type: object
+    EmptyResponse:
+      title: Empty Response
+      type: object
+      additionalProperties: false
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
       type: object
     Supporter:
       title: Supporter
@@ -892,20 +893,6 @@ components:
           format: date-time
           example: '2021-04-23T08:23:21Z'
       type: object
-    EmptyResponse:
-      title: Empty Response
-      type: object
-      additionalProperties: false
-    MalformedPayloadResponse:
-      title: Malformed Payload Response
-      properties:
-        errors:
-          description: Description of detected errors in request
-          type: array
-          items:
-            type: string
-            example: Malformed JSON payload.
-      type: object
     PaginationLink:
       description: Object referencing a page for the resource queried that can be used to fetch that page.
       properties:
@@ -924,102 +911,115 @@ components:
           type: boolean
           example: true
       type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
+    SupporterFillable:
+      title: Supporter Fillable
       properties:
-        error:
-          description: Description of detected errors in request
-          type: string
+        address1:
+          description: Supporter main address
+          type:
+          - string
+          - 'null'
+          maxLength: 512
+          example: 300 N Washington St
+        address2:
+          description: Secondary Supporter address
+          type:
+          - string
+          - 'null'
+          maxLength: 45
+          example: 300 N Washington St
+        cell_phone:
+          description: Supporter cell phone number (SMS consent target when collected)
+          type:
+          - string
+          - 'null'
+          maxLength: 32
+          example: 619-555-1212
+        city:
+          description: Supporter City
+          type:
+          - string
+          - 'null'
+          maxLength: 45
+          example: Gettysburg
+        country:
+          description: Supporter Country
+          type:
+          - string
+          - 'null'
+          maxLength: 2
+          minLength: 2
+          example: US
+        email_address:
+          description: Supporter email address
+          type:
+          - string
+          - 'null'
+          format: email
+          example: test@gofundme.com
+        first_name:
+          description: First name of the supporter
+          type:
+          - string
+          - 'null'
+          maxLength: 32
+          example: Hannah
+        gender:
+          description: Supporter gender
+          type:
+          - string
+          - 'null'
+          maxLength: 1
+          minLength: 1
+          pattern: ^[MFmf]$
+          example: M
+        last_name:
+          description: Supporter last name
+          type:
+          - string
+          - 'null'
+          maxLength: 32
+          example: Rosendo
+        location:
+          description: Free text representing a location
+          type:
+          - string
+          - 'null'
+          maxLength: 45
+          example: City Townhall
+        metadata:
+          oneOf:
+          - $ref: '#/components/schemas/Metadata'
+          description: Arbitrary JSON metadata
+        nickname:
+          description: Supporter nickname
+          type:
+          - string
+          - 'null'
+          maxLength: 32
+          example: GoFundMePro
+        phone:
+          description: Supporter phone number
+          type:
+          - string
+          - 'null'
+          maxLength: 16
+          example: 619-555-1212
+        postal_code:
+          description: Zip Code
+          type:
+          - string
+          - 'null'
+          maxLength: 50
+          example: '92101'
+        state:
+          description: State/province name
+          type:
+          - string
+          - 'null'
+          maxLength: 100
+          example: NE
       type: object
-    PaginatedResponse:
-      title: Paginated Response
-      properties:
-        current_page:
-          description: Index of current page
-          type: integer
-          example: 1
-        data:
-          description: Collection of results
-          type: array
-          items:
-            type: object
-        first_page_url:
-          description: URL of first page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=1
-        from:
-          description: Index of first displayed result within total result set
-          type:
-          - integer
-          - 'null'
-          example: 1
-        last_page:
-          description: Index of last page in result set
-          type: integer
-          example: 1
-        last_page_url:
-          description: URL of last page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=1
-        next_page_url:
-          description: URL of next page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=2
-        path:
-          description: URL of current page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource
-        per_page:
-          description: Maximum number of records returned per page of results
-          type: integer
-          example: 20
-        prev_page_url:
-          description: URL of previous page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=1
-        links:
-          description: Collection of objects representing pages {label, URL, active} that can be used to request the associated page of records.
-          type: array
-          items:
-            $ref: '#/components/schemas/PaginationLink'
-        to:
-          description: Index of last displayed result within total result set
-          type:
-          - integer
-          - 'null'
-          example: 1
-        total:
-          description: Total count of records in result set
-          type: integer
-          example: 1
-      type: object
-  parameters:
-    page:
-      name: page
-      in: query
-      description: Indicator of which page of results to return
-      required: false
-      schema:
-        type: integer
-        example: 1
-    per_page:
-      name: per_page
-      in: query
-      description: Number of entries to return in each page of results
-      required: false
-      schema:
-        type: integer
-        example: 20
   securitySchemes:
     OAuth2Application:
       type: oauth2

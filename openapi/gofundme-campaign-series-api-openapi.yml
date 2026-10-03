@@ -54,10 +54,6 @@ paths:
       - OAuth2Member: []
 components:
   schemas:
-    EmptyResponse:
-      title: Empty Response
-      type: object
-      additionalProperties: false
     ForbiddenResponse:
       title: Forbidden Response
       properties:
@@ -66,6 +62,10 @@ components:
           type: string
           example: This action is unauthorized.
       type: object
+    EmptyResponse:
+      title: Empty Response
+      type: object
+      additionalProperties: false
     ResourceNotFoundResponse:
       title: Resource Not Found Response
       properties:

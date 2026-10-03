@@ -145,152 +145,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/ResourceNotFoundResponse'
 components:
+  parameters:
+    page:
+      name: page
+      in: query
+      description: Indicator of which page of results to return
+      required: false
+      schema:
+        type: integer
+        example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
   schemas:
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
-    FundraisingTeamPolicy:
-      title: Fundraising Team Policy
-      properties:
-        id:
-          description: Primary identifier of record
-          type: integer
-          example: 2354
-        organization_id:
-          description: Primary identifier of associated Organization
-          type: integer
-          example: 82364
-        allow_subteams:
-          description: Indicates whether subteams are allowed under this Team
-          type: boolean
-          example: false
-        allow_fundraising_pages:
-          description: Indicates whether Fundraising Pages are allowed under this Team
-          type: boolean
-          example: true
-        allow_transactions:
-          description: Indicates whether Transactions are allowed under this Team
-          type: boolean
-          example: true
-        allow_cross_campaign_fundraisers:
-          description: Indicates whether Fundraisers from other Campaigns are allowed to join this Team
-          type: boolean
-          example: true
-        allocation_method:
-          description: Allocation method for this Team
-          type: string
-          enum:
-          - manual
-          - automatic-even-split
-          example: manual
-        fundraising_team_id:
-          description: Primary identifier of associated Fundraising Team
-          type: integer
-          example: 209745
-        min_members:
-          description: Minimum Members required before the Team is considered active
-          type: integer
-          example: 1
-        max_members:
-          description: Maximum Members allowed for this Team
-          type: integer
-          example: 10
-        fundraiser_registration_policy:
-          description: Fundraiser and Sub-team Registration Policy for this Team
-          type: string
-          enum:
-          - public
-          - private-confirmation-required
-          - private-invite-only
-          - private-password
-          - admin-only
-          example: public
-        created_at:
-          description: Date/time of initial record creation
-          type: string
-          format: date-time
-          example: '2021-04-23T08:23:21Z'
-        updated_at:
-          description: Date/time of last record update
-          type: string
-          format: date-time
-          example: '2021-04-23T10:25:03Z'
-      type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
-      properties:
-        label:
-          description: Identifier of the page.
-          type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
-      type: object
-    FundraisingTeamPolicyFillable:
-      title: Fundraising Team Policy Fillable
-      properties:
-        allow_subteams:
-          description: Indicates whether SubTeams are allowed under this Team
-          type: boolean
-          example: false
-        allow_fundraising_pages:
-          description: Indicates whether Fundraising Pages are allowed under this Team
-          type: boolean
-          example: true
-        allow_transactions:
-          description: Indicates whether Transactions are allowed under this Team
-          type: boolean
-          example: true
-        allow_cross_campaign_fundraisers:
-          description: Indicates whether Fundraisers from other Campaigns are allowed to join this Team
-          type: boolean
-          example: true
-        allocation_method:
-          description: Allocation method for this Team
-          type: string
-          enum:
-          - manual
-          - automatic-even-split
-          example: manual
-        min_members:
-          description: Minimum Members required before the Team is considered active
-          type: integer
-          example: 1
-        max_members:
-          description: Maximum Members allowed for this Team
-          type: integer
-          example: 10
-        fundraiser_registration_policy:
-          description: Fundraiser and Sub-team Registration Policy for this Team
-          type: string
-          enum:
-          - public
-          - private-confirmation-required
-          - private-invite-only
-          - private-password
-          - admin-only
-          example: public
-      type: object
     PaginatedResponse:
       title: Paginated Response
       properties:
@@ -363,23 +235,151 @@ components:
           type: integer
           example: 1
       type: object
-  parameters:
-    page:
-      name: page
-      in: query
-      description: Indicator of which page of results to return
-      required: false
-      schema:
-        type: integer
-        example: 1
-    per_page:
-      name: per_page
-      in: query
-      description: Number of entries to return in each page of results
-      required: false
-      schema:
-        type: integer
-        example: 20
+    FundraisingTeamPolicy:
+      title: Fundraising Team Policy
+      properties:
+        id:
+          description: Primary identifier of record
+          type: integer
+          example: 2354
+        organization_id:
+          description: Primary identifier of associated Organization
+          type: integer
+          example: 82364
+        allow_subteams:
+          description: Indicates whether subteams are allowed under this Team
+          type: boolean
+          example: false
+        allow_fundraising_pages:
+          description: Indicates whether Fundraising Pages are allowed under this Team
+          type: boolean
+          example: true
+        allow_transactions:
+          description: Indicates whether Transactions are allowed under this Team
+          type: boolean
+          example: true
+        allow_cross_campaign_fundraisers:
+          description: Indicates whether Fundraisers from other Campaigns are allowed to join this Team
+          type: boolean
+          example: true
+        allocation_method:
+          description: Allocation method for this Team
+          type: string
+          enum:
+          - manual
+          - automatic-even-split
+          example: manual
+        fundraising_team_id:
+          description: Primary identifier of associated Fundraising Team
+          type: integer
+          example: 209745
+        min_members:
+          description: Minimum Members required before the Team is considered active
+          type: integer
+          example: 1
+        max_members:
+          description: Maximum Members allowed for this Team
+          type: integer
+          example: 10
+        fundraiser_registration_policy:
+          description: Fundraiser and Sub-team Registration Policy for this Team
+          type: string
+          enum:
+          - public
+          - private-confirmation-required
+          - private-invite-only
+          - private-password
+          - admin-only
+          example: public
+        created_at:
+          description: Date/time of initial record creation
+          type: string
+          format: date-time
+          example: '2021-04-23T08:23:21Z'
+        updated_at:
+          description: Date/time of last record update
+          type: string
+          format: date-time
+          example: '2021-04-23T10:25:03Z'
+      type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
+      type: object
+    FundraisingTeamPolicyFillable:
+      title: Fundraising Team Policy Fillable
+      properties:
+        allow_subteams:
+          description: Indicates whether SubTeams are allowed under this Team
+          type: boolean
+          example: false
+        allow_fundraising_pages:
+          description: Indicates whether Fundraising Pages are allowed under this Team
+          type: boolean
+          example: true
+        allow_transactions:
+          description: Indicates whether Transactions are allowed under this Team
+          type: boolean
+          example: true
+        allow_cross_campaign_fundraisers:
+          description: Indicates whether Fundraisers from other Campaigns are allowed to join this Team
+          type: boolean
+          example: true
+        allocation_method:
+          description: Allocation method for this Team
+          type: string
+          enum:
+          - manual
+          - automatic-even-split
+          example: manual
+        min_members:
+          description: Minimum Members required before the Team is considered active
+          type: integer
+          example: 1
+        max_members:
+          description: Maximum Members allowed for this Team
+          type: integer
+          example: 10
+        fundraiser_registration_policy:
+          description: Fundraiser and Sub-team Registration Policy for this Team
+          type: string
+          enum:
+          - public
+          - private-confirmation-required
+          - private-invite-only
+          - private-password
+          - admin-only
+          example: public
+      type: object
   securitySchemes:
     OAuth2Application:
       type: oauth2

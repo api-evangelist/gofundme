@@ -217,77 +217,24 @@ paths:
       security:
       - OAuth2Member: []
 components:
+  parameters:
+    page:
+      name: page
+      in: query
+      description: Indicator of which page of results to return
+      required: false
+      schema:
+        type: integer
+        example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
   schemas:
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    EmptyResponse:
-      title: Empty Response
-      type: object
-      additionalProperties: false
-    Ecard:
-      title: Ecard
-      properties:
-        asset_id:
-          description: Primary identifier of associated image file Asset
-          type:
-          - integer
-          - 'null'
-          example: 1145
-        campaign_id:
-          description: Primary identifier of associated Campaign
-          type: integer
-          readOnly: true
-          example: 227362
-        id:
-          description: Primary identifier of record
-          type: integer
-          readOnly: true
-          example: 4377
-        image_url:
-          description: Public URL for the Ecard image
-          type: string
-          example: https://gofundme-cdn-url.com/your-ecard-image.png
-        is_deleted:
-          description: Indicates whether Ecard has been deleted
-          type: boolean
-          readOnly: true
-          example: true
-        order:
-          description: Display order for listings. Impacts display in Classy.org
-          type: integer
-          example: 1
-      type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
-      properties:
-        label:
-          description: Identifier of the page.
-          type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
     PaginatedResponse:
       title: Paginated Response
       properties:
@@ -360,23 +307,76 @@ components:
           type: integer
           example: 1
       type: object
-  parameters:
-    page:
-      name: page
-      in: query
-      description: Indicator of which page of results to return
-      required: false
-      schema:
-        type: integer
-        example: 1
-    per_page:
-      name: per_page
-      in: query
-      description: Number of entries to return in each page of results
-      required: false
-      schema:
-        type: integer
-        example: 20
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    EmptyResponse:
+      title: Empty Response
+      type: object
+      additionalProperties: false
+    Ecard:
+      title: Ecard
+      properties:
+        asset_id:
+          description: Primary identifier of associated image file Asset
+          type:
+          - integer
+          - 'null'
+          example: 1145
+        campaign_id:
+          description: Primary identifier of associated Campaign
+          type: integer
+          readOnly: true
+          example: 227362
+        id:
+          description: Primary identifier of record
+          type: integer
+          readOnly: true
+          example: 4377
+        image_url:
+          description: Public URL for the Ecard image
+          type: string
+          example: https://gofundme-cdn-url.com/your-ecard-image.png
+        is_deleted:
+          description: Indicates whether Ecard has been deleted
+          type: boolean
+          readOnly: true
+          example: true
+        order:
+          description: Display order for listings. Impacts display in Classy.org
+          type: integer
+          example: 1
+      type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
+      type: object
   securitySchemes:
     OAuth2Application:
       type: oauth2

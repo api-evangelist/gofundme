@@ -412,34 +412,18 @@ paths:
       - OAuth2Member: []
 components:
   schemas:
-    CommentFillable:
-      title: Comment Fillable
-      properties:
-        body:
-          description: The content of the Comment
-          type: string
-          example: Example Comment
-      type: object
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    UpdateComment:
-      title: Comment (Update)
+    StoryComment:
+      title: Comment (Story)
       type: object
       allOf:
       - $ref: '#/components/schemas/Comment'
       - properties:
           commentable_id:
             type: integer
-            example: 736
+            example: 72552
           commentable_type:
             type: string
-            example: update
+            example: story
         type: object
     Comment:
       title: Comment
@@ -492,48 +476,6 @@ components:
           type: string
           format: date-time
           example: '2021-04-23T08:23:21Z'
-      type: object
-    StoryComment:
-      title: Comment (Story)
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/Comment'
-      - properties:
-          commentable_id:
-            type: integer
-            example: 72552
-          commentable_type:
-            type: string
-            example: story
-        type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
-      properties:
-        label:
-          description: Identifier of the page.
-          type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
-      type: object
-    EmptyResponse:
-      title: Empty Response
-      type: object
-      additionalProperties: false
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
       type: object
     PaginatedResponse:
       title: Paginated Response
@@ -607,15 +549,65 @@ components:
           type: integer
           example: 1
       type: object
+    CommentFillable:
+      title: Comment Fillable
+      properties:
+        body:
+          description: The content of the Comment
+          type: string
+          example: Example Comment
+      type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    EmptyResponse:
+      title: Empty Response
+      type: object
+      additionalProperties: false
+    UpdateComment:
+      title: Comment (Update)
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Comment'
+      - properties:
+          commentable_id:
+            type: integer
+            example: 736
+          commentable_type:
+            type: string
+            example: update
+        type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
+      type: object
   parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: Number of entries to return in each page of results
-      required: false
-      schema:
-        type: integer
-        example: 20
     page:
       name: page
       in: query
@@ -624,6 +616,14 @@ components:
       schema:
         type: integer
         example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
   securitySchemes:
     OAuth2Application:
       type: oauth2

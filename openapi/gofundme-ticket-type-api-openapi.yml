@@ -400,90 +400,6 @@ components:
           minimum: 0
           example: 1
       type: object
-    TicketType:
-      title: TicketType
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/TicketTypeFillable'
-      - properties:
-          campaign_id:
-            description: The ID of the Campaign the Ticket Type belongs to
-            type: integer
-            example: 227362
-          commitment_id:
-            description: The ID of the Commitment associated to the TicketType
-            type:
-            - integer
-            - 'null'
-            example: 98374
-            deprecated: true
-          created_at:
-            description: Timestamp from when TicketType was created
-            type: string
-            format: date-time
-            example: 2016-01-01T12:00:00+0000
-          id:
-            description: Primary identifier of record
-            type: integer
-            example: 9978
-          is_classy_mode:
-            description: Whether TicketType is fees on top.
-            type: boolean
-            example: false
-            deprecated: true
-          min_per_transaction:
-            description: The min Tickets of this type that be purchased in a single transaction
-            type:
-            - integer
-            - 'null'
-            example: 1
-          quantity_reserved:
-            description: Quantity of Tickets that are reserved awaiting checkout/payment. Only available for FRS campaigns.
-            type: integer
-            example: 1
-          quantity_sold:
-            description: Quantity of Tickets that have been sold. Only available for FRS campaigns.
-            type: integer
-            example: 1
-          updated_at:
-            description: Date when Tickets of this type was last updated
-            type: string
-            format: date-time
-            example: 2016-01-01T12:00:00+0000
-        type: object
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
-      properties:
-        label:
-          description: Identifier of the page.
-          type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
     PaginatedResponse:
       title: Paginated Response
       properties:
@@ -555,6 +471,90 @@ components:
           description: Total count of records in result set
           type: integer
           example: 1
+      type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    TicketType:
+      title: TicketType
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/TicketTypeFillable'
+      - properties:
+          campaign_id:
+            description: The ID of the Campaign the Ticket Type belongs to
+            type: integer
+            example: 227362
+          commitment_id:
+            description: The ID of the Commitment associated to the TicketType
+            type:
+            - integer
+            - 'null'
+            example: 98374
+            deprecated: true
+          created_at:
+            description: Timestamp from when TicketType was created
+            type: string
+            format: date-time
+            example: 2016-01-01T12:00:00+0000
+          id:
+            description: Primary identifier of record
+            type: integer
+            example: 9978
+          is_classy_mode:
+            description: Whether TicketType is fees on top.
+            type: boolean
+            example: false
+            deprecated: true
+          min_per_transaction:
+            description: The min Tickets of this type that be purchased in a single transaction
+            type:
+            - integer
+            - 'null'
+            example: 1
+          quantity_reserved:
+            description: Quantity of Tickets that are reserved awaiting checkout/payment. Only available for FRS campaigns.
+            type: integer
+            example: 1
+          quantity_sold:
+            description: Quantity of Tickets that have been sold. Only available for FRS campaigns.
+            type: integer
+            example: 1
+          updated_at:
+            description: Date when Tickets of this type was last updated
+            type: string
+            format: date-time
+            example: 2016-01-01T12:00:00+0000
+        type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
       type: object
   parameters:
     page:

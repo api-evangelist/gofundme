@@ -718,86 +718,6 @@ paths:
                 $ref: '#/components/schemas/ResourceNotFoundResponse'
 components:
   schemas:
-    FeedItemOnboarding:
-      title: Feed Item (Onboarding)
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/FeedItem'
-      - properties:
-          feedable_type:
-            description: Type of the Fundraising Entity associated with Feed Item’s described interaction
-            type: string
-            enum:
-            - organization
-            example: organization
-          linkable_type:
-            description: Type of the Entity whose creation, update, or association is described by Feed Item
-            type:
-            - string
-            - 'null'
-            enum:
-            - 'null'
-            example: 'null'
-          comment:
-            description: Comment
-            type:
-            - string
-            - 'null'
-            example: Welcome to GoFundMe Pro!
-        type: object
-    FeedItemComment:
-      title: Feed Item (Comment)
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/FeedItem'
-      - properties:
-          feedable_type:
-            description: Type of the Fundraising Entity associated with Feed Item’s described interaction
-            type: string
-            example: campaign
-          linkable_type:
-            description: Type of the Entity whose creation, update, or association is described by Feed Item
-            type:
-            - string
-            - 'null'
-          comment:
-            description: Comment
-            type: string
-            example: I just want to say that I think you all are doing a great job. Keep up the good work!
-        type: object
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    FeedItemCreation:
-      title: Feed Item (Creation)
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/FeedItem'
-      - properties:
-          feedable_type:
-            description: Type of the Fundraising Entity associated with Feed Item’s described interaction, same as linkable_type
-            type: string
-            example: fundraising_page
-          linkable_type:
-            description: Type of the Entity whose creation, update, or association is described by Feed Item same as feedable_type
-            type:
-            - string
-            - 'null'
-            example: fundraising_page
-          comment:
-            description: Comment
-            type:
-            - string
-            - 'null'
-            enum:
-            - 'null'
-            example: 'null'
-        type: object
     Comment:
       title: Comment
       properties:
@@ -850,37 +770,78 @@ components:
           format: date-time
           example: '2021-04-23T08:23:21Z'
       type: object
-    FeedItemAssociation:
-      title: Feed Item (Association)
+    PaginatedResponse:
+      title: Paginated Response
+      properties:
+        current_page:
+          description: Index of current page
+          type: integer
+          example: 1
+        data:
+          description: Collection of results
+          type: array
+          items:
+            type: object
+        first_page_url:
+          description: URL of first page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        from:
+          description: Index of first displayed result within total result set
+          type:
+          - integer
+          - 'null'
+          example: 1
+        last_page:
+          description: Index of last page in result set
+          type: integer
+          example: 1
+        last_page_url:
+          description: URL of last page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        next_page_url:
+          description: URL of next page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=2
+        path:
+          description: URL of current page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource
+        per_page:
+          description: Maximum number of records returned per page of results
+          type: integer
+          example: 20
+        prev_page_url:
+          description: URL of previous page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        links:
+          description: Collection of objects representing pages {label, URL, active} that can be used to request the associated page of records.
+          type: array
+          items:
+            $ref: '#/components/schemas/PaginationLink'
+        to:
+          description: Index of last displayed result within total result set
+          type:
+          - integer
+          - 'null'
+          example: 1
+        total:
+          description: Total count of records in result set
+          type: integer
+          example: 1
       type: object
-      allOf:
-      - $ref: '#/components/schemas/FeedItem'
-      - properties:
-          feedable_type:
-            description: Type of the Fundraising Entity associated with Feed Item’s described interaction
-            type: string
-            enum:
-            - fundraising_team
-            example: fundraising_team
-          linkable_type:
-            description: Type of the Entity whose creation, update, or association is described by Feed Item
-            type:
-            - string
-            - 'null'
-            enum:
-            - fundraising_page
-            example: fundraising_page
-          comment:
-            description: Comment
-            type:
-            - string
-            - 'null'
-            example: Thanks for the great cause, happy to support!
-        type: object
-    EmptyResponse:
-      title: Empty Response
-      type: object
-      additionalProperties: false
     MalformedPayloadResponse:
       title: Malformed Payload Response
       properties:
@@ -891,23 +852,76 @@ components:
             type: string
             example: Malformed JSON payload.
       type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
+    ForbiddenResponse:
+      title: Forbidden Response
       properties:
-        label:
-          description: Identifier of the page.
+        error:
+          description: Description of detected error in request
           type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
+          example: This action is unauthorized.
+      type: object
+    EmptyResponse:
+      title: Empty Response
+      type: object
+      additionalProperties: false
+    FeedItemOnboarding:
+      title: Feed Item (Onboarding)
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/FeedItem'
+      - properties:
+          feedable_type:
+            description: Type of the Fundraising Entity associated with Feed Item’s described interaction
+            type: string
+            enum:
+            - organization
+            example: organization
+          linkable_type:
+            description: Type of the Entity whose creation, update, or association is described by Feed Item
+            type:
+            - string
+            - 'null'
+            enum:
+            - 'null'
+            example: 'null'
+          comment:
+            description: Comment
+            type:
+            - string
+            - 'null'
+            example: Welcome to GoFundMe Pro!
+        type: object
+    FeedItemUpdate:
+      title: Feed Item (Update)
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/FeedItem'
+      - properties:
+          feedable_type:
+            description: Type of the Fundraising Entity associated with Feed Item’s described interaction, same as linkable_type
+            type: string
+            example: fundraising_page
+          linkable_type:
+            description: Type of the Entity whose creation, update, or association is described by Feed Item same as feedable_type
+            type:
+            - string
+            - 'null'
+            example: fundraising_page
+          comment:
+            description: Comment
+            type:
+            - string
+            - 'null'
+            enum:
+            - 'null'
+            example: 'null'
+        type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
       type: object
     FeedItem:
       title: Feed Item
@@ -1037,8 +1051,73 @@ components:
           - 'null'
           example: Pat Supporter
       type: object
-    FeedItemUpdate:
-      title: Feed Item (Update)
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
+      type: object
+    FeedItemComment:
+      title: Feed Item (Comment)
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/FeedItem'
+      - properties:
+          feedable_type:
+            description: Type of the Fundraising Entity associated with Feed Item’s described interaction
+            type: string
+            example: campaign
+          linkable_type:
+            description: Type of the Entity whose creation, update, or association is described by Feed Item
+            type:
+            - string
+            - 'null'
+          comment:
+            description: Comment
+            type: string
+            example: I just want to say that I think you all are doing a great job. Keep up the good work!
+        type: object
+    FeedItemAssociation:
+      title: Feed Item (Association)
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/FeedItem'
+      - properties:
+          feedable_type:
+            description: Type of the Fundraising Entity associated with Feed Item’s described interaction
+            type: string
+            enum:
+            - fundraising_team
+            example: fundraising_team
+          linkable_type:
+            description: Type of the Entity whose creation, update, or association is described by Feed Item
+            type:
+            - string
+            - 'null'
+            enum:
+            - fundraising_page
+            example: fundraising_page
+          comment:
+            description: Comment
+            type:
+            - string
+            - 'null'
+            example: Thanks for the great cause, happy to support!
+        type: object
+    FeedItemCreation:
+      title: Feed Item (Creation)
       type: object
       allOf:
       - $ref: '#/components/schemas/FeedItem'
@@ -1062,85 +1141,6 @@ components:
             - 'null'
             example: 'null'
         type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
-    PaginatedResponse:
-      title: Paginated Response
-      properties:
-        current_page:
-          description: Index of current page
-          type: integer
-          example: 1
-        data:
-          description: Collection of results
-          type: array
-          items:
-            type: object
-        first_page_url:
-          description: URL of first page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=1
-        from:
-          description: Index of first displayed result within total result set
-          type:
-          - integer
-          - 'null'
-          example: 1
-        last_page:
-          description: Index of last page in result set
-          type: integer
-          example: 1
-        last_page_url:
-          description: URL of last page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=1
-        next_page_url:
-          description: URL of next page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=2
-        path:
-          description: URL of current page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource
-        per_page:
-          description: Maximum number of records returned per page of results
-          type: integer
-          example: 20
-        prev_page_url:
-          description: URL of previous page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=1
-        links:
-          description: Collection of objects representing pages {label, URL, active} that can be used to request the associated page of records.
-          type: array
-          items:
-            $ref: '#/components/schemas/PaginationLink'
-        to:
-          description: Index of last displayed result within total result set
-          type:
-          - integer
-          - 'null'
-          example: 1
-        total:
-          description: Total count of records in result set
-          type: integer
-          example: 1
-      type: object
   parameters:
     page:
       name: page

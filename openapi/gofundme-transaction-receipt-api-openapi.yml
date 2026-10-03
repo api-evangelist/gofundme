@@ -66,61 +66,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/ResourceNotFoundResponse'
 components:
+  parameters:
+    page:
+      name: page
+      in: query
+      description: Indicator of which page of results to return
+      required: false
+      schema:
+        type: integer
+        example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
   schemas:
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    TransactionReceipt:
-      title: Transaction Receipt
-      properties:
-        id:
-          description: Transaction Receipt ID
-          type: integer
-          example: 995
-        transaction_id:
-          description: Transaction ID
-          type: integer
-          example: 8734
-        created_at:
-          description: Date transaction record was created
-          type: string
-          format: date-time
-          example: 2021-01-01T12:00:00+0000
-        serial_number:
-          description: Receipt serial number
-          type: string
-          example: CLR-2556
-      type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
-      properties:
-        label:
-          description: Identifier of the page.
-          type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
     PaginatedResponse:
       title: Paginated Response
       properties:
@@ -193,23 +156,60 @@ components:
           type: integer
           example: 1
       type: object
-  parameters:
-    page:
-      name: page
-      in: query
-      description: Indicator of which page of results to return
-      required: false
-      schema:
-        type: integer
-        example: 1
-    per_page:
-      name: per_page
-      in: query
-      description: Number of entries to return in each page of results
-      required: false
-      schema:
-        type: integer
-        example: 20
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
+      type: object
+    TransactionReceipt:
+      title: Transaction Receipt
+      properties:
+        id:
+          description: Transaction Receipt ID
+          type: integer
+          example: 995
+        transaction_id:
+          description: Transaction ID
+          type: integer
+          example: 8734
+        created_at:
+          description: Date transaction record was created
+          type: string
+          format: date-time
+          example: 2021-01-01T12:00:00+0000
+        serial_number:
+          description: Receipt serial number
+          type: string
+          example: CLR-2556
+      type: object
   securitySchemes:
     OAuth2Application:
       type: oauth2

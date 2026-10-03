@@ -405,81 +405,18 @@ paths:
       - OAuth2Member: []
 components:
   schemas:
-    CampaignStory:
-      title: Story (Campaign)
+    StoryComment:
+      title: Comment (Story)
       type: object
       allOf:
-      - $ref: '#/components/schemas/Story'
+      - $ref: '#/components/schemas/Comment'
       - properties:
-          postable_id:
-            description: Primary identifier of Fundraising Entity for which the Post was made
-            type: integer
-            example: 2012
-          postable_type:
-            description: String describing type of Fundraising Entity for which the Post was made
-            type: string
-            example: campaign
-        type: object
-      - $ref: '#/components/schemas/FundraisingTeamPost'
-    FundraisingTeamStory:
-      title: Story (Fundraising Team)
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/Story'
-      - properties:
-          postable_id:
-            description: Primary identifier of Fundraising Entity for which the Post was made
-            type: integer
-            example: 209745
-          postable_type:
-            description: String describing type of Fundraising Entity for which the Post was made
-            type: string
-            example: fundraising_team
-        type: object
-      - $ref: '#/components/schemas/FundraisingTeamPost'
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    Story:
-      title: Story
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/Post'
-      - properties:
-          body:
-            description: Main content of Story
-            type: string
-            example: The main reason that I am raising funds for this organization is to...
-          id:
-            description: Primary identifier of record
+          commentable_id:
             type: integer
             example: 72552
-          latest_comments:
-            description: Array of latest Comments made in response to Story (limit 2 items)
-            type: array
-            items:
-              $ref: '#/components/schemas/StoryComment'
-        type: object
-      - $ref: '#/components/schemas/FundraisingTeamPost'
-    FundraisingTeamPost:
-      title: Post (Fundraising Team)
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/Post'
-      - properties:
-          postable_id:
-            description: Primary identifier of Fundraising Entity for which the Post was made
-            type: integer
-            example: 209745
-          postable_type:
-            description: String describing type of Fundraising Entity for which the Post was made
+          commentable_type:
             type: string
-            example: fundraising_team
+            example: story
         type: object
     Comment:
       title: Comment
@@ -533,23 +470,99 @@ components:
           format: date-time
           example: '2021-04-23T08:23:21Z'
       type: object
-    StoryComment:
-      title: Comment (Story)
+    PaginatedResponse:
+      title: Paginated Response
+      properties:
+        current_page:
+          description: Index of current page
+          type: integer
+          example: 1
+        data:
+          description: Collection of results
+          type: array
+          items:
+            type: object
+        first_page_url:
+          description: URL of first page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        from:
+          description: Index of first displayed result within total result set
+          type:
+          - integer
+          - 'null'
+          example: 1
+        last_page:
+          description: Index of last page in result set
+          type: integer
+          example: 1
+        last_page_url:
+          description: URL of last page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        next_page_url:
+          description: URL of next page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=2
+        path:
+          description: URL of current page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource
+        per_page:
+          description: Maximum number of records returned per page of results
+          type: integer
+          example: 20
+        prev_page_url:
+          description: URL of previous page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        links:
+          description: Collection of objects representing pages {label, URL, active} that can be used to request the associated page of records.
+          type: array
+          items:
+            $ref: '#/components/schemas/PaginationLink'
+        to:
+          description: Index of last displayed result within total result set
+          type:
+          - integer
+          - 'null'
+          example: 1
+        total:
+          description: Total count of records in result set
+          type: integer
+          example: 1
+      type: object
+    Story:
+      title: Story
       type: object
       allOf:
-      - $ref: '#/components/schemas/Comment'
+      - $ref: '#/components/schemas/Post'
       - properties:
-          commentable_id:
+          body:
+            description: Main content of Story
+            type: string
+            example: The main reason that I am raising funds for this organization is to...
+          id:
+            description: Primary identifier of record
             type: integer
             example: 72552
-          commentable_type:
-            type: string
-            example: story
+          latest_comments:
+            description: Array of latest Comments made in response to Story (limit 2 items)
+            type: array
+            items:
+              $ref: '#/components/schemas/StoryComment'
         type: object
-    EmptyResponse:
-      title: Empty Response
-      type: object
-      additionalProperties: false
+      - $ref: '#/components/schemas/FundraisingTeamPost'
     MalformedPayloadResponse:
       title: Malformed Payload Response
       properties:
@@ -559,6 +572,41 @@ components:
           items:
             type: string
             example: Malformed JSON payload.
+      type: object
+    FundraisingTeamStory:
+      title: Story (Fundraising Team)
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Story'
+      - properties:
+          postable_id:
+            description: Primary identifier of Fundraising Entity for which the Post was made
+            type: integer
+            example: 209745
+          postable_type:
+            description: String describing type of Fundraising Entity for which the Post was made
+            type: string
+            example: fundraising_team
+        type: object
+      - $ref: '#/components/schemas/FundraisingTeamPost'
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    EmptyResponse:
+      title: Empty Response
+      type: object
+      additionalProperties: false
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
       type: object
     FundraisingPageStory:
       title: Story (Fundraising Page)
@@ -576,6 +624,21 @@ components:
             example: fundraising_page
         type: object
       - $ref: '#/components/schemas/FundraisingTeamPost'
+    FundraisingTeamPost:
+      title: Post (Fundraising Team)
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Post'
+      - properties:
+          postable_id:
+            description: Primary identifier of Fundraising Entity for which the Post was made
+            type: integer
+            example: 209745
+          postable_type:
+            description: String describing type of Fundraising Entity for which the Post was made
+            type: string
+            example: fundraising_team
+        type: object
     PaginationLink:
       description: Object referencing a page for the resource queried that can be used to fetch that page.
       properties:
@@ -660,85 +723,22 @@ components:
           type: integer
           example: 46
       type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
+    CampaignStory:
+      title: Story (Campaign)
       type: object
-    PaginatedResponse:
-      title: Paginated Response
-      properties:
-        current_page:
-          description: Index of current page
-          type: integer
-          example: 1
-        data:
-          description: Collection of results
-          type: array
-          items:
-            type: object
-        first_page_url:
-          description: URL of first page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=1
-        from:
-          description: Index of first displayed result within total result set
-          type:
-          - integer
-          - 'null'
-          example: 1
-        last_page:
-          description: Index of last page in result set
-          type: integer
-          example: 1
-        last_page_url:
-          description: URL of last page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=1
-        next_page_url:
-          description: URL of next page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=2
-        path:
-          description: URL of current page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource
-        per_page:
-          description: Maximum number of records returned per page of results
-          type: integer
-          example: 20
-        prev_page_url:
-          description: URL of previous page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=1
-        links:
-          description: Collection of objects representing pages {label, URL, active} that can be used to request the associated page of records.
-          type: array
-          items:
-            $ref: '#/components/schemas/PaginationLink'
-        to:
-          description: Index of last displayed result within total result set
-          type:
-          - integer
-          - 'null'
-          example: 1
-        total:
-          description: Total count of records in result set
-          type: integer
-          example: 1
-      type: object
+      allOf:
+      - $ref: '#/components/schemas/Story'
+      - properties:
+          postable_id:
+            description: Primary identifier of Fundraising Entity for which the Post was made
+            type: integer
+            example: 2012
+          postable_type:
+            description: String describing type of Fundraising Entity for which the Post was made
+            type: string
+            example: campaign
+        type: object
+      - $ref: '#/components/schemas/FundraisingTeamPost'
   parameters:
     page:
       name: page

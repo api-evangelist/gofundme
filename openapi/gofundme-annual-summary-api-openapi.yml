@@ -619,6 +619,14 @@ paths:
                 type: object
 components:
   schemas:
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
     MalformedPayloadResponse:
       title: Malformed Payload Response
       properties:
@@ -628,14 +636,6 @@ components:
           items:
             type: string
             example: Malformed JSON payload.
-      type: object
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
       type: object
     ResourceNotFoundResponse:
       title: Resource Not Found Response
