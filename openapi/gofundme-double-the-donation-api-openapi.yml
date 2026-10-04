@@ -134,28 +134,6 @@ paths:
       deprecated: true
 components:
   schemas:
-    MalformedPayloadResponse:
-      title: Malformed Payload Response
-      properties:
-        errors:
-          description: Description of detected errors in request
-          type: array
-          items:
-            type: string
-            example: Malformed JSON payload.
-      type: object
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    EmptyResponse:
-      title: Empty Response
-      type: object
-      additionalProperties: false
     ResourceNotFoundResponse:
       title: Resource Not Found Response
       properties:
@@ -163,6 +141,10 @@ components:
           description: Description of detected errors in request
           type: string
       type: object
+    EmptyResponse:
+      title: Empty Response
+      type: object
+      additionalProperties: false
     DoubleTheDonationAccount:
       title: DoubleTheDonation Account
       properties:
@@ -179,6 +161,14 @@ components:
           type: string
           example: 2j9VhYMySDkLAEeB
       type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
     DoubleTheDonationAccountFillable:
       title: DoubleTheDonation Account Fillable
       properties:
@@ -190,6 +180,16 @@ components:
           description: Private key for DoubleTheDonation
           type: string
           example: 2j9VhYMySDkLAEeB
+      type: object
+    MalformedPayloadResponse:
+      title: Malformed Payload Response
+      properties:
+        errors:
+          description: Description of detected errors in request
+          type: array
+          items:
+            type: string
+            example: Malformed JSON payload.
       type: object
   securitySchemes:
     OAuth2Application:

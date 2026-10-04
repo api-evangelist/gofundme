@@ -150,30 +150,6 @@ paths:
       - OAuth2Member: []
 components:
   schemas:
-    CampaignCollectionFillable:
-      title: Campaign Collection Fillable
-      properties:
-        name:
-          description: Public name for the campaign series
-          type: string
-          example: Test Campaign Series
-        description:
-          description: Description of the campaign series
-          type: string
-          example: Annual 5k to raise funds for our mission
-      type: object
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    EmptyResponse:
-      title: Empty Response
-      type: object
-      additionalProperties: false
     ResourceNotFoundResponse:
       title: Resource Not Found Response
       properties:
@@ -181,6 +157,10 @@ components:
           description: Description of detected errors in request
           type: string
       type: object
+    EmptyResponse:
+      title: Empty Response
+      type: object
+      additionalProperties: false
     CampaignSeriesIteration:
       title: Campaign Series Iteration
       type: object
@@ -286,6 +266,26 @@ components:
           - 'null'
           format: integer
           example: 245798
+      type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    CampaignCollectionFillable:
+      title: Campaign Collection Fillable
+      properties:
+        name:
+          description: Public name for the campaign series
+          type: string
+          example: Test Campaign Series
+        description:
+          description: Description of the campaign series
+          type: string
+          example: Annual 5k to raise funds for our mission
       type: object
   securitySchemes:
     OAuth2Application:

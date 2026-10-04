@@ -163,6 +163,13 @@ components:
         type: integer
         example: 20
   schemas:
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
     PaginatedResponse:
       title: Paginated Response
       properties:
@@ -309,13 +316,6 @@ components:
           description: Description of detected error in request
           type: string
           example: This action is unauthorized.
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
       type: object
     PaginationLink:
       description: Object referencing a page for the resource queried that can be used to fetch that page.

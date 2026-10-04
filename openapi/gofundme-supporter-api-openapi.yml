@@ -626,6 +626,17 @@ components:
         type: integer
         example: 20
   schemas:
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    EmptyResponse:
+      title: Empty Response
+      type: object
+      additionalProperties: false
     PaginatedResponse:
       title: Paginated Response
       properties:
@@ -697,42 +708,6 @@ components:
           description: Total count of records in result set
           type: integer
           example: 1
-      type: object
-    MalformedPayloadResponse:
-      title: Malformed Payload Response
-      properties:
-        errors:
-          description: Description of detected errors in request
-          type: array
-          items:
-            type: string
-            example: Malformed JSON payload.
-      type: object
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    Metadata:
-      title: Metadata
-      properties:
-        foo:
-          type: string
-          example: bar
-      type: object
-    EmptyResponse:
-      title: Empty Response
-      type: object
-      additionalProperties: false
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
       type: object
     Supporter:
       title: Supporter
@@ -893,24 +868,6 @@ components:
           format: date-time
           example: '2021-04-23T08:23:21Z'
       type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
-      properties:
-        label:
-          description: Identifier of the page.
-          type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
-      type: object
     SupporterFillable:
       title: Supporter Fillable
       properties:
@@ -1019,6 +976,49 @@ components:
           - 'null'
           maxLength: 100
           example: NE
+      type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
+      type: object
+    Metadata:
+      title: Metadata
+      properties:
+        foo:
+          type: string
+          example: bar
+      type: object
+    MalformedPayloadResponse:
+      title: Malformed Payload Response
+      properties:
+        errors:
+          description: Description of detected errors in request
+          type: array
+          items:
+            type: string
+            example: Malformed JSON payload.
       type: object
   securitySchemes:
     OAuth2Application:

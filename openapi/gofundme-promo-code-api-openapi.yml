@@ -247,24 +247,14 @@ paths:
                 $ref: '#/components/schemas/ResourceNotFoundResponse'
       deprecated: true
 components:
-  parameters:
-    page:
-      name: page
-      in: query
-      description: Indicator of which page of results to return
-      required: false
-      schema:
-        type: integer
-        example: 1
-    per_page:
-      name: per_page
-      in: query
-      description: Number of entries to return in each page of results
-      required: false
-      schema:
-        type: integer
-        example: 20
   schemas:
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
     PaginatedResponse:
       title: Paginated Response
       properties:
@@ -394,6 +384,24 @@ components:
           type: string
           example: This action is unauthorized.
       type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
+      type: object
     PromoCode:
       title: Promo Code
       properties:
@@ -456,31 +464,23 @@ components:
           format: date-time
           example: '2021-04-23T10:25:03Z'
       type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
-      properties:
-        label:
-          description: Identifier of the page.
-          type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
-      type: object
+  parameters:
+    page:
+      name: page
+      in: query
+      description: Indicator of which page of results to return
+      required: false
+      schema:
+        type: integer
+        example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
   securitySchemes:
     OAuth2Application:
       type: oauth2

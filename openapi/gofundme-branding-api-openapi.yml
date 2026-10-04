@@ -64,68 +64,13 @@ paths:
       - OAuth2Member: []
 components:
   schemas:
-    OrganizationBranding:
-      title: Organization Branding
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/BrandingFillable'
-      - properties:
-          favicon:
-            description: URL of favicon image; deprecated/replaced by favicon_asset_url
-            type:
-            - string
-            - 'null'
-            example: ''
-          favicon_asset_id:
-            description: Primary identifier of associated Asset representing favicon image
-            type:
-            - integer
-            - 'null'
-            example: 1145
-          favicon_asset_url:
-            description: URL of favicon image derived from associated Asset
-            type:
-            - string
-            - 'null'
-            example: https://www.image-url.com/favicon.png
-          organization_id:
-            description: Primary identifier of associated Organization
-            type: integer
-            example: 82364
-        type: object
-    ForbiddenResponse:
-      title: Forbidden Response
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
       properties:
         error:
-          description: Description of detected error in request
+          description: Description of detected errors in request
           type: string
-          example: This action is unauthorized.
       type: object
-    OrganizationBrandingFillable:
-      title: Organization Branding Fillable
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/BrandingFillable'
-      - properties:
-          favicon:
-            description: URL of favicon image; deprecated/replaced by favicon_asset_url
-            type:
-            - string
-            - 'null'
-            example: ''
-          favicon_asset_id:
-            description: Primary identifier of associated Asset representing favicon image
-            type:
-            - integer
-            - 'null'
-            example: 1145
-          favicon_asset_url:
-            description: URL of favicon image derived from associated Asset
-            type:
-            - string
-            - 'null'
-            example: https://www.image-url.com/favicon.png
-        type: object
     Branding:
       title: Branding
       properties:
@@ -268,13 +213,6 @@ components:
           - 'null'
           example: var(--classy-font__font-family--verdana)
       type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
     BrandingFillable:
       title: Branding Fillable
       properties:
@@ -339,6 +277,68 @@ components:
           - 'null'
           example: var(--classy-font__font-family--verdana)
       type: object
+    OrganizationBranding:
+      title: Organization Branding
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/BrandingFillable'
+      - properties:
+          favicon:
+            description: URL of favicon image; deprecated/replaced by favicon_asset_url
+            type:
+            - string
+            - 'null'
+            example: ''
+          favicon_asset_id:
+            description: Primary identifier of associated Asset representing favicon image
+            type:
+            - integer
+            - 'null'
+            example: 1145
+          favicon_asset_url:
+            description: URL of favicon image derived from associated Asset
+            type:
+            - string
+            - 'null'
+            example: https://www.image-url.com/favicon.png
+          organization_id:
+            description: Primary identifier of associated Organization
+            type: integer
+            example: 82364
+        type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    OrganizationBrandingFillable:
+      title: Organization Branding Fillable
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/BrandingFillable'
+      - properties:
+          favicon:
+            description: URL of favicon image; deprecated/replaced by favicon_asset_url
+            type:
+            - string
+            - 'null'
+            example: ''
+          favicon_asset_id:
+            description: Primary identifier of associated Asset representing favicon image
+            type:
+            - integer
+            - 'null'
+            example: 1145
+          favicon_asset_url:
+            description: URL of favicon image derived from associated Asset
+            type:
+            - string
+            - 'null'
+            example: https://www.image-url.com/favicon.png
+        type: object
   securitySchemes:
     OAuth2Application:
       type: oauth2

@@ -117,40 +117,13 @@ paths:
                 $ref: '#/components/schemas/ResourceNotFoundResponse'
 components:
   schemas:
-    RecurringDonationPlanHistory:
-      title: Recurring Donation Plan History
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
       type: object
-      allOf:
-      - $ref: '#/components/schemas/RecurringDonationPlanHistoryFillable'
-      - properties:
-          id:
-            description: Primary identifier of Recurring Donation Plan History
-            type: integer
-            example: 559879
-          recurring_id:
-            description: Primary identifier of Recurring Donation Plan
-            type: integer
-            example: 85456
-          transaction_id:
-            description: Primary identifier of Transaction
-            type: integer
-            example: 1427264
-          currency_code:
-            description: The currency code of associated RecurringDonationPlan - fall back to the Organization's default currency
-            type: string
-            example: USD
-          donation_amount:
-            description: Recurring Donation amount in the Organization's currency
-            type: number
-            format: float
-            minimum: 0
-            example: 50
-          created_at:
-            description: Date/time of initial Recurring Donation Plan History creation
-            type: string
-            format: date-time
-            example: '2019-04-23T10:25:03Z'
-        type: object
     PaginatedResponse:
       title: Paginated Response
       properties:
@@ -223,39 +196,6 @@ components:
           type: integer
           example: 1
       type: object
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
-      properties:
-        label:
-          description: Identifier of the page.
-          type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
-      type: object
     RecurringDonationPlanHistoryFillable:
       title: Recurring Donation Plan History Fillable
       properties:
@@ -300,6 +240,66 @@ components:
           - system_reconciled
           example: created
       type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
+      type: object
+    RecurringDonationPlanHistory:
+      title: Recurring Donation Plan History
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/RecurringDonationPlanHistoryFillable'
+      - properties:
+          id:
+            description: Primary identifier of Recurring Donation Plan History
+            type: integer
+            example: 559879
+          recurring_id:
+            description: Primary identifier of Recurring Donation Plan
+            type: integer
+            example: 85456
+          transaction_id:
+            description: Primary identifier of Transaction
+            type: integer
+            example: 1427264
+          currency_code:
+            description: The currency code of associated RecurringDonationPlan - fall back to the Organization's default currency
+            type: string
+            example: USD
+          donation_amount:
+            description: Recurring Donation amount in the Organization's currency
+            type: number
+            format: float
+            minimum: 0
+            example: 50
+          created_at:
+            description: Date/time of initial Recurring Donation Plan History creation
+            type: string
+            format: date-time
+            example: '2019-04-23T10:25:03Z'
+        type: object
   parameters:
     page:
       name: page

@@ -193,24 +193,18 @@ paths:
       security:
       - OAuth2Member: []
 components:
-  parameters:
-    page:
-      name: page
-      in: query
-      description: Indicator of which page of results to return
-      required: false
-      schema:
-        type: integer
-        example: 1
-    per_page:
-      name: per_page
-      in: query
-      description: Number of entries to return in each page of results
-      required: false
-      schema:
-        type: integer
-        example: 20
   schemas:
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    EmptyResponse:
+      title: Empty Response
+      type: object
+      additionalProperties: false
     PaginatedResponse:
       title: Paginated Response
       properties:
@@ -283,16 +277,6 @@ components:
           type: integer
           example: 1
       type: object
-    MalformedPayloadResponse:
-      title: Malformed Payload Response
-      properties:
-        errors:
-          description: Description of detected errors in request
-          type: array
-          items:
-            type: string
-            example: Malformed JSON payload.
-      type: object
     ForbiddenResponse:
       title: Forbidden Response
       properties:
@@ -300,17 +284,6 @@ components:
           description: Description of detected error in request
           type: string
           example: This action is unauthorized.
-      type: object
-    EmptyResponse:
-      title: Empty Response
-      type: object
-      additionalProperties: false
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
       type: object
     PaginationLink:
       description: Object referencing a page for the resource queried that can be used to fetch that page.
@@ -356,6 +329,33 @@ components:
           format: date-time
           example: '2021-04-23T10:25:03Z'
       type: object
+    MalformedPayloadResponse:
+      title: Malformed Payload Response
+      properties:
+        errors:
+          description: Description of detected errors in request
+          type: array
+          items:
+            type: string
+            example: Malformed JSON payload.
+      type: object
+  parameters:
+    page:
+      name: page
+      in: query
+      description: Indicator of which page of results to return
+      required: false
+      schema:
+        type: integer
+        example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
   securitySchemes:
     OAuth2Application:
       type: oauth2

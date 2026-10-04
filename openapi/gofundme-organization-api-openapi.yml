@@ -604,86 +604,6 @@ components:
         type: integer
         example: 20
   schemas:
-    PaginatedResponse:
-      title: Paginated Response
-      properties:
-        current_page:
-          description: Index of current page
-          type: integer
-          example: 1
-        data:
-          description: Collection of results
-          type: array
-          items:
-            type: object
-        first_page_url:
-          description: URL of first page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=1
-        from:
-          description: Index of first displayed result within total result set
-          type:
-          - integer
-          - 'null'
-          example: 1
-        last_page:
-          description: Index of last page in result set
-          type: integer
-          example: 1
-        last_page_url:
-          description: URL of last page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=1
-        next_page_url:
-          description: URL of next page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=2
-        path:
-          description: URL of current page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource
-        per_page:
-          description: Maximum number of records returned per page of results
-          type: integer
-          example: 20
-        prev_page_url:
-          description: URL of previous page of results
-          type:
-          - string
-          - 'null'
-          example: https://pro.gofundme.com/api/2.0/resource?page=1
-        links:
-          description: Collection of objects representing pages {label, URL, active} that can be used to request the associated page of records.
-          type: array
-          items:
-            $ref: '#/components/schemas/PaginationLink'
-        to:
-          description: Index of last displayed result within total result set
-          type:
-          - integer
-          - 'null'
-          example: 1
-        total:
-          description: Total count of records in result set
-          type: integer
-          example: 1
-      type: object
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
     ResourceNotFoundResponse:
       title: Resource Not Found Response
       properties:
@@ -990,6 +910,86 @@ components:
           description: Indicates whether Intelligent Text Suggestions (ITS) are opted out for this organization
           type: boolean
           example: false
+      type: object
+    PaginatedResponse:
+      title: Paginated Response
+      properties:
+        current_page:
+          description: Index of current page
+          type: integer
+          example: 1
+        data:
+          description: Collection of results
+          type: array
+          items:
+            type: object
+        first_page_url:
+          description: URL of first page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        from:
+          description: Index of first displayed result within total result set
+          type:
+          - integer
+          - 'null'
+          example: 1
+        last_page:
+          description: Index of last page in result set
+          type: integer
+          example: 1
+        last_page_url:
+          description: URL of last page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        next_page_url:
+          description: URL of next page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=2
+        path:
+          description: URL of current page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource
+        per_page:
+          description: Maximum number of records returned per page of results
+          type: integer
+          example: 20
+        prev_page_url:
+          description: URL of previous page of results
+          type:
+          - string
+          - 'null'
+          example: https://pro.gofundme.com/api/2.0/resource?page=1
+        links:
+          description: Collection of objects representing pages {label, URL, active} that can be used to request the associated page of records.
+          type: array
+          items:
+            $ref: '#/components/schemas/PaginationLink'
+        to:
+          description: Index of last displayed result within total result set
+          type:
+          - integer
+          - 'null'
+          example: 1
+        total:
+          description: Total count of records in result set
+          type: integer
+          example: 1
+      type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
       type: object
     PaginationLink:
       description: Object referencing a page for the resource queried that can be used to fetch that page.

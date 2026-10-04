@@ -80,65 +80,6 @@ paths:
                 $ref: '#/components/schemas/ResourceNotFoundResponse'
 components:
   schemas:
-    PayoutPaginatedResponse:
-      title: Paginated Response
-      properties:
-        current_page:
-          description: Index of current page
-          type: integer
-          example: 2
-        data:
-          description: Collection of results
-          type: object
-        from:
-          description: Index of first displayed result within total result set
-          type: integer
-          example: 1
-        last_page:
-          description: Index of last page in result set
-          type: integer
-          example: 1
-        next_page_url:
-          description: URL of next page of results
-          type:
-          - string
-          - 'null'
-          example: /organizations/82364/payouts/paypal?payout_date=2021-08-27&page=3
-        per_page:
-          description: Maximum number of records returned per page of results
-          type: integer
-          example: 20
-        pre_page_url:
-          description: URL of previous page of results
-          type: string
-          example: /organizations/82364/payouts/paypal?payout_date=2021-08-27&page=1
-        to:
-          description: Index of last displayed result within total result set
-          type: integer
-          example: 1
-        total:
-          description: Total count of records in result set
-          type: integer
-          example: 1
-      type: object
-    MalformedPayloadResponse:
-      title: Malformed Payload Response
-      properties:
-        errors:
-          description: Description of detected errors in request
-          type: array
-          items:
-            type: string
-            example: Malformed JSON payload.
-      type: object
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
     ResourceNotFoundResponse:
       title: Resource Not Found Response
       properties:
@@ -244,6 +185,65 @@ components:
                     example: '2021-10-15T14:31:05.000Z'
                 type: object
           type: object
+      type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    PayoutPaginatedResponse:
+      title: Paginated Response
+      properties:
+        current_page:
+          description: Index of current page
+          type: integer
+          example: 2
+        data:
+          description: Collection of results
+          type: object
+        from:
+          description: Index of first displayed result within total result set
+          type: integer
+          example: 1
+        last_page:
+          description: Index of last page in result set
+          type: integer
+          example: 1
+        next_page_url:
+          description: URL of next page of results
+          type:
+          - string
+          - 'null'
+          example: /organizations/82364/payouts/paypal?payout_date=2021-08-27&page=3
+        per_page:
+          description: Maximum number of records returned per page of results
+          type: integer
+          example: 20
+        pre_page_url:
+          description: URL of previous page of results
+          type: string
+          example: /organizations/82364/payouts/paypal?payout_date=2021-08-27&page=1
+        to:
+          description: Index of last displayed result within total result set
+          type: integer
+          example: 1
+        total:
+          description: Total count of records in result set
+          type: integer
+          example: 1
+      type: object
+    MalformedPayloadResponse:
+      title: Malformed Payload Response
+      properties:
+        errors:
+          description: Description of detected errors in request
+          type: array
+          items:
+            type: string
+            example: Malformed JSON payload.
       type: object
   securitySchemes:
     OAuth2Application:

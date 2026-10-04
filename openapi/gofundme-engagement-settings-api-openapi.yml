@@ -91,13 +91,37 @@ paths:
       - OAuth2Member: []
 components:
   schemas:
-    ForbiddenResponse:
-      title: Forbidden Response
+    EngagementSettings:
+      title: Engagement Settings
+      type: object
+      allOf:
+      - properties:
+          id:
+            description: Primary identifier of Engagement Settings
+            type: string
+            example: 5ceeb33d6e201a648239a387
+          organization_id:
+            description: ID of the Organization for which Engagement settings belongs
+            type: integer
+            example: 82374
+          created_at:
+            description: Date/time of initial Engagement Settings creation
+            type: string
+            format: date-time
+            example: '2019-04-23T10:25:03Z'
+          updated_at:
+            description: Date/time of Engagement Settings last updated
+            type: string
+            format: date-time
+            example: '2019-04-23T10:25:03Z'
+        type: object
+      - $ref: '#/components/schemas/EngagementSettingsFillable'
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
       properties:
         error:
-          description: Description of detected error in request
+          description: Description of detected errors in request
           type: string
-          example: This action is unauthorized.
       type: object
     EngagementSettingsFillable:
       title: Engagement Settings Fillable
@@ -229,37 +253,13 @@ components:
               type: object
           type: object
       type: object
-    EngagementSettings:
-      title: Engagement Settings
-      type: object
-      allOf:
-      - properties:
-          id:
-            description: Primary identifier of Engagement Settings
-            type: string
-            example: 5ceeb33d6e201a648239a387
-          organization_id:
-            description: ID of the Organization for which Engagement settings belongs
-            type: integer
-            example: 82374
-          created_at:
-            description: Date/time of initial Engagement Settings creation
-            type: string
-            format: date-time
-            example: '2019-04-23T10:25:03Z'
-          updated_at:
-            description: Date/time of Engagement Settings last updated
-            type: string
-            format: date-time
-            example: '2019-04-23T10:25:03Z'
-        type: object
-      - $ref: '#/components/schemas/EngagementSettingsFillable'
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
+    ForbiddenResponse:
+      title: Forbidden Response
       properties:
         error:
-          description: Description of detected errors in request
+          description: Description of detected error in request
           type: string
+          example: This action is unauthorized.
       type: object
   securitySchemes:
     OAuth2Application:

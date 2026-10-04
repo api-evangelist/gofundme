@@ -62,10 +62,6 @@ components:
           type: string
           example: This action is unauthorized.
       type: object
-    EmptyResponse:
-      title: Empty Response
-      type: object
-      additionalProperties: false
     ResourceNotFoundResponse:
       title: Resource Not Found Response
       properties:
@@ -73,6 +69,10 @@ components:
           description: Description of detected errors in request
           type: string
       type: object
+    EmptyResponse:
+      title: Empty Response
+      type: object
+      additionalProperties: false
   securitySchemes:
     OAuth2Application:
       type: oauth2

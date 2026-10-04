@@ -979,6 +979,13 @@ components:
           type: string
           example: /fundraising-page/2173528
       type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
     PaginatedResponse:
       title: Paginated Response
       properties:
@@ -1051,8 +1058,8 @@ components:
           type: integer
           example: 1
       type: object
-    FundraisingPageFillableUpdate:
-      title: FundraisingPage (Fillable Update)
+    FundraisingPageFillableCreate:
+      title: FundraisingPage (Fillable Create)
       properties:
         alias:
           description: Alias of the Fundraising Page
@@ -1081,8 +1088,14 @@ components:
           description: HTML Formatted string for intro text
           type: string
           example: Thanks for visiting my fundraising page!<br>
+        is_tribute:
+          description: Flag denoting whether Fundraising Page is a tribute to someone
+          type:
+          - boolean
+          - 'null'
+          example: true
         logo_id:
-          description: ID of asset used as the Fundraising Page logo
+          description: ID of Asset used as the Fundraising Page logo
           type:
           - integer
           - 'null'
@@ -1097,23 +1110,28 @@ components:
           description: Member ID associated with this Fundraising Page
           type: integer
           example: 2012
-        currency_code:
-          description: ISO code of the currency against which this Fundraising Page is normalized.
+        raw_currency_code:
+          description: ISO code of the default currency in which this Fundraising Page should be presented
+          type: string
+          example: EUR
+        raw_goal:
+          description: Raw fundraising goal for this Fundraising Page (returned as string)
+          type: string
+          example: '100.00'
+        supporter_first_name:
+          description: Optional. Recorded as the first name on the supporter created for the fundraising page owner when the campaign's organization has Contact-First Architecture enabled; ignored otherwise. Leading and trailing whitespace is trimmed before storage, and emoji characters are rejected with a 400 response. Honored only on fundraising-page creation (POST /campaigns/{campaign}/fundraising-pages and POST /fundraising-teams/{fundraising_team}/fundraising-pages); silently ignored on update (PUT /fundraising-pages/{fundraising_page}).
           type:
           - string
           - 'null'
-          example: USD
-        goal:
-          description: Fundraising goal for this Fundraising Page
-          type: number
-          format: float
-          example: 123.23
-        is_tribute:
-          description: Flag denoting whether Fundraising Page is a tribute to someone
+          maxLength: 32
+          example: Alex
+        supporter_last_name:
+          description: Optional. Recorded as the last name on the supporter created for the fundraising page owner when the campaign's organization has Contact-First Architecture enabled; ignored otherwise. Leading and trailing whitespace is trimmed before storage, and emoji characters are rejected with a 400 response. Honored only on fundraising-page creation (POST /campaigns/{campaign}/fundraising-pages and POST /fundraising-teams/{fundraising_team}/fundraising-pages); silently ignored on update (PUT /fundraising-pages/{fundraising_page}).
           type:
-          - boolean
+          - string
           - 'null'
-          example: true
+          maxLength: 32
+          example: Doe
         thankyou_email_text:
           description: HTML formatted string for thank you email body
           type: string
@@ -1126,14 +1144,6 @@ components:
           description: Page title
           type: string
           example: My Page Title
-      type: object
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
       type: object
     Question:
       title: Question
@@ -1263,15 +1273,44 @@ components:
           - 'null'
           example: 0
       type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
+    ForbiddenResponse:
+      title: Forbidden Response
       properties:
         error:
-          description: Description of detected errors in request
+          description: Description of detected error in request
           type: string
+          example: This action is unauthorized.
       type: object
-    FundraisingPageFillableCreate:
-      title: FundraisingPage (Fillable Create)
+    FundraisingPageFundraisingTrackingCode:
+      title: FundraisingPageFundraisingTrackingCode
+      properties:
+        fundraising_tracking_code:
+          description: Only in PUT call, to be added if org has tag early-access:fundraising-tracking-code
+          type:
+          - string
+          - 'null'
+          example: JD0146
+      type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
+      type: object
+    FundraisingPageFillableUpdate:
+      title: FundraisingPage (Fillable Update)
       properties:
         alias:
           description: Alias of the Fundraising Page
@@ -1300,14 +1339,8 @@ components:
           description: HTML Formatted string for intro text
           type: string
           example: Thanks for visiting my fundraising page!<br>
-        is_tribute:
-          description: Flag denoting whether Fundraising Page is a tribute to someone
-          type:
-          - boolean
-          - 'null'
-          example: true
         logo_id:
-          description: ID of Asset used as the Fundraising Page logo
+          description: ID of asset used as the Fundraising Page logo
           type:
           - integer
           - 'null'
@@ -1322,28 +1355,23 @@ components:
           description: Member ID associated with this Fundraising Page
           type: integer
           example: 2012
-        raw_currency_code:
-          description: ISO code of the default currency in which this Fundraising Page should be presented
-          type: string
-          example: EUR
-        raw_goal:
-          description: Raw fundraising goal for this Fundraising Page (returned as string)
-          type: string
-          example: '100.00'
-        supporter_first_name:
-          description: Optional. Recorded as the first name on the supporter created for the fundraising page owner when the campaign's organization has Contact-First Architecture enabled; ignored otherwise. Leading and trailing whitespace is trimmed before storage, and emoji characters are rejected with a 400 response. Honored only on fundraising-page creation (POST /campaigns/{campaign}/fundraising-pages and POST /fundraising-teams/{fundraising_team}/fundraising-pages); silently ignored on update (PUT /fundraising-pages/{fundraising_page}).
+        currency_code:
+          description: ISO code of the currency against which this Fundraising Page is normalized.
           type:
           - string
           - 'null'
-          maxLength: 32
-          example: Alex
-        supporter_last_name:
-          description: Optional. Recorded as the last name on the supporter created for the fundraising page owner when the campaign's organization has Contact-First Architecture enabled; ignored otherwise. Leading and trailing whitespace is trimmed before storage, and emoji characters are rejected with a 400 response. Honored only on fundraising-page creation (POST /campaigns/{campaign}/fundraising-pages and POST /fundraising-teams/{fundraising_team}/fundraising-pages); silently ignored on update (PUT /fundraising-pages/{fundraising_page}).
+          example: USD
+        goal:
+          description: Fundraising goal for this Fundraising Page
+          type: number
+          format: float
+          example: 123.23
+        is_tribute:
+          description: Flag denoting whether Fundraising Page is a tribute to someone
           type:
-          - string
+          - boolean
           - 'null'
-          maxLength: 32
-          example: Doe
+          example: true
         thankyou_email_text:
           description: HTML formatted string for thank you email body
           type: string
@@ -1356,34 +1384,6 @@ components:
           description: Page title
           type: string
           example: My Page Title
-      type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
-      properties:
-        label:
-          description: Identifier of the page.
-          type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
-      type: object
-    FundraisingPageFundraisingTrackingCode:
-      title: FundraisingPageFundraisingTrackingCode
-      properties:
-        fundraising_tracking_code:
-          description: Only in PUT call, to be added if org has tag early-access:fundraising-tracking-code
-          type:
-          - string
-          - 'null'
-          example: JD0146
       type: object
   parameters:
     page:

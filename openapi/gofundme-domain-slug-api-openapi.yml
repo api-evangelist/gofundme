@@ -496,6 +496,13 @@ paths:
       - OAuth2Member: []
 components:
   schemas:
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
     DomainSlugOrganization:
       title: Domain Slug Organization
       type: object
@@ -512,6 +519,10 @@ components:
             type: string
             example: subdomain.domain.tld
         type: object
+    EmptyResponse:
+      title: Empty Response
+      type: object
+      additionalProperties: false
     PaginatedResponse:
       title: Paginated Response
       properties:
@@ -584,6 +595,35 @@ components:
           type: integer
           example: 1
       type: object
+    DomainSlugPage:
+      title: Domain Slug Page
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/DomainSlug'
+      - properties:
+          fundraising_entity_id:
+            type: integer
+            example: 2173528
+          fundraising_entity_type:
+            type: string
+            example: fundraising_page
+          domain_masking_url:
+            type: string
+            example: subdomain.domain.tld
+        type: object
+    DomainSlugFillable:
+      title: Domain Slug Fillable
+      properties:
+        links_to_donation_page:
+          description: Indicates whether the slug should reference the Donation Page for the DomainSlug's Fundraising Entity
+          type: boolean
+          example: false
+        value:
+          description: Value of the Domain Slug
+          type: string
+          maxLength: 255
+          example: 15thbowlathon
+      type: object
     ForbiddenResponse:
       title: Forbidden Response
       properties:
@@ -591,17 +631,6 @@ components:
           description: Description of detected error in request
           type: string
           example: This action is unauthorized.
-      type: object
-    EmptyResponse:
-      title: Empty Response
-      type: object
-      additionalProperties: false
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
       type: object
     PaginationLink:
       description: Object referencing a page for the resource queried that can be used to fetch that page.
@@ -637,19 +666,6 @@ components:
             type: string
             example: subdomain.domain.tld
         type: object
-    DomainSlugFillable:
-      title: Domain Slug Fillable
-      properties:
-        links_to_donation_page:
-          description: Indicates whether the slug should reference the Donation Page for the DomainSlug's Fundraising Entity
-          type: boolean
-          example: false
-        value:
-          description: Value of the Domain Slug
-          type: string
-          maxLength: 255
-          example: 15thbowlathon
-      type: object
     DomainSlug:
       title: Domain Slug
       properties:
@@ -705,22 +721,6 @@ components:
           maxLength: 255
           example: 15thbowlathon
       type: object
-    DomainSlugPage:
-      title: Domain Slug Page
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/DomainSlug'
-      - properties:
-          fundraising_entity_id:
-            type: integer
-            example: 2173528
-          fundraising_entity_type:
-            type: string
-            example: fundraising_page
-          domain_masking_url:
-            type: string
-            example: subdomain.domain.tld
-        type: object
   parameters:
     page:
       name: page

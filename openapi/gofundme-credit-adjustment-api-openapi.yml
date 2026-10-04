@@ -227,6 +227,13 @@ components:
           type: string
           example: This action is unauthorized.
       type: object
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
     CreditAdjustment:
       title: Credit Adjustment
       properties:
@@ -301,13 +308,6 @@ components:
           type: string
           maxLength: 255
           example: Credit applied from previous fundraising event.
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
       type: object
   securitySchemes:
     OAuth2Application:

@@ -127,24 +127,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/ResourceNotFoundResponse'
 components:
-  parameters:
-    page:
-      name: page
-      in: query
-      description: Indicator of which page of results to return
-      required: false
-      schema:
-        type: integer
-        example: 1
-    per_page:
-      name: per_page
-      in: query
-      description: Number of entries to return in each page of results
-      required: false
-      schema:
-        type: integer
-        example: 20
   schemas:
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
     PaginatedResponse:
       title: Paginated Response
       properties:
@@ -217,48 +207,6 @@ components:
           type: integer
           example: 1
       type: object
-    TransactionItemFillable:
-      title: Transaction Item Fillable
-      properties:
-        product_name:
-          description: Name of product
-          type: string
-          maxLength: 64
-          example: Tickets
-        quantity:
-          description: Quantity purchased
-          type: integer
-          minimum: 1
-          example: 1
-        raw_final_price:
-          description: Represents the total raw value of a Transaction item - it is either set directly (as with a direct donation) or derived from the Product of `raw_price` (the price of the Transaction item's associated Product) and the specified quantity. All raw amounts are presented in terms of `raw_currency_code`, which is inherited from the Transaction item's Transaction and cannot be set on a per-item basis
-          type:
-          - number
-          - 'null'
-          format: double
-          minimum: 0
-          example: 15
-        raw_overhead_amount:
-          description: Which indicates the amount of the `raw_final_price` that is attributed to Campaign overhead.
-          type:
-          - number
-          - 'null'
-          format: double
-          minimum: 0
-          example: 15
-        type:
-          description: Type of Transaction Item ledger
-          type: string
-          enum:
-          - donation
-          - registration
-          - offline_donation
-          - chargeback_reversal
-          - custom_product
-          - auction
-          - good
-          example: donation
-      type: object
     ForbiddenResponse:
       title: Forbidden Response
       properties:
@@ -266,31 +214,6 @@ components:
           description: Description of detected error in request
           type: string
           example: This action is unauthorized.
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
-      properties:
-        label:
-          description: Identifier of the page.
-          type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
       type: object
     TransactionItem:
       title: Transaction Item
@@ -383,6 +306,83 @@ components:
             - 'null'
             example: 8734
         type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
+      type: object
+    TransactionItemFillable:
+      title: Transaction Item Fillable
+      properties:
+        product_name:
+          description: Name of product
+          type: string
+          maxLength: 64
+          example: Tickets
+        quantity:
+          description: Quantity purchased
+          type: integer
+          minimum: 1
+          example: 1
+        raw_final_price:
+          description: Represents the total raw value of a Transaction item - it is either set directly (as with a direct donation) or derived from the Product of `raw_price` (the price of the Transaction item's associated Product) and the specified quantity. All raw amounts are presented in terms of `raw_currency_code`, which is inherited from the Transaction item's Transaction and cannot be set on a per-item basis
+          type:
+          - number
+          - 'null'
+          format: double
+          minimum: 0
+          example: 15
+        raw_overhead_amount:
+          description: Which indicates the amount of the `raw_final_price` that is attributed to Campaign overhead.
+          type:
+          - number
+          - 'null'
+          format: double
+          minimum: 0
+          example: 15
+        type:
+          description: Type of Transaction Item ledger
+          type: string
+          enum:
+          - donation
+          - registration
+          - offline_donation
+          - chargeback_reversal
+          - custom_product
+          - auction
+          - good
+          example: donation
+      type: object
+  parameters:
+    page:
+      name: page
+      in: query
+      description: Indicator of which page of results to return
+      required: false
+      schema:
+        type: integer
+        example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
   securitySchemes:
     OAuth2Application:
       type: oauth2

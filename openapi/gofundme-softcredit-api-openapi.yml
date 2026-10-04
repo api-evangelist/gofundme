@@ -167,75 +167,12 @@ paths:
                 $ref: '#/components/schemas/ResourceNotFoundResponse'
 components:
   schemas:
-    SoftCredit:
-      title: SoftCredit
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
       properties:
-        amount:
-          description: Amount of the Soft Credit
-          type: number
-          format: float
-          example: 5243.12
-        created_at:
-          description: Date/time of initial record creation
+        error:
+          description: Description of detected errors in request
           type: string
-          format: date-time
-          example: '2021-04-23T08:23:21Z'
-        creditable_id:
-          description: ID of associated Fundraising entity
-          type: integer
-          example: 72634
-        creditable_type:
-          description: Type of associated Fundraising entity
-          type: string
-          example: fundraising_page
-        id:
-          description: ID of the Soft Credit
-          type: integer
-          example: 285
-        memo:
-          description: A memo describing the circumstances of the Soft Credit's creation
-          type: string
-          example: test
-        metadata:
-          description: Arbitrary JSON metadata
-          type: string
-          example: '{''foo'':''bar''}'
-        soft_credit_transfer_id:
-          description: ID of Soft Credit Transfer in which this Soft Credit was created
-          type:
-          - integer
-          - 'null'
-          example: 6798
-        type:
-          description: The Soft Credit's type
-          type: string
-          enum:
-          - transaction
-          - refund
-          - chargeback
-          - allocation
-          example: allocation
-        campaign_progress_bar_amount:
-          description: Campaign Progress Bar Amount
-          type:
-          - number
-          - 'null'
-          format: float
-          example: 5243.12
-        fundraising_team_progress_bar_amount:
-          description: Fundraising Team Progress Bar Amount
-          type:
-          - number
-          - 'null'
-          format: float
-          example: 5243.12
-        fundraising_page_progress_bar_amount:
-          description: Fundraising Page Progress Bar Amount
-          type:
-          - number
-          - 'null'
-          format: float
-          example: 5243.12
       type: object
     PaginatedResponse:
       title: Paginated Response
@@ -317,13 +254,6 @@ components:
           type: string
           example: This action is unauthorized.
       type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
     PaginationLink:
       description: Object referencing a page for the resource queried that can be used to fetch that page.
       properties:
@@ -341,6 +271,76 @@ components:
           description: Identifies whether the previously requested page matches the page this link object references.
           type: boolean
           example: true
+      type: object
+    SoftCredit:
+      title: SoftCredit
+      properties:
+        amount:
+          description: Amount of the Soft Credit
+          type: number
+          format: float
+          example: 5243.12
+        created_at:
+          description: Date/time of initial record creation
+          type: string
+          format: date-time
+          example: '2021-04-23T08:23:21Z'
+        creditable_id:
+          description: ID of associated Fundraising entity
+          type: integer
+          example: 72634
+        creditable_type:
+          description: Type of associated Fundraising entity
+          type: string
+          example: fundraising_page
+        id:
+          description: ID of the Soft Credit
+          type: integer
+          example: 285
+        memo:
+          description: A memo describing the circumstances of the Soft Credit's creation
+          type: string
+          example: test
+        metadata:
+          description: Arbitrary JSON metadata
+          type: string
+          example: '{''foo'':''bar''}'
+        soft_credit_transfer_id:
+          description: ID of Soft Credit Transfer in which this Soft Credit was created
+          type:
+          - integer
+          - 'null'
+          example: 6798
+        type:
+          description: The Soft Credit's type
+          type: string
+          enum:
+          - transaction
+          - refund
+          - chargeback
+          - allocation
+          example: allocation
+        campaign_progress_bar_amount:
+          description: Campaign Progress Bar Amount
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 5243.12
+        fundraising_team_progress_bar_amount:
+          description: Fundraising Team Progress Bar Amount
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 5243.12
+        fundraising_page_progress_bar_amount:
+          description: Fundraising Page Progress Bar Amount
+          type:
+          - number
+          - 'null'
+          format: float
+          example: 5243.12
       type: object
   parameters:
     page:

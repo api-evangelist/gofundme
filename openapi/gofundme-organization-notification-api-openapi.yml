@@ -244,24 +244,18 @@ paths:
       security:
       - OAuth2Member: []
 components:
-  parameters:
-    page:
-      name: page
-      in: query
-      description: Indicator of which page of results to return
-      required: false
-      schema:
-        type: integer
-        example: 1
-    per_page:
-      name: per_page
-      in: query
-      description: Number of entries to return in each page of results
-      required: false
-      schema:
-        type: integer
-        example: 20
   schemas:
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    EmptyResponse:
+      title: Empty Response
+      type: object
+      additionalProperties: false
     PaginatedResponse:
       title: Paginated Response
       properties:
@@ -342,25 +336,6 @@ components:
           type: string
           example: This action is unauthorized.
       type: object
-    EmptyResponse:
-      title: Empty Response
-      type: object
-      additionalProperties: false
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
-    OrganizationNotificationFillable:
-      title: Organization Notification Fillable
-      properties:
-        enabled:
-          description: Indicates if the Notification is active or not
-          type: boolean
-          example: true
-      type: object
     OrganizationNotification:
       title: Organization Notification
       properties:
@@ -410,6 +385,31 @@ components:
           type: boolean
           example: true
       type: object
+    OrganizationNotificationFillable:
+      title: Organization Notification Fillable
+      properties:
+        enabled:
+          description: Indicates if the Notification is active or not
+          type: boolean
+          example: true
+      type: object
+  parameters:
+    page:
+      name: page
+      in: query
+      description: Indicator of which page of results to return
+      required: false
+      schema:
+        type: integer
+        example: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of entries to return in each page of results
+      required: false
+      schema:
+        type: integer
+        example: 20
   securitySchemes:
     OAuth2Application:
       type: oauth2

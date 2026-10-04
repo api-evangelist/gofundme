@@ -181,78 +181,12 @@ paths:
                 $ref: '#/components/schemas/ResourceNotFoundResponse'
 components:
   schemas:
-    DonationMatchingPlan:
-      title: Donation Matching Plan
-      required:
-      - business_name
-      - started_at
-      - timezone_identifier
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
       properties:
-        id:
-          description: Primary identifier of record
-          type: integer
-          readOnly: true
-          example: 23847
-        campaign_id:
-          description: Primary identifier of associated Campaign
-          type: integer
-          readOnly: true
-          example: 227362
-        currency_code:
-          description: Currency in which the Donation Matching Plan matches donations. The currency cannot be modified after the DonationMatchingPlan is created.
+        error:
+          description: Description of detected errors in request
           type: string
-          example: USD
-        matching_limit_amount:
-          description: Total amount in the Donation Matching Plan currency the sponsor is willing to match. 0 means unlimited.
-          type:
-          - number
-          - 'null'
-          minimum: 0
-          example: 5000
-        started_at:
-          description: Date/time of the beginning of the sponsor's matching period
-          type: string
-          format: date-time
-          example: '2021-04-23T10:25:03Z'
-        ended_at:
-          description: Date/time of the end of the sponsor's matching period. The value must be after the `started_at` value.
-          type:
-          - string
-          - 'null'
-          format: date-time
-          example: '2021-04-24T10:25:03Z'
-        business_name:
-          description: Name of the sponsor. Will be displayed in feed items when matching donations
-          type: string
-          example: Sponsor Name
-        timezone_identifier:
-          description: Sponsor timezone
-          type: string
-          example: Europe/Paris
-        matched_amount:
-          description: Total amount the sponsor has currently matched, in the currency of the Donation Matching Plan
-          type: integer
-          minimum: 0
-          readOnly: true
-          example: 4200
-        asset_id:
-          description: Primary identifier of sponsor thumbnail Asset which will be displayed in Feed Items
-          type:
-          - integer
-          - 'null'
-          example: 1145
-        created_at:
-          description: Date/time of initial record creation
-          type: string
-          format: date-time
-          readOnly: true
-          example: '2021-04-23T08:23:21Z'
-        updated_at:
-          description: Date/time of last record update
-          type: string
-          format: date-time
-          readOnly: true
-          example: '2021-04-23T10:25:03Z'
       type: object
     PaginatedResponse:
       title: Paginated Response
@@ -326,6 +260,79 @@ components:
           type: integer
           example: 1
       type: object
+    DonationMatchingPlan:
+      title: Donation Matching Plan
+      required:
+      - business_name
+      - started_at
+      - timezone_identifier
+      properties:
+        id:
+          description: Primary identifier of record
+          type: integer
+          readOnly: true
+          example: 23847
+        campaign_id:
+          description: Primary identifier of associated Campaign
+          type: integer
+          readOnly: true
+          example: 227362
+        currency_code:
+          description: Currency in which the Donation Matching Plan matches donations. The currency cannot be modified after the DonationMatchingPlan is created.
+          type: string
+          example: USD
+        matching_limit_amount:
+          description: Total amount in the Donation Matching Plan currency the sponsor is willing to match. 0 means unlimited.
+          type:
+          - number
+          - 'null'
+          minimum: 0
+          example: 5000
+        started_at:
+          description: Date/time of the beginning of the sponsor's matching period
+          type: string
+          format: date-time
+          example: '2021-04-23T10:25:03Z'
+        ended_at:
+          description: Date/time of the end of the sponsor's matching period. The value must be after the `started_at` value.
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2021-04-24T10:25:03Z'
+        business_name:
+          description: Name of the sponsor. Will be displayed in feed items when matching donations
+          type: string
+          example: Sponsor Name
+        timezone_identifier:
+          description: Sponsor timezone
+          type: string
+          example: Europe/Paris
+        matched_amount:
+          description: Total amount the sponsor has currently matched, in the currency of the Donation Matching Plan
+          type: integer
+          minimum: 0
+          readOnly: true
+          example: 4200
+        asset_id:
+          description: Primary identifier of sponsor thumbnail Asset which will be displayed in Feed Items
+          type:
+          - integer
+          - 'null'
+          example: 1145
+        created_at:
+          description: Date/time of initial record creation
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2021-04-23T08:23:21Z'
+        updated_at:
+          description: Date/time of last record update
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2021-04-23T10:25:03Z'
+      type: object
     ForbiddenResponse:
       title: Forbidden Response
       properties:
@@ -333,13 +340,6 @@ components:
           description: Description of detected error in request
           type: string
           example: This action is unauthorized.
-      type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
       type: object
     PaginationLink:
       description: Object referencing a page for the resource queried that can be used to fetch that page.

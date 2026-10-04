@@ -261,6 +261,17 @@ components:
         type: integer
         example: 20
   schemas:
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    EmptyResponse:
+      title: Empty Response
+      type: object
+      additionalProperties: false
     PaginatedResponse:
       title: Paginated Response
       properties:
@@ -333,42 +344,96 @@ components:
           type: integer
           example: 1
       type: object
-    ForbiddenResponse:
-      title: Forbidden Response
+    DesignationFillable:
+      title: Designation Fillable
       properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    EmptyResponse:
-      title: Empty Response
-      type: object
-      additionalProperties: false
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
-      type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
-      properties:
-        label:
-          description: Identifier of the page.
-          type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
+        city:
+          description: The name of the city associated with the Designation
           type:
           - string
           - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
+          maxLength: 100
+          example: San Diego
+        description:
+          description: A brief description of the Designation
+          type:
+          - string
+          - 'null'
+          example: My Designation Description
+        end_date:
+          description: Date that record ends
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2021-04-23T08:23:21Z'
+        end_time:
+          description: Time that record ends
+          type:
+          - string
+          - 'null'
+          format: date-time
+          example: '2021-04-23T08:23:21Z'
+        external_reference_id:
+          description: Primary identifier of associated Member
+          type:
+          - string
+          - 'null'
+          maxLength: 100
+          example: my_unique_identifier
+        goal:
+          description: The Fundraising Goal for the Designation
+          type:
+          - string
+          - 'null'
+          format: float
+          minimum: 1
+          example: '1000.0'
+        is_active:
+          description: Indicates whether Designation is active
           type: boolean
+          default: false
           example: true
+        is_complete:
+          description: Indicates whether Designation is complete
+          type: boolean
+          default: false
+          example: false
+        is_default:
+          description: Indicates whether this is the default Designation for the Organization. Only one Designation per Organization can have this be true
+          type: boolean
+          default: false
+          example: false
+        name:
+          description: Name of the Designation, unique to this Organization
+          type: string
+          maxLength: 127
+          example: My Designation Name
+        postal_code:
+          description: Postal code associated with the Designation
+          type:
+          - string
+          - 'null'
+          maxLength: 50
+          example: '90210'
+        start_date:
+          description: Date that record starts
+          type: string
+          format: date-time
+          example: '2021-04-23T08:23:21Z'
+        start_time:
+          description: Time that record starts
+          type: string
+          format: date-time
+          example: '2021-04-23T08:23:21Z'
+        state:
+          description: Two-letter abbreviation of the state associated with the Designation
+          type:
+          - string
+          - 'null'
+          maxLength: 2
+          minLength: 2
+          example: CA
       type: object
     Designation:
       title: Designation
@@ -467,96 +532,31 @@ components:
           format: date-time
           example: '2021-04-23T10:25:03Z'
       type: object
-    DesignationFillable:
-      title: Designation Fillable
+    ForbiddenResponse:
+      title: Forbidden Response
       properties:
-        city:
-          description: The name of the city associated with the Designation
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
           type:
           - string
           - 'null'
-          maxLength: 100
-          example: San Diego
-        description:
-          description: A brief description of the Designation
-          type:
-          - string
-          - 'null'
-          example: My Designation Description
-        end_date:
-          description: Date that record ends
-          type:
-          - string
-          - 'null'
-          format: date-time
-          example: '2021-04-23T08:23:21Z'
-        end_time:
-          description: Time that record ends
-          type:
-          - string
-          - 'null'
-          format: date-time
-          example: '2021-04-23T08:23:21Z'
-        external_reference_id:
-          description: Primary identifier of associated Member
-          type:
-          - string
-          - 'null'
-          maxLength: 100
-          example: my_unique_identifier
-        goal:
-          description: The Fundraising Goal for the Designation
-          type:
-          - string
-          - 'null'
-          format: float
-          minimum: 1
-          example: '1000.0'
-        is_active:
-          description: Indicates whether Designation is active
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
           type: boolean
-          default: false
           example: true
-        is_complete:
-          description: Indicates whether Designation is complete
-          type: boolean
-          default: false
-          example: false
-        is_default:
-          description: Indicates whether this is the default Designation for the Organization. Only one Designation per Organization can have this be true
-          type: boolean
-          default: false
-          example: false
-        name:
-          description: Name of the Designation, unique to this Organization
-          type: string
-          maxLength: 127
-          example: My Designation Name
-        postal_code:
-          description: Postal code associated with the Designation
-          type:
-          - string
-          - 'null'
-          maxLength: 50
-          example: '90210'
-        start_date:
-          description: Date that record starts
-          type: string
-          format: date-time
-          example: '2021-04-23T08:23:21Z'
-        start_time:
-          description: Time that record starts
-          type: string
-          format: date-time
-          example: '2021-04-23T08:23:21Z'
-        state:
-          description: Two-letter abbreviation of the state associated with the Designation
-          type:
-          - string
-          - 'null'
-          maxLength: 2
-          minLength: 2
-          example: CA
       type: object
   securitySchemes:
     OAuth2Application:
