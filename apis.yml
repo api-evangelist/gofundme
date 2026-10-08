@@ -3237,6 +3237,8 @@ apis:
   - type: SignUp
     url: https://developers.gofundme.com/pro/overview/request-access
 common:
+- type: RateLimits
+  url: rate-limits/gofundme-rate-limits.yml
 - type: Plans
   url: plans/gofundme-plans-pricing.yml
 - type: CapabilityMap
