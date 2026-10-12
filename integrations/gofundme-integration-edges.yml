@@ -1,0 +1,16 @@
+generated: '2026-10-12'
+method: none
+source:
+- https://zapier.com/apps/gofundme/integrations
+- https://n8n.io/integrations/gofundme/
+- https://composio.dev/toolkits/gofundme
+- https://monid.ai/tools/gofundme
+checked:
+- https://composio.dev/toolkits/gofundme
+- https://monid.ai/tools/gofundme
+- https://n8n.io/integrations/gofundme/
+- https://zapier.com/apps/gofundme/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []
