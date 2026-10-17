@@ -217,8 +217,8 @@ paths:
                 $ref: '#/components/schemas/ResourceNotFoundResponse'
 components:
   schemas:
-    CampaignStaffNotificationSettingFillable:
-      title: Campaign Staff Notification Setting Fillable
+    OrganizationStaffNotificationSettingFillable:
+      title: Organization Staff Notification Setting Fillable
       type: object
       allOf:
       - properties:
@@ -226,13 +226,12 @@ components:
             description: Scope for email notifications
             type: string
             enum:
-            - Campaign_Manager
-            - Organization_Manager_Campaign_Subscriber
-            example: Campaign_Manager
+            - Organization_Manager
+            example: Organization_Manager
           scope_id:
-            description: Scope ID will be Campaign ID af scope type is either Campaign_Manager or Organization_Manager_Campaign_Subscriber
+            description: Scope ID will be Organization ID as the scope type is Organization_Manager
             type: integer
-            example: 227362
+            example: 82364
         type: object
       - $ref: '#/components/schemas/StaffNotificationSettingFillable'
     ResourceNotFoundResponse:
@@ -242,12 +241,45 @@ components:
           description: Description of detected errors in request
           type: string
       type: object
-    CampaignStaffNotificationSetting:
-      title: Campaign Staff Notification Setting
+    StaffNotificationSetting:
+      title: Staff Notification Setting
       type: object
       allOf:
-      - $ref: '#/components/schemas/StaffNotificationSetting'
-      - $ref: '#/components/schemas/CampaignStaffNotificationSettingFillable'
+      - $ref: '#/components/schemas/StaffNotificationSettingFillable'
+      - properties:
+          id:
+            description: Primary identifier of Staff Notification Setting
+            type: integer
+            example: 21003
+          created_at:
+            description: Date/time of initial Staff Notification Setting creation
+            type: string
+            format: date-time
+            example: '2019-04-23T10:25:03Z'
+          updated_at:
+            description: Date/time of Staff Notification Setting last updated
+            type: string
+            format: date-time
+            example: '2019-04-23T10:25:03Z'
+        type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
+      type: object
     PaginatedResponse:
       title: Paginated Response
       properties:
@@ -320,32 +352,12 @@ components:
           type: integer
           example: 1
       type: object
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
+    OrganizationStaffNotificationSetting:
+      title: Organization Staff Notification Setting
       type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
-      properties:
-        label:
-          description: Identifier of the page.
-          type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
-      type: object
+      allOf:
+      - $ref: '#/components/schemas/StaffNotificationSetting'
+      - $ref: '#/components/schemas/OrganizationStaffNotificationSettingFillable'
     StaffNotificationSettingFillable:
       title: Staff Notification Setting Fillable
       properties:
@@ -404,8 +416,8 @@ components:
           default: false
           example: true
       type: object
-    OrganizationStaffNotificationSettingFillable:
-      title: Organization Staff Notification Setting Fillable
+    CampaignStaffNotificationSettingFillable:
+      title: Campaign Staff Notification Setting Fillable
       type: object
       allOf:
       - properties:
@@ -413,50 +425,30 @@ components:
             description: Scope for email notifications
             type: string
             enum:
-            - Organization_Manager
-            example: Organization_Manager
+            - Campaign_Manager
+            - Organization_Manager_Campaign_Subscriber
+            example: Campaign_Manager
           scope_id:
-            description: Scope ID will be Organization ID as the scope type is Organization_Manager
+            description: Scope ID will be Campaign ID af scope type is either Campaign_Manager or Organization_Manager_Campaign_Subscriber
             type: integer
-            example: 82364
+            example: 227362
         type: object
       - $ref: '#/components/schemas/StaffNotificationSettingFillable'
-    OrganizationStaffNotificationSetting:
-      title: Organization Staff Notification Setting
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    CampaignStaffNotificationSetting:
+      title: Campaign Staff Notification Setting
       type: object
       allOf:
       - $ref: '#/components/schemas/StaffNotificationSetting'
-      - $ref: '#/components/schemas/OrganizationStaffNotificationSettingFillable'
-    StaffNotificationSetting:
-      title: Staff Notification Setting
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/StaffNotificationSettingFillable'
-      - properties:
-          id:
-            description: Primary identifier of Staff Notification Setting
-            type: integer
-            example: 21003
-          created_at:
-            description: Date/time of initial Staff Notification Setting creation
-            type: string
-            format: date-time
-            example: '2019-04-23T10:25:03Z'
-          updated_at:
-            description: Date/time of Staff Notification Setting last updated
-            type: string
-            format: date-time
-            example: '2019-04-23T10:25:03Z'
-        type: object
+      - $ref: '#/components/schemas/CampaignStaffNotificationSettingFillable'
   parameters:
-    page:
-      name: page
-      in: query
-      description: Indicator of which page of results to return
-      required: false
-      schema:
-        type: integer
-        example: 1
     per_page:
       name: per_page
       in: query
@@ -465,6 +457,14 @@ components:
       schema:
         type: integer
         example: 20
+    page:
+      name: page
+      in: query
+      description: Indicator of which page of results to return
+      required: false
+      schema:
+        type: integer
+        example: 1
   securitySchemes:
     OAuth2Application:
       type: oauth2

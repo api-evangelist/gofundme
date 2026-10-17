@@ -496,6 +496,22 @@ paths:
       - OAuth2Member: []
 components:
   schemas:
+    DomainSlugPage:
+      title: Domain Slug Page
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/DomainSlug'
+      - properties:
+          fundraising_entity_id:
+            type: integer
+            example: 2173528
+          fundraising_entity_type:
+            type: string
+            example: fundraising_page
+          domain_masking_url:
+            type: string
+            example: subdomain.domain.tld
+        type: object
     ResourceNotFoundResponse:
       title: Resource Not Found Response
       properties:
@@ -503,26 +519,24 @@ components:
           description: Description of detected errors in request
           type: string
       type: object
-    DomainSlugOrganization:
-      title: Domain Slug Organization
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
       type: object
-      allOf:
-      - $ref: '#/components/schemas/DomainSlug'
-      - properties:
-          fundraising_entity_id:
-            type: integer
-            example: 82364
-          fundraising_entity_type:
-            type: string
-            example: organization
-          domain_masking_url:
-            type: string
-            example: subdomain.domain.tld
-        type: object
-    EmptyResponse:
-      title: Empty Response
-      type: object
-      additionalProperties: false
     PaginatedResponse:
       title: Paginated Response
       properties:
@@ -595,35 +609,6 @@ components:
           type: integer
           example: 1
       type: object
-    DomainSlugPage:
-      title: Domain Slug Page
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/DomainSlug'
-      - properties:
-          fundraising_entity_id:
-            type: integer
-            example: 2173528
-          fundraising_entity_type:
-            type: string
-            example: fundraising_page
-          domain_masking_url:
-            type: string
-            example: subdomain.domain.tld
-        type: object
-    DomainSlugFillable:
-      title: Domain Slug Fillable
-      properties:
-        links_to_donation_page:
-          description: Indicates whether the slug should reference the Donation Page for the DomainSlug's Fundraising Entity
-          type: boolean
-          example: false
-        value:
-          description: Value of the Domain Slug
-          type: string
-          maxLength: 255
-          example: 15thbowlathon
-      type: object
     ForbiddenResponse:
       title: Forbidden Response
       properties:
@@ -632,24 +617,10 @@ components:
           type: string
           example: This action is unauthorized.
       type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
-      properties:
-        label:
-          description: Identifier of the page.
-          type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
+    EmptyResponse:
+      title: Empty Response
       type: object
+      additionalProperties: false
     DomainSlugTeam:
       title: Domain Slug Team
       type: object
@@ -721,15 +692,36 @@ components:
           maxLength: 255
           example: 15thbowlathon
       type: object
+    DomainSlugFillable:
+      title: Domain Slug Fillable
+      properties:
+        links_to_donation_page:
+          description: Indicates whether the slug should reference the Donation Page for the DomainSlug's Fundraising Entity
+          type: boolean
+          example: false
+        value:
+          description: Value of the Domain Slug
+          type: string
+          maxLength: 255
+          example: 15thbowlathon
+      type: object
+    DomainSlugOrganization:
+      title: Domain Slug Organization
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/DomainSlug'
+      - properties:
+          fundraising_entity_id:
+            type: integer
+            example: 82364
+          fundraising_entity_type:
+            type: string
+            example: organization
+          domain_masking_url:
+            type: string
+            example: subdomain.domain.tld
+        type: object
   parameters:
-    page:
-      name: page
-      in: query
-      description: Indicator of which page of results to return
-      required: false
-      schema:
-        type: integer
-        example: 1
     per_page:
       name: per_page
       in: query
@@ -738,6 +730,14 @@ components:
       schema:
         type: integer
         example: 20
+    page:
+      name: page
+      in: query
+      description: Indicator of which page of results to return
+      required: false
+      schema:
+        type: integer
+        example: 1
   securitySchemes:
     OAuth2Application:
       type: oauth2

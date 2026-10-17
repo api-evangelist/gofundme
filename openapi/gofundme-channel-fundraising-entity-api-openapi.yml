@@ -100,13 +100,24 @@ paths:
       - OAuth2Member: []
 components:
   schemas:
-    ForbiddenResponse:
-      title: Forbidden Response
+    ChannelFundraisingEntityFillable:
+      title: Channel Fundraising Entity Fillable
       properties:
-        error:
-          description: Description of detected error in request
+        channel_name:
+          description: The name of Integration Channel
           type: string
-          example: This action is unauthorized.
+          maxLength: 30
+          enum:
+          - Facebook
+          - Instagram
+          - DoubletheDonation
+          - GoFundMe
+          example: Facebook
+        external_fundraising_page_id:
+          description: Channel provided Fundraising Page ID
+          type: string
+          maxLength: 35
+          example: '186503750172710'
       type: object
     ChannelFundraisingEntity:
       title: Channel Fundraising Entity
@@ -202,24 +213,13 @@ components:
           description: Description of detected errors in request
           type: string
       type: object
-    ChannelFundraisingEntityFillable:
-      title: Channel Fundraising Entity Fillable
+    ForbiddenResponse:
+      title: Forbidden Response
       properties:
-        channel_name:
-          description: The name of Integration Channel
+        error:
+          description: Description of detected error in request
           type: string
-          maxLength: 30
-          enum:
-          - Facebook
-          - Instagram
-          - DoubletheDonation
-          - GoFundMe
-          example: Facebook
-        external_fundraising_page_id:
-          description: Channel provided Fundraising Page ID
-          type: string
-          maxLength: 35
-          example: '186503750172710'
+          example: This action is unauthorized.
       type: object
   securitySchemes:
     OAuth2Application:

@@ -71,13 +71,27 @@ paths:
       - OAuth2Member: []
 components:
   schemas:
-    ForbiddenResponse:
-      title: Forbidden Response
+    FundraisingPageTransferFillable:
+      title: FundraisingPageTransfer Fillable
       properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
+        destination_campaign_id:
+          description: Primary identifier of destination Campaign
+          type:
+          - integer
+          - 'null'
+          example: 227362
+        destination_fundraising_team_id:
+          description: Primary identifier of destination Fundraising Team
+          type:
+          - integer
+          - 'null'
+          example: 209745
+        destination_member_id:
+          description: Primary identifier of destination Member
+          type:
+          - integer
+          - 'null'
+          example: 2012
       type: object
     FundraisingPageTransfer:
       title: Fundraising Page Transfer
@@ -148,27 +162,13 @@ components:
           description: Description of detected errors in request
           type: string
       type: object
-    FundraisingPageTransferFillable:
-      title: FundraisingPageTransfer Fillable
+    ForbiddenResponse:
+      title: Forbidden Response
       properties:
-        destination_campaign_id:
-          description: Primary identifier of destination Campaign
-          type:
-          - integer
-          - 'null'
-          example: 227362
-        destination_fundraising_team_id:
-          description: Primary identifier of destination Fundraising Team
-          type:
-          - integer
-          - 'null'
-          example: 209745
-        destination_member_id:
-          description: Primary identifier of destination Member
-          type:
-          - integer
-          - 'null'
-          example: 2012
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
       type: object
   securitySchemes:
     OAuth2Application:

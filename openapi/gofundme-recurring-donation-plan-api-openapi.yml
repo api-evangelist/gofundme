@@ -202,6 +202,31 @@ components:
           description: Description of detected errors in request
           type: string
       type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
+      type: object
+    Metadata:
+      title: Metadata
+      properties:
+        foo:
+          type: string
+          example: bar
+      type: object
     PaginatedResponse:
       title: Paginated Response
       properties:
@@ -273,14 +298,6 @@ components:
           description: Total count of records in result set
           type: integer
           example: 1
-      type: object
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
       type: object
     RecurringDonationPlan:
       title: Recurring Donation Plan
@@ -633,40 +650,15 @@ components:
           format: date-time
           example: 2021-01-01T13:00:00+0000
       type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
+    ForbiddenResponse:
+      title: Forbidden Response
       properties:
-        label:
-          description: Identifier of the page.
+        error:
+          description: Description of detected error in request
           type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
-      type: object
-    Metadata:
-      title: Metadata
-      properties:
-        foo:
-          type: string
-          example: bar
+          example: This action is unauthorized.
       type: object
   parameters:
-    page:
-      name: page
-      in: query
-      description: Indicator of which page of results to return
-      required: false
-      schema:
-        type: integer
-        example: 1
     per_page:
       name: per_page
       in: query
@@ -675,6 +667,14 @@ components:
       schema:
         type: integer
         example: 20
+    page:
+      name: page
+      in: query
+      description: Indicator of which page of results to return
+      required: false
+      schema:
+        type: integer
+        example: 1
   securitySchemes:
     OAuth2Application:
       type: oauth2

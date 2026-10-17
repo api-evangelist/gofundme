@@ -432,10 +432,24 @@ components:
           description: Description of detected errors in request
           type: string
       type: object
-    EmptyResponse:
-      title: Empty Response
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
       type: object
-      additionalProperties: false
     PaginatedResponse:
       title: Paginated Response
       properties:
@@ -516,37 +530,18 @@ components:
           type: string
           example: This action is unauthorized.
       type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
+    EmptyResponse:
+      title: Empty Response
+      type: object
+      additionalProperties: false
+    CommentFillable:
+      title: Comment Fillable
       properties:
-        label:
-          description: Identifier of the page.
+        body:
+          description: The content of the Comment
           type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
+          example: Example Comment
       type: object
-    StoryComment:
-      title: Comment (Story)
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/Comment'
-      - properties:
-          commentable_id:
-            type: integer
-            example: 72552
-          commentable_type:
-            type: string
-            example: story
-        type: object
     Comment:
       title: Comment
       properties:
@@ -599,23 +594,20 @@ components:
           format: date-time
           example: '2021-04-23T08:23:21Z'
       type: object
-    CommentFillable:
-      title: Comment Fillable
-      properties:
-        body:
-          description: The content of the Comment
-          type: string
-          example: Example Comment
+    StoryComment:
+      title: Comment (Story)
       type: object
+      allOf:
+      - $ref: '#/components/schemas/Comment'
+      - properties:
+          commentable_id:
+            type: integer
+            example: 72552
+          commentable_type:
+            type: string
+            example: story
+        type: object
   parameters:
-    page:
-      name: page
-      in: query
-      description: Indicator of which page of results to return
-      required: false
-      schema:
-        type: integer
-        example: 1
     per_page:
       name: per_page
       in: query
@@ -624,6 +616,14 @@ components:
       schema:
         type: integer
         example: 20
+    page:
+      name: page
+      in: query
+      description: Indicator of which page of results to return
+      required: false
+      schema:
+        type: integer
+        example: 1
   securitySchemes:
     OAuth2Application:
       type: oauth2

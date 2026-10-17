@@ -176,86 +176,23 @@ components:
           description: Description of detected errors in request
           type: string
       type: object
-    CampaignChannel:
-      title: Campaign Channel
-      required:
-      - channel_name
-      - status
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
       properties:
-        campaign_id:
-          description: Primary identifier of associated Campaign
-          type: integer
-          readOnly: true
-          example: 423
-        channel_name:
-          description: Name of Integration Channel
+        label:
+          description: Identifier of the page.
           type: string
-          enum:
-          - DoubletheDonation
-          - Facebook
-          - Instagram
-          - MetaCapi
-          - MetaFrapi
-          - Zapier
-          example: Facebook
-        created_at:
-          description: Date/time of initial record creation
-          type: string
-          format: date-time
-          readOnly: true
-          example: '2021-04-23T08:23:21Z'
-        id:
-          description: Primary identifier of record
-          type: integer
-          readOnly: true
-          example: 73625
-        status:
-          description: Whether the campaign channel is enabled.
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
           type: boolean
           example: true
-        metadata:
-          description: Additional Campaign settings data in JSON format
-          type:
-          - object
-          - 'null'
-          anyOf:
-          - title: DoubletheDonation Metadata
-            properties:
-              employer_match_on_donation_page:
-                description: Indicates whether there is an employer match on donation page
-                type: boolean
-                example: true
-              employer_match_on_thankyou_page:
-                description: Indicates whether there is an employer match on thankyou page
-                type: boolean
-                example: true
-              employer_match_preselect:
-                description: Indicates whether there is an employer match preselect
-                type: boolean
-                example: true
-            type: object
-          - title: Meta Fundraiser API Metadata
-            properties:
-              progress_metrics:
-                description: Whether progress metrics are enabled on the Meta fundraiser page.
-                type: boolean
-                example: true
-              external_fundraiser_id:
-                description: The unique identifier of a Meta fundraiser.
-                type: string
-                example: '847746727344577'
-            type: object
-        processing:
-          description: Whether a MetaFrapi job is in progress for the associated campaign
-          type: boolean
-          readOnly: true
-          example: false
-        updated_at:
-          description: Date/time of last record update
-          type: string
-          format: date-time
-          readOnly: true
-          example: '2021-04-23T10:25:03Z'
       type: object
     PaginatedResponse:
       title: Paginated Response
@@ -337,33 +274,88 @@ components:
           type: string
           example: This action is unauthorized.
       type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
+    CampaignChannel:
+      title: Campaign Channel
+      required:
+      - channel_name
+      - status
       properties:
-        label:
-          description: Identifier of the page.
+        campaign_id:
+          description: Primary identifier of associated Campaign
+          type: integer
+          readOnly: true
+          example: 423
+        channel_name:
+          description: Name of Integration Channel
           type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
+          enum:
+          - DoubletheDonation
+          - Facebook
+          - Instagram
+          - MetaCapi
+          - MetaFrapi
+          - Zapier
+          example: Facebook
+        created_at:
+          description: Date/time of initial record creation
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2021-04-23T08:23:21Z'
+        id:
+          description: Primary identifier of record
+          type: integer
+          readOnly: true
+          example: 73625
+        status:
+          description: Whether the campaign channel is enabled.
           type: boolean
           example: true
+        metadata:
+          description: Additional Campaign settings data in JSON format
+          type:
+          - object
+          - 'null'
+          anyOf:
+          - title: DoubletheDonation Metadata
+            properties:
+              employer_match_on_donation_page:
+                description: Indicates whether there is an employer match on donation page
+                type: boolean
+                example: true
+              employer_match_on_thankyou_page:
+                description: Indicates whether there is an employer match on thankyou page
+                type: boolean
+                example: true
+              employer_match_preselect:
+                description: Indicates whether there is an employer match preselect
+                type: boolean
+                example: true
+            type: object
+          - title: Meta Fundraiser API Metadata
+            properties:
+              progress_metrics:
+                description: Whether progress metrics are enabled on the Meta fundraiser page.
+                type: boolean
+                example: true
+              external_fundraiser_id:
+                description: The unique identifier of a Meta fundraiser.
+                type: string
+                example: '847746727344577'
+            type: object
+        processing:
+          description: Whether a MetaFrapi job is in progress for the associated campaign
+          type: boolean
+          readOnly: true
+          example: false
+        updated_at:
+          description: Date/time of last record update
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2021-04-23T10:25:03Z'
       type: object
   parameters:
-    page:
-      name: page
-      in: query
-      description: Indicator of which page of results to return
-      required: false
-      schema:
-        type: integer
-        example: 1
     per_page:
       name: per_page
       in: query
@@ -372,6 +364,14 @@ components:
       schema:
         type: integer
         example: 20
+    page:
+      name: page
+      in: query
+      description: Indicator of which page of results to return
+      required: false
+      schema:
+        type: integer
+        example: 1
   securitySchemes:
     OAuth2Application:
       type: oauth2

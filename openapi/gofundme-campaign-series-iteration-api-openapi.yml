@@ -157,42 +157,14 @@ components:
           description: Description of detected errors in request
           type: string
       type: object
-    EmptyResponse:
-      title: Empty Response
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
       type: object
-      additionalProperties: false
-    CampaignSeriesIteration:
-      title: Campaign Series Iteration
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/CampaignSeriesIterationFillable'
-      - $ref: '#/components/schemas/CampaignCollectionFillable'
-      - properties:
-          created_by:
-            description: Created By Member Id
-            type:
-            - integer
-            - 'null'
-            example: 2012
-          id:
-            description: Campaign Series Iteration Entity Id
-            type:
-            - integer
-            - 'null'
-            example: 45621
-          created_at:
-            description: Date/time of initial record creation
-            type: string
-            format: date-time
-            readOnly: true
-            example: '2021-04-23T08:23:21Z'
-          updated_at:
-            description: Date/time of record last updated
-            type: string
-            format: date-time
-            readOnly: true
-            example: '2021-04-23T08:23:21Z'
-        type: object
     CampaignSeriesIterationFillable:
       title: Fillable Campaign Series Iteration
       properties:
@@ -267,14 +239,42 @@ components:
           format: integer
           example: 245798
       type: object
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
+    EmptyResponse:
+      title: Empty Response
       type: object
+      additionalProperties: false
+    CampaignSeriesIteration:
+      title: Campaign Series Iteration
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/CampaignSeriesIterationFillable'
+      - $ref: '#/components/schemas/CampaignCollectionFillable'
+      - properties:
+          created_by:
+            description: Created By Member Id
+            type:
+            - integer
+            - 'null'
+            example: 2012
+          id:
+            description: Campaign Series Iteration Entity Id
+            type:
+            - integer
+            - 'null'
+            example: 45621
+          created_at:
+            description: Date/time of initial record creation
+            type: string
+            format: date-time
+            readOnly: true
+            example: '2021-04-23T08:23:21Z'
+          updated_at:
+            description: Date/time of record last updated
+            type: string
+            format: date-time
+            readOnly: true
+            example: '2021-04-23T08:23:21Z'
+        type: object
     CampaignCollectionFillable:
       title: Campaign Collection Fillable
       properties:

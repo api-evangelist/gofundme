@@ -114,48 +114,23 @@ components:
           description: Description of detected errors in request
           type: string
       type: object
-    Acknowledgement:
-      title: Acknowledgement
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
       properties:
-        id:
-          description: Primary identifier of record
-          type: integer
-          example: 427
-        member_id:
-          description: Primary identifier of associated Member
-          type: integer
-          example: 2012
-        transaction_id:
-          description: Primary identifier of associated Transaction
-          type: integer
-          example: 1427264
-        fundraising_entity_id:
-          description: Primary identifier of associated Fundraising Entity
-          type:
-          - integer
-          - 'null'
-          example: 444
-        fundraising_entity_type:
-          description: Type of associated Fundraising Entity
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
           type:
           - string
           - 'null'
-          enum:
-          - organization
-          - campaign
-          - fundraisingPage
-          - fundraisingTeam
-          example: organization
-        created_at:
-          description: Date/time of initial record creation
-          type: string
-          format: date-time
-          example: '2021-04-23T08:23:21Z'
-        updated_at:
-          description: Date/time of last record update
-          type: string
-          format: date-time
-          example: '2021-04-23T10:25:03Z'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
       type: object
     PaginatedResponse:
       title: Paginated Response
@@ -229,6 +204,57 @@ components:
           type: integer
           example: 1
       type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    Acknowledgement:
+      title: Acknowledgement
+      properties:
+        id:
+          description: Primary identifier of record
+          type: integer
+          example: 427
+        member_id:
+          description: Primary identifier of associated Member
+          type: integer
+          example: 2012
+        transaction_id:
+          description: Primary identifier of associated Transaction
+          type: integer
+          example: 1427264
+        fundraising_entity_id:
+          description: Primary identifier of associated Fundraising Entity
+          type:
+          - integer
+          - 'null'
+          example: 444
+        fundraising_entity_type:
+          description: Type of associated Fundraising Entity
+          type:
+          - string
+          - 'null'
+          enum:
+          - organization
+          - campaign
+          - fundraisingPage
+          - fundraisingTeam
+          example: organization
+        created_at:
+          description: Date/time of initial record creation
+          type: string
+          format: date-time
+          example: '2021-04-23T08:23:21Z'
+        updated_at:
+          description: Date/time of last record update
+          type: string
+          format: date-time
+          example: '2021-04-23T10:25:03Z'
+      type: object
     AcknowledgementFillable:
       title: AcknowledgementFillable
       properties:
@@ -250,41 +276,7 @@ components:
           - fundraisingTeam
           example: organization
       type: object
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
-      properties:
-        label:
-          description: Identifier of the page.
-          type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
-      type: object
   parameters:
-    page:
-      name: page
-      in: query
-      description: Indicator of which page of results to return
-      required: false
-      schema:
-        type: integer
-        example: 1
     per_page:
       name: per_page
       in: query
@@ -293,6 +285,14 @@ components:
       schema:
         type: integer
         example: 20
+    page:
+      name: page
+      in: query
+      description: Indicator of which page of results to return
+      required: false
+      schema:
+        type: integer
+        example: 1
   securitySchemes:
     OAuth2Application:
       type: oauth2

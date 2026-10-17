@@ -329,6 +329,19 @@ paths:
       - OAuth2Member: []
 components:
   schemas:
+    LikeFillableStory:
+      title: Like (Fillable Story)
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/LikeFillable'
+      - properties:
+          likeable_id:
+            type: integer
+            example: 736
+          likeable_type:
+            type: string
+            example: story
+        type: object
     ResourceNotFoundResponse:
       title: Resource Not Found Response
       properties:
@@ -336,10 +349,37 @@ components:
           description: Description of detected errors in request
           type: string
       type: object
-    EmptyResponse:
-      title: Empty Response
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
       type: object
-      additionalProperties: false
+    LikeStory:
+      title: Like (Story)
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Like'
+      - properties:
+          likeable_id:
+            type: integer
+            example: 736
+          likeable_type:
+            type: string
+            example: story
+        type: object
     PaginatedResponse:
       title: Paginated Response
       properties:
@@ -412,19 +452,18 @@ components:
           type: integer
           example: 1
       type: object
-    LikeFillableUpdate:
-      title: Like (Fillable Update)
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
       type: object
-      allOf:
-      - $ref: '#/components/schemas/LikeFillable'
-      - properties:
-          likeable_id:
-            type: integer
-            example: 72631
-          likeable_type:
-            type: string
-            example: update
-        type: object
+    EmptyResponse:
+      title: Empty Response
+      type: object
+      additionalProperties: false
     LikeFillable:
       title: Like (Fillable)
       properties:
@@ -444,45 +483,6 @@ components:
           - string
           - 'null'
           example: feed_item
-      type: object
-    LikeFillableStory:
-      title: Like (Fillable Story)
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/LikeFillable'
-      - properties:
-          likeable_id:
-            type: integer
-            example: 736
-          likeable_type:
-            type: string
-            example: story
-        type: object
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
-      properties:
-        label:
-          description: Identifier of the page.
-          type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
       type: object
     Like:
       title: Like
@@ -535,28 +535,20 @@ components:
             type: string
             example: update
         type: object
-    LikeStory:
-      title: Like (Story)
+    LikeFillableUpdate:
+      title: Like (Fillable Update)
       type: object
       allOf:
-      - $ref: '#/components/schemas/Like'
+      - $ref: '#/components/schemas/LikeFillable'
       - properties:
           likeable_id:
             type: integer
-            example: 736
+            example: 72631
           likeable_type:
             type: string
-            example: story
+            example: update
         type: object
   parameters:
-    page:
-      name: page
-      in: query
-      description: Indicator of which page of results to return
-      required: false
-      schema:
-        type: integer
-        example: 1
     per_page:
       name: per_page
       in: query
@@ -565,6 +557,14 @@ components:
       schema:
         type: integer
         example: 20
+    page:
+      name: page
+      in: query
+      description: Indicator of which page of results to return
+      required: false
+      schema:
+        type: integer
+        example: 1
   securitySchemes:
     OAuth2Application:
       type: oauth2

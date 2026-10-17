@@ -498,6 +498,24 @@ components:
           description: Description of detected errors in request
           type: string
       type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
+      type: object
     PaginatedResponse:
       title: Paginated Response
       properties:
@@ -570,103 +588,6 @@ components:
           type: integer
           example: 1
       type: object
-    TransactionContext:
-      title: Transaction Context
-      properties:
-        application_fee_campaign_category:
-          description: Campaign Category the Transaction belongs to
-          type:
-          - string
-          - 'null'
-          enum:
-          - main_donate_button
-          - recurring_migration
-          - high_value
-          - virtual
-          example: main_donate_button
-        application_fee_platform_fee_type:
-          description: type of VRP Platform Fee the Transaction has, if applicable
-          type:
-          - string
-          - 'null'
-          enum:
-          - non_migrated_recurring
-          - migrated_recurring
-          - major_gift
-          example: non_migrated_recurring
-        commerce_order_id:
-          description: Commerce Order ID
-          type:
-          - string
-          - 'null'
-          example: or_01HFSN0GJZ6656RM8602Z37DY1
-        customizations_metadata:
-          description: Arbitrary JSON metadata set by a custom embedded Studio block
-          type:
-          - object
-          - 'null'
-          example:
-            theme: dark
-            custom_fields:
-              field1: value1
-        created_by:
-          description: Name of associated App
-          type:
-          - string
-          - 'null'
-          example: My App
-        commerce_confirmation_id:
-          description: Commerce Confirmation ID
-          type:
-          - string
-          - 'null'
-          example: C9UE75VB2
-        is_passport:
-          description: Passport Transaction
-          type: boolean
-          example: true
-        source_campaign_id:
-          description: Source Campaign identifier
-          type: integer
-          example: 227362
-        source_campaign_type:
-          description: Source Campaign type
-          type: string
-          enum:
-          - crowdfunding
-          - donation
-          - fund_for_entry
-          - peer_to_peer
-          - reg_w_fund
-          - registration
-          - ticketed
-          - dynamic
-          example: peer_to_peer
-        vendor_name:
-          description: Vendor name
-          type:
-          - string
-          - 'null'
-          example: Vendor XYZ
-        vendor_batch_number:
-          description: Vendor batch number
-          type:
-          - string
-          - 'null'
-          example: BATCH123456
-        vendor_batch_sequence:
-          description: Vendor batch sequence
-          type:
-          - string
-          - 'null'
-          example: '001'
-        vendor_batch_date:
-          description: Vendor batch date
-          type:
-          - string
-          - 'null'
-          example: '2024-01-15'
-      type: object
     ForbiddenResponse:
       title: Forbidden Response
       properties:
@@ -674,24 +595,6 @@ components:
           description: Description of detected error in request
           type: string
           example: This action is unauthorized.
-      type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
-      properties:
-        label:
-          description: Identifier of the page.
-          type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
       type: object
     Transaction:
       title: Transaction
@@ -1413,15 +1316,104 @@ components:
           type: boolean
           example: false
       type: object
+    TransactionContext:
+      title: Transaction Context
+      properties:
+        application_fee_campaign_category:
+          description: Campaign Category the Transaction belongs to
+          type:
+          - string
+          - 'null'
+          enum:
+          - main_donate_button
+          - recurring_migration
+          - high_value
+          - virtual
+          example: main_donate_button
+        application_fee_platform_fee_type:
+          description: type of VRP Platform Fee the Transaction has, if applicable
+          type:
+          - string
+          - 'null'
+          enum:
+          - non_migrated_recurring
+          - migrated_recurring
+          - major_gift
+          example: non_migrated_recurring
+        commerce_order_id:
+          description: Commerce Order ID
+          type:
+          - string
+          - 'null'
+          example: or_01HFSN0GJZ6656RM8602Z37DY1
+        customizations_metadata:
+          description: Arbitrary JSON metadata set by a custom embedded Studio block
+          type:
+          - object
+          - 'null'
+          example:
+            theme: dark
+            custom_fields:
+              field1: value1
+        created_by:
+          description: Name of associated App
+          type:
+          - string
+          - 'null'
+          example: My App
+        commerce_confirmation_id:
+          description: Commerce Confirmation ID
+          type:
+          - string
+          - 'null'
+          example: C9UE75VB2
+        is_passport:
+          description: Passport Transaction
+          type: boolean
+          example: true
+        source_campaign_id:
+          description: Source Campaign identifier
+          type: integer
+          example: 227362
+        source_campaign_type:
+          description: Source Campaign type
+          type: string
+          enum:
+          - crowdfunding
+          - donation
+          - fund_for_entry
+          - peer_to_peer
+          - reg_w_fund
+          - registration
+          - ticketed
+          - dynamic
+          example: peer_to_peer
+        vendor_name:
+          description: Vendor name
+          type:
+          - string
+          - 'null'
+          example: Vendor XYZ
+        vendor_batch_number:
+          description: Vendor batch number
+          type:
+          - string
+          - 'null'
+          example: BATCH123456
+        vendor_batch_sequence:
+          description: Vendor batch sequence
+          type:
+          - string
+          - 'null'
+          example: '001'
+        vendor_batch_date:
+          description: Vendor batch date
+          type:
+          - string
+          - 'null'
+          example: '2024-01-15'
+      type: object
   parameters:
-    page:
-      name: page
-      in: query
-      description: Indicator of which page of results to return
-      required: false
-      schema:
-        type: integer
-        example: 1
     per_page:
       name: per_page
       in: query
@@ -1430,6 +1422,14 @@ components:
       schema:
         type: integer
         example: 20
+    page:
+      name: page
+      in: query
+      description: Indicator of which page of results to return
+      required: false
+      schema:
+        type: integer
+        example: 1
   securitySchemes:
     OAuth2Application:
       type: oauth2

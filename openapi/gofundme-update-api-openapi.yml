@@ -463,6 +463,85 @@ paths:
       - OAuth2Member: []
 components:
   schemas:
+    UpdateComment:
+      title: Comment (Update)
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Comment'
+      - properties:
+          commentable_id:
+            type: integer
+            example: 736
+          commentable_type:
+            type: string
+            example: update
+        type: object
+    FundraisingTeamPost:
+      title: Post (Fundraising Team)
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Post'
+      - properties:
+          postable_id:
+            description: Primary identifier of Fundraising Entity for which the Post was made
+            type: integer
+            example: 209745
+          postable_type:
+            description: String describing type of Fundraising Entity for which the Post was made
+            type: string
+            example: fundraising_team
+        type: object
+    CampaignUpdate:
+      title: Update (Campaign)
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Update'
+      - properties:
+          postable_id:
+            description: Primary identifier of Fundraising Entity for which the Post was made
+            type: integer
+            example: 2012
+          postable_type:
+            description: String describing type of Fundraising Entity for which the Post was made
+            type: string
+            example: campaign
+        type: object
+      - $ref: '#/components/schemas/FundraisingTeamPost'
+    ResourceNotFoundResponse:
+      title: Resource Not Found Response
+      properties:
+        error:
+          description: Description of detected errors in request
+          type: string
+      type: object
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
+      type: object
+    MalformedPayloadResponse:
+      title: Malformed Payload Response
+      properties:
+        errors:
+          description: Description of detected errors in request
+          type: array
+          items:
+            type: string
+            example: Malformed JSON payload.
+      type: object
     Update:
       title: Update
       type: object
@@ -503,38 +582,6 @@ components:
             example: public
         type: object
       - $ref: '#/components/schemas/FundraisingTeamPost'
-    FundraisingTeamPost:
-      title: Post (Fundraising Team)
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/Post'
-      - properties:
-          postable_id:
-            description: Primary identifier of Fundraising Entity for which the Post was made
-            type: integer
-            example: 209745
-          postable_type:
-            description: String describing type of Fundraising Entity for which the Post was made
-            type: string
-            example: fundraising_team
-        type: object
-    UpdateComment:
-      title: Comment (Update)
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/Comment'
-      - properties:
-          commentable_id:
-            type: integer
-            example: 736
-          commentable_type:
-            type: string
-            example: update
-        type: object
-    EmptyResponse:
-      title: Empty Response
-      type: object
-      additionalProperties: false
     FundraisingPageUpdate:
       title: Update (Fundraising Page)
       type: object
@@ -551,6 +598,18 @@ components:
             example: fundraising_page
         type: object
       - $ref: '#/components/schemas/FundraisingTeamPost'
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    EmptyResponse:
+      title: Empty Response
+      type: object
+      additionalProperties: false
     PaginatedResponse:
       title: Paginated Response
       properties:
@@ -623,13 +682,22 @@ components:
           type: integer
           example: 1
       type: object
-    ResourceNotFoundResponse:
-      title: Resource Not Found Response
-      properties:
-        error:
-          description: Description of detected errors in request
-          type: string
+    FundraisingTeamUpdate:
+      title: Update (Fundraising Team)
       type: object
+      allOf:
+      - $ref: '#/components/schemas/Update'
+      - properties:
+          postable_id:
+            description: Primary identifier of Fundraising Entity for which the Post was made
+            type: integer
+            example: 209745
+          postable_type:
+            description: String describing type of Fundraising Entity for which the Post was made
+            type: string
+            example: fundraising_team
+        type: object
+      - $ref: '#/components/schemas/FundraisingTeamPost'
     Post:
       title: Post
       properties:
@@ -748,83 +816,7 @@ components:
           format: date-time
           example: '2021-04-23T08:23:21Z'
       type: object
-    FundraisingTeamUpdate:
-      title: Update (Fundraising Team)
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/Update'
-      - properties:
-          postable_id:
-            description: Primary identifier of Fundraising Entity for which the Post was made
-            type: integer
-            example: 209745
-          postable_type:
-            description: String describing type of Fundraising Entity for which the Post was made
-            type: string
-            example: fundraising_team
-        type: object
-      - $ref: '#/components/schemas/FundraisingTeamPost'
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    CampaignUpdate:
-      title: Update (Campaign)
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/Update'
-      - properties:
-          postable_id:
-            description: Primary identifier of Fundraising Entity for which the Post was made
-            type: integer
-            example: 2012
-          postable_type:
-            description: String describing type of Fundraising Entity for which the Post was made
-            type: string
-            example: campaign
-        type: object
-      - $ref: '#/components/schemas/FundraisingTeamPost'
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
-      properties:
-        label:
-          description: Identifier of the page.
-          type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
-      type: object
-    MalformedPayloadResponse:
-      title: Malformed Payload Response
-      properties:
-        errors:
-          description: Description of detected errors in request
-          type: array
-          items:
-            type: string
-            example: Malformed JSON payload.
-      type: object
   parameters:
-    page:
-      name: page
-      in: query
-      description: Indicator of which page of results to return
-      required: false
-      schema:
-        type: integer
-        example: 1
     per_page:
       name: per_page
       in: query
@@ -833,6 +825,14 @@ components:
       schema:
         type: integer
         example: 20
+    page:
+      name: page
+      in: query
+      description: Indicator of which page of results to return
+      required: false
+      schema:
+        type: integer
+        example: 1
   securitySchemes:
     OAuth2Application:
       type: oauth2

@@ -725,12 +725,36 @@ components:
           description: Description of detected errors in request
           type: string
       type: object
-    EmptyResponse:
-      title: Empty Response
+    PaginationLink:
+      description: Object referencing a page for the resource queried that can be used to fetch that page.
+      properties:
+        label:
+          description: Identifier of the page.
+          type: string
+          example: '1'
+        url:
+          description: URL that can be used to fetch associated page of records.
+          type:
+          - string
+          - 'null'
+          example: '{host}/{resource}?page=1'
+        active:
+          description: Identifies whether the previously requested page matches the page this link object references.
+          type: boolean
+          example: true
       type: object
-      additionalProperties: false
-    FeedItemOnboarding:
-      title: Feed Item (Onboarding)
+    MalformedPayloadResponse:
+      title: Malformed Payload Response
+      properties:
+        errors:
+          description: Description of detected errors in request
+          type: array
+          items:
+            type: string
+            example: Malformed JSON payload.
+      type: object
+    FeedItemComment:
+      title: Feed Item (Comment)
       type: object
       allOf:
       - $ref: '#/components/schemas/FeedItem'
@@ -738,23 +762,16 @@ components:
           feedable_type:
             description: Type of the Fundraising Entity associated with Feed Item’s described interaction
             type: string
-            enum:
-            - organization
-            example: organization
+            example: campaign
           linkable_type:
             description: Type of the Entity whose creation, update, or association is described by Feed Item
             type:
             - string
             - 'null'
-            enum:
-            - 'null'
-            example: 'null'
           comment:
             description: Comment
-            type:
-            - string
-            - 'null'
-            example: Welcome to GoFundMe Pro!
+            type: string
+            example: I just want to say that I think you all are doing a great job. Keep up the good work!
         type: object
     PaginatedResponse:
       title: Paginated Response
@@ -828,6 +845,45 @@ components:
           type: integer
           example: 1
       type: object
+    FeedItemOnboarding:
+      title: Feed Item (Onboarding)
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/FeedItem'
+      - properties:
+          feedable_type:
+            description: Type of the Fundraising Entity associated with Feed Item’s described interaction
+            type: string
+            enum:
+            - organization
+            example: organization
+          linkable_type:
+            description: Type of the Entity whose creation, update, or association is described by Feed Item
+            type:
+            - string
+            - 'null'
+            enum:
+            - 'null'
+            example: 'null'
+          comment:
+            description: Comment
+            type:
+            - string
+            - 'null'
+            example: Welcome to GoFundMe Pro!
+        type: object
+    ForbiddenResponse:
+      title: Forbidden Response
+      properties:
+        error:
+          description: Description of detected error in request
+          type: string
+          example: This action is unauthorized.
+      type: object
+    EmptyResponse:
+      title: Empty Response
+      type: object
+      additionalProperties: false
     FeedItemAssociation:
       title: Feed Item (Association)
       type: object
@@ -932,31 +988,6 @@ components:
           format: date-time
           example: '2021-04-23T08:23:21Z'
       type: object
-    FeedItemUpdate:
-      title: Feed Item (Update)
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/FeedItem'
-      - properties:
-          feedable_type:
-            description: Type of the Fundraising Entity associated with Feed Item’s described interaction, same as linkable_type
-            type: string
-            example: fundraising_page
-          linkable_type:
-            description: Type of the Entity whose creation, update, or association is described by Feed Item same as feedable_type
-            type:
-            - string
-            - 'null'
-            example: fundraising_page
-          comment:
-            description: Comment
-            type:
-            - string
-            - 'null'
-            enum:
-            - 'null'
-            example: 'null'
-        type: object
     FeedItem:
       title: Feed Item
       properties:
@@ -1085,71 +1116,32 @@ components:
           - 'null'
           example: Pat Supporter
       type: object
-    ForbiddenResponse:
-      title: Forbidden Response
-      properties:
-        error:
-          description: Description of detected error in request
-          type: string
-          example: This action is unauthorized.
-      type: object
-    PaginationLink:
-      description: Object referencing a page for the resource queried that can be used to fetch that page.
-      properties:
-        label:
-          description: Identifier of the page.
-          type: string
-          example: '1'
-        url:
-          description: URL that can be used to fetch associated page of records.
-          type:
-          - string
-          - 'null'
-          example: '{host}/{resource}?page=1'
-        active:
-          description: Identifies whether the previously requested page matches the page this link object references.
-          type: boolean
-          example: true
-      type: object
-    FeedItemComment:
-      title: Feed Item (Comment)
+    FeedItemUpdate:
+      title: Feed Item (Update)
       type: object
       allOf:
       - $ref: '#/components/schemas/FeedItem'
       - properties:
           feedable_type:
-            description: Type of the Fundraising Entity associated with Feed Item’s described interaction
+            description: Type of the Fundraising Entity associated with Feed Item’s described interaction, same as linkable_type
             type: string
-            example: campaign
+            example: fundraising_page
           linkable_type:
-            description: Type of the Entity whose creation, update, or association is described by Feed Item
+            description: Type of the Entity whose creation, update, or association is described by Feed Item same as feedable_type
             type:
             - string
             - 'null'
+            example: fundraising_page
           comment:
             description: Comment
-            type: string
-            example: I just want to say that I think you all are doing a great job. Keep up the good work!
+            type:
+            - string
+            - 'null'
+            enum:
+            - 'null'
+            example: 'null'
         type: object
-    MalformedPayloadResponse:
-      title: Malformed Payload Response
-      properties:
-        errors:
-          description: Description of detected errors in request
-          type: array
-          items:
-            type: string
-            example: Malformed JSON payload.
-      type: object
   parameters:
-    page:
-      name: page
-      in: query
-      description: Indicator of which page of results to return
-      required: false
-      schema:
-        type: integer
-        example: 1
     per_page:
       name: per_page
       in: query
@@ -1158,6 +1150,14 @@ components:
       schema:
         type: integer
         example: 20
+    page:
+      name: page
+      in: query
+      description: Indicator of which page of results to return
+      required: false
+      schema:
+        type: integer
+        example: 1
   securitySchemes:
     OAuth2Application:
       type: oauth2
