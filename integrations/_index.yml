@@ -52,5 +52,5 @@
     - connectors/applications/gofundme-pro
     vendor_link: https://pro.gofundme.com/
     builder: Fivetran
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
